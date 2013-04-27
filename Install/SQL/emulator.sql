@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 26 Avril 2013 à 10:49
+-- Généré le: Sam 27 Avril 2013 à 15:59
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `secretQuestion` text NOT NULL,
   `secretAnswer` text NOT NULL,
   `banned` tinyint(1) NOT NULL DEFAULT '0',
-  `ticket` text NOT NULL,
+  `adminLevel` int(11) NOT NULL DEFAULT '0',
+  `lastServer` int(11) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
