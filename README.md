@@ -1,2 +1,2 @@
-emulator-dofus
+emulator (I really need a better name...)
 ==============
