@@ -18,13 +18,19 @@
 
 using System.Net.Sockets;
 using Emulator.Common.Network;
+using Emulator.Common.Sql.Models;
+using Emulator.Game.Approach;
 
 namespace Emulator.Game.Network
 {
     public class GameClient : Client
     {
+        public AccountModel Account { get; set; }
+        public ApproachManager Approach { get; private set; }
+
         public GameClient(TcpClient client) : base(client)
         {
+            Approach = new ApproachManager(this);
         }
     }
 }

@@ -39,6 +39,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Approach\ApproachManager.cs" />
     <Compile Include="Config\GameConfig.cs" />
     <Compile Include="Network\GameClient.cs" />
     <Compile Include="Network\GameServer.cs" />
