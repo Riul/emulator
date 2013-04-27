@@ -24,6 +24,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
     {
         public const uint Id = 6238;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeObjectModifyPricedMessage()
         {
@@ -32,11 +37,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeObjectModifyPricedMessage(int objectUID, int quantity, int price)
             : base(objectUID, quantity, price)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

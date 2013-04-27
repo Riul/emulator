@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         public double experienceIncarnation;
         public double experienceMount;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterExperienceGainMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
             this.experienceMount = experienceMount;
             this.experienceGuild = experienceGuild;
             this.experienceIncarnation = experienceIncarnation;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

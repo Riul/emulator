@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public short level;
         public string name;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTeamMemberCharacterInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.name = name;
             this.level = level;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

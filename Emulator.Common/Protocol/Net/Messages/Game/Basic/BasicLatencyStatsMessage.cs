@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public short max;
         public short sampleCount;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicLatencyStatsMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
             this.latency = latency;
             this.sampleCount = sampleCount;
             this.max = max;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

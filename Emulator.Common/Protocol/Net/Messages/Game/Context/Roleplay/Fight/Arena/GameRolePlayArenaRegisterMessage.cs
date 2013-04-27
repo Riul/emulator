@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
 
         public int battleMode;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayArenaRegisterMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
         public GameRolePlayArenaRegisterMessage(int battleMode)
         {
             this.battleMode = battleMode;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

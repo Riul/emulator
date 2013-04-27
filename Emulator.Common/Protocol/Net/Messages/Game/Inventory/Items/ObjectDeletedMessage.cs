@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public int objectUID;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectDeletedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public ObjectDeletedMessage(int objectUID)
         {
             this.objectUID = objectUID;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

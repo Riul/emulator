@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public string[] names;
         public sbyte teamSwap;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapRunningFightDetailsMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
             this.levels = levels;
             this.teamSwap = teamSwap;
             this.alives = alives;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

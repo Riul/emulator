@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         public bool hireOrFire;
         public string playerName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorMovementMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
             this.hireOrFire = hireOrFire;
             this.basicInfos = basicInfos;
             this.playerName = playerName;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
         public string playerName;
         public int requestId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ContactLookMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
             this.playerName = playerName;
             this.playerId = playerId;
             this.look = look;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

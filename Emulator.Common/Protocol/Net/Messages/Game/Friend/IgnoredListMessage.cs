@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public IgnoredInformations[] ignoredList;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IgnoredListMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public IgnoredListMessage(IgnoredInformations[] ignoredList)
         {
             this.ignoredList = ignoredList;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

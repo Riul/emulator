@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public string loginToken;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationSuccessWithLoginTokenMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             : base(hasRights, wasAlreadyConnected, login, nickname, accountId, communityId, secretQuestion, subscriptionEndDate, accountCreation)
         {
             this.loginToken = loginToken;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

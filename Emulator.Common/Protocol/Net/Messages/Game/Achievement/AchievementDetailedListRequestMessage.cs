@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 
         public short categoryId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementDetailedListRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public AchievementDetailedListRequestMessage(short categoryId)
         {
             this.categoryId = categoryId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

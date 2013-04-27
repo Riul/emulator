@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Queues
         public ushort position;
         public ushort total;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public QueueStatusMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Queues
         {
             this.position = position;
             this.total = total;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
         public ushort questId;
         public ushort stepId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public QuestStepValidatedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
         {
             this.questId = questId;
             this.stepId = stepId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

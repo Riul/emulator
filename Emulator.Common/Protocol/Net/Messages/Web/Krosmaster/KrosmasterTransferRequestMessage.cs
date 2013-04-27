@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public string uid;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterTransferRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public KrosmasterTransferRequestMessage(string uid)
         {
             this.uid = uid;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

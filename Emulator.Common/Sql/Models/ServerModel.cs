@@ -25,6 +25,11 @@ namespace Emulator.Common.Sql.Models
     {
         public const string TABLE = "servers";
 
+        public int Id { get; set; }
+        public string Ip { get; set; }
+        public int Port { get; set; }
+        public ServerStatusEnum Status { get; set; }
+
         public ServerModel()
         {
         }
@@ -33,11 +38,6 @@ namespace Emulator.Common.Sql.Models
         {
             InitFromData(reader);
         }
-
-        public int Id { get; set; }
-        public string Ip { get; set; }
-        public int Port { get; set; }
-        public ServerStatusEnum Status { get; set; }
 
         public void InitFromData(MySqlDataReader reader)
         {

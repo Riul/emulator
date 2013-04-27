@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
         public short duration;
         public int fightId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayArenaFightPropositionMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
             this.fightId = fightId;
             this.alliesId = alliesId;
             this.duration = duration;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

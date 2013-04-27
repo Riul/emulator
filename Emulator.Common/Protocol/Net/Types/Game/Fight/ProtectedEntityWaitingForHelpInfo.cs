@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Fight
         public int timeLeftBeforeFight;
         public int waitTimeForPlacement;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ProtectedEntityWaitingForHelpInfo()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Fight
             this.timeLeftBeforeFight = timeLeftBeforeFight;
             this.waitTimeForPlacement = waitTimeForPlacement;
             this.nbPositionForDefensors = nbPositionForDefensors;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

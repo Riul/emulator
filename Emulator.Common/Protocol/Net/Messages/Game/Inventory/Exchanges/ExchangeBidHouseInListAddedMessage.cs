@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public short powerRate;
         public int[] prices;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeBidHouseInListAddedMessage()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.overMax = overMax;
             this.effects = effects;
             this.prices = prices;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

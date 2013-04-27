@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public int kickedId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildKickRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildKickRequestMessage(int kickedId)
         {
             this.kickedId = kickedId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

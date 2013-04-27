@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public int mapId;
         public int npcId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NpcDialogCreationMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         {
             this.mapId = mapId;
             this.npcId = npcId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

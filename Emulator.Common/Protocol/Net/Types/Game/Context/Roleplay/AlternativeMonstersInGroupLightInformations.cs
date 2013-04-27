@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public MonsterInGroupLightInformations[] monsters;
         public int playerCount;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AlternativeMonstersInGroupLightInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.playerCount = playerCount;
             this.monsters = monsters;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

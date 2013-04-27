@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         public short[] angelsSubAreas;
         public short[] evilsSubAreas;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AlignmentSubAreasListMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         {
             this.angelsSubAreas = angelsSubAreas;
             this.evilsSubAreas = evilsSubAreas;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

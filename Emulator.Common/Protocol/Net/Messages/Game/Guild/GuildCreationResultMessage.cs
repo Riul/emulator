@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public sbyte result;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildCreationResultMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildCreationResultMessage(sbyte result)
         {
             this.result = result;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         public bool changeOrUse;
         public sbyte codeSize;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LockableShowCodeDialogMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         {
             this.changeOrUse = changeOrUse;
             this.codeSize = codeSize;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

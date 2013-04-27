@@ -28,15 +28,15 @@ namespace Emulator.Common.Network
 
     public class Server
     {
+        public TcpListener Socket { get; private set; }
+        public int Port { get; private set; }
+        public bool Running { get; private set; }
+
         public Server(int port)
         {
             Port = port;
             Socket = new TcpListener(IPAddress.Any, Port);
         }
-
-        public TcpListener Socket { get; private set; }
-        public int Port { get; private set; }
-        public bool Running { get; private set; }
 
         public event ClientConnectedEventHandler ClientConnected;
 

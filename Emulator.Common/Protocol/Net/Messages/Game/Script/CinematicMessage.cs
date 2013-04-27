@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Script
 
         public short cinematicId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CinematicMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Script
         public CinematicMessage(short cinematicId)
         {
             this.cinematicId = cinematicId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

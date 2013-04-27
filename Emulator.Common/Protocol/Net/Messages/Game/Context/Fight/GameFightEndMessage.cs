@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public short lootShareLimitMalus;
         public FightResultListEntry[] results;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightEndMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.ageBonus = ageBonus;
             this.lootShareLimitMalus = lootShareLimitMalus;
             this.results = results;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

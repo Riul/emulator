@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 
         public short pageIndex;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockToSellListRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
         public PaddockToSellListRequestMessage(short pageIndex)
         {
             this.pageIndex = pageIndex;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

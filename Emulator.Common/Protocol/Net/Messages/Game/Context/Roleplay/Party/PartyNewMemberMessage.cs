@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
     {
         public const uint Id = 6306;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyNewMemberMessage()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public PartyNewMemberMessage(int partyId, PartyMemberInformations memberInformations)
             : base(partyId, memberInformations)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

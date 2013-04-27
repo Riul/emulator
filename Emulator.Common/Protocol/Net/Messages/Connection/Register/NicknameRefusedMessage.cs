@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Register
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NicknameRefusedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Register
         public NicknameRefusedMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

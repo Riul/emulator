@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
         public short[] skins;
         public SubEntity[] subentities;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public EntityLook()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
             this.indexedColors = indexedColors;
             this.scales = scales;
             this.subentities = subentities;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

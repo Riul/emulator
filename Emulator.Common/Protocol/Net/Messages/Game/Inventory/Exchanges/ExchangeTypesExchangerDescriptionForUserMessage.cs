@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int[] typeDescription;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeTypesExchangerDescriptionForUserMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeTypesExchangerDescriptionForUserMessage(int[] typeDescription)
         {
             this.typeDescription = typeDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public int lastConnection;
         public sbyte playerState;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FriendInformations()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
             this.playerState = playerState;
             this.lastConnection = lastConnection;
             this.achievementPoints = achievementPoints;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

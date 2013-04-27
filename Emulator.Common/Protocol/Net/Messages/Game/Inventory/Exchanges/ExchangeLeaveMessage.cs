@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public bool success;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeLeaveMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(dialogType)
         {
             this.success = success;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

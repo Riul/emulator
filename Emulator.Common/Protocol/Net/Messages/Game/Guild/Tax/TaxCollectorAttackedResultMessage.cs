@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         public TaxCollectorBasicInformations basicInfos;
         public bool deadOrAlive;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorAttackedResultMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         {
             this.deadOrAlive = deadOrAlive;
             this.basicInfos = basicInfos;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

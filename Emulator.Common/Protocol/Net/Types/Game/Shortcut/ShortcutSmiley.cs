@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 
         public sbyte smileyId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutSmiley()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
             : base(slot)
         {
             this.smileyId = smileyId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

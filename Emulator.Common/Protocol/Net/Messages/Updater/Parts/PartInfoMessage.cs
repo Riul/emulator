@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         public float installationPercent;
         public ContentPart part;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartInfoMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         {
             this.part = part;
             this.installationPercent = installationPercent;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         public string fingerprint;
         public int timestamp;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatAbstractServerMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
             this.content = content;
             this.timestamp = timestamp;
             this.fingerprint = fingerprint;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

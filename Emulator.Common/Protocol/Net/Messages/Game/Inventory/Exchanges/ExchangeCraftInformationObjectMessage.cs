@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int playerId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeCraftInformationObjectMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(craftResult, objectGenericId)
         {
             this.playerId = playerId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

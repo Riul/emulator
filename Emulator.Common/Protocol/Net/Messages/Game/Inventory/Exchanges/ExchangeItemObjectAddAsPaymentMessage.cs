@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public sbyte paymentType;
         public int quantity;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeItemObjectAddAsPaymentMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.bAdd = bAdd;
             this.objectToMoveId = objectToMoveId;
             this.quantity = quantity;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

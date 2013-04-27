@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int objGenericId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeBidHouseGenericItemAddedMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeBidHouseGenericItemAddedMessage(int objGenericId)
         {
             this.objGenericId = objGenericId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

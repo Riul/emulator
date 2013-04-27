@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
         public short modelId;
         public string ownerName;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HouseInformations()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
             this.doorsOnMap = doorsOnMap;
             this.ownerName = ownerName;
             this.modelId = modelId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

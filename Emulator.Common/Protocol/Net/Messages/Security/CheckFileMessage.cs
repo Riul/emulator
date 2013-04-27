@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Security
         public sbyte type;
         public string value;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CheckFileMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Security
             this.filenameHash = filenameHash;
             this.type = type;
             this.value = value;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

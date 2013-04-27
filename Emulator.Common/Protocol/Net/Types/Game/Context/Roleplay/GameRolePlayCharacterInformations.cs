@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public ActorAlignmentInformations alignmentInfos;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayCharacterInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(contextualId, look, disposition, name, humanoidInfo, accountId)
         {
             this.alignmentInfos = alignmentInfos;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

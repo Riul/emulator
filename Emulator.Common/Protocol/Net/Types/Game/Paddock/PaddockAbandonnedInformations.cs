@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 
         public int guildId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockAbandonnedInformations()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
             : base(maxOutdoorMount, maxItems, price, locked)
         {
             this.guildId = guildId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

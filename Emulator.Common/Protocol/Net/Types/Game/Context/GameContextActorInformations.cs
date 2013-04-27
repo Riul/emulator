@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         public EntityDispositionInformations disposition;
         public EntityLook look;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameContextActorInformations()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
             this.contextualId = contextualId;
             this.look = look;
             this.disposition = disposition;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

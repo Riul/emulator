@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int[] ids;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeObjectTransfertListFromInvMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeObjectTransfertListFromInvMessage(int[] ids)
         {
             this.ids = ids;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

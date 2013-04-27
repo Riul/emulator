@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         public short max;
         public short min;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SkillActionDescriptionCollect()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         {
             this.min = min;
             this.max = max;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public int characterId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectUseOnCharacterMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             : base(objectUID)
         {
             this.characterId = characterId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

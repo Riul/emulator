@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Server.Basic
         public short msgId;
         public string[] parameters;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SystemMessageDisplayMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Server.Basic
             this.hangUp = hangUp;
             this.msgId = msgId;
             this.parameters = parameters;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

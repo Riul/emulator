@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public bool sex;
         public short specialArtworkId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayNpcInformations()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             this.npcId = npcId;
             this.sex = sex;
             this.specialArtworkId = specialArtworkId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

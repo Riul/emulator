@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public EntityMovementInformations movement;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameContextMoveElementMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameContextMoveElementMessage(EntityMovementInformations movement)
         {
             this.movement = movement;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public EntityLook look;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MonsterInGroupInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(creatureGenericId, grade)
         {
             this.look = look;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

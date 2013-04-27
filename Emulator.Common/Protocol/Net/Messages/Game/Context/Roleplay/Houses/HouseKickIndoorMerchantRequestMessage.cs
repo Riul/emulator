@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public short cellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseKickIndoorMerchantRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public HouseKickIndoorMerchantRequestMessage(short cellId)
         {
             this.cellId = cellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

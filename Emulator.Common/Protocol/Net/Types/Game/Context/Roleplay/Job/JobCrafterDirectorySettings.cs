@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         public sbyte minSlot;
         public sbyte userDefinedParams;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public JobCrafterDirectorySettings()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
             this.jobId = jobId;
             this.minSlot = minSlot;
             this.userDefinedParams = userDefinedParams;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

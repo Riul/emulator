@@ -24,6 +24,18 @@ namespace Emulator.Game.Config
     {
         public const string FILE_PATH = "GameConfig.txt";
 
+        public string DbHost { get; set; }
+        public string DbName { get; set; }
+        public string DbUser { get; set; }
+        public string DbPassword { get; set; }
+
+        public int GamePort { get; set; }
+        public int ServerId { get; set; }
+
+        public string SyncIp { get; set; }
+        public int SyncPort { get; set; }
+        public string SyncPassword { get; set; }
+
         public GameConfig() : base(FILE_PATH)
         {
             DbHost = GetValue("db_host", "127.0.0.1");
@@ -37,17 +49,5 @@ namespace Emulator.Game.Config
             SyncPassword = GetValue("sync_password", "password");
             Save();
         }
-
-        public string DbHost { get; set; }
-        public string DbName { get; set; }
-        public string DbUser { get; set; }
-        public string DbPassword { get; set; }
-
-        public int GamePort { get; set; }
-        public int ServerId { get; set; }
-
-        public string SyncIp { get; set; }
-        public int SyncPort { get; set; }
-        public string SyncPassword { get; set; }
     }
 }

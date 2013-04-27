@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public int sellType;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayMerchantInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(contextualId, look, disposition, name)
         {
             this.sellType = sellType;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

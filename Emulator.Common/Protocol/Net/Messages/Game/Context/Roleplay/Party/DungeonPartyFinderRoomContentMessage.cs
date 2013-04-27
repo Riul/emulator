@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public short dungeonId;
         public DungeonPartyFinderPlayer[] players;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DungeonPartyFinderRoomContentMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         {
             this.dungeonId = dungeonId;
             this.players = players;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

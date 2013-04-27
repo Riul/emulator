@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobCrafterDirectoryEntryPlayerInfo playerInfo;
         public EntityLook playerLook;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobCrafterDirectoryEntryMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
             this.playerInfo = playerInfo;
             this.jobInfoList = jobInfoList;
             this.playerLook = playerLook;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

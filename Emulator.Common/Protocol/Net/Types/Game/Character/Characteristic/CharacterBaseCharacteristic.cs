@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
         public short contextModif;
         public short objectsAndMountBonus;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterBaseCharacteristic()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
             this.objectsAndMountBonus = objectsAndMountBonus;
             this.alignGiftBonus = alignGiftBonus;
             this.contextModif = contextModif;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

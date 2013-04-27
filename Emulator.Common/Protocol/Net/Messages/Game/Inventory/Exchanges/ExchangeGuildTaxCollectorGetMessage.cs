@@ -35,6 +35,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeGuildTaxCollectorGetMessage()
         {
@@ -50,11 +55,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.userName = userName;
             this.experience = experience;
             this.objectsInfos = objectsInfos;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

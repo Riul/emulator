@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public int livingUID;
         public int skinId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LivingObjectChangeSkinRequestMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             this.livingUID = livingUID;
             this.livingPosition = livingPosition;
             this.skinId = skinId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int objectGenericId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeCraftResultWithObjectIdMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(craftResult)
         {
             this.objectGenericId = objectGenericId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

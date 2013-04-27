@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public sbyte exchangeType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeRequestedMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeRequestedMessage(sbyte exchangeType)
         {
             this.exchangeType = exchangeType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

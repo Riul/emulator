@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public int[] id;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameContextRemoveMultipleElementsMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameContextRemoveMultipleElementsMessage(int[] id)
         {
             this.id = id;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

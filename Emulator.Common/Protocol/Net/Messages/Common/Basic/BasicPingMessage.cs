@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Common.Basic
 
         public bool quiet;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicPingMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Common.Basic
         public BasicPingMessage(bool quiet)
         {
             this.quiet = quiet;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

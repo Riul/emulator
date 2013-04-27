@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 
         public sbyte emoteId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutEmote()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
             : base(slot)
         {
             this.emoteId = emoteId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -39,6 +39,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
         public short worldX;
         public short worldY;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PartyMemberInformations()
         {
@@ -58,11 +63,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
             this.worldY = worldY;
             this.mapId = mapId;
             this.subAreaId = subAreaId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

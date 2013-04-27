@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
         public bool isEntered;
         public bool isInRoom;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public VillageConquestPrismInformation()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
             this.isInRoom = isInRoom;
             this.areaId = areaId;
             this.areaAlignment = areaAlignment;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

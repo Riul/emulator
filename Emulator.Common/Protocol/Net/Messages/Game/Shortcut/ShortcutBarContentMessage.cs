@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
         public sbyte barType;
         public Types.Game.Shortcut.Shortcut[] shortcuts;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutBarContentMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
         {
             this.barType = barType;
             this.shortcuts = shortcuts;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

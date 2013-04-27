@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public int memberId;
         public bool online;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildMemberOnlineStatusMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         {
             this.memberId = memberId;
             this.online = online;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

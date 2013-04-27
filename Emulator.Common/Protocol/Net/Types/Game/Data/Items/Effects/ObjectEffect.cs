@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 
         public short actionId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffect()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         public ObjectEffect(short actionId)
         {
             this.actionId = actionId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

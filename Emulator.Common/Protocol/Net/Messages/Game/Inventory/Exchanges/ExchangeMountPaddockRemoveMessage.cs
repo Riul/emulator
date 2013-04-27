@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public double mountId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeMountPaddockRemoveMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeMountPaddockRemoveMessage(double mountId)
         {
             this.mountId = mountId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

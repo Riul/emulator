@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
 
         public StartupActionAddObject[] actions;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StartupActionsListMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
         public StartupActionsListMessage(StartupActionAddObject[] actions)
         {
             this.actions = actions;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

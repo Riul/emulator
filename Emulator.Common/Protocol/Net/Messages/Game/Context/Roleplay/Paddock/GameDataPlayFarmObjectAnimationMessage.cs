@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 
         public short[] cellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameDataPlayFarmObjectAnimationMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
         public GameDataPlayFarmObjectAnimationMessage(short[] cellId)
         {
             this.cellId = cellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

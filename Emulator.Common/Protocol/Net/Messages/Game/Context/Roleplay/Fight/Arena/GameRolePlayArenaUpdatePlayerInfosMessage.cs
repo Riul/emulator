@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
         public short rank;
         public short victoryCount;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayArenaUpdatePlayerInfosMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
             this.bestRank = bestRank;
             this.victoryCount = victoryCount;
             this.arenaFightcount = arenaFightcount;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

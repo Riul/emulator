@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public short subAreaId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MapCoordinatesExtended()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
             : base(worldX, worldY, mapId)
         {
             this.subAreaId = subAreaId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

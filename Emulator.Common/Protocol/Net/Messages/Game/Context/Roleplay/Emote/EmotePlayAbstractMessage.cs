@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         public sbyte emoteId;
         public double emoteStartTime;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public EmotePlayAbstractMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         {
             this.emoteId = emoteId;
             this.emoteStartTime = emoteStartTime;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

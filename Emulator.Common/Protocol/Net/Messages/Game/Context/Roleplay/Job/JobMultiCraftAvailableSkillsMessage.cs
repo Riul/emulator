@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public int playerId;
         public short[] skills;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobMultiCraftAvailableSkillsMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         {
             this.playerId = playerId;
             this.skills = skills;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

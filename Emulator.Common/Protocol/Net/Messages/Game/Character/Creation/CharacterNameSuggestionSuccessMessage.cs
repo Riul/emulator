@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 
         public string suggestion;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterNameSuggestionSuccessMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
         public CharacterNameSuggestionSuccessMessage(string suggestion)
         {
             this.suggestion = suggestion;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

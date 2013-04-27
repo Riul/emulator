@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
         public ushort honorNextGradeFloor;
         public bool pvpEnabled;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ActorExtendedAlignmentInformations()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
             this.honorGradeFloor = honorGradeFloor;
             this.honorNextGradeFloor = honorNextGradeFloor;
             this.pvpEnabled = pvpEnabled;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

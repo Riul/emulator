@@ -54,6 +54,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public short waterElementReduction;
         public short waterElementResistPercent;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightMinimalStats()
         {
@@ -89,11 +94,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.tackleBlock = tackleBlock;
             this.tackleEvade = tackleEvade;
             this.invisibilityState = invisibilityState;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

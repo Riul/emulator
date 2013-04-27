@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
 
         public byte time;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SkillActionDescriptionTimed()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
             : base(skillId)
         {
             this.time = time;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

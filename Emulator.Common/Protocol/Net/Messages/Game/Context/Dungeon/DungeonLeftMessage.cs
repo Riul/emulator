@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
 
         public int dungeonId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DungeonLeftMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
         public DungeonLeftMessage(int dungeonId)
         {
             this.dungeonId = dungeonId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

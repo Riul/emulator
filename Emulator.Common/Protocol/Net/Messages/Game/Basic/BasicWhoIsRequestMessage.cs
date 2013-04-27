@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public string search;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicWhoIsRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public BasicWhoIsRequestMessage(string search)
         {
             this.search = search;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public sbyte magicPoolStatus;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeCraftResultMagicWithObjectDescMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(craftResult, objectInfo)
         {
             this.magicPoolStatus = magicPoolStatus;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

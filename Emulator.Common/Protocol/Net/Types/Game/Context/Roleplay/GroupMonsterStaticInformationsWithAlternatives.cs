@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public AlternativeMonstersInGroupLightInformations[] alternatives;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GroupMonsterStaticInformationsWithAlternatives()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(mainCreatureLightInfos, underlings)
         {
             this.alternatives = alternatives;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

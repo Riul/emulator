@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
         public short challengeId;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChallengeTargetUpdateMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
         {
             this.challengeId = challengeId;
             this.targetId = targetId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

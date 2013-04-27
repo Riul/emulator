@@ -30,15 +30,15 @@ namespace Emulator.Login.Network.Sync
 {
     public class SyncClient : Client
     {
+        public int ServerId { get; private set; }
+        public bool Identified { get; private set; }
+
         public SyncClient(TcpClient client) : base(client)
         {
             Identified = false;
             Dispatcher.Register(this);
             Send(new HelloSyncMessage());
         }
-
-        public int ServerId { get; private set; }
-        public bool Identified { get; private set; }
 
         public void SendTicket(string ticket, int accountId)
         {

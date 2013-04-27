@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
 
         public short nbCharacBoost;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StatsUpgradeResultMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
         public StatsUpgradeResultMessage(short nbCharacBoost)
         {
             this.nbCharacBoost = nbCharacBoost;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

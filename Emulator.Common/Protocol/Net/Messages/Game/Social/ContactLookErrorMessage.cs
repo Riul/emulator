@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
 
         public int requestId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ContactLookErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
         public ContactLookErrorMessage(int requestId)
         {
             this.requestId = requestId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

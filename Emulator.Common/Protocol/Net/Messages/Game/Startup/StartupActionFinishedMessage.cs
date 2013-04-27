@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
         public bool automaticAction;
         public bool success;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StartupActionFinishedMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
             this.success = success;
             this.automaticAction = automaticAction;
             this.actionId = actionId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

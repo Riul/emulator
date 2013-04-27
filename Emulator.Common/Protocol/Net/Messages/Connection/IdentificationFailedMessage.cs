@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationFailedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public IdentificationFailedMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

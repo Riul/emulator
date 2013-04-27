@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public int id;
         public EntityLook look;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameContextRefreshEntityLookMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         {
             this.id = id;
             this.look = look;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

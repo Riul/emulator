@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
         public short finishedlevel;
         public short id;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementRewardable()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
         {
             this.id = id;
             this.finishedlevel = finishedlevel;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

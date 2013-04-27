@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public MapCoordinatesExtended[] coords;
         public sbyte type;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AtlasPointsInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.type = type;
             this.coords = coords;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public bool canChangeEmblem;
         public bool canChangeName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildModificationStartedMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         {
             this.canChangeName = canChangeName;
             this.canChangeEmblem = canChangeEmblem;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

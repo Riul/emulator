@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 
         public string id;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DownloadPartMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         public DownloadPartMessage(string id)
         {
             this.id = id;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

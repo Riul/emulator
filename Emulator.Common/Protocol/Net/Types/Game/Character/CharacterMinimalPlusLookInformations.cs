@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
 
         public EntityLook entityLook;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterMinimalPlusLookInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
             : base(id, level, name)
         {
             this.entityLook = entityLook;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

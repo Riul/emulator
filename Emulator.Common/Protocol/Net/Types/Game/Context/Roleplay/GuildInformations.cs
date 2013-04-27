@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public GuildEmblem guildEmblem;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(guildId, guildName)
         {
             this.guildEmblem = guildEmblem;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

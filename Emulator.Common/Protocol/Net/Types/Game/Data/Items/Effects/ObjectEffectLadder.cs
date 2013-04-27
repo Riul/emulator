@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 
         public int monsterCount;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectLadder()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
             : base(actionId, monsterFamilyId)
         {
             this.monsterCount = monsterCount;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

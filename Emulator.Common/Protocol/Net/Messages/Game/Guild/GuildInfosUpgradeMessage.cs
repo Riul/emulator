@@ -36,6 +36,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public short taxCollectorWisdom;
         public sbyte taxCollectorsCount;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInfosUpgradeMessage()
         {
@@ -53,11 +58,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
             this.boostPoints = boostPoints;
             this.spellId = spellId;
             this.spellLevel = spellLevel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

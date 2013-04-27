@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public bool doTutorial;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterFirstSelectionMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
             : base(id)
         {
             this.doTutorial = doTutorial;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

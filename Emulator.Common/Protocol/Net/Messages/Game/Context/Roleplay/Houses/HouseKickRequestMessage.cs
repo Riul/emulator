@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public int id;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseKickRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public HouseKickRequestMessage(int id)
         {
             this.id = id;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

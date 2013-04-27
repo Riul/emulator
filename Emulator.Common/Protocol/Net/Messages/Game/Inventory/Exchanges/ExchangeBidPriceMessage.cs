@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int averagePrice;
         public int genericId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeBidPriceMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.genericId = genericId;
             this.averagePrice = averagePrice;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

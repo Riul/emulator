@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public FightTeamMemberInformations[] teamMembers;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTeamInformations()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             : base(teamId, leaderId, teamSide, teamTypeId)
         {
             this.teamMembers = teamMembers;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

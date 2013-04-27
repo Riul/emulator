@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public bool enable;
         public bool invisible;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicSetAwayModeRequestMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         {
             this.enable = enable;
             this.invisible = invisible;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

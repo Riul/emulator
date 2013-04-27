@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public int objectUID;
         public byte position;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectMovementMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         {
             this.objectUID = objectUID;
             this.position = position;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

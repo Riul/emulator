@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public int[] deadsIds;
         public int[] ids;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightTurnListMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         {
             this.ids = ids;
             this.deadsIds = deadsIds;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

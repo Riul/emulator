@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightResumeSlaveInfo[] slavesInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightResumeWithSlavesMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             : base(effects, marks, gameTurn, spellCooldowns, summonCount, bombCount)
         {
             this.slavesInfo = slavesInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

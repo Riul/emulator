@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public string playerName;
         public bool sex;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public IgnoredOnlineInformations()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
             this.playerName = playerName;
             this.breed = breed;
             this.sex = sex;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
         public short boostPoint;
         public sbyte statId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StatsUpgradeRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
         {
             this.statId = statId;
             this.boostPoint = boostPoint;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

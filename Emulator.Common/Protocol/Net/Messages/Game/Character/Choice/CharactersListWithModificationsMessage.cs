@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         public int[] charactersToRename;
         public int[] unusableCharacters;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharactersListWithModificationsMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
             this.charactersToRename = charactersToRename;
             this.unusableCharacters = unusableCharacters;
             this.charactersToRelook = charactersToRelook;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

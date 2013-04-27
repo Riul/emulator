@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public int spellLevelId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightNoSpellCastMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public GameActionFightNoSpellCastMessage(int spellLevelId)
         {
             this.spellLevelId = spellLevelId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

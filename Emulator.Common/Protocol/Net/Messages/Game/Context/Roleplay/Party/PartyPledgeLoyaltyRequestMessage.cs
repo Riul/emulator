@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public bool loyal;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyPledgeLoyaltyRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             : base(partyId)
         {
             this.loyal = loyal;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

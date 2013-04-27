@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         public sbyte alignmentRank;
         public bool verbose;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AlignmentRankUpdateMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         {
             this.alignmentRank = alignmentRank;
             this.verbose = verbose;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

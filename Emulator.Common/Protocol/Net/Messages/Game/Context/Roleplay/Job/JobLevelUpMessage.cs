@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobDescription jobsDescription;
         public sbyte newLevel;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobLevelUpMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         {
             this.newLevel = newLevel;
             this.jobsDescription = jobsDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

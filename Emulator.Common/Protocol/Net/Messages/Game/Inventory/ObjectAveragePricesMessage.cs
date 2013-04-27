@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory
         public int[] avgPrices;
         public short[] ids;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectAveragePricesMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory
         {
             this.ids = ids;
             this.avgPrices = avgPrices;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

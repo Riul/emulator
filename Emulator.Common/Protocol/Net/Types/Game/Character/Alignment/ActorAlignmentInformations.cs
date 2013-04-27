@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
         public int characterPower;
         public ushort dishonor;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ActorAlignmentInformations()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
             this.alignmentGrade = alignmentGrade;
             this.dishonor = dishonor;
             this.characterPower = characterPower;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public short[] fightTeamsPositions;
         public sbyte fightType;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightCommonInformations()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.fightTeams = fightTeams;
             this.fightTeamsPositions = fightTeamsPositions;
             this.fightTeamsOptions = fightTeamsOptions;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

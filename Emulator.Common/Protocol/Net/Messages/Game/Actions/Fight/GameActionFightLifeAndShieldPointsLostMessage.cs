@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public short shieldLoss;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightLifeAndShieldPointsLostMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             : base(actionId, sourceId, targetId, loss, permanentDamages)
         {
             this.shieldLoss = shieldLoss;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public KrosmasterFigure[] figures;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterInventoryMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public KrosmasterInventoryMessage(KrosmasterFigure[] figures)
         {
             this.figures = figures;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

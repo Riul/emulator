@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public int fighterId1;
         public int fighterId2;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightDefendersSwapMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
             this.fightId = fightId;
             this.fighterId1 = fighterId1;
             this.fighterId2 = fighterId2;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Secure
 
         public bool trusted;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TrustStatusMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Secure
         public TrustStatusMessage(bool trusted)
         {
             this.trusted = trusted;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

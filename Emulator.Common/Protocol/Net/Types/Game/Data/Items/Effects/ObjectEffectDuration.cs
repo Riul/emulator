@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         public short hours;
         public short minutes;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectDuration()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
             this.days = days;
             this.hours = hours;
             this.minutes = minutes;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

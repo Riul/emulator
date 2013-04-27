@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public short cellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ShowCellRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public ShowCellRequestMessage(short cellId)
         {
             this.cellId = cellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

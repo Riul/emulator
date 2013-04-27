@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int skillId;
         public int target;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangePlayerMultiCraftRequestMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.target = target;
             this.skillId = skillId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

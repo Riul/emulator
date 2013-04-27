@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public short rank;
         public uint rights;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildChangeMemberParametersMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
             this.rank = rank;
             this.experienceGivenPercent = experienceGivenPercent;
             this.rights = rights;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

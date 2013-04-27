@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int currentWeight;
         public int maxWeight;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeWeightMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.currentWeight = currentWeight;
             this.maxWeight = maxWeight;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

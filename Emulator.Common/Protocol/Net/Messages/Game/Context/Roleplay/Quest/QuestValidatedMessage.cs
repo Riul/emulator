@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 
         public ushort questId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public QuestValidatedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
         public QuestValidatedMessage(ushort questId)
         {
             this.questId = questId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

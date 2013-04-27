@@ -26,18 +26,18 @@ namespace Emulator.Common.Network.Sync.Messages
     {
         public const uint Id = 2502;
 
-        public ServerStatusUpdateMessage(){}
-
-        public ServerStatusUpdateMessage(ServerStatusEnum status)
-        {
-            Status = status;
-        }
-
         public ServerStatusEnum Status { get; set; }
 
         public override uint MessageId
         {
             get { return Id; }
+        }
+
+        public ServerStatusUpdateMessage(){}
+
+        public ServerStatusUpdateMessage(ServerStatusEnum status)
+        {
+            Status = status;
         }
 
         public override void Serialize(BigEndianWriter writer)

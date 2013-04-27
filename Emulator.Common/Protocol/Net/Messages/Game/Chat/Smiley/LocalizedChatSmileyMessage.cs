@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 
         public short cellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LocalizedChatSmileyMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
             : base(entityId, smileyId, accountId)
         {
             this.cellId = cellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

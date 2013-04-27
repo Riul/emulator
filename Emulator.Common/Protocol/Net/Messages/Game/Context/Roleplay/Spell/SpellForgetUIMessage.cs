@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
 
         public bool open;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SpellForgetUIMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
         public SpellForgetUIMessage(bool open)
         {
             this.open = open;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

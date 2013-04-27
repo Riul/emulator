@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public BasicGuildInformations guildInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorDialogQuestionBasicMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public TaxCollectorDialogQuestionBasicMessage(BasicGuildInformations guildInfo)
         {
             this.guildInfo = guildInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
     {
         public const short Id = 141;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayActorInformations()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public GameRolePlayActorInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition)
             : base(contextualId, look, disposition)
         {
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 
         public short dungeonId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TeleportBuddiesMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
         public TeleportBuddiesMessage(short dungeonId)
         {
             this.dungeonId = dungeonId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

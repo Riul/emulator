@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AlignmentSubAreaUpdateExtendedMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
             this.worldY = worldY;
             this.mapId = mapId;
             this.eventType = eventType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

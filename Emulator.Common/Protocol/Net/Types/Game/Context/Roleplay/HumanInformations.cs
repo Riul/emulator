@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public ActorRestrictionsInformations restrictions;
         public bool sex;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HumanInformations()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             this.restrictions = restrictions;
             this.sex = sex;
             this.options = options;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public sbyte fightType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightStartingMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightStartingMessage(sbyte fightType)
         {
             this.fightType = fightType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

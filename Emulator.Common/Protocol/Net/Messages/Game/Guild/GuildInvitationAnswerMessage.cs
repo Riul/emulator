@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public bool accept;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInvitationAnswerMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildInvitationAnswerMessage(bool accept)
         {
             this.accept = accept;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

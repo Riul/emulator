@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
 
         public short spellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SpellUpgradeRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
         public SpellUpgradeRequestMessage(short spellId)
         {
             this.spellId = spellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CompassUpdateMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
             this.type = type;
             this.worldX = worldX;
             this.worldY = worldY;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

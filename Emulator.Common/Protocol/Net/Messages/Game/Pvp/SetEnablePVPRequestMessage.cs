@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 
         public bool enable;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SetEnablePVPRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         public SetEnablePVPRequestMessage(bool enable)
         {
             this.enable = enable;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

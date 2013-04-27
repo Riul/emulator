@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 
         public StatedElement[] statedElements;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StatedMapUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
         public StatedMapUpdateMessage(StatedElement[] statedElements)
         {
             this.statedElements = statedElements;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

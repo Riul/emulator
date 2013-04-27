@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         public CharacterBaseInformations[] characters;
         public bool hasStartupActions;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharactersListMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         {
             this.hasStartupActions = hasStartupActions;
             this.characters = characters;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

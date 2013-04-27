@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public GuildInformations guildInformations;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayMerchantWithGuildInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(contextualId, look, disposition, name, sellType)
         {
             this.guildInformations = guildInformations;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

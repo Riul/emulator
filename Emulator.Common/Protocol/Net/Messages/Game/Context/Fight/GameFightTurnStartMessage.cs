@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public int id;
         public int waitTime;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightTurnStartMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         {
             this.id = id;
             this.waitTime = waitTime;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
 
         public int id;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractCharacterInformation()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
         public AbstractCharacterInformation(int id)
         {
             this.id = id;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

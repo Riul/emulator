@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public sbyte craftResult;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeCraftResultMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeCraftResultMessage(sbyte craftResult)
         {
             this.craftResult = craftResult;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

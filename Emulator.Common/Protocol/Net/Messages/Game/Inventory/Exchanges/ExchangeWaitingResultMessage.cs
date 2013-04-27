@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public bool bwait;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeWaitingResultMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeWaitingResultMessage(bool bwait)
         {
             this.bwait = bwait;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

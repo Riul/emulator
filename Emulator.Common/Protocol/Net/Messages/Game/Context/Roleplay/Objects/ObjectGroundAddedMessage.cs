@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
         public short cellId;
         public short objectGID;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectGroundAddedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
         {
             this.cellId = cellId;
             this.objectGID = objectGID;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public string owner;
         public uint timeStamp;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LivingObjectMessageMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             this.timeStamp = timeStamp;
             this.owner = owner;
             this.objectGenericId = objectGenericId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

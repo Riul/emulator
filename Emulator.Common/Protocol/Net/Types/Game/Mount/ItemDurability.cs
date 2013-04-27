@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
         public short durability;
         public short durabilityMax;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ItemDurability()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
         {
             this.durability = durability;
             this.durabilityMax = durabilityMax;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

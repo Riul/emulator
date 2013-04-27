@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
         public short[] subAreaIds;
         public sbyte teleporterType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TeleportDestinationsListMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
             this.mapIds = mapIds;
             this.subAreaIds = subAreaIds;
             this.costs = costs;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -24,6 +24,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
     {
         public const uint Id = 6147;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightTriggerEffectMessage()
         {
@@ -32,11 +37,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public GameActionFightTriggerEffectMessage(short actionId, int sourceId, int targetId, int boostUID)
             : base(actionId, sourceId, targetId, boostUID)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

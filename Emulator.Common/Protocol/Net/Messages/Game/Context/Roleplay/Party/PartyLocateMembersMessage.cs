@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public PartyMemberGeoPosition[] geopositions;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyLocateMembersMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             : base(partyId)
         {
             this.geopositions = geopositions;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

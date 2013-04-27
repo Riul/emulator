@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public bool remote;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeObjectMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeObjectMessage(bool remote)
         {
             this.remote = remote;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

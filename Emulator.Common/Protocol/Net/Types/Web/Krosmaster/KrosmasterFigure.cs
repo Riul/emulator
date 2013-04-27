@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Web.Krosmaster
         public short pedestal;
         public string uid;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterFigure()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Web.Krosmaster
             this.figure = figure;
             this.pedestal = pedestal;
             this.bound = bound;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

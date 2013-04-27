@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public sbyte actionType;
         public int rideId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeHandleMountStableMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.actionType = actionType;
             this.rideId = rideId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ObjectItemNotInContainer objectInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeCraftResultWithObjectDescMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(craftResult)
         {
             this.objectInfo = objectInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public MountClientData mountDescription;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeMountPaddockAddMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeMountPaddockAddMessage(MountClientData mountDescription)
         {
             this.mountDescription = mountDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

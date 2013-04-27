@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapComplementaryInformationsWithCoordsMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         {
             this.worldX = worldX;
             this.worldY = worldY;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

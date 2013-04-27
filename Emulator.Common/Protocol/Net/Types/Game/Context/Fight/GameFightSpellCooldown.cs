@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public sbyte cooldown;
         public int spellId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightSpellCooldown()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.spellId = spellId;
             this.cooldown = cooldown;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

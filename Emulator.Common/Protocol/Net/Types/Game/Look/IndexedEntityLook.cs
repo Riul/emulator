@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
         public sbyte index;
         public EntityLook look;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public IndexedEntityLook()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
         {
             this.look = look;
             this.index = index;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

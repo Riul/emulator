@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
     {
         public const short Id = 151;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightAIInformations()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public GameFightAIInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats)
             : base(contextualId, look, disposition, teamId, alive, stats)
         {
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
         public double grademult;
         public int pctbonus;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AlignmentBonusInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
         {
             this.pctbonus = pctbonus;
             this.grademult = grademult;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

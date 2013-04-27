@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public short creatureGenericId;
         public sbyte creatureGrade;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightMonsterInformations()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.creatureGenericId = creatureGenericId;
             this.creatureGrade = creatureGrade;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

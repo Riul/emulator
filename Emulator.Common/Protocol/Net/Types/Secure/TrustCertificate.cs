@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Secure
         public string hash;
         public int id;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public TrustCertificate()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Secure
         {
             this.id = id;
             this.hash = hash;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

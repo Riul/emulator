@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public short fightCount;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapFightCountMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public MapFightCountMessage(short fightCount)
         {
             this.fightCount = fightCount;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

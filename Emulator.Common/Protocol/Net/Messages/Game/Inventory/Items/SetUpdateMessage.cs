@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public short setId;
         public short[] setObjects;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SetUpdateMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             this.setId = setId;
             this.setObjects = setObjects;
             this.setEffects = setEffects;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

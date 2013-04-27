@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public int guildId;
         public string guildName;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public BasicGuildInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.guildId = guildId;
             this.guildName = guildName;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int source;
         public int target;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeRequestedTradeMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.source = source;
             this.target = target;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,12 +27,12 @@ namespace Emulator.Login.Network.Sync
 {
     public class SyncServer : Server
     {
+        public List<SyncClient> Clients { get; private set; }
+
         public SyncServer() : base(Program.Config.SyncPort)
         {
             Clients = new List<SyncClient>();
         }
-
-        public List<SyncClient> Clients { get; private set; }
 
         public SyncClient GetServer(int id)
         {

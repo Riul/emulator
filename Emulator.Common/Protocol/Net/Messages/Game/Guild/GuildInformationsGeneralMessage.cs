@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public double experience;
         public byte level;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInformationsGeneralMessage()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
             this.experience = experience;
             this.expNextLevelFloor = expNextLevelFloor;
             this.creationDate = creationDate;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

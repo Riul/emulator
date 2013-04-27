@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public int sourceSpellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightInvisibleObstacleMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             : base(actionId, sourceId)
         {
             this.sourceSpellId = sourceSpellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

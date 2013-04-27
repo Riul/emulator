@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Deletion
         public int characterId;
         public string secretAnswerHash;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterDeletionRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Deletion
         {
             this.characterId = characterId;
             this.secretAnswerHash = secretAnswerHash;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

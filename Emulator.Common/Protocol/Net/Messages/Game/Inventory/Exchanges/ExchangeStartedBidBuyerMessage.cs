@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public SellerBuyerDescriptor buyerDescriptor;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartedBidBuyerMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeStartedBidBuyerMessage(SellerBuyerDescriptor buyerDescriptor)
         {
             this.buyerDescriptor = buyerDescriptor;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

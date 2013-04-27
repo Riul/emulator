@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int npcId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkNpcTradeMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeStartOkNpcTradeMessage(int npcId)
         {
             this.npcId = npcId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

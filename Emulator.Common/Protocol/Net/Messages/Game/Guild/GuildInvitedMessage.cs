@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public int recruterId;
         public string recruterName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInvitedMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
             this.recruterId = recruterId;
             this.recruterName = recruterName;
             this.guildInfo = guildInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

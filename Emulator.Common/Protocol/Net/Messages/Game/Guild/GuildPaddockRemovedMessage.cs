@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public int paddockId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildPaddockRemovedMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildPaddockRemovedMessage(int paddockId)
         {
             this.paddockId = paddockId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobExperience[] experiencesUpdate;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobExperienceMultiUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobExperienceMultiUpdateMessage(JobExperience[] experiencesUpdate)
         {
             this.experiencesUpdate = experiencesUpdate;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 
         public short spellId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutSpell()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
             : base(slot)
         {
             this.spellId = spellId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

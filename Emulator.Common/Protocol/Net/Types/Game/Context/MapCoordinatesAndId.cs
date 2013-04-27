@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public int mapId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MapCoordinatesAndId()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
             : base(worldX, worldY)
         {
             this.mapId = mapId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

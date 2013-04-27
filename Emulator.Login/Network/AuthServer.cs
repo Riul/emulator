@@ -24,12 +24,12 @@ namespace Emulator.Login.Network
 {
     public class AuthServer : Server
     {
+        public List<AuthClient> Clients { get; private set; }
+
         public AuthServer() : base(Program.Config.LoginPort)
         {
             Clients = new List<AuthClient>();
         }
-
-        public List<AuthClient> Clients { get; private set; }
 
         protected override void OnClientConnected(TcpClient client)
         {

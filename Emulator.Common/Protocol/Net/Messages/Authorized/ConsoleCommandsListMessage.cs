@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
         public string[] arguments;
         public string[] descriptions;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ConsoleCommandsListMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
             this.aliases = aliases;
             this.arguments = arguments;
             this.descriptions = descriptions;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

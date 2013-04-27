@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         public sbyte maxSlots;
         public sbyte probability;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SkillActionDescriptionCraft()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         {
             this.maxSlots = maxSlots;
             this.probability = probability;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

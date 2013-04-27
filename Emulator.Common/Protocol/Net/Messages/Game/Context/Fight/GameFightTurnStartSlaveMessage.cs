@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public int idSummoner;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightTurnStartSlaveMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             : base(id, waitTime)
         {
             this.idSummoner = idSummoner;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

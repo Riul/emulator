@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public double fightId;
         public int fighterToRemoveId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightAttackerRemoveMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         {
             this.fightId = fightId;
             this.fighterToRemoveId = fighterToRemoveId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

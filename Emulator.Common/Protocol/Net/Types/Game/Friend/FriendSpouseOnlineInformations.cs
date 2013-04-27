@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public bool pvpEnabled;
         public short subAreaId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FriendSpouseOnlineInformations()
         {
@@ -46,11 +51,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
             this.pvpEnabled = pvpEnabled;
             this.mapId = mapId;
             this.subAreaId = subAreaId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

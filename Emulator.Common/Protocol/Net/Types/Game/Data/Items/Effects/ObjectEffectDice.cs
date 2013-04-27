@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         public short diceNum;
         public short diceSide;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectDice()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
             this.diceNum = diceNum;
             this.diceSide = diceSide;
             this.diceConst = diceConst;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

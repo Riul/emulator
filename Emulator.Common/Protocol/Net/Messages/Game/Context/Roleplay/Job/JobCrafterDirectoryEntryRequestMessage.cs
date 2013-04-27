@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public int playerId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobCrafterDirectoryEntryRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobCrafterDirectoryEntryRequestMessage(int playerId)
         {
             this.playerId = playerId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

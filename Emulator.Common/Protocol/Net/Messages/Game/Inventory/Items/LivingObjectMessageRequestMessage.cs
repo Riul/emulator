@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public short msgId;
         public string[] parameters;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LivingObjectMessageRequestMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             this.msgId = msgId;
             this.parameters = parameters;
             this.livingObject = livingObject;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

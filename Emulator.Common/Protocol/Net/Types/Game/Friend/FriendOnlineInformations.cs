@@ -34,6 +34,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public string playerName;
         public bool sex;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FriendOnlineInformations()
         {
@@ -49,11 +54,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
             this.sex = sex;
             this.guildInfo = guildInfo;
             this.moodSmileyId = moodSmileyId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

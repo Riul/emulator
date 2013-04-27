@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public sbyte nbCase;
         public int skillId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkCraftWithInformationMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.nbCase = nbCase;
             this.skillId = skillId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         public short targetCellId;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayPlayerFightRequestMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
             this.targetId = targetId;
             this.targetCellId = targetCellId;
             this.friendly = friendly;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

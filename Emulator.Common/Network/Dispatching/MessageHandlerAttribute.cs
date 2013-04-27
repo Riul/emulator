@@ -22,6 +22,9 @@ namespace Emulator.Common.Network.Dispatching
 {
     public class MessageHandlerAttribute : Attribute
     {
+        public Type MessageType { get; private set; }
+        public uint MessageId { get; private set; }
+
         public MessageHandlerAttribute(Type type)
         {
             MessageType = type;
@@ -31,8 +34,5 @@ namespace Emulator.Common.Network.Dispatching
         {
             MessageId = id;
         }
-
-        public Type MessageType { get; private set; }
-        public uint MessageId { get; private set; }
     }
 }

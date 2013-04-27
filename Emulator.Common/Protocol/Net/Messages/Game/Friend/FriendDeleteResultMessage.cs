@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public string name;
         public bool success;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public FriendDeleteResultMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         {
             this.success = success;
             this.name = name;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

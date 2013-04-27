@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 
         public short questId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public QuestActiveInformations()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public QuestActiveInformations(short questId)
         {
             this.questId = questId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

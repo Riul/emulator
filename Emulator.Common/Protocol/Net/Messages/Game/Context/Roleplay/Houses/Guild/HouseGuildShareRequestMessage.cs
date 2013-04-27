@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses.Gui
         public bool enable;
         public uint rights;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseGuildShareRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses.Gui
         {
             this.enable = enable;
             this.rights = rights;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

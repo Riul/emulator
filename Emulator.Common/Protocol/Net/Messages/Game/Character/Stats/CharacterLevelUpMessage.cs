@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public byte newLevel;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterLevelUpMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         public CharacterLevelUpMessage(byte newLevel)
         {
             this.newLevel = newLevel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

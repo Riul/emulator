@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
 
         public short skillId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SkillActionDescription()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         public SkillActionDescription(short skillId)
         {
             this.skillId = skillId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

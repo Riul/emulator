@@ -35,6 +35,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public int publicPrice;
         public int quantity;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemToSellInHumanVendorShop()
         {
@@ -50,11 +55,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.quantity = quantity;
             this.objectPrice = objectPrice;
             this.publicPrice = publicPrice;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

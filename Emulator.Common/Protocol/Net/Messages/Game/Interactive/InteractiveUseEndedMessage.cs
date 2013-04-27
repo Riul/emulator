@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
         public int elemId;
         public short skillId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public InteractiveUseEndedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
         {
             this.elemId = elemId;
             this.skillId = skillId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

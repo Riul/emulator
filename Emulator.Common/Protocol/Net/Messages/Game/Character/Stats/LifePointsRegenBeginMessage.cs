@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public byte regenRate;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LifePointsRegenBeginMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         public LifePointsRegenBeginMessage(byte regenRate)
         {
             this.regenRate = regenRate;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

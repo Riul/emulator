@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         public string name;
         public string ownerName;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MountInformationsForPaddock()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
             this.modelId = modelId;
             this.name = name;
             this.ownerName = ownerName;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

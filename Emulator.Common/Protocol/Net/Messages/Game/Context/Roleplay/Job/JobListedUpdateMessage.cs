@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public bool addedOrDeleted;
         public sbyte jobId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobListedUpdateMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         {
             this.addedOrDeleted = addedOrDeleted;
             this.jobId = jobId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

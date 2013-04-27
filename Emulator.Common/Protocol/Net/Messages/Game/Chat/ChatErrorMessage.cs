@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         public ChatErrorMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

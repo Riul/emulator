@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public int cosmeticId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterSelectionWithRelookMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
             : base(id)
         {
             this.cosmeticId = cosmeticId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

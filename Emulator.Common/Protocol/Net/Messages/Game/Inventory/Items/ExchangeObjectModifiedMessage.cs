@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ObjectItem @object;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeObjectModifiedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             : base(remote)
         {
             this.@object = @object;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

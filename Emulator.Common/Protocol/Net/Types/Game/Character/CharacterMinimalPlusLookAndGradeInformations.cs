@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
 
         public int grade;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterMinimalPlusLookAndGradeInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
             : base(id, level, name, entityLook)
         {
             this.grade = grade;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

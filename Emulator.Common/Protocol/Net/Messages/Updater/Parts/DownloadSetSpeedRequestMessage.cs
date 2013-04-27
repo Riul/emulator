@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 
         public sbyte downloadSpeed;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DownloadSetSpeedRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         public DownloadSetSpeedRequestMessage(sbyte downloadSpeed)
         {
             this.downloadSpeed = downloadSpeed;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

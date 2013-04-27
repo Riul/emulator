@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorAttackedMessage()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
             this.worldY = worldY;
             this.mapId = mapId;
             this.subAreaId = subAreaId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

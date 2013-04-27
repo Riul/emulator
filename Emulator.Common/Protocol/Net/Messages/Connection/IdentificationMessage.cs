@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public bool useLoginToken;
         public VersionExtended version;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationMessage()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             this.lang = lang;
             this.credentials = credentials;
             this.serverId = serverId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

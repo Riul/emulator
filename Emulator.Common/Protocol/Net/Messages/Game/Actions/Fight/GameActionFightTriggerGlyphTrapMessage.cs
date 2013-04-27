@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public short triggeredSpellId;
         public int triggeringCharacterId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightTriggerGlyphTrapMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             this.markId = markId;
             this.triggeringCharacterId = triggeringCharacterId;
             this.triggeredSpellId = triggeredSpellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

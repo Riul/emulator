@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public sbyte errorType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeErrorMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeErrorMessage(sbyte errorType)
         {
             this.errorType = errorType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

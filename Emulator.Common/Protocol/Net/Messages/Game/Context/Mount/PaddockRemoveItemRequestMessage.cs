@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public short cellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockRemoveItemRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public PaddockRemoveItemRequestMessage(short cellId)
         {
             this.cellId = cellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

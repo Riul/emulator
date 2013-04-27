@@ -24,6 +24,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
     {
         public const uint Id = 5884;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseSellFromInsideRequestMessage()
         {
@@ -32,11 +37,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public HouseSellFromInsideRequestMessage(int amount)
             : base(amount)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         public short worldX;
         public short worldY;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockInformationsForSell()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
             this.nbMount = nbMount;
             this.nbObject = nbObject;
             this.price = price;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

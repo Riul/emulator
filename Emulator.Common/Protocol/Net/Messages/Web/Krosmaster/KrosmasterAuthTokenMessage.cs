@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public string token;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterAuthTokenMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public KrosmasterAuthTokenMessage(string token)
         {
             this.token = token;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

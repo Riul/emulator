@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
         public short id;
         public AchievementStartedObjective[] startedObjectives;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public Achievement()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
             this.id = id;
             this.finishedObjective = finishedObjective;
             this.startedObjectives = startedObjectives;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

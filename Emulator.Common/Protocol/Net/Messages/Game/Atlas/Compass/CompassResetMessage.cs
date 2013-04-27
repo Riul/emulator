@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
 
         public sbyte type;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CompassResetMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
         public CompassResetMessage(sbyte type)
         {
             this.type = type;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

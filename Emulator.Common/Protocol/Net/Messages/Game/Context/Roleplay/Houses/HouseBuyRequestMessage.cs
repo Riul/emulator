@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public int proposedPrice;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseBuyRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public HouseBuyRequestMessage(int proposedPrice)
         {
             this.proposedPrice = proposedPrice;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

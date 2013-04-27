@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
         public bool spellPrevisualization;
         public SpellItem[] spells;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SpellListMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
         {
             this.spellPrevisualization = spellPrevisualization;
             this.spells = spells;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

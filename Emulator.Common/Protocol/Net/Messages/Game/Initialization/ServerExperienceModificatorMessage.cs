@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
 
         public short experiencePercent;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ServerExperienceModificatorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
         public ServerExperienceModificatorMessage(short experiencePercent)
         {
             this.experiencePercent = experiencePercent;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

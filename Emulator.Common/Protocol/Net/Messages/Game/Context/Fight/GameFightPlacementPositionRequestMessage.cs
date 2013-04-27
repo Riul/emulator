@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public short cellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightPlacementPositionRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightPlacementPositionRequestMessage(short cellId)
         {
             this.cellId = cellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Replay
 
         public string name;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterReplayWithRenameRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Replay
             : base(characterId)
         {
             this.name = name;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

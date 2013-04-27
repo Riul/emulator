@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         public int elementId;
         public int mapId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LockableStateUpdateStorageMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         {
             this.mapId = mapId;
             this.elementId = elementId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -59,6 +59,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
         public int stamina;
         public int staminaMax;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MountClientData()
         {
@@ -98,11 +103,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
             this.reproductionCount = reproductionCount;
             this.reproductionCountMax = reproductionCountMax;
             this.effectList = effectList;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

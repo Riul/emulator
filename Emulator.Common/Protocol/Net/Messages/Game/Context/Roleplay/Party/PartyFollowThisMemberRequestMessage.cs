@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public bool enabled;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyFollowThisMemberRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             : base(partyId, playerId)
         {
             this.enabled = enabled;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

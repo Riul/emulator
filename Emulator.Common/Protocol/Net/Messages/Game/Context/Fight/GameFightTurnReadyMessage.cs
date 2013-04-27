@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public bool isReady;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightTurnReadyMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightTurnReadyMessage(bool isReady)
         {
             this.isReady = isReady;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

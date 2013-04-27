@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int objectUID;
         public bool onlySuccess;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeRemovedPaymentForCraftMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.onlySuccess = onlySuccess;
             this.objectUID = objectUID;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

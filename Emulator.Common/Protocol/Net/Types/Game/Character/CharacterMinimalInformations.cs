@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
         public byte level;
         public string name;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterMinimalInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
         {
             this.level = level;
             this.name = name;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

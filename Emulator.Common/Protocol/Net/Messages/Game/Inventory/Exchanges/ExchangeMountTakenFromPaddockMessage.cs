@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeMountTakenFromPaddockMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.worldX = worldX;
             this.worldY = worldY;
             this.ownername = ownername;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public short weaponTypeId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTemporaryBoostWeaponDamagesEffect()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid, delta)
         {
             this.weaponTypeId = weaponTypeId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

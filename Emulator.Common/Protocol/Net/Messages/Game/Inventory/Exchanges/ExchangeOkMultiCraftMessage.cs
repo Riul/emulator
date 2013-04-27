@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int otherId;
         public sbyte role;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeOkMultiCraftMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.initiatorId = initiatorId;
             this.otherId = otherId;
             this.role = role;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

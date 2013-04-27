@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public int boostUID;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightDispellEffectMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             : base(actionId, sourceId, targetId)
         {
             this.boostUID = boostUID;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

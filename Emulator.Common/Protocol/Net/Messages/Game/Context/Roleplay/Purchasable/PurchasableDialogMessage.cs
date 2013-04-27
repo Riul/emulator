@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Purchasabl
         public int price;
         public int purchasableId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PurchasableDialogMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Purchasabl
             this.buyOrSell = buyOrSell;
             this.purchasableId = purchasableId;
             this.price = price;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

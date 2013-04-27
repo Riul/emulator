@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 
         public int nameId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public InteractiveElementNamedSkill()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
             : base(skillId, skillInstanceUid)
         {
             this.nameId = nameId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

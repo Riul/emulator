@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         public sbyte optimumProbability;
         public sbyte thresholdSlots;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SkillActionDescriptionCraftExtended()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         {
             this.thresholdSlots = thresholdSlots;
             this.optimumProbability = optimumProbability;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

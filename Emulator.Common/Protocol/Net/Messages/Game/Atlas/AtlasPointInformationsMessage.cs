@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas
 
         public AtlasPointsInformations type;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AtlasPointInformationsMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas
         public AtlasPointInformationsMessage(AtlasPointsInformations type)
         {
             this.type = type;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

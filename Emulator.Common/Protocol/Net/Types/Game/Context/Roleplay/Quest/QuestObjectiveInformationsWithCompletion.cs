@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public short curCompletion;
         public short maxCompletion;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public QuestObjectiveInformationsWithCompletion()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         {
             this.curCompletion = curCompletion;
             this.maxCompletion = maxCompletion;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

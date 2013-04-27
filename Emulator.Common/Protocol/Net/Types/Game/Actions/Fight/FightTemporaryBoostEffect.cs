@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public short delta;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTemporaryBoostEffect()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
         {
             this.delta = delta;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

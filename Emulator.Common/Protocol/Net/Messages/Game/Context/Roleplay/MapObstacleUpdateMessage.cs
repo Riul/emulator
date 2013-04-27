@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public MapObstacle[] obstacles;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapObstacleUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public MapObstacleUpdateMessage(MapObstacle[] obstacles)
         {
             this.obstacles = obstacles;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

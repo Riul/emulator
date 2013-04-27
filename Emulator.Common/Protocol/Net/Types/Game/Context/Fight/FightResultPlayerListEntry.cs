@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public FightResultAdditionalData[] additional;
         public byte level;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultPlayerListEntry()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.level = level;
             this.additional = additional;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

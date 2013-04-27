@@ -24,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages
     {
         private readonly uint id;
 
-        public UnknowMessage(uint id)
-        {
-            this.id = id;
-        }
-
         public override uint MessageId
         {
             get { return id; }
+        }
+
+        public UnknowMessage(uint id)
+        {
+            this.id = id;
         }
 
         public override void Serialize(BigEndianWriter param1)

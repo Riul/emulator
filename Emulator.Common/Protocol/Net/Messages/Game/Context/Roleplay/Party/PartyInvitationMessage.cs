@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public sbyte partyType;
         public int toId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyInvitationMessage()
         {
@@ -44,11 +49,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             this.fromId = fromId;
             this.fromName = fromName;
             this.toId = toId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

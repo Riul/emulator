@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public short messageId;
         public short[] visibleReplies;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NpcDialogQuestionMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
             this.messageId = messageId;
             this.dialogParams = dialogParams;
             this.visibleReplies = visibleReplies;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

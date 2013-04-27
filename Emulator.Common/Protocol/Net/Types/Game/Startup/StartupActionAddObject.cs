@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Startup
         public string title;
         public int uid;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public StartupActionAddObject()
         {
@@ -46,11 +51,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Startup
             this.descUrl = descUrl;
             this.pictureUrl = pictureUrl;
             this.items = items;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

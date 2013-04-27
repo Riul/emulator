@@ -24,6 +24,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
     {
         public const short Id = 106;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public IgnoredInformations()
         {
@@ -32,11 +37,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public IgnoredInformations(int accountId, string accountName)
             : base(accountId, accountName)
         {
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

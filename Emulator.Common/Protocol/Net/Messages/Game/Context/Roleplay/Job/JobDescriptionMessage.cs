@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobDescription[] jobsDescription;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobDescriptionMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobDescriptionMessage(JobDescription[] jobsDescription)
         {
             this.jobsDescription = jobsDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

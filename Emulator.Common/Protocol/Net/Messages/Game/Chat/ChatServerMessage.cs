@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         public int senderId;
         public string senderName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatServerMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
             this.senderId = senderId;
             this.senderName = senderName;
             this.senderAccountId = senderAccountId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

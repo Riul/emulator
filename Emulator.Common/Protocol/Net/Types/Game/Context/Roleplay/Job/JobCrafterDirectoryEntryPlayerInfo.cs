@@ -36,6 +36,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         public short worldX;
         public short worldY;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public JobCrafterDirectoryEntryPlayerInfo()
         {
@@ -53,11 +58,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
             this.worldY = worldY;
             this.mapId = mapId;
             this.subAreaId = subAreaId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

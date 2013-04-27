@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         public int id;
         public string name;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterLevelUpInformationMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         {
             this.name = name;
             this.id = id;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public bool restricted;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyRestrictedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             : base(partyId)
         {
             this.restricted = restricted;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

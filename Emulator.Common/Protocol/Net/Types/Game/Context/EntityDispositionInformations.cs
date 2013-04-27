@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         public short cellId;
         public sbyte direction;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public EntityDispositionInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         {
             this.cellId = cellId;
             this.direction = direction;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

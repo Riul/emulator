@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 
         public ItemDurability durability;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockItem()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
             : base(cellId, objectGID)
         {
             this.durability = durability;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

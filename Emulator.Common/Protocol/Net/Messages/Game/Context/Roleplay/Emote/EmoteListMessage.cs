@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 
         public sbyte[] emoteIds;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public EmoteListMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         public EmoteListMessage(sbyte[] emoteIds)
         {
             this.emoteIds = emoteIds;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

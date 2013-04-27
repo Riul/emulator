@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         public short maxItems;
         public short maxOutdoorMount;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         {
             this.maxOutdoorMount = maxOutdoorMount;
             this.maxItems = maxItems;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

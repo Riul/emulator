@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public GameFightSpellCooldown[] spellCooldowns;
         public sbyte summonCount;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightResumeSlaveInfo()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.spellCooldowns = spellCooldowns;
             this.summonCount = summonCount;
             this.bombCount = bombCount;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

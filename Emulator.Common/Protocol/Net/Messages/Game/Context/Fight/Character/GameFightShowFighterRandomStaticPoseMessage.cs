@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Character
     {
         public const uint Id = 6218;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightShowFighterRandomStaticPoseMessage()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Character
         public GameFightShowFighterRandomStaticPoseMessage(GameFightFighterInformations informations)
             : base(informations)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public sbyte breed;
         public short level;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightCharacterInformations()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.level = level;
             this.alignmentInfos = alignmentInfos;
             this.breed = breed;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

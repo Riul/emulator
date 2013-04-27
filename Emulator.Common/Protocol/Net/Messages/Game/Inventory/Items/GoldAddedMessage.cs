@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public GoldItem gold;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GoldAddedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public GoldAddedMessage(GoldItem gold)
         {
             this.gold = gold;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

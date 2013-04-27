@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildEmblem guildEmblem;
         public string guildName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildCreationValidMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         {
             this.guildName = guildName;
             this.guildEmblem = guildEmblem;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

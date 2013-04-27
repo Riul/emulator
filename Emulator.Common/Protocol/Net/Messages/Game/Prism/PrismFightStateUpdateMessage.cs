@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public sbyte state;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightStateUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public PrismFightStateUpdateMessage(sbyte state)
         {
             this.state = state;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

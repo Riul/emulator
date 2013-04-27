@@ -33,6 +33,17 @@ namespace Emulator.Common.Network
     {
         private readonly object locker;
 
+        public Dispatcher Dispatcher { get; private set; }
+        public TcpClient Socket { get; private set; }
+        public bool Running { get; private set; }
+        public BigEndianWriter Writer { get; private set; }
+        public BigEndianReader Reader { get; private set; }
+
+        public bool Connected
+        {
+            get { return Socket != null && Socket.Connected; }
+        }
+
         public Client()
         {
             locker = new object();
@@ -50,17 +61,6 @@ namespace Emulator.Common.Network
             Reader = new BigEndianReader(Socket.GetStream());
             Writer = new BigEndianWriter(Socket.GetStream());
             new Task(Listen).Start();
-        }
-
-        public Dispatcher Dispatcher { get; private set; }
-        public TcpClient Socket { get; private set; }
-        public bool Running { get; private set; }
-        public BigEndianWriter Writer { get; private set; }
-        public BigEndianReader Reader { get; private set; }
-
-        public bool Connected
-        {
-            get { return Socket != null && Socket.Connected; }
         }
 
         public event MessageReceivedEventHandler MessageReceived;

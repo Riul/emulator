@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Updater
         public string id;
         public sbyte state;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ContentPart()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Updater
         {
             this.id = id;
             this.state = state;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

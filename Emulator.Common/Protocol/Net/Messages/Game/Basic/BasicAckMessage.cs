@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public short lastPacketId;
         public int seq;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicAckMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         {
             this.seq = seq;
             this.lastPacketId = lastPacketId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

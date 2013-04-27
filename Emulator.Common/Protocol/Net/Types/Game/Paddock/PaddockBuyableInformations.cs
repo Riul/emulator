@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         public bool locked;
         public int price;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockBuyableInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         {
             this.price = price;
             this.locked = locked;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

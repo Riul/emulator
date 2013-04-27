@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Display
         public sbyte type;
         public int value;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DisplayNumericalValueMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Display
             this.entityId = entityId;
             this.value = value;
             this.type = type;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

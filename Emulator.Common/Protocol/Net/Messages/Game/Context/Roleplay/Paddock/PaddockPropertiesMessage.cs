@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 
         public PaddockInformations properties;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockPropertiesMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
         public PaddockPropertiesMessage(PaddockInformations properties)
         {
             this.properties = properties;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

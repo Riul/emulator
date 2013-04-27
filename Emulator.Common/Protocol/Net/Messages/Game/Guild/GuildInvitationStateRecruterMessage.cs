@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public sbyte invitationState;
         public string recrutedName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInvitationStateRecruterMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         {
             this.recrutedName = recrutedName;
             this.invitationState = invitationState;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 
         public int houseId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LockableStateUpdateHouseDoorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
             : base(locked)
         {
             this.houseId = houseId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

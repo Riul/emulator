@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 
         public bool locked;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LockableStateUpdateAbstractMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         public LockableStateUpdateAbstractMessage(bool locked)
         {
             this.locked = locked;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

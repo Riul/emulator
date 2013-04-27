@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public ActorOrientation orientation;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameMapChangeOrientationMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameMapChangeOrientationMessage(ActorOrientation orientation)
         {
             this.orientation = orientation;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

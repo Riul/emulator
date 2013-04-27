@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         public bool accept;
         public int fightId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayPlayerFightFriendlyAnswerMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         {
             this.fightId = fightId;
             this.accept = accept;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

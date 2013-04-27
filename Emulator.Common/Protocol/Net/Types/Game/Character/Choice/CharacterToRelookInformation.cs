@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
 
         public int cosmeticId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterToRelookInformation()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
             : base(id)
         {
             this.cosmeticId = cosmeticId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

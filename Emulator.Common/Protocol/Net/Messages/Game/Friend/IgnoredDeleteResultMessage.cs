@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public bool session;
         public bool success;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IgnoredDeleteResultMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
             this.success = success;
             this.session = session;
             this.name = name;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

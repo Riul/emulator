@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public sbyte state;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightInvisibilityMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         {
             this.targetId = targetId;
             this.state = state;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

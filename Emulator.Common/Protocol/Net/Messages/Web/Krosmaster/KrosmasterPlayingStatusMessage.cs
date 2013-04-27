@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public bool playing;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterPlayingStatusMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public KrosmasterPlayingStatusMessage(bool playing)
         {
             this.playing = playing;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

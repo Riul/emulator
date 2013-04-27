@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterInventoryErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public KrosmasterInventoryErrorMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

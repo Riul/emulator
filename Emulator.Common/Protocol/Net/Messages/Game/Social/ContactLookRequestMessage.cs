@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
         public sbyte contactType;
         public byte requestId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ContactLookRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
         {
             this.requestId = requestId;
             this.contactType = contactType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

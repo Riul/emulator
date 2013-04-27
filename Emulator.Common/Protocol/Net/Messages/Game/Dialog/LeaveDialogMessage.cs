@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Dialog
 
         public sbyte dialogType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LeaveDialogMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Dialog
         public LeaveDialogMessage(sbyte dialogType)
         {
             this.dialogType = dialogType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

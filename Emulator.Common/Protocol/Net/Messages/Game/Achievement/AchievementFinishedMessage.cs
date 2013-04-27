@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public short finishedlevel;
         public short id;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementFinishedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         {
             this.id = id;
             this.finishedlevel = finishedlevel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

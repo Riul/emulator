@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int secondCharacterId;
         public int secondCharacterMaxWeight;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartedWithPodsMessage()
         {
@@ -46,11 +51,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.secondCharacterId = secondCharacterId;
             this.secondCharacterCurrentWeight = secondCharacterCurrentWeight;
             this.secondCharacterMaxWeight = secondCharacterMaxWeight;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

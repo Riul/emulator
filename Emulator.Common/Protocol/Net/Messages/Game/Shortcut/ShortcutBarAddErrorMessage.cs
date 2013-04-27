@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 
         public sbyte error;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutBarAddErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
         public ShortcutBarAddErrorMessage(sbyte error)
         {
             this.error = error;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public bool hasSpouse;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SpouseStatusMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public SpouseStatusMessage(bool hasSpouse)
         {
             this.hasSpouse = hasSpouse;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

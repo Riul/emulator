@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Register
 
         public string nickname;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NicknameChoiceRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Register
         public NicknameChoiceRequestMessage(string nickname)
         {
             this.nickname = nickname;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

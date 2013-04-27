@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Subscriber
 
         public bool active;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SubscriptionZoneMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Subscriber
         public SubscriptionZoneMessage(bool active)
         {
             this.active = active;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

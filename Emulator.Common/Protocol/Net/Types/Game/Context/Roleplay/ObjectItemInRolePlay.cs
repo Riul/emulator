@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public short cellId;
         public short objectGID;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemInRolePlay()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.cellId = cellId;
             this.objectGID = objectGID;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

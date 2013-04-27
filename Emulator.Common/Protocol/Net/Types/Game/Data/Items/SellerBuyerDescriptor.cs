@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public int[] types;
         public short unsoldDelay;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SellerBuyerDescriptor()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.maxItemPerAccount = maxItemPerAccount;
             this.npcContextualId = npcContextualId;
             this.unsoldDelay = unsoldDelay;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

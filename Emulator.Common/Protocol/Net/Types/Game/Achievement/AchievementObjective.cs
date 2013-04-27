@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
         public int id;
         public short maxValue;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementObjective()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
         {
             this.id = id;
             this.maxValue = maxValue;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
         public ushort id;
         public string[] parameters;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NotificationByServerMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
             this.id = id;
             this.parameters = parameters;
             this.forceOpen = forceOpen;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

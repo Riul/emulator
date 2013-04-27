@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 
         public string nickname;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AcquaintanceSearchMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
         public AcquaintanceSearchMessage(string nickname)
         {
             this.nickname = nickname;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

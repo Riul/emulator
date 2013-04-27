@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public int mapRideId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountInformationInPaddockRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public MountInformationInPaddockRequestMessage(int mapRideId)
         {
             this.mapRideId = mapRideId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

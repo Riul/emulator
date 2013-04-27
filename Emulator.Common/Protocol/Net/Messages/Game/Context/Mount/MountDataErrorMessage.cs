@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountDataErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public MountDataErrorMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

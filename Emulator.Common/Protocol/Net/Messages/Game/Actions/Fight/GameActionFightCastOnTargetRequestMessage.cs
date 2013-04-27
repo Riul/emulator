@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public short spellId;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightCastOnTargetRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         {
             this.spellId = spellId;
             this.targetId = targetId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

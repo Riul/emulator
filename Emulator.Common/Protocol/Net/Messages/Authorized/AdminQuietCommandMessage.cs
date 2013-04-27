@@ -24,6 +24,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
     {
         public const uint Id = 5662;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AdminQuietCommandMessage()
         {
@@ -32,11 +37,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
         public AdminQuietCommandMessage(string content)
             : base(content)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public sbyte nbPaddockMax;
         public PaddockContentInformations[] paddocksInformations;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInformationsPaddocksMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         {
             this.nbPaddockMax = nbPaddockMax;
             this.paddocksInformations = paddocksInformations;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

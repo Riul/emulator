@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 
         public sbyte channel;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatClientMultiMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
             : base(content)
         {
             this.channel = channel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public PaddockItem paddockItemDescription;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameDataPaddockObjectAddMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public GameDataPaddockObjectAddMessage(PaddockItem paddockItemDescription)
         {
             this.paddockItemDescription = paddockItemDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

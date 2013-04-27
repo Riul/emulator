@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobCrafterDirectorySettings[] craftersSettings;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobCrafterDirectorySettingsMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobCrafterDirectorySettingsMessage(JobCrafterDirectorySettings[] craftersSettings)
         {
             this.craftersSettings = craftersSettings;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

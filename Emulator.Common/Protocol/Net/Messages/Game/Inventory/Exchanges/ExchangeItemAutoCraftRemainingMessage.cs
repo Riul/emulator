@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int count;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeItemAutoCraftRemainingMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeItemAutoCraftRemainingMessage(int count)
         {
             this.count = count;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

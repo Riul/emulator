@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
         public sbyte atLeastNbMount;
         public int maxPrice;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockToSellFilterMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
             this.atLeastNbMount = atLeastNbMount;
             this.atLeastNbMachine = atLeastNbMachine;
             this.maxPrice = maxPrice;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

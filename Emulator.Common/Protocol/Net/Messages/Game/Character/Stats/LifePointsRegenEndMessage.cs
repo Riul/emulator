@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public int lifePointsGained;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LifePointsRegenEndMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
             : base(lifePoints, maxLifePoints)
         {
             this.lifePointsGained = lifePointsGained;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

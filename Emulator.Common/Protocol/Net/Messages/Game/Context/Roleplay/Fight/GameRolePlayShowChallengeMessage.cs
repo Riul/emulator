@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 
         public FightCommonInformations commonsInfos;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayShowChallengeMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         public GameRolePlayShowChallengeMessage(FightCommonInformations commonsInfos)
         {
             this.commonsInfos = commonsInfos;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

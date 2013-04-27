@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public OrnamentSelectErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
         public OrnamentSelectErrorMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

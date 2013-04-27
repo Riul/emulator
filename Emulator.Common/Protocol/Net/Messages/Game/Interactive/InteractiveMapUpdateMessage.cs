@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 
         public InteractiveElement[] interactiveElements;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public InteractiveMapUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
         public InteractiveMapUpdateMessage(InteractiveElement[] interactiveElements)
         {
             this.interactiveElements = interactiveElements;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

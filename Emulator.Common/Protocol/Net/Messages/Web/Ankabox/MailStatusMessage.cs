@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
         public short total;
         public short unread;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MailStatusMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
         {
             this.unread = unread;
             this.total = total;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

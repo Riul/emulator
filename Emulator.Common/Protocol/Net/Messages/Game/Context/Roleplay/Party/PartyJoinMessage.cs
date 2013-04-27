@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public sbyte partyType;
         public bool restricted;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyJoinMessage()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             this.members = members;
             this.guests = guests;
             this.restricted = restricted;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

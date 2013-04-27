@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public bool isRiding;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountRidingMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public MountRidingMessage(bool isRiding)
         {
             this.isRiding = isRiding;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

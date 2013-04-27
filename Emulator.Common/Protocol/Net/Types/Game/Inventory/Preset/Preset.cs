@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
         public sbyte presetId;
         public sbyte symbolId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public Preset()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
             this.symbolId = symbolId;
             this.mount = mount;
             this.objects = objects;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

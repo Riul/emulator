@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
         public string name = "";
         public bool sex = false;
 
+        public override uint MessageId
+        {
+            get { return 160; }
+        }
+
         public CharacterCreationRequestMessage()
         {
             colors = new List<int>();
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
             this.sex = sex;
             this.colors = colors;
             this.cosmeticId = cosmeticId;
-        }
-
-        public override uint MessageId
-        {
-            get { return 160; }
         }
 
         public override void Serialize(BigEndianWriter writer)

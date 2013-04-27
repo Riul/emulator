@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public short prospecting;
         public byte regenRate;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyUpdateLightMessage()
         {
@@ -44,11 +49,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             this.maxLifePoints = maxLifePoints;
             this.prospecting = prospecting;
             this.regenRate = regenRate;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

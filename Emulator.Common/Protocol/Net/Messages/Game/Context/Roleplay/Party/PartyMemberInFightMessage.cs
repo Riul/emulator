@@ -34,6 +34,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public sbyte reason;
         public int secondsBeforeFightStart;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyMemberInFightMessage()
         {
@@ -49,11 +54,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             this.fightId = fightId;
             this.fightMap = fightMap;
             this.secondsBeforeFightStart = secondsBeforeFightStart;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

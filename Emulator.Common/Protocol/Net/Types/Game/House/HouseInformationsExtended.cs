@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
 
         public GuildInformations guildInfo;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HouseInformationsExtended()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
             : base(isOnSale, isSaleLocked, houseId, doorsOnMap, ownerName, modelId)
         {
             this.guildInfo = guildInfo;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

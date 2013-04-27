@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameContextKickMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameContextKickMessage(int targetId)
         {
             this.targetId = targetId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

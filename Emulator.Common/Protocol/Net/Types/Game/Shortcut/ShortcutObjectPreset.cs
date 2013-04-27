@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 
         public sbyte presetId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutObjectPreset()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
             : base(slot)
         {
             this.presetId = presetId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

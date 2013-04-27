@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         public double jobXpLevelFloor;
         public double jobXpNextLevelFloor;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public JobExperience()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
             this.jobXP = jobXP;
             this.jobXpLevelFloor = jobXpLevelFloor;
             this.jobXpNextLevelFloor = jobXpNextLevelFloor;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

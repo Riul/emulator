@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public ushort level;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultMutantListEntry()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             : base(outcome, rewards, id, alive)
         {
             this.level = level;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

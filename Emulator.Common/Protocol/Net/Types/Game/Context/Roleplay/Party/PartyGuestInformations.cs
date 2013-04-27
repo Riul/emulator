@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
         public string name;
         public bool sex;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PartyGuestInformations()
         {
@@ -46,11 +51,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
             this.guestLook = guestLook;
             this.breed = breed;
             this.sex = sex;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

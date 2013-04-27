@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         public int hours;
         public int minutes;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AccountLoggingKickedMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
             this.days = days;
             this.hours = hours;
             this.minutes = minutes;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

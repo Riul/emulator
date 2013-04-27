@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Packs
 
         public int subAreaId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PackRestrictedSubAreaMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Packs
         public PackRestrictedSubAreaMessage(int subAreaId)
         {
             this.subAreaId = subAreaId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

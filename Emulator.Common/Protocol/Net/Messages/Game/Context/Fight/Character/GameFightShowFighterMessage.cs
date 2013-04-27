@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Character
 
         public GameFightFighterInformations informations;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightShowFighterMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Character
         public GameFightShowFighterMessage(GameFightFighterInformations informations)
         {
             this.informations = informations;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

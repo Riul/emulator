@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 
         public short value;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementStartedObjective()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
             : base(id, maxValue)
         {
             this.value = value;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

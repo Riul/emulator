@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ObjectItemNotInContainer @object;
         public bool onlySuccess;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeItemPaymentForCraftMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.onlySuccess = onlySuccess;
             this.@object = @object;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

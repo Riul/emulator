@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         public sbyte jobId;
         public SkillActionDescription[] skills;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public JobDescription()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         {
             this.jobId = jobId;
             this.skills = skills;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

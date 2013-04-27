@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         public JobCrafterDirectoryEntryJobInfo jobInfo;
         public JobCrafterDirectoryEntryPlayerInfo playerInfo;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public JobCrafterDirectoryListEntry()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
         {
             this.playerInfo = playerInfo;
             this.jobInfo = jobInfo;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

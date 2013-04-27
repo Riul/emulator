@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public bool allow;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeMultiCraftSetCrafterCanUseHisRessourcesMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public ExchangeMultiCraftSetCrafterCanUseHisRessourcesMessage(bool allow)
         {
             this.allow = allow;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

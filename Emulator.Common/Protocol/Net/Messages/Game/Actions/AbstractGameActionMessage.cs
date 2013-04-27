@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
         public short actionId;
         public int sourceId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractGameActionMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
         {
             this.actionId = actionId;
             this.sourceId = sourceId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

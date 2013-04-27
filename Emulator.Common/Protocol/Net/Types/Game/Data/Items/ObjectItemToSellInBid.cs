@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public short unsoldDelay;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemToSellInBid()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             : base(objectGID, powerRate, overMax, effects, objectUID, quantity, objectPrice)
         {
             this.unsoldDelay = unsoldDelay;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

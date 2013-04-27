@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
 
         public short rank;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PartyMemberArenaInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
             : base(id, level, name, entityLook, breed, sex, lifePoints, maxLifePoints, prospecting, regenRate, initiative, pvpEnabled, alignmentSide, worldX, worldY, mapId, subAreaId)
         {
             this.rank = rank;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

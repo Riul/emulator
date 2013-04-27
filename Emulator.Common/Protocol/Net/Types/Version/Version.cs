@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Version
         public sbyte release;
         public int revision;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public Version()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Types.Version
             this.revision = revision;
             this.patch = patch;
             this.buildType = buildType;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

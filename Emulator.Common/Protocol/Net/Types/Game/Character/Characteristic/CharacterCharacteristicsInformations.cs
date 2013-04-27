@@ -99,6 +99,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
         public CharacterBaseCharacteristic weaponDamagesBonusPercent;
         public CharacterBaseCharacteristic wisdom;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterCharacteristicsInformations()
         {
@@ -178,11 +183,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
             this.pvpAirElementReduction = pvpAirElementReduction;
             this.pvpFireElementReduction = pvpFireElementReduction;
             this.spellModifications = spellModifications;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

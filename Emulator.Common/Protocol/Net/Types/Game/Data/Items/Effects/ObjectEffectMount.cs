@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         public short modelId;
         public int mountId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectMount()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
             this.mountId = mountId;
             this.date = date;
             this.modelId = modelId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

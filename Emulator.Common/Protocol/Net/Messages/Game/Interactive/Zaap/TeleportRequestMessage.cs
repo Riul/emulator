@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
         public int mapId;
         public sbyte teleporterType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TeleportRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
         {
             this.teleporterType = teleporterType;
             this.mapId = mapId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

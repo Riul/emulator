@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public sbyte infoType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildGetInformationsMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildGetInformationsMessage(sbyte infoType)
         {
             this.infoType = infoType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

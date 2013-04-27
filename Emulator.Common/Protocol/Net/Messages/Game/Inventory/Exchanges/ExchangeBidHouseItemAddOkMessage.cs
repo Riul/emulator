@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ObjectItemToSellInBid itemInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeBidHouseItemAddOkMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeBidHouseItemAddOkMessage(ObjectItemToSellInBid itemInfo)
         {
             this.itemInfo = itemInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

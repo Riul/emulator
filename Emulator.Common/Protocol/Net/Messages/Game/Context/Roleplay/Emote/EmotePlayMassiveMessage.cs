@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 
         public int[] actorIds;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public EmotePlayMassiveMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
             : base(emoteId, emoteStartTime)
         {
             this.actorIds = actorIds;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

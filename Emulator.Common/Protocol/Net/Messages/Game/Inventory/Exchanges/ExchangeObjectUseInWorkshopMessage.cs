@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int objectUID;
         public int quantity;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeObjectUseInWorkshopMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.objectUID = objectUID;
             this.quantity = quantity;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

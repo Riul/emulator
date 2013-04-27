@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public int houseId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildHouseTeleportRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildHouseTeleportRequestMessage(int houseId)
         {
             this.houseId = houseId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public sbyte teamSide;
         public sbyte teamTypeId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractFightTeamInformations()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.leaderId = leaderId;
             this.teamSide = teamSide;
             this.teamTypeId = teamTypeId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

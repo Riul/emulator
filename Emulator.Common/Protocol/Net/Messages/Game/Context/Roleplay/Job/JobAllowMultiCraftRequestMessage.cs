@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public bool enabled;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public JobAllowMultiCraftRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public JobAllowMultiCraftRequestMessage(bool enabled)
         {
             this.enabled = enabled;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

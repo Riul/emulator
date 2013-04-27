@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
         public sbyte breed;
         public bool sex;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterBaseInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
         {
             this.breed = breed;
             this.sex = sex;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

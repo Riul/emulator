@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public byte newLevel;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildLevelUpMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildLevelUpMessage(byte newLevel)
         {
             this.newLevel = newLevel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

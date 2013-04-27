@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public byte[] key;
         public string salt;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HelloConnectMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         {
             this.salt = salt;
             this.key = key;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

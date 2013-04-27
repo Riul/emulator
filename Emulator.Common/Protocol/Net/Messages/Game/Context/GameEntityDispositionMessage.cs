@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public IdentifiedEntityDispositionInformations disposition;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameEntityDispositionMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameEntityDispositionMessage(IdentifiedEntityDispositionInformations disposition)
         {
             this.disposition = disposition;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         public string helpUrl;
         public string message;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DownloadErrorMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
             this.errorId = errorId;
             this.message = message;
             this.helpUrl = helpUrl;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

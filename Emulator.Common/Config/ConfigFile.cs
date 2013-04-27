@@ -25,7 +25,9 @@ namespace Emulator.Common.Config
 {
     public abstract class ConfigFile
     {
-        private Dictionary<string, string> entries; 
+        private Dictionary<string, string> entries;
+
+        public string FilePath { get; private set; }
 
         protected ConfigFile(string path)
         {
@@ -33,8 +35,6 @@ namespace Emulator.Common.Config
             entries = new Dictionary<string, string>();
             Read();
         }
-
-        public string FilePath { get; private set; }
 
         public void Save()
         {

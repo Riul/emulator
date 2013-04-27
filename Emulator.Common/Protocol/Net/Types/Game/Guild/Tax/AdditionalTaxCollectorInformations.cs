@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
         public string collectorCallerName;
         public int date;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AdditionalTaxCollectorInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
         {
             this.collectorCallerName = collectorCallerName;
             this.date = date;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
         public int dungeonId;
         public int xpBonus;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChallengeDungeonStackedBonusMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
             this.dungeonId = dungeonId;
             this.xpBonus = xpBonus;
             this.dropBonus = dropBonus;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

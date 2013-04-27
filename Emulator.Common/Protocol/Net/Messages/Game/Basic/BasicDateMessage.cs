@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public sbyte month;
         public short year;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicDateMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
             this.day = day;
             this.month = month;
             this.year = year;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
         public short dungeonId;
         public int timeLeft;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TeleportToBuddyOfferMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
             this.dungeonId = dungeonId;
             this.buddyId = buddyId;
             this.timeLeft = timeLeft;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

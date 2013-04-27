@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 
         public sbyte reason;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AcquaintanceSearchErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
         public AcquaintanceSearchErrorMessage(sbyte reason)
         {
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

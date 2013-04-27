@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int goldSum;
         public bool onlySuccess;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeGoldPaymentForCraftMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.onlySuccess = onlySuccess;
             this.goldSum = goldSum;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

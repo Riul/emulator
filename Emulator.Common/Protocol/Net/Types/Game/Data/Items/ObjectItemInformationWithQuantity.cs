@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public int quantity;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemInformationWithQuantity()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             : base(objectGID, powerRate, overMax, effects)
         {
             this.quantity = quantity;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

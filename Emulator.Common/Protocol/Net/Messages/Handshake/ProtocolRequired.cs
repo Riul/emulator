@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Handshake
         public int currentVersion;
         public int requiredVersion;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ProtocolRequired()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Handshake
         {
             this.requiredVersion = requiredVersion;
             this.currentVersion = currentVersion;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

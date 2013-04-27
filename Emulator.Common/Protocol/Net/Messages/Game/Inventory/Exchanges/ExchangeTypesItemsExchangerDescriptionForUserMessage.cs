@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public BidExchangerObjectInfo[] itemTypeDescriptions;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeTypesItemsExchangerDescriptionForUserMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeTypesItemsExchangerDescriptionForUserMessage(BidExchangerObjectInfo[] itemTypeDescriptions)
         {
             this.itemTypeDescriptions = itemTypeDescriptions;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

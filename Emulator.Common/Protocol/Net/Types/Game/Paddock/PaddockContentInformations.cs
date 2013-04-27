@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         public short worldX;
         public short worldY;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockContentInformations()
         {
@@ -48,11 +53,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
             this.subAreaId = subAreaId;
             this.abandonned = abandonned;
             this.mountsInformations = mountsInformations;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

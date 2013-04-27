@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Almanach
 
         public int date;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AlmanachCalendarDateMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Almanach
         public AlmanachCalendarDateMessage(int date)
         {
             this.date = date;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

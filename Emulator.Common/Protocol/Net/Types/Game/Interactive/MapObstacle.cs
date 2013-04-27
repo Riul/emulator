@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
         public short obstacleCellId;
         public sbyte state;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MapObstacle()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
         {
             this.obstacleCellId = obstacleCellId;
             this.state = state;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

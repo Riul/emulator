@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public byte level;
         public string ownerName;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayMountInformations()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.ownerName = ownerName;
             this.level = level;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         public short max;
         public short min;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectMinMax()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         {
             this.min = min;
             this.max = max;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

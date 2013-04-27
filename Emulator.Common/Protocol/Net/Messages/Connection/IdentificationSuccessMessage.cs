@@ -35,6 +35,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public double subscriptionEndDate;
         public bool wasAlreadyConnected;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationSuccessMessage()
         {
@@ -51,11 +56,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             this.secretQuestion = secretQuestion;
             this.subscriptionEndDate = subscriptionEndDate;
             this.accountCreation = accountCreation;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

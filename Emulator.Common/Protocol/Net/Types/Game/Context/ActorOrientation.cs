@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         public sbyte direction;
         public int id;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ActorOrientation()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         {
             this.id = id;
             this.direction = direction;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

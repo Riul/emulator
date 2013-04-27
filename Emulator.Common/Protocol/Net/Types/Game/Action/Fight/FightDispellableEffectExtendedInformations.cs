@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Action.Fight
         public AbstractFightDispellableEffect effect;
         public int sourceId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightDispellableEffectExtendedInformations()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Action.Fight
             this.actionId = actionId;
             this.sourceId = sourceId;
             this.effect = effect;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

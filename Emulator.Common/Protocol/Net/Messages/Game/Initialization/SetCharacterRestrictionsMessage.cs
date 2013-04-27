@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
 
         public ActorRestrictionsInformations restrictions;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SetCharacterRestrictionsMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
         public SetCharacterRestrictionsMessage(ActorRestrictionsInformations restrictions)
         {
             this.restrictions = restrictions;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild
         public int symbolColor;
         public short symbolShape;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GuildEmblem()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild
             this.symbolColor = symbolColor;
             this.backgroundShape = backgroundShape;
             this.backgroundColor = backgroundColor;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

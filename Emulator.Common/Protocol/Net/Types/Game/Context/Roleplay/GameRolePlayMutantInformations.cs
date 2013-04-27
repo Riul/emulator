@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public int monsterId;
         public sbyte powerLevel;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayMutantInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.monsterId = monsterId;
             this.powerLevel = powerLevel;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

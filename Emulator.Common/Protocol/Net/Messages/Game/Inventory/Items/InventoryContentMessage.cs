@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public int kamas;
         public ObjectItem[] objects;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public InventoryContentMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         {
             this.objects = objects;
             this.kamas = kamas;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

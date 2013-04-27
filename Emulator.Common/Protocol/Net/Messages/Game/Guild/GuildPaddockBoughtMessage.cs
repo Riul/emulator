@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public PaddockContentInformations paddockInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildPaddockBoughtMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildPaddockBoughtMessage(PaddockContentInformations paddockInfo)
         {
             this.paddockInfo = paddockInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

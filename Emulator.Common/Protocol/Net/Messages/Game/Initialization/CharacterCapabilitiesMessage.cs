@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
 
         public int guildEmblemSymbolCategories;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterCapabilitiesMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
         public CharacterCapabilitiesMessage(int guildEmblemSymbolCategories)
         {
             this.guildEmblemSymbolCategories = guildEmblemSymbolCategories;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

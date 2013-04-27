@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public IgnoredInformations ignoreAdded;
         public bool session;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IgnoredAddedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         {
             this.ignoreAdded = ignoreAdded;
             this.session = session;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

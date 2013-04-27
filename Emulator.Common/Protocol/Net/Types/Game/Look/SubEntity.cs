@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
         public sbyte bindingPointIndex;
         public EntityLook subEntityLook;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SubEntity()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
             this.bindingPointCategory = bindingPointCategory;
             this.bindingPointIndex = bindingPointIndex;
             this.subEntityLook = subEntityLook;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

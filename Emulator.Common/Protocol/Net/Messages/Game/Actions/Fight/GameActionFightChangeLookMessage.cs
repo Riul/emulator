@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public EntityLook entityLook;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightChangeLookMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         {
             this.targetId = targetId;
             this.entityLook = entityLook;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
         public int firstSlot;
         public int secondSlot;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutBarSwapRequestMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
             this.barType = barType;
             this.firstSlot = firstSlot;
             this.secondSlot = secondSlot;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

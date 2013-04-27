@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses.Gui
 
         public short houseId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseGuildNoneMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses.Gui
         public HouseGuildNoneMessage(short houseId)
         {
             this.houseId = houseId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

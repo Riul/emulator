@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         public short worldX;
         public short worldY;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MapCoordinates()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         {
             this.worldX = worldX;
             this.worldY = worldY;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

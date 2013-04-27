@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public short gameTurn;
         public GameActionMark[] marks;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightSpectateMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.effects = effects;
             this.marks = marks;
             this.gameTurn = gameTurn;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

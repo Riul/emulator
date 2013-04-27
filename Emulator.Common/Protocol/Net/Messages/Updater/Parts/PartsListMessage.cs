@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 
         public ContentPart[] parts;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartsListMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         public PartsListMessage(ContentPart[] parts)
         {
             this.parts = parts;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

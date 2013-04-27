@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public string forcedAccountLogin;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationAccountForceMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             : base(autoconnect, useCertificate, useLoginToken, version, lang, credentials, serverId)
         {
             this.forcedAccountLogin = forcedAccountLogin;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

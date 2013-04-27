@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 
         public ObjectItem[] objects;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatClientMultiWithObjectMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
             : base(content, channel)
         {
             this.objects = objects;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

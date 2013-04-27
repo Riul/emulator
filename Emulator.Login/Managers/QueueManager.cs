@@ -31,17 +31,17 @@ namespace Emulator.Login.Managers
         private readonly Queue<AuthClient> queue;
         private readonly Timer timer;
 
+        public static QueueManager Instance
+        {
+            get { return _instance ?? (_instance = new QueueManager()); }
+        }
+
         private QueueManager()
         {
             queue = new Queue<AuthClient>();
             timer = new Timer(WAITING_TIME);
             timer.Elapsed += Process;
             timer.Start();
-        }
-
-        public static QueueManager Instance
-        {
-            get { return _instance ?? (_instance = new QueueManager()); }
         }
 
         public void Enqueue(AuthClient client)

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public sbyte paymentType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeClearPaymentForCraftMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeClearPaymentForCraftMessage(sbyte paymentType)
         {
             this.paymentType = paymentType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

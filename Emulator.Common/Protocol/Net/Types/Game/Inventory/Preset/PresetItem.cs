@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
         public int objUid;
         public byte position;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public PresetItem()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
             this.position = position;
             this.objGid = objGid;
             this.objUid = objUid;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

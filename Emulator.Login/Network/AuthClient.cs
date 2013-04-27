@@ -25,14 +25,14 @@ namespace Emulator.Login.Network
 {
     public class AuthClient : Client
     {
+        public AuthentificationManager Authentification { get; private set; }
+        public AccountModel Account { get; set; }
+        public AuthClientStateEnum State { get; set; }
+
         public AuthClient(TcpClient client) : base(client)
         {
             Authentification = new AuthentificationManager(this);
         }
-
-        public AuthentificationManager Authentification { get; private set; }
-        public AccountModel Account { get; set; }
-        public AuthClientStateEnum State { get; set; }
     }
 
     public enum AuthClientStateEnum

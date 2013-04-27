@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Document
 
         public short documentId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DocumentReadingBeginMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Document
         public DocumentReadingBeginMessage(short documentId)
         {
             this.documentId = documentId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

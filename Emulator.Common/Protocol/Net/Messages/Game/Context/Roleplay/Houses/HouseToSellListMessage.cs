@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public short pageIndex;
         public short totalPage;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseToSellListMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
             this.pageIndex = pageIndex;
             this.totalPage = totalPage;
             this.houseList = houseList;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

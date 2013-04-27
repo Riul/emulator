@@ -35,6 +35,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
         public short worldX;
         public short worldY;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HouseInformationsForGuild()
         {
@@ -51,11 +56,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
             this.subAreaId = subAreaId;
             this.skillListIds = skillListIds;
             this.guildshareParams = guildshareParams;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public sbyte context;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameContextCreateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameContextCreateMessage(sbyte context)
         {
             this.context = context;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

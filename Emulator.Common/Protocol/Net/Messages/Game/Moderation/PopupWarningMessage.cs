@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Moderation
         public string content;
         public byte lockDuration;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PopupWarningMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Moderation
             this.lockDuration = lockDuration;
             this.author = author;
             this.content = content;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

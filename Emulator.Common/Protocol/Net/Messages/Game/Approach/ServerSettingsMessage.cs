@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         public sbyte community;
         public string lang;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ServerSettingsMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         {
             this.lang = lang;
             this.community = community;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

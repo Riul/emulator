@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 
         public bool accept;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TeleportBuddiesAnswerMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
         public TeleportBuddiesAnswerMessage(bool accept)
         {
             this.accept = accept;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

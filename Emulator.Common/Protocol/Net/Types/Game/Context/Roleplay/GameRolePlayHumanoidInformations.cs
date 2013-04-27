@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public int accountId;
         public HumanInformations humanoidInfo;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayHumanoidInformations()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.humanoidInfo = humanoidInfo;
             this.accountId = accountId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

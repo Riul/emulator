@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public sbyte charaTypeTarget;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildCharacsUpgradeRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildCharacsUpgradeRequestMessage(sbyte charaTypeTarget)
         {
             this.charaTypeTarget = charaTypeTarget;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

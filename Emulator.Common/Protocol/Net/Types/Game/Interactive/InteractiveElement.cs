@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
         public int elementTypeId;
         public InteractiveElementSkill[] enabledSkills;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public InteractiveElement()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
             this.elementTypeId = elementTypeId;
             this.enabledSkills = enabledSkills;
             this.disabledSkills = disabledSkills;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

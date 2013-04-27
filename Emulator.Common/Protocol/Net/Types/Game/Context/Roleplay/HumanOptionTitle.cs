@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public short titleId;
         public string titleParam;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HumanOptionTitle()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.titleId = titleId;
             this.titleParam = titleParam;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int storageMaxSlot;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartedWithStorageMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(exchangeType)
         {
             this.storageMaxSlot = storageMaxSlot;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

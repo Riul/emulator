@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public string buyCriterion;
         public int objectPrice;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemToSellInNpcShop()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         {
             this.objectPrice = objectPrice;
             this.buyCriterion = buyCriterion;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

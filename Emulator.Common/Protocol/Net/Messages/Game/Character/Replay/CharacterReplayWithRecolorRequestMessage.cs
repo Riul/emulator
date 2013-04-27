@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Replay
 
         public int[] indexedColor;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterReplayWithRecolorRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Replay
             : base(characterId)
         {
             this.indexedColor = indexedColor;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

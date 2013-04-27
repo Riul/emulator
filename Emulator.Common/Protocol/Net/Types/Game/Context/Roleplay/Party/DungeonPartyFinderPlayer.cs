@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
         public string playerName;
         public bool sex;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public DungeonPartyFinderPlayer()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
             this.breed = breed;
             this.sex = sex;
             this.level = level;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

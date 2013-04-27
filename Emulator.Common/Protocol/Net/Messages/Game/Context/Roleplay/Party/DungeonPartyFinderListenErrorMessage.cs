@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public short dungeonId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DungeonPartyFinderListenErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public DungeonPartyFinderListenErrorMessage(short dungeonId)
         {
             this.dungeonId = dungeonId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

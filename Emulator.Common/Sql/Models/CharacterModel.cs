@@ -25,6 +25,14 @@ namespace Emulator.Common.Sql.Models
     {
         public const string TABLE = "characters";
 
+        public int Id { get; set; }
+        public int AccountId { get; set; }
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public BreedEnum Breed { get; set; }
+        public int ServerId { get; set; }
+        public bool Sex { get; set; }
+
         public CharacterModel()
         {
         }
@@ -33,14 +41,6 @@ namespace Emulator.Common.Sql.Models
         {
             InitFromData(reader);
         }
-
-        public int Id { get; set; }
-        public int AccountId { get; set; }
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public BreedEnum Breed { get; set; }
-        public int ServerId { get; set; }
-        public bool Sex { get; set; }
 
         public void InitFromData(MySqlDataReader reader)
         {

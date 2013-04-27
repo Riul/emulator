@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
         public bool registered;
         public sbyte step;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayArenaRegistrationStatusMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
             this.registered = registered;
             this.step = step;
             this.battleMode = battleMode;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

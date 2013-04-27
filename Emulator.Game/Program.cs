@@ -21,6 +21,7 @@ using System.Threading;
 using Emulator.Common;
 using Emulator.Common.Protocol.Enums;
 using Emulator.Game.Config;
+using Emulator.Game.Network;
 using Emulator.Game.Network.Sync;
 
 namespace Emulator.Game
@@ -30,6 +31,7 @@ namespace Emulator.Game
         private static bool running;
         public static GameConfig Config { get; private set; }
         public static SyncClient Sync { get; private set; }
+        public static GameServer GameServer { get; private set; }
 
         static void Main(string[] args)
         {
@@ -68,7 +70,9 @@ namespace Emulator.Game
 
         public static void Start()
         {
-            //Start game server
+            GameServer = new GameServer();
+            GameServer.Start();
+            Logger.Info("Game server started on port {0}", Config.GamePort);
             Sync.UpdateState(ServerStatusEnum.ONLINE);
         }
 

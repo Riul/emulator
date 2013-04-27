@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public int id;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public IdentifiedEntityDispositionInformations()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
             : base(cellId, direction)
         {
             this.id = id;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

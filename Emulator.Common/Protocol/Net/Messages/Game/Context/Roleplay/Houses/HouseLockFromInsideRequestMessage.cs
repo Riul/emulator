@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
     {
         public const uint Id = 5885;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseLockFromInsideRequestMessage()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public HouseLockFromInsideRequestMessage(string code)
             : base(code)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

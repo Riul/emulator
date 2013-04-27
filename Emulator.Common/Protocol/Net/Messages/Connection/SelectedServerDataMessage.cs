@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public short serverId;
         public string ticket;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SelectedServerDataMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             this.port = port;
             this.canCreateNewCharacter = canCreateNewCharacter;
             this.ticket = ticket;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

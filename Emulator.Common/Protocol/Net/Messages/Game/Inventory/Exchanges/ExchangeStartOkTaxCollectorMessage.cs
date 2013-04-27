@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int goldInfo;
         public ObjectItem[] objectsInfos;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkTaxCollectorMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.collectorId = collectorId;
             this.objectsInfos = objectsInfos;
             this.goldInfo = goldInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

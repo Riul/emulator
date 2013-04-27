@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public short amount;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightStealKamaMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         {
             this.targetId = targetId;
             this.amount = amount;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

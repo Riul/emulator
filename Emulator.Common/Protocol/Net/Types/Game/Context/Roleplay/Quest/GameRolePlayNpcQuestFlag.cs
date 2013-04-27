@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public short[] questsToStartId;
         public short[] questsToValidId;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayNpcQuestFlag()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         {
             this.questsToValidId = questsToValidId;
             this.questsToStartId = questsToStartId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

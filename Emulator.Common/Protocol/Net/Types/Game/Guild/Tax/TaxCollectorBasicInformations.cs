@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
         public short worldX;
         public short worldY;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorBasicInformations()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
             this.worldY = worldY;
             this.mapId = mapId;
             this.subAreaId = subAreaId;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

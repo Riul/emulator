@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
 
         public int value;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public UpdateMountIntBoost()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
             : base(type)
         {
             this.value = value;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

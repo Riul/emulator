@@ -27,12 +27,13 @@ namespace Emulator.Game.Network.Sync
 {
     public class SyncClient : Client
     {
+        public Dictionary<string, int> Tickets { get; set; }
+
         public SyncClient()
         {
             Dispatcher.Register(this);
+            Tickets = new Dictionary<string, int>();
         }
-
-        public Dictionary<string, int> Tickets { get; set; }
 
         public void UpdateState(ServerStatusEnum state)
         {
@@ -56,6 +57,7 @@ namespace Emulator.Game.Network.Sync
         {
             Logger.Info("Succesfully registered to the login server !");
             UpdateState(ServerStatusEnum.STARTING);
+            Program.Start();
         }
 
         [MessageHandler(ClientTicketMessage.Id)]

@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public short worldX;
         public short worldY;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightAttackedMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
             this.mapId = mapId;
             this.subAreaId = subAreaId;
             this.prismSide = prismSide;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

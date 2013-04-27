@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public sbyte subAreaBalanceValue;
         public sbyte totalBalanceValue;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismBalanceResultMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         {
             this.totalBalanceValue = totalBalanceValue;
             this.subAreaBalanceValue = subAreaBalanceValue;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

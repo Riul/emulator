@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public GameRolePlayNpcQuestFlag questFlag;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayNpcWithQuestInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             : base(contextualId, look, disposition, npcId, sex, specialArtworkId)
         {
             this.questFlag = questFlag;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public sbyte powerLevel;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightMutantInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             : base(contextualId, look, disposition, teamId, alive, stats, name)
         {
             this.powerLevel = powerLevel;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

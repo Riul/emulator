@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightReflectSpellMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             : base(actionId, sourceId)
         {
             this.targetId = targetId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

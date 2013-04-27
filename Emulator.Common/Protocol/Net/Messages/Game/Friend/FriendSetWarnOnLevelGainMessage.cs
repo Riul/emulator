@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public bool enable;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public FriendSetWarnOnLevelGainMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public FriendSetWarnOnLevelGainMessage(bool enable)
         {
             this.enable = enable;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

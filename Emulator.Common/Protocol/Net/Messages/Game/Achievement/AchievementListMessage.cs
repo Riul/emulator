@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public short[] finishedAchievementsIds;
         public AchievementRewardable[] rewardableAchievements;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementListMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         {
             this.finishedAchievementsIds = finishedAchievementsIds;
             this.rewardableAchievements = rewardableAchievements;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

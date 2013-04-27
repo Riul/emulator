@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 
         public short ornamentId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public OrnamentSelectRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
         public OrnamentSelectRequestMessage(short ornamentId)
         {
             this.ornamentId = ornamentId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

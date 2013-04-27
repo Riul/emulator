@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public HouseInformationsInside currentHouse;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapComplementaryInformationsDataInHouseMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
             : base(subAreaId, mapId, subareaAlignmentSide, houses, actors, interactiveElements, statedElements, obstacles, fights)
         {
             this.currentHouse = currentHouse;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

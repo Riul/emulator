@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public sbyte lootShare;
         public GroupMonsterStaticInformations staticInfos;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayGroupMonsterInformations()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
             this.lootShare = lootShare;
             this.alignmentSide = alignmentSide;
             this.keyRingBonus = keyRingBonus;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

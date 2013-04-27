@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int humanVendorCell;
         public int humanVendorId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeOnHumanVendorRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.humanVendorId = humanVendorId;
             this.humanVendorCell = humanVendorCell;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

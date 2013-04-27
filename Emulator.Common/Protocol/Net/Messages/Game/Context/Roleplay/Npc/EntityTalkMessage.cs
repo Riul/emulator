@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public string[] parameters;
         public short textId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public EntityTalkMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
             this.entityId = entityId;
             this.textId = textId;
             this.parameters = parameters;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

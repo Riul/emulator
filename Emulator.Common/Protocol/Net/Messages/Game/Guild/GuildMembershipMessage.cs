@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
     {
         public const uint Id = 5835;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildMembershipMessage()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildMembershipMessage(GuildInformations guildInfo, uint memberRights, bool enabled)
             : base(guildInfo, memberRights, enabled)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

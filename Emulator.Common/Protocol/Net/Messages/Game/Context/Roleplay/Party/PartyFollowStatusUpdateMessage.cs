@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public int followedId;
         public bool success;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyFollowStatusUpdateMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         {
             this.success = success;
             this.followedId = followedId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

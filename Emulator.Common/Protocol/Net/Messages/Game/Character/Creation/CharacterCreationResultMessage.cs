@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 
         public sbyte result;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterCreationResultMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
         public CharacterCreationResultMessage(sbyte result)
         {
             this.result = result;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

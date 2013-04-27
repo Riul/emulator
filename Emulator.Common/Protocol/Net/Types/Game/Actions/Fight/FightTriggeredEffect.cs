@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         public int arg3;
         public short delay;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTriggeredEffect()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             this.arg2 = arg2;
             this.arg3 = arg3;
             this.delay = delay;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
         public short[] availables;
         public short[] unavailables;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DungeonKeyRingMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
         {
             this.availables = availables;
             this.unavailables = unavailables;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

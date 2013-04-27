@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public int objectUID;
         public int quantity;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemQuantity()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         {
             this.objectUID = objectUID;
             this.quantity = quantity;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

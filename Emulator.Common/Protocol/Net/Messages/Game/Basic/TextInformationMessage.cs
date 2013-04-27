@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public sbyte msgType;
         public string[] parameters;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TextInformationMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
             this.msgType = msgType;
             this.msgId = msgId;
             this.parameters = parameters;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

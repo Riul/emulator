@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public sbyte mode;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicSwitchModeRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public BasicSwitchModeRequestMessage(sbyte mode)
         {
             this.mode = mode;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

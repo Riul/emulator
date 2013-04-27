@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public int replacedCharacterId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildFightTakePlaceRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
             : base(taxCollectorId)
         {
             this.replacedCharacterId = replacedCharacterId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

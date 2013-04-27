@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public bool overMax;
         public short powerRate;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemMinimalInformation()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.powerRate = powerRate;
             this.overMax = overMax;
             this.effects = effects;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

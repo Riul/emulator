@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public byte livingPosition;
         public int livingUID;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LivingObjectDissociateMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         {
             this.livingUID = livingUID;
             this.livingPosition = livingPosition;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 
         public short[] features;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ServerOptionalFeaturesMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         public ServerOptionalFeaturesMessage(short[] features)
         {
             this.features = features;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

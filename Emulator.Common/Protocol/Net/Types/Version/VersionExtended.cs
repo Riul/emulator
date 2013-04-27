@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Version
         public sbyte install;
         public sbyte technology;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public VersionExtended()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Version
         {
             this.install = install;
             this.technology = technology;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

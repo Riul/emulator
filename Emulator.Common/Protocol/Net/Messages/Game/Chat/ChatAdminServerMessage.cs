@@ -24,6 +24,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
     {
         public const uint Id = 6135;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatAdminServerMessage()
         {
@@ -32,11 +37,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         public ChatAdminServerMessage(sbyte channel, string content, int timestamp, string fingerprint, int senderId, string senderName, int senderAccountId)
             : base(channel, content, timestamp, fingerprint, senderId, senderName, senderAccountId)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

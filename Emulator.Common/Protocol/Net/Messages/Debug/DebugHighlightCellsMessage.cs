@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
         public short[] cells;
         public int color;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DebugHighlightCellsMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
         {
             this.color = color;
             this.cells = cells;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public CharacterMinimalPlusLookAndGradeInformations fighterMovementInformations;
         public bool inMain;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightDefenderAddMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
             this.fightId = fightId;
             this.fighterMovementInformations = fighterMovementInformations;
             this.inMain = inMain;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

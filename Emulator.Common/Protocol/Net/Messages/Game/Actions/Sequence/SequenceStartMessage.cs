@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Sequence
         public int authorId;
         public sbyte sequenceType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SequenceStartMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Sequence
         {
             this.sequenceType = sequenceType;
             this.authorId = authorId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

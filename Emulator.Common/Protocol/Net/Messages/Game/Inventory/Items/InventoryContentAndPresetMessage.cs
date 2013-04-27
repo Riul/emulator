@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public Types.Game.Inventory.Preset.Preset[] presets;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public InventoryContentAndPresetMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             : base(objects, kamas)
         {
             this.presets = presets;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

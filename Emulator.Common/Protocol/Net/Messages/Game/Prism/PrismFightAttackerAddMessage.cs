@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public CharacterMinimalPlusLookAndGradeInformations[] charactersDescription;
         public double fightId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightAttackerAddMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         {
             this.fightId = fightId;
             this.charactersDescription = charactersDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

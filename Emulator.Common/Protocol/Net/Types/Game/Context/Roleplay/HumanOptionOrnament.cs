@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public short ornamentId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HumanOptionOrnament()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public HumanOptionOrnament(short ornamentId)
         {
             this.ornamentId = ornamentId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

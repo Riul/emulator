@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Report
         public sbyte reason;
         public uint reportedId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterReportMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Report
         {
             this.reportedId = reportedId;
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int[] jobs;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkJobIndexMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeStartOkJobIndexMessage(int[] jobs)
         {
             this.jobs = jobs;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

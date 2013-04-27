@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public short newCellId;
         public short oldCellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockMoveItemRequestMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         {
             this.oldCellId = oldCellId;
             this.newCellId = newCellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

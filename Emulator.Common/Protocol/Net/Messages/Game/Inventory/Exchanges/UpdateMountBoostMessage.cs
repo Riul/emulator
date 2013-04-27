@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public UpdateMountBoost[] boostToUpdateList;
         public double rideId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public UpdateMountBoostMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.rideId = rideId;
             this.boostToUpdateList = boostToUpdateList;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public int weight;
         public int weightMax;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public InventoryWeightMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         {
             this.weight = weight;
             this.weightMax = weightMax;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

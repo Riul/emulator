@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public string name;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightFighterNamedInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             : base(contextualId, look, disposition, teamId, alive, stats)
         {
             this.name = name;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public int npcId;
         public int npcMapId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NpcGenericActionRequestMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
             this.npcId = npcId;
             this.npcActionId = npcActionId;
             this.npcMapId = npcMapId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

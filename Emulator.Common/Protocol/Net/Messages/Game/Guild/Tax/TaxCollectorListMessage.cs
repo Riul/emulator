@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         public sbyte nbcollectorMax;
         public short taxCollectorHireCost;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorListMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
             this.taxCollectorHireCost = taxCollectorHireCost;
             this.informations = informations;
             this.fightersInformations = fightersInformations;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public int[] npcsIdsWithoutQuest;
         public GameRolePlayNpcQuestFlag[] questFlags;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapNpcsQuestStatusUpdateMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
             this.npcsIdsWithQuest = npcsIdsWithQuest;
             this.questFlags = questFlags;
             this.npcsIdsWithoutQuest = npcsIdsWithoutQuest;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

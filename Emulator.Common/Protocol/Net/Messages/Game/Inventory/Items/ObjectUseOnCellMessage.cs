@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public short cells;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectUseOnCellMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             : base(objectUID)
         {
             this.cells = cells;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

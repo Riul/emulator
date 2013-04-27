@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
         public int[] invalidBuddiesIds;
         public int inviterId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TeleportBuddiesRequestedMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
             this.dungeonId = dungeonId;
             this.inviterId = inviterId;
             this.invalidBuddiesIds = invalidBuddiesIds;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

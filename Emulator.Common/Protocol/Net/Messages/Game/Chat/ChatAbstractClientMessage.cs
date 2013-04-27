@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 
         public string content;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatAbstractClientMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         public ChatAbstractClientMessage(string content)
         {
             this.content = content;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

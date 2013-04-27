@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public double mountUid;
         public int quantity;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountFeedRequestMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
             this.mountLocation = mountLocation;
             this.mountFoodUid = mountFoodUid;
             this.quantity = quantity;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

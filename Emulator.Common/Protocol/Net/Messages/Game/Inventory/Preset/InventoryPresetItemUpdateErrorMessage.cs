@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 
         public sbyte code;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public InventoryPresetItemUpdateErrorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
         public InventoryPresetItemUpdateErrorMessage(sbyte code)
         {
             this.code = code;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

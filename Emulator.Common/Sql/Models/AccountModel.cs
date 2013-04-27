@@ -23,12 +23,6 @@ namespace Emulator.Common.Sql.Models
     public class AccountModel : IModel
     {
         public const string TABLE = "accounts";
-        public AccountModel() { }
-
-        public AccountModel(MySqlDataReader reader)
-        {
-            InitFromData(reader);
-        }
 
         public int Id { get; set; }
         public string Username { get; set; }
@@ -40,6 +34,12 @@ namespace Emulator.Common.Sql.Models
         public int AdminLevel { get; set; }
         public int LastServer { get; set; }
         public CharacterModel[] Characters { get; set; }
+        public AccountModel() { }
+
+        public AccountModel(MySqlDataReader reader)
+        {
+            InitFromData(reader);
+        }
 
         public void InitFromData(MySqlDataReader reader)
         {

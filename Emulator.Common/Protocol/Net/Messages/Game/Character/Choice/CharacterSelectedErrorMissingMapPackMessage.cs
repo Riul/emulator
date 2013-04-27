@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public int subAreaId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterSelectedErrorMissingMapPackMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         public CharacterSelectedErrorMissingMapPackMessage(int subAreaId)
         {
             this.subAreaId = subAreaId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

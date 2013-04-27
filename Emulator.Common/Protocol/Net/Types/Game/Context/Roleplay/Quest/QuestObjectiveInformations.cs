@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public short objectiveId;
         public bool objectiveStatus;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public QuestObjectiveInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         {
             this.objectiveId = objectiveId;
             this.objectiveStatus = objectiveStatus;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

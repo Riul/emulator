@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         public int attackerId;
         public int defenderId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayAggressionMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         {
             this.attackerId = attackerId;
             this.defenderId = defenderId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

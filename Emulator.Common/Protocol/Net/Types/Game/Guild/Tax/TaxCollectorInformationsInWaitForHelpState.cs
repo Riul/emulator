@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
 
         public ProtectedEntityWaitingForHelpInfo waitingForHelpInfo;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorInformationsInWaitForHelpState()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
             : base(uniqueId, firtNameId, lastNameId, additionalInfos, worldX, worldY, subAreaId, state, look, kamas, experience, pods, itemsValue)
         {
             this.waitingForHelpInfo = waitingForHelpInfo;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

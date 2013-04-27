@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public bool isSpectator;
         public int timeMaxBeforeFightStart;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightJoinMessage()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.isFightStarted = isFightStarted;
             this.timeMaxBeforeFightStart = timeMaxBeforeFightStart;
             this.fightType = fightType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

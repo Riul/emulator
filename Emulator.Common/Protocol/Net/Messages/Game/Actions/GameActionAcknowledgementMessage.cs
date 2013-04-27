@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
         public sbyte actionId;
         public bool valid;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionAcknowledgementMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
         {
             this.valid = valid;
             this.actionId = actionId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

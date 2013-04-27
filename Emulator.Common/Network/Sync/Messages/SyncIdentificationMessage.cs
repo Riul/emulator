@@ -25,6 +25,14 @@ namespace Emulator.Common.Network.Sync.Messages
     {
         public const uint Id = 2504;
 
+        public int ServerId { get; set; }
+        public string Password { get; set; }
+
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
         public SyncIdentificationMessage()
         {
         }
@@ -33,14 +41,6 @@ namespace Emulator.Common.Network.Sync.Messages
         {
             ServerId = servId;
             Password = password;
-        }
-
-        public int ServerId { get; set; }
-        public string Password { get; set; }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
         public override void Serialize(BigEndianWriter writer)

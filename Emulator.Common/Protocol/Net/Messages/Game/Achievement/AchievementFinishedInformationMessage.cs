@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public string name;
         public int playerId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementFinishedInformationMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         {
             this.name = name;
             this.playerId = playerId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

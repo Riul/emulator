@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
     {
         public const uint Id = 5646;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StorageInventoryContentMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
         public StorageInventoryContentMessage(ObjectItem[] objects, int kamas)
             : base(objects, kamas)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
 
         public ObjectItem @object;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StorageObjectUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
         public StorageObjectUpdateMessage(ObjectItem @object)
         {
             this.@object = @object;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

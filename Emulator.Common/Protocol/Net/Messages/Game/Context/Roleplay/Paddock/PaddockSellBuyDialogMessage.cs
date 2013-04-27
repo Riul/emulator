@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
         public int ownerId;
         public int price;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockSellBuyDialogMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
             this.bsell = bsell;
             this.ownerId = ownerId;
             this.price = price;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

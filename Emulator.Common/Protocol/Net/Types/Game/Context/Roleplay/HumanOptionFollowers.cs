@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public IndexedEntityLook[] followingCharactersLook;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HumanOptionFollowers()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public HumanOptionFollowers(IndexedEntityLook[] followingCharactersLook)
         {
             this.followingCharactersLook = followingCharactersLook;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

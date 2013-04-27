@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public double mountId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountSterilizedMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public MountSterilizedMessage(double mountId)
         {
             this.mountId = mountId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

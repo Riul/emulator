@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 
         public string value;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectString()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
             : base(actionId)
         {
             this.value = value;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

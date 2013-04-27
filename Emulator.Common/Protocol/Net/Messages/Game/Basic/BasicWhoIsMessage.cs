@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public sbyte position;
         public bool self;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicWhoIsMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
             this.accountNickname = accountNickname;
             this.characterName = characterName;
             this.areaId = areaId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

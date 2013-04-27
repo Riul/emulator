@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public int mapId;
         public string mapKey;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CurrentMapMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         {
             this.mapId = mapId;
             this.mapKey = mapKey;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

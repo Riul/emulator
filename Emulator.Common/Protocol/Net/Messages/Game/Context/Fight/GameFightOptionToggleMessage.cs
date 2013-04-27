@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public sbyte option;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightOptionToggleMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightOptionToggleMessage(sbyte option)
         {
             this.option = option;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

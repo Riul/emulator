@@ -36,6 +36,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         public sbyte taxCollectorsCount;
         public short wisdom;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorDialogQuestionExtendedMessage()
         {
@@ -53,11 +58,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
             this.experience = experience;
             this.pods = pods;
             this.itemsValue = itemsValue;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

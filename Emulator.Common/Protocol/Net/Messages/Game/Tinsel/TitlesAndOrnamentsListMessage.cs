@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
         public short[] ornaments;
         public short[] titles;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TitlesAndOrnamentsListMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
             this.ornaments = ornaments;
             this.activeTitle = activeTitle;
             this.activeOrnament = activeOrnament;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

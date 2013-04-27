@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
         public short spellId;
         public CharacterBaseCharacteristic value;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterSpellModification()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
             this.modificationType = modificationType;
             this.spellId = spellId;
             this.value = value;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

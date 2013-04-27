@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public double mountId;
         public string name;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountRenameRequestMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         {
             this.name = name;
             this.mountId = mountId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

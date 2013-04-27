@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Delay
         public sbyte delayTypeId;
         public int delayedCharacterId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayDelayedActionFinishedMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Delay
         {
             this.delayedCharacterId = delayedCharacterId;
             this.delayTypeId = delayTypeId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

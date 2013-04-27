@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public Version requiredVersion;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationFailedForBadVersionMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             : base(reason)
         {
             this.requiredVersion = requiredVersion;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

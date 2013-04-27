@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         public sbyte cellsType;
         public sbyte zoneSize;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionMarkedCell()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             this.zoneSize = zoneSize;
             this.cellColor = cellColor;
             this.cellsType = cellsType;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

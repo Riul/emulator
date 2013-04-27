@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public int spellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildSpellUpgradeRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildSpellUpgradeRequestMessage(int spellId)
         {
             this.spellId = spellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

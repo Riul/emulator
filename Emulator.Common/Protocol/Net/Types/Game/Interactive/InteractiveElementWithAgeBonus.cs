@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 
         public short ageBonus;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public InteractiveElementWithAgeBonus()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
             : base(elementId, elementTypeId, enabledSkills, disabledSkills)
         {
             this.ageBonus = ageBonus;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

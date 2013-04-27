@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public sbyte failure;
         public string uid;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public KrosmasterTransferMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         {
             this.uid = uid;
             this.failure = failure;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

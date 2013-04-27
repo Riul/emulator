@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public ushort number;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SequenceNumberMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public SequenceNumberMessage(ushort number)
         {
             this.number = number;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Channel
         public sbyte channel;
         public bool enable;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChannelEnablingChangeMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Channel
         {
             this.channel = channel;
             this.enable = enable;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

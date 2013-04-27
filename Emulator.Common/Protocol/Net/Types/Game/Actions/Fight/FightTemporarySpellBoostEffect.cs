@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public short boostedSpellId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTemporarySpellBoostEffect()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid, delta)
         {
             this.boostedSpellId = boostedSpellId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

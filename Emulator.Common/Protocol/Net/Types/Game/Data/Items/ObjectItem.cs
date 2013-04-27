@@ -34,6 +34,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public short powerRate;
         public int quantity;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItem()
         {
@@ -48,11 +53,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.effects = effects;
             this.objectUID = objectUID;
             this.quantity = quantity;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

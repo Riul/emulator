@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public int charId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightLeaveMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightLeaveMessage(int charId)
         {
             this.charId = charId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

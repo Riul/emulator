@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 
         public int spawnMapId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ZaapListMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
             : base(teleporterType, mapIds, subAreaIds, costs)
         {
             this.spawnMapId = spawnMapId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

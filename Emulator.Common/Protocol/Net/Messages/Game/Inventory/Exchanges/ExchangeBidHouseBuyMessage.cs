@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int qty;
         public int uid;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeBidHouseBuyMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.uid = uid;
             this.qty = qty;
             this.price = price;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
 
         public int[] flags;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NotificationListMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
         public NotificationListMessage(int[] flags)
         {
             this.flags = flags;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

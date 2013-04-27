@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
         public int elementId;
         public int elementState;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public StatedElement()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
             this.elementId = elementId;
             this.elementCellId = elementCellId;
             this.elementState = elementState;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public bool silentCast;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractGameActionFightTargetedAbilityMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             this.destinationCellId = destinationCellId;
             this.critical = critical;
             this.silentCast = silentCast;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

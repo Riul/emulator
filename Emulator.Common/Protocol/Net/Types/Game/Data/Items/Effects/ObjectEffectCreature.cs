@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 
         public short monsterFamilyId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectEffectCreature()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
             : base(actionId)
         {
             this.monsterFamilyId = monsterFamilyId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

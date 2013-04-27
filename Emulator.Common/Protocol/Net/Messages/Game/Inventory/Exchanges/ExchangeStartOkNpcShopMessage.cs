@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ObjectItemToSellInNpcShop[] objectsInfos;
         public int tokenId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkNpcShopMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             this.npcSellerId = npcSellerId;
             this.tokenId = tokenId;
             this.objectsInfos = objectsInfos;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

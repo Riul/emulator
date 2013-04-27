@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public int price;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PaddockSellRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public PaddockSellRequestMessage(int price)
         {
             this.price = price;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         public short lastNameId;
         public int taxCollectorAttack;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayTaxCollectorInformations()
         {
@@ -46,11 +51,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
             this.guildIdentity = guildIdentity;
             this.guildLevel = guildLevel;
             this.taxCollectorAttack = taxCollectorAttack;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

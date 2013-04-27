@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 
         public string code;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LockableChangeCodeMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         public LockableChangeCodeMessage(string code)
         {
             this.code = code;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

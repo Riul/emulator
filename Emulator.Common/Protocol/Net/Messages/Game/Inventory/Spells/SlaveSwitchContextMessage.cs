@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
         public CharacterCharacteristicsInformations slaveStats;
         public int summonerId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SlaveSwitchContextMessage()
         {
@@ -42,11 +47,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
             this.slaveId = slaveId;
             this.slaveSpells = slaveSpells;
             this.slaveStats = slaveStats;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

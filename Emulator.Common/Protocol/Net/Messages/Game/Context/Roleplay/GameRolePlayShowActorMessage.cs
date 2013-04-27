@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public GameRolePlayActorInformations informations;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayShowActorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public GameRolePlayShowActorMessage(GameRolePlayActorInformations informations)
         {
             this.informations = informations;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

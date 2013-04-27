@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public sbyte maxCase;
         public int skillId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkMulticraftCrafterMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.maxCase = maxCase;
             this.skillId = skillId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

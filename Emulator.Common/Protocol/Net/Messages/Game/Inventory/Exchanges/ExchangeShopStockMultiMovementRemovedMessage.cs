@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int[] objectIdList;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeShopStockMultiMovementRemovedMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeShopStockMultiMovementRemovedMessage(int[] objectIdList)
         {
             this.objectIdList = objectIdList;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

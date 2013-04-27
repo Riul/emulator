@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 
         public int slot;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public Shortcut()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
         public Shortcut(int slot)
         {
             this.slot = slot;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

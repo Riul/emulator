@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         public short turnDuration;
         public int uid;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractFightDispellableEffect()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             this.dispelable = dispelable;
             this.spellId = spellId;
             this.parentBoostUid = parentBoostUid;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

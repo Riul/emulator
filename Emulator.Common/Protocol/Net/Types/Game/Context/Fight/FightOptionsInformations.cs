@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public bool isRestrictedToPartyOnly;
         public bool isSecret;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightOptionsInformations()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.isRestrictedToPartyOnly = isRestrictedToPartyOnly;
             this.isClosed = isClosed;
             this.isAskingForHelp = isAskingForHelp;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

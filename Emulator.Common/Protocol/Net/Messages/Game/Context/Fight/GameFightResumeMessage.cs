@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightSpellCooldown[] spellCooldowns;
         public sbyte summonCount;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightResumeMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.spellCooldowns = spellCooldowns;
             this.summonCount = summonCount;
             this.bombCount = bombCount;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

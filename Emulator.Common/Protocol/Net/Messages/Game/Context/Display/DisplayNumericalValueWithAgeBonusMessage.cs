@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Display
 
         public int valueOfBonus;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DisplayNumericalValueWithAgeBonusMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Display
             : base(entityId, value, type)
         {
             this.valueOfBonus = valueOfBonus;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

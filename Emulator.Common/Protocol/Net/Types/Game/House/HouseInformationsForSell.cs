@@ -37,6 +37,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
         public short worldX;
         public short worldY;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HouseInformationsForSell()
         {
@@ -55,11 +60,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
             this.skillListIds = skillListIds;
             this.isLocked = isLocked;
             this.price = price;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

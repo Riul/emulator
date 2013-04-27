@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         public int markSpellId;
         public sbyte markType;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionMark()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
             this.markId = markId;
             this.markType = markType;
             this.cells = cells;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildInformations guildInfo;
         public uint memberRights;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildJoinedMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
             this.guildInfo = guildInfo;
             this.memberRights = memberRights;
             this.enabled = enabled;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

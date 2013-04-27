@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 
         public short cell;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectGroundRemovedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
         public ObjectGroundRemovedMessage(short cell)
         {
             this.cell = cell;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

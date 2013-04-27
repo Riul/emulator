@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public sbyte teamMembersCount;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTeamLightInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             : base(teamId, leaderId, teamSide, teamTypeId)
         {
             this.teamMembersCount = teamMembersCount;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

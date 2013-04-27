@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public int id;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterSelectedForceMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         public CharacterSelectedForceMessage(int id)
         {
             this.id = id;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

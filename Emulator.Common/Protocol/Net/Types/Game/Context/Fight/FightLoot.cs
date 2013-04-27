@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public int kamas;
         public short[] objects;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightLoot()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.objects = objects;
             this.kamas = kamas;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

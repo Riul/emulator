@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public int quantity;
         public int ressourceGenericId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectFoundWhileRecoltingMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
             this.genericId = genericId;
             this.quantity = quantity;
             this.ressourceGenericId = ressourceGenericId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public int[] indexedColor;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterSelectionWithRecolorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
             : base(id)
         {
             this.indexedColor = indexedColor;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

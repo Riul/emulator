@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public QuestObjectiveInformations[] objectives;
         public short stepId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public QuestActiveDetailedInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         {
             this.stepId = stepId;
             this.objectives = objectives;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

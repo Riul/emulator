@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public ushort maxHonorForGrade;
         public ushort minHonorForGrade;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultPvpData()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.honorDelta = honorDelta;
             this.dishonor = dishonor;
             this.dishonorDelta = dishonorDelta;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
 
         public int[] colors;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterToRecolorInformation()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
             : base(id)
         {
             this.colors = colors;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

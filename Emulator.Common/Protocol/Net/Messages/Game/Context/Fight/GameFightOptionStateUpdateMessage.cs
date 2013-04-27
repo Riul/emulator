@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public bool state;
         public sbyte teamId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightOptionStateUpdateMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.teamId = teamId;
             this.option = option;
             this.state = state;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

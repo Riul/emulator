@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 
         public int fightId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayRemoveChallengeMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
         public GameRolePlayRemoveChallengeMessage(int fightId)
         {
             this.fightId = fightId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

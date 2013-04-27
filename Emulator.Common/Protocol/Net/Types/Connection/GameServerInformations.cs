@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Connection
         public bool isSelectable;
         public sbyte status;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameServerInformations()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Types.Connection
             this.isSelectable = isSelectable;
             this.charactersCount = charactersCount;
             this.date = date;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

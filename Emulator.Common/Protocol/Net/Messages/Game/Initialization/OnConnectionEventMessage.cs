@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
 
         public sbyte eventType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public OnConnectionEventMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
         public OnConnectionEventMessage(sbyte eventType)
         {
             this.eventType = eventType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

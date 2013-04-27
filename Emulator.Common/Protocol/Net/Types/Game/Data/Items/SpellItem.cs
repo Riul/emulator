@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public int spellId;
         public sbyte spellLevel;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public SpellItem()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.position = position;
             this.spellId = spellId;
             this.spellLevel = spellLevel;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

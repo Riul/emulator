@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public int carryingCharacterId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightEntityDispositionInformations()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
             : base(cellId, direction)
         {
             this.carryingCharacterId = carryingCharacterId;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

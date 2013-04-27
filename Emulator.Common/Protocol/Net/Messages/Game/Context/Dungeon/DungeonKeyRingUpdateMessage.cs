@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
         public bool available;
         public short dungeonId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DungeonKeyRingUpdateMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
         {
             this.dungeonId = dungeonId;
             this.available = available;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

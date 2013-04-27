@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public sbyte emoteId;
         public double emoteStartTime;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public HumanOptionEmote()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.emoteId = emoteId;
             this.emoteStartTime = emoteStartTime;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

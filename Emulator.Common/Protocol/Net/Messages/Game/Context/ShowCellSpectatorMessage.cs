@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public string playerName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ShowCellSpectatorMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
             : base(sourceId, cellId)
         {
             this.playerName = playerName;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public int cancelerId;
         public int guestId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyCancelInvitationNotificationMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         {
             this.cancelerId = cancelerId;
             this.guestId = guestId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

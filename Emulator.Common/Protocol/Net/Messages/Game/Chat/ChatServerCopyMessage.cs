@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         public int receiverId;
         public string receiverName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatServerCopyMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         {
             this.receiverId = receiverId;
             this.receiverName = receiverName;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public int roundNumber;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightNewRoundMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public GameFightNewRoundMessage(int roundNumber)
         {
             this.roundNumber = roundNumber;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

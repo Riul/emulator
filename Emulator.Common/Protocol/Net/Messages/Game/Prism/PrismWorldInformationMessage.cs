@@ -34,6 +34,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public PrismSubAreaInformation[] subAreasInformation;
         public int subTotal;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismWorldInformationMessage()
         {
@@ -48,11 +53,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
             this.nbConqsOwned = nbConqsOwned;
             this.conqsTotal = conqsTotal;
             this.conquetesInformation = conquetesInformation;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

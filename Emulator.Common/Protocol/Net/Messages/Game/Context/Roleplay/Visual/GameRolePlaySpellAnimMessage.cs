@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Visual
         public sbyte spellLevel;
         public short targetCellId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlaySpellAnimMessage()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Visual
             this.targetCellId = targetCellId;
             this.spellId = spellId;
             this.spellLevel = spellLevel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

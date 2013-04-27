@@ -25,6 +25,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
     {
         public const uint Id = 5966;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeMountStableBornAddMessage()
         {
@@ -33,11 +38,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeMountStableBornAddMessage(MountClientData mountDescription)
             : base(mountDescription)
         {
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

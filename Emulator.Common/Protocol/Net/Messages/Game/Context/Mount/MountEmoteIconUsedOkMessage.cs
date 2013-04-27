@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public int mountId;
         public sbyte reactionType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountEmoteIconUsedOkMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         {
             this.mountId = mountId;
             this.reactionType = reactionType;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

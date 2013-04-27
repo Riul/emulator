@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public short outcome;
         public FightLoot rewards;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultListEntry()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.outcome = outcome;
             this.rewards = rewards;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

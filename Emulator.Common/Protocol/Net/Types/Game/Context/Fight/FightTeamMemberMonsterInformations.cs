@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public sbyte grade;
         public int monsterId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTeamMemberMonsterInformations()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.monsterId = monsterId;
             this.grade = grade;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

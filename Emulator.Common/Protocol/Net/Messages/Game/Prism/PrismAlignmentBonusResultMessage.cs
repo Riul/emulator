@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public AlignmentBonusInformations alignmentBonus;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismAlignmentBonusResultMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public PrismAlignmentBonusResultMessage(AlignmentBonusInformations alignmentBonus)
         {
             this.alignmentBonus = alignmentBonus;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

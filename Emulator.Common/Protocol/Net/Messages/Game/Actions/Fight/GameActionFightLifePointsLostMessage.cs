@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public short permanentDamages;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightLifePointsLostMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             this.targetId = targetId;
             this.loss = loss;
             this.permanentDamages = permanentDamages;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

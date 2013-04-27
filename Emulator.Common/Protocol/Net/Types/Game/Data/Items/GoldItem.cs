@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public int sum;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GoldItem()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public GoldItem(int sum)
         {
             this.sum = sum;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

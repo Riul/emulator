@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public sbyte direction;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameMapChangeOrientationRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public GameMapChangeOrientationRequestMessage(sbyte direction)
         {
             this.direction = direction;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

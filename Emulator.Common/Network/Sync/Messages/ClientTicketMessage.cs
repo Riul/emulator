@@ -25,6 +25,14 @@ namespace Emulator.Common.Network.Sync.Messages
     {
         public const uint Id = 2500;
 
+        public string Ticket { get; set; }
+        public int AccountId { get; set; }
+
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
         public ClientTicketMessage()
         {}
 
@@ -32,14 +40,6 @@ namespace Emulator.Common.Network.Sync.Messages
         {
             Ticket = ticket;
             AccountId = accountId;
-        }
-
-        public string Ticket { get; set; }
-        public int AccountId { get; set; }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
         public override void Serialize(BigEndianWriter writer)

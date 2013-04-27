@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public GameServerInformations[] servers;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ServersListMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public ServersListMessage(GameServerInformations[] servers)
         {
             this.servers = servers;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

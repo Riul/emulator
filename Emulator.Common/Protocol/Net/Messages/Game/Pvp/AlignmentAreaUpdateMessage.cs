@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         public short areaId;
         public sbyte side;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AlignmentAreaUpdateMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         {
             this.areaId = areaId;
             this.side = side;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

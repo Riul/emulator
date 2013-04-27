@@ -39,6 +39,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public short subAreaId;
         public sbyte subareaAlignmentSide;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MapComplementaryInformationsDataMessage()
         {
@@ -55,11 +60,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
             this.statedElements = statedElements;
             this.obstacles = obstacles;
             this.fights = fights;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

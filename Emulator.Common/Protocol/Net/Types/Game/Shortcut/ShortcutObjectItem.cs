@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
         public int itemGID;
         public int itemUID;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ShortcutObjectItem()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
         {
             this.itemUID = itemUID;
             this.itemGID = itemGID;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

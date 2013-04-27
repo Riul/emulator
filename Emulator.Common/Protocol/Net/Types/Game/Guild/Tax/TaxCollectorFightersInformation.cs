@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
         public int collectorId;
         public CharacterMinimalPlusLookInformations[] enemyCharactersInformations;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorFightersInformation()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
             this.collectorId = collectorId;
             this.allyCharactersInformations = allyCharactersInformations;
             this.enemyCharactersInformations = enemyCharactersInformations;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

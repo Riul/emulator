@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public int creatureGenericId;
         public sbyte grade;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public MonsterInGroupLightInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.creatureGenericId = creatureGenericId;
             this.grade = grade;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

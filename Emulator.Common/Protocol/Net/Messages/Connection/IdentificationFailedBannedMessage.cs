@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public double banEndDate;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public IdentificationFailedBannedMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             : base(reason)
         {
             this.banEndDate = banEndDate;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

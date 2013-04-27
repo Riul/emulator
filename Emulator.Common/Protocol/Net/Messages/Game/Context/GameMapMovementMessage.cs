@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public int actorId;
         public short[] keyMovements;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameMapMovementMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         {
             this.keyMovements = keyMovements;
             this.actorId = actorId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

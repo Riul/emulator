@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public double id;
         public double time;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountInformationRequestMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         {
             this.id = id;
             this.time = time;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

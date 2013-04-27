@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public short lastNameId;
         public short level;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightTaxCollectorInformations()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.firstNameId = firstNameId;
             this.lastNameId = lastNameId;
             this.level = level;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

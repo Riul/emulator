@@ -40,6 +40,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public bool showExperienceLevelFloor;
         public bool showExperienceNextLevelFloor;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultExperienceData()
         {
@@ -61,11 +66,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.experienceForGuild = experienceForGuild;
             this.experienceForMount = experienceForMount;
             this.rerollExperienceMul = rerollExperienceMul;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

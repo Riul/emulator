@@ -24,6 +24,14 @@ namespace Emulator.Login.Config
     {
         public const string FILE_PATH = "LoginConfig.txt";
 
+        public string DbHost { get; set; }
+        public string DbName { get; set; }
+        public string DbUser { get; set; }
+        public string DbPassword { get; set; }
+        public int LoginPort { get; set; }
+        public int SyncPort { get; set; }
+        public string SyncPassword { get; set; }
+
         public LoginConfig() : base(FILE_PATH)
         {
             DbHost = GetValue("db_host", "127.0.0.1");
@@ -35,13 +43,5 @@ namespace Emulator.Login.Config
             SyncPassword = GetValue("sync_password", "password");
             Save();
         }
-
-        public string DbHost { get; set; }
-        public string DbName { get; set; }
-        public string DbUser { get; set; }
-        public string DbPassword { get; set; }
-        public int LoginPort { get; set; }
-        public int SyncPort { get; set; }
-        public string SyncPassword { get; set; }
     }
 }

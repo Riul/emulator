@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public int weaponGenericId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightCloseCombatMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             : base(actionId, sourceId, targetId, destinationCellId, critical, silentCast)
         {
             this.weaponGenericId = weaponGenericId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

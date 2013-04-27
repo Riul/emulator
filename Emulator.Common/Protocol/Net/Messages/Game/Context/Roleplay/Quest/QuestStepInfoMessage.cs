@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 
         public QuestActiveInformations infos;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public QuestStepInfoMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
         public QuestStepInfoMessage(QuestActiveInformations infos)
         {
             this.infos = infos;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

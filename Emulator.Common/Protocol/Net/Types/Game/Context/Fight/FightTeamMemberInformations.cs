@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public int id;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightTeamMemberInformations()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public FightTeamMemberInformations(int id)
         {
             this.id = id;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

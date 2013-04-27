@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Death
 
         public sbyte state;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameRolePlayPlayerLifeStatusMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Death
         public GameRolePlayPlayerLifeStatusMessage(sbyte state)
         {
             this.state = state;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

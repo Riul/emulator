@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
         public sbyte level;
         public string message;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public DebugInClientMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
         {
             this.level = level;
             this.message = message;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

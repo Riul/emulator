@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public int accountId;
         public string accountName;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractContactInformations()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         {
             this.accountId = accountId;
             this.accountName = accountName;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

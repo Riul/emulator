@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
         public short boostPoint;
         public short[] spellsId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SpellForgottenMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
         {
             this.spellsId = spellsId;
             this.boostPoint = boostPoint;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

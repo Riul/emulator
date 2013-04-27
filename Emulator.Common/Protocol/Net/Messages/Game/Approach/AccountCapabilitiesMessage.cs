@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         public sbyte status;
         public bool tutorialAvailable;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AccountCapabilitiesMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
             this.breedsVisible = breedsVisible;
             this.breedsAvailable = breedsAvailable;
             this.status = status;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public bool alive;
         public int id;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultFighterListEntry()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             this.id = id;
             this.alive = alive;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

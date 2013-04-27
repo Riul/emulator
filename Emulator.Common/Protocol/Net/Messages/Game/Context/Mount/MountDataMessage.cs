@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public MountClientData mountData;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountDataMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public MountDataMessage(MountClientData mountData)
         {
             this.mountData = mountData;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

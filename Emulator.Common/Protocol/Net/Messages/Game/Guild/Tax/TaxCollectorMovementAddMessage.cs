@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public TaxCollectorInformations informations;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TaxCollectorMovementAddMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         public TaxCollectorMovementAddMessage(TaxCollectorInformations informations)
         {
             this.informations = informations;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

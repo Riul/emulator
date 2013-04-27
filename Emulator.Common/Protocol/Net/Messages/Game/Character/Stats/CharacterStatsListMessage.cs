@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public CharacterCharacteristicsInformations stats;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterStatsListMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         public CharacterStatsListMessage(CharacterCharacteristicsInformations stats)
         {
             this.stats = stats;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

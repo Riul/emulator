@@ -34,6 +34,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public short powerRate;
         public int quantity;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ObjectItemToSell()
         {
@@ -48,11 +53,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.objectUID = objectUID;
             this.quantity = quantity;
             this.objectPrice = objectPrice;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

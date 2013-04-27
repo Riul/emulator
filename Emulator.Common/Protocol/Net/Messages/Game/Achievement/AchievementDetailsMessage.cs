@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 
         public Types.Game.Achievement.Achievement achievement;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AchievementDetailsMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public AchievementDetailsMessage(Types.Game.Achievement.Achievement achievement)
         {
             this.achievement = achievement;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

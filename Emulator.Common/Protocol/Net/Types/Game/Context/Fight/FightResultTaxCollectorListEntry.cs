@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public BasicGuildInformations guildInfo;
         public byte level;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FightResultTaxCollectorListEntry()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.level = level;
             this.guildInfo = guildInfo;
             this.experienceForGuild = experienceForGuild;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

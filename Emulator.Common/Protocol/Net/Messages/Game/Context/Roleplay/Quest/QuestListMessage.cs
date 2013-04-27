@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
         public short[] finishedQuestsCounts;
         public short[] finishedQuestsIds;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public QuestListMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
             this.finishedQuestsIds = finishedQuestsIds;
             this.finishedQuestsCounts = finishedQuestsCounts;
             this.activeQuests = activeQuests;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

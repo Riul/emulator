@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 
         public short titleId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public TitleSelectedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
         public TitleSelectedMessage(short titleId)
         {
             this.titleId = titleId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

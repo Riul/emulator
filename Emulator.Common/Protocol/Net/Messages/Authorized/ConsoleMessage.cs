@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
         public string content;
         public sbyte type;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ConsoleMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
         {
             this.type = type;
             this.content = content;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

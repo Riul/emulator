@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 
         public sbyte result;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public LockableCodeResultMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         public LockableCodeResultMessage(sbyte result)
         {
             this.result = result;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

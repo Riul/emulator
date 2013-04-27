@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public int playerId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NumericWhoIsRequestMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public NumericWhoIsRequestMessage(int playerId)
         {
             this.playerId = playerId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

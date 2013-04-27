@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public sbyte ratio;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MountXpRatioMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public MountXpRatioMessage(sbyte ratio)
         {
             this.ratio = ratio;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

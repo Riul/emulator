@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int objectValue;
         public int totalTaxValue;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeReplyTaxVendorMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.objectValue = objectValue;
             this.totalTaxValue = totalTaxValue;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

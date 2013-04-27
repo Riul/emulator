@@ -37,6 +37,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         public byte spouseLevel;
         public string spouseName;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public FriendSpouseInformations()
         {
@@ -53,11 +58,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
             this.spouseEntityLook = spouseEntityLook;
             this.guildInfo = guildInfo;
             this.alignmentSide = alignmentSide;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

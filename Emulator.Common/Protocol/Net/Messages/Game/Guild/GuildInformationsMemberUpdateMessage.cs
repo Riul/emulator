@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildMember member;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInformationsMemberUpdateMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildInformationsMemberUpdateMessage(GuildMember member)
         {
             this.member = member;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

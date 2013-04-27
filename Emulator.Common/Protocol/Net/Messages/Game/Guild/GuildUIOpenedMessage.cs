@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public sbyte type;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildUIOpenedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildUIOpenedMessage(sbyte type)
         {
             this.type = type;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

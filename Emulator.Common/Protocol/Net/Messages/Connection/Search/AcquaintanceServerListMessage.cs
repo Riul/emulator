@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 
         public short[] servers;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AcquaintanceServerListMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
         public AcquaintanceServerListMessage(short[] servers)
         {
             this.servers = servers;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

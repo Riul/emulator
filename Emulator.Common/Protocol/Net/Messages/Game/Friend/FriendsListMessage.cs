@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public FriendInformations[] friendsList;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public FriendsListMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public FriendsListMessage(FriendInformations[] friendsList)
         {
             this.friendsList = friendsList;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

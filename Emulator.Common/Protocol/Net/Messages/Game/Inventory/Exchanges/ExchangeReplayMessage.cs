@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public int count;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeReplayMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeReplayMessage(int count)
         {
             this.count = count;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

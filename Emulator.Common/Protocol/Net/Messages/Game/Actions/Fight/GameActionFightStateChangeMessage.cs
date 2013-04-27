@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public short stateId;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightStateChangeMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             this.targetId = targetId;
             this.stateId = stateId;
             this.active = active;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

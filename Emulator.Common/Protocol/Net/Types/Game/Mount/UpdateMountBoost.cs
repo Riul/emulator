@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
 
         public sbyte type;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public UpdateMountBoost()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
         public UpdateMountBoost(sbyte type)
         {
             this.type = type;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

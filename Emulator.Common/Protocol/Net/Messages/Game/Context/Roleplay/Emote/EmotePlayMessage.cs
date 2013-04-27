@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         public int accountId;
         public int actorId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public EmotePlayMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         {
             this.actorId = actorId;
             this.accountId = accountId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

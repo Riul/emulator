@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
 
         public short waitAckId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AbstractGameActionWithAckMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
             : base(actionId, sourceId)
         {
             this.waitAckId = waitAckId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

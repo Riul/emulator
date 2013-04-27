@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public short[] positionsForDefenders;
         public sbyte teamNumber;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightPlacementPossiblePositionsMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.positionsForChallengers = positionsForChallengers;
             this.positionsForDefenders = positionsForDefenders;
             this.teamNumber = teamNumber;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

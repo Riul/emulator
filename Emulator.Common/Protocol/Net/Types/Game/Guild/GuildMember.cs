@@ -39,6 +39,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild
         public uint rights;
         public bool sex;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GuildMember()
         {
@@ -59,11 +64,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild
             this.moodSmileyId = moodSmileyId;
             this.accountId = accountId;
             this.achievementPoints = achievementPoints;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

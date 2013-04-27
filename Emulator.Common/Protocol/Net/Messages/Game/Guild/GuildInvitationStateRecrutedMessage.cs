@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public sbyte invitationState;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildInvitationStateRecrutedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public GuildInvitationStateRecrutedMessage(sbyte invitationState)
         {
             this.invitationState = invitationState;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

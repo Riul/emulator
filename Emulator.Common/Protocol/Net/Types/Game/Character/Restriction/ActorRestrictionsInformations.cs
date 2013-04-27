@@ -46,6 +46,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Restriction
         public bool cantWalk8Directions;
         public bool forceSlowWalk;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public ActorRestrictionsInformations()
         {
@@ -74,11 +79,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Restriction
             this.cantChangeZone = cantChangeZone;
             this.cantAttackMonster = cantAttackMonster;
             this.cantWalk8Directions = cantWalk8Directions;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

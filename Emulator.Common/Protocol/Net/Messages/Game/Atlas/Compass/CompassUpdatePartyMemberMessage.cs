@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
 
         public int memberId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CompassUpdatePartyMemberMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
             : base(type, worldX, worldY)
         {
             this.memberId = memberId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
 
         public short index;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NotificationUpdateFlagMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
         public NotificationUpdateFlagMessage(short index)
         {
             this.index = index;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

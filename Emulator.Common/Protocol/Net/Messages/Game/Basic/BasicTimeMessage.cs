@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         public int timestamp;
         public short timezoneOffset;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public BasicTimeMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
         {
             this.timestamp = timestamp;
             this.timezoneOffset = timezoneOffset;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

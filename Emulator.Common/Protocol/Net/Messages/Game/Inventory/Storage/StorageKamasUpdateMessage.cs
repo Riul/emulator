@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
 
         public int kamasTotal;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public StorageKamasUpdateMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
         public StorageKamasUpdateMessage(int kamasTotal)
         {
             this.kamasTotal = kamasTotal;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

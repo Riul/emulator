@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 
         public AbstractFightDispellableEffect effect;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightDispellableEffectMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             : base(actionId, sourceId)
         {
             this.effect = effect;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

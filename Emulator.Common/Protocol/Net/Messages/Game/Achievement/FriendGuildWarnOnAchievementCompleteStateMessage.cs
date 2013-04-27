@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 
         public bool enable;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public FriendGuildWarnOnAchievementCompleteStateMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public FriendGuildWarnOnAchievementCompleteStateMessage(bool enable)
         {
             this.enable = enable;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

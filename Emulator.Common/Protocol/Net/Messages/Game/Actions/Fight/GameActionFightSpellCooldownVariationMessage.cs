@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public int targetId;
         public short value;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightSpellCooldownVariationMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             this.targetId = targetId;
             this.spellId = spellId;
             this.value = value;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

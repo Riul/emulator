@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public short fightId;
         public sbyte teamId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightRemoveTeamMemberMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
             this.fightId = fightId;
             this.teamId = teamId;
             this.charId = charId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

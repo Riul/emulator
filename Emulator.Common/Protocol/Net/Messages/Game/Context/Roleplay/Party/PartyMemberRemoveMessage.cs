@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public int leavingPlayerId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyMemberRemoveMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             : base(partyId)
         {
             this.leavingPlayerId = leavingPlayerId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

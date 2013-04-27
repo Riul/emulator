@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         public short powerRate;
         public int[] prices;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public BidExchangerObjectInfo()
         {
@@ -44,11 +49,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
             this.overMax = overMax;
             this.effects = effects;
             this.prices = prices;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

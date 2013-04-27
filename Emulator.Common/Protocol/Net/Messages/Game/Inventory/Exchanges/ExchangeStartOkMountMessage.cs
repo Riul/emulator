@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public MountClientData[] paddockedMountsDescription;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeStartOkMountMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
             : base(stabledMountsDescription)
         {
             this.paddockedMountsDescription = paddockedMountsDescription;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

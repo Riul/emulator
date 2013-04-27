@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public GameFightMinimalStats stats;
         public sbyte teamId;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GameFightFighterInformations()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
             this.teamId = teamId;
             this.alive = alive;
             this.stats = stats;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

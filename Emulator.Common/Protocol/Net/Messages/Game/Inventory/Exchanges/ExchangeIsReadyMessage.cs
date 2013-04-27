@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public int id;
         public bool ready;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeIsReadyMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         {
             this.id = id;
             this.ready = ready;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

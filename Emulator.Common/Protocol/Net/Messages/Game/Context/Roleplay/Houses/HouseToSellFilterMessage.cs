@@ -31,6 +31,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public int maxPrice;
         public short skillRequested;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public HouseToSellFilterMessage()
         {
@@ -43,11 +48,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
             this.atLeastNbChest = atLeastNbChest;
             this.skillRequested = skillRequested;
             this.maxPrice = maxPrice;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

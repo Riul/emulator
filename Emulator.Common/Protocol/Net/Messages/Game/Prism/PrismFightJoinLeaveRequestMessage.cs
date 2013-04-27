@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public bool join;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismFightJoinLeaveRequestMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public PrismFightJoinLeaveRequestMessage(bool join)
         {
             this.join = join;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

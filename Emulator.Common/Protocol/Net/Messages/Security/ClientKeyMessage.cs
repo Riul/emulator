@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Security
 
         public string key;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ClientKeyMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Security
         public ClientKeyMessage(string key)
         {
             this.key = key;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

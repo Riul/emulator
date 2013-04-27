@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Report
         public string senderName;
         public int timestamp;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChatMessageReportMessage()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Report
             this.channel = channel;
             this.fingerprint = fingerprint;
             this.reason = reason;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

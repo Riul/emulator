@@ -30,6 +30,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
         public byte deathMaxLevel;
         public sbyte deathState;
 
+        public override short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public CharacterHardcoreInformations()
         {
@@ -41,11 +46,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
             this.deathState = deathState;
             this.deathCount = deathCount;
             this.deathMaxLevel = deathMaxLevel;
-        }
-
-        public override short TypeId
-        {
-            get { return Id; }
         }
 
 

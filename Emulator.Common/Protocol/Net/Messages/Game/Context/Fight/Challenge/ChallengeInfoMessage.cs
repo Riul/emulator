@@ -32,6 +32,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
         public int extraXpBonus;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ChallengeInfoMessage()
         {
@@ -45,11 +50,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
             this.extraXpBonus = extraXpBonus;
             this.baseDropBonus = baseDropBonus;
             this.extraDropBonus = extraDropBonus;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

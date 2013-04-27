@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public sbyte newMaxSlot;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeCraftSlotCountIncreasedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeCraftSlotCountIncreasedMessage(sbyte newMaxSlot)
         {
             this.newMaxSlot = newMaxSlot;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

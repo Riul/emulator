@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
 
         public int[] sendersAccountId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public NewMailMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
             : base(unread, total)
         {
             this.sendersAccountId = sendersAccountId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

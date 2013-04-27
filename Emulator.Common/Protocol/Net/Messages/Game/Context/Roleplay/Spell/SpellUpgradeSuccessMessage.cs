@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
         public int spellId;
         public sbyte spellLevel;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SpellUpgradeSuccessMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
         {
             this.spellId = spellId;
             this.spellLevel = spellLevel;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

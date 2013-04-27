@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         public string lang;
         public string ticket;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AuthenticationTicketMessage()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         {
             this.lang = lang;
             this.ticket = ticket;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

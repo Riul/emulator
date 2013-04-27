@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         public MonsterInGroupLightInformations mainCreatureLightInfos;
         public MonsterInGroupInformations[] underlings;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public GroupMonsterStaticInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             this.mainCreatureLightInfos = mainCreatureLightInfos;
             this.underlings = underlings;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

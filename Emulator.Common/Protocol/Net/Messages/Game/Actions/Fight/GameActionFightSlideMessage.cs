@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         public short startCellId;
         public int targetId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GameActionFightSlideMessage()
         {
@@ -40,11 +45,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
             this.targetId = targetId;
             this.startCellId = startCellId;
             this.endCellId = endCellId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

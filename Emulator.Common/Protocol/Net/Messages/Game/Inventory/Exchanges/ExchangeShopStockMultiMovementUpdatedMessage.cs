@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ObjectItemToSell[] objectInfoList;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public ExchangeShopStockMultiMovementUpdatedMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public ExchangeShopStockMultiMovementUpdatedMessage(ObjectItemToSell[] objectInfoList)
         {
             this.objectInfoList = objectInfoList;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

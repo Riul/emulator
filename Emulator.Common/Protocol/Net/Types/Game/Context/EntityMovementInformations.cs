@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         public int id;
         public sbyte[] steps;
 
+        public virtual short TypeId
+        {
+            get { return Id; }
+        }
+
 
         public EntityMovementInformations()
         {
@@ -36,11 +41,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         {
             this.id = id;
             this.steps = steps;
-        }
-
-        public virtual short TypeId
-        {
-            get { return Id; }
         }
 
 

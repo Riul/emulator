@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
         public sbyte resultCode;
         public sbyte smileyId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public MoodSmileyResultMessage()
         {
@@ -37,11 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
         {
             this.resultCode = resultCode;
             this.smileyId = smileyId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -33,6 +33,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public PartyInvitationMemberInformations[] members;
         public sbyte partyType;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PartyInvitationDetailsMessage()
         {
@@ -47,11 +52,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
             this.leaderId = leaderId;
             this.members = members;
             this.guests = guests;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

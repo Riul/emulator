@@ -24,11 +24,12 @@ namespace Emulator.Game.Network
 {
     public class GameServer : Server
     {
+        public List<GameClient> Clients { get; private set; }
+
         public GameServer() : base(Program.Config.GamePort)
         {
+            Clients = new List<GameClient>();
         }
-
-        public List<GameClient> Clients { get; private set; }
 
         protected override void OnClientConnected(TcpClient client)
         {

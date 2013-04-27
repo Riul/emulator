@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         public double fightId;
         public CharacterMinimalPlusLookInformations playerInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public GuildFightPlayersHelpersJoinMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         {
             this.fightId = fightId;
             this.playerInfo = playerInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

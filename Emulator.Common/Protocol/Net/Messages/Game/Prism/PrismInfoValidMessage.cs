@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public ProtectedEntityWaitingForHelpInfo waitingForHelpInfo;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public PrismInfoValidMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
         public PrismInfoValidMessage(ProtectedEntityWaitingForHelpInfo waitingForHelpInfo)
         {
             this.waitingForHelpInfo = waitingForHelpInfo;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

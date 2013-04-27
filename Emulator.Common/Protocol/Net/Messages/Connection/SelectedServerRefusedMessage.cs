@@ -29,6 +29,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public short serverId;
         public sbyte serverStatus;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public SelectedServerRefusedMessage()
         {
@@ -39,11 +44,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             this.serverId = serverId;
             this.error = error;
             this.serverStatus = serverStatus;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -26,6 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
 
         public string content;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public AdminCommandMessage()
         {
@@ -34,11 +39,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
         public AdminCommandMessage(string content)
         {
             this.content = content;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

@@ -28,6 +28,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
         public int memberId;
         public string memberName;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public CompassUpdatePvpSeekMessage()
         {
@@ -38,11 +43,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
         {
             this.memberId = memberId;
             this.memberName = memberName;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 

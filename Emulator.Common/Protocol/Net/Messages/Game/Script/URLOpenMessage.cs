@@ -27,6 +27,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Script
 
         public int urlId;
 
+        public override uint MessageId
+        {
+            get { return Id; }
+        }
+
 
         public URLOpenMessage()
         {
@@ -35,11 +40,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Script
         public URLOpenMessage(int urlId)
         {
             this.urlId = urlId;
-        }
-
-        public override uint MessageId
-        {
-            get { return Id; }
         }
 
 
