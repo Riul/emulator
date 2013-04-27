@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emulator.Common", "Emulator.Common\Emulator.Common.csproj", "{6BD474C6-1C58-4BEB-B45C-F96055014F04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emulator.Game", "Emulator.Game\Emulator.Game.csproj", "{1188F366-DCA4-4CE6-B698-30C3BE3CA332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emulator.Login", "Emulator.Login\Emulator.Login.csproj", "{102047C9-2C16-48BB-B259-A9CE36D49067}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BD474C6-1C58-4BEB-B45C-F96055014F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD474C6-1C58-4BEB-B45C-F96055014F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD474C6-1C58-4BEB-B45C-F96055014F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD474C6-1C58-4BEB-B45C-F96055014F04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1188F366-DCA4-4CE6-B698-30C3BE3CA332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1188F366-DCA4-4CE6-B698-30C3BE3CA332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1188F366-DCA4-4CE6-B698-30C3BE3CA332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1188F366-DCA4-4CE6-B698-30C3BE3CA332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102047C9-2C16-48BB-B259-A9CE36D49067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102047C9-2C16-48BB-B259-A9CE36D49067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102047C9-2C16-48BB-B259-A9CE36D49067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102047C9-2C16-48BB-B259-A9CE36D49067}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
