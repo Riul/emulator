@@ -52,5 +52,14 @@ namespace Emulator.Common.Sql.Models
             ServerId = (int)reader["serverId"];
             Sex = (bool)reader["sex"];
         }
+
+        public void Save()
+        {
+            lock (SQLManager.Locker)
+            {
+                const string query = "UPDATE {0} SET name='{0}', level='{1}', breed='{2}', serverId='{3}', sex='{4}' WHERE id='{5}'";
+                SQLManager.ExecuteNonQuery(query, TABLE, Name, Level, (int) Breed, ServerId, ServerId, Id);
+            }
+        }
     }
 }

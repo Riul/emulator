@@ -23,5 +23,6 @@ namespace Emulator.Common.Sql.Models
     public interface IModel
     {
         void InitFromData(MySqlDataReader reader);
+        void Save();
     }
 }

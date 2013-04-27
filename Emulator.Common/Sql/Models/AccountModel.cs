@@ -53,5 +53,14 @@ namespace Emulator.Common.Sql.Models
             AdminLevel = (int)reader["adminLevel"];
             LastServer = (int)reader["lastServer"];
         }
+
+        public void Save()
+        {
+            lock (SQLManager.Locker)
+            {
+                const string query = "UPDATE {0} SET banned='{1}', adminLevel='{2}', lastServer='{3}' WHERE id='{4}'";
+                SQLManager.ExecuteNonQuery(query, TABLE, Banned, AdminLevel, LastServer, Id);
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ using MySql.Data.MySqlClient;
 
 namespace Emulator.Common.Sql.Models
 {
-    public class ServerModel
+    public class ServerModel : IModel
     {
         public const string TABLE = "servers";
 
@@ -45,6 +45,10 @@ namespace Emulator.Common.Sql.Models
             Ip = (string)reader["ip"];
             Port = (int)reader["port"];
             Status = ServerStatusEnum.OFFLINE;
+        }
+
+        public void Save()
+        {
         }
     }
 }
