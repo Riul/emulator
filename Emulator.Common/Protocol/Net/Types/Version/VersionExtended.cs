@@ -60,5 +60,10 @@ namespace Emulator.Common.Protocol.Net.Types.Version
             Install = reader.ReadSByte();
             Technology = reader.ReadSByte();
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}.{1}.{2}.{3}.{4}", Major, Minor, Release, Revision, Patch);
+        }
     }
 }
