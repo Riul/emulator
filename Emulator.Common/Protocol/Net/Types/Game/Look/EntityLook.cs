@@ -36,7 +36,6 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
             get { return Id; }
         }
 
-
         public EntityLook()
         {
             skins = new short[0];

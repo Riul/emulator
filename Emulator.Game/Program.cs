@@ -20,6 +20,7 @@ using System;
 using System.Threading;
 using Emulator.Common;
 using Emulator.Common.Protocol.Enums;
+using Emulator.Common.Sql;
 using Emulator.Game.Config;
 using Emulator.Game.Network;
 using Emulator.Game.Network.Sync;
@@ -42,6 +43,11 @@ namespace Emulator.Game
             AppDomain.CurrentDomain.UnhandledException += UnhandledException;
             Config = new GameConfig();
             Sync = new SyncClient();
+
+            if(SQLManager.Init(Config.DbHost, Config.DbName, Config.DbUser, Config.DbPassword))
+            {
+                Logger.Info("SQLManager initialized!");
+            }
 
             if (Sync.Start(Config.SyncIp, Config.SyncPort))
             {

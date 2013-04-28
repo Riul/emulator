@@ -32,8 +32,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         {
             get { return Id; }
         }
-
-
+        
         public ServerSettingsMessage()
         {
         }
@@ -43,7 +42,6 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
             this.lang = lang;
             this.community = community;
         }
-
 
         public override void Serialize(BigEndianWriter writer)
         {

@@ -99,7 +99,6 @@ namespace Emulator.Common.Network
         {
             if(!Running)
                 throw new Exception("The client isn't running.");
-            Socket.GetStream().Close();
             Socket.Close();
             Running = false;
         }
