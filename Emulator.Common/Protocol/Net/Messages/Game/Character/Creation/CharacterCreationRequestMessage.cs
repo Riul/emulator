@@ -70,9 +70,8 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
             Name = reader.ReadUTF();
             Breed = reader.ReadSByte();
             Sex = reader.ReadBoolean();
-            var limit = reader.ReadUShort();
-            Colors = new int[limit];
-            for (int i = 0; i < limit; i++)
+            Colors = new int[5];
+            for (int i = 0; i < 5; i++)
             {
                 Colors[i] = reader.ReadInt();
             }
