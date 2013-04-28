@@ -48,7 +48,7 @@ namespace Emulator.Common.Protocol.Net.Types
 
             foreach (var type in assembly.GetTypes())
             {
-                if (type.Namespace != null && type.Namespace.Contains("Oktopus.Dofus.Net.Types"))
+                if (type.Namespace != null && type.Namespace.Contains("Emulator.Common.Protocol.Net.Types"))
                 {
                     FieldInfo fieldId = type.GetField("ID");
                     if (fieldId != null)
