@@ -41,7 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MITM.cs" />
+    <Compile Include="Config\SnifferConfig.cs" />
+    <Compile Include="Network\GameClient.cs" />
+    <Compile Include="Network\LoginClient.cs" />
+    <Compile Include="Network\MITM.cs" />
+    <Compile Include="Network\MITMClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
