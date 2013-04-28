@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class AtlasPointsInformations
     {
-        public const short Id = 175;
-
-        public MapCoordinatesExtended[] coords;
-        public sbyte type;
+        public const short ID = 175;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Type { get; set; }
+        public MapCoordinatesExtended[] Coords { get; set; }
 
 
         public AtlasPointsInformations()
@@ -40,16 +41,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public AtlasPointsInformations(sbyte type, MapCoordinatesExtended[] coords)
         {
-            this.type = type;
-            this.coords = coords;
+            Type = type;
+            Coords = coords;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(type);
-            writer.WriteUShort((ushort) coords.Length);
-            foreach (var entry in coords)
+            writer.WriteSByte(Type);
+            writer.WriteUShort((ushort) Coords.Length);
+            foreach (var entry in Coords)
             {
                 entry.Serialize(writer);
             }
@@ -57,15 +58,13 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            type = reader.ReadSByte();
-            if (type < 0)
-                throw new Exception("Forbidden value on type = " + type + ", it doesn't respect the following condition : type < 0");
+            Type = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            coords = new MapCoordinatesExtended[limit];
+            Coords = new MapCoordinatesExtended[limit];
             for (int i = 0; i < limit; i++)
             {
-                coords[i] = new MapCoordinatesExtended();
-                coords[i].Deserialize(reader);
+                Coords[i] = new MapCoordinatesExtended();
+                Coords[i].Deserialize(reader);
             }
         }
     }

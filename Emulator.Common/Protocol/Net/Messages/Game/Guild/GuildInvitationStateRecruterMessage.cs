@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInvitationStateRecruterMessage : NetworkMessage
     {
-        public const uint Id = 5563;
-
-        public sbyte invitationState;
-        public string recrutedName;
+        public const uint ID = 5563;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string RecrutedName { get; set; }
+        public sbyte InvitationState { get; set; }
 
 
         public GuildInvitationStateRecruterMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInvitationStateRecruterMessage(string recrutedName, sbyte invitationState)
         {
-            this.recrutedName = recrutedName;
-            this.invitationState = invitationState;
+            RecrutedName = recrutedName;
+            InvitationState = invitationState;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(recrutedName);
-            writer.WriteSByte(invitationState);
+            writer.WriteUTF(RecrutedName);
+            writer.WriteSByte(InvitationState);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            recrutedName = reader.ReadUTF();
-            invitationState = reader.ReadSByte();
-            if (invitationState < 0)
-                throw new Exception("Forbidden value on invitationState = " + invitationState + ", it doesn't respect the following condition : invitationState < 0");
+            RecrutedName = reader.ReadUTF();
+            InvitationState = reader.ReadSByte();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Script
 {
     public class URLOpenMessage : NetworkMessage
     {
-        public const uint Id = 6266;
-
-        public int urlId;
+        public const uint ID = 6266;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int UrlId { get; set; }
 
 
         public URLOpenMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Script
 
         public URLOpenMessage(int urlId)
         {
-            this.urlId = urlId;
+            UrlId = urlId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(urlId);
+            writer.WriteInt(UrlId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            urlId = reader.ReadInt();
-            if (urlId < 0)
-                throw new Exception("Forbidden value on urlId = " + urlId + ", it doesn't respect the following condition : urlId < 0");
+            UrlId = reader.ReadInt();
         }
     }
 }

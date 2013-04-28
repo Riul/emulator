@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeStartedBidSellerMessage : NetworkMessage
     {
-        public const uint Id = 5905;
-
-        public ObjectItemToSellInBid[] objectsInfos;
-        public SellerBuyerDescriptor sellerDescriptor;
+        public const uint ID = 5905;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public SellerBuyerDescriptor SellerDescriptor { get; set; }
+        public ObjectItemToSellInBid[] ObjectsInfos { get; set; }
 
 
         public ExchangeStartedBidSellerMessage()
@@ -40,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeStartedBidSellerMessage(SellerBuyerDescriptor sellerDescriptor, ObjectItemToSellInBid[] objectsInfos)
         {
-            this.sellerDescriptor = sellerDescriptor;
-            this.objectsInfos = objectsInfos;
+            SellerDescriptor = sellerDescriptor;
+            ObjectsInfos = objectsInfos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            sellerDescriptor.Serialize(writer);
-            writer.WriteUShort((ushort) objectsInfos.Length);
-            foreach (var entry in objectsInfos)
+            SellerDescriptor.Serialize(writer);
+            writer.WriteUShort((ushort) ObjectsInfos.Length);
+            foreach (var entry in ObjectsInfos)
             {
                 entry.Serialize(writer);
             }
@@ -57,14 +59,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public override void Deserialize(BigEndianReader reader)
         {
-            sellerDescriptor = new SellerBuyerDescriptor();
-            sellerDescriptor.Deserialize(reader);
+            SellerDescriptor = new SellerBuyerDescriptor();
+            SellerDescriptor.Deserialize(reader);
             var limit = reader.ReadUShort();
-            objectsInfos = new ObjectItemToSellInBid[limit];
+            ObjectsInfos = new ObjectItemToSellInBid[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectsInfos[i] = new ObjectItemToSellInBid();
-                objectsInfos[i].Deserialize(reader);
+                ObjectsInfos[i] = new ObjectItemToSellInBid();
+                ObjectsInfos[i].Deserialize(reader);
             }
         }
     }

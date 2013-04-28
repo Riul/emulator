@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyInvitationMessage : AbstractPartyMessage
     {
-        public const uint Id = 5586;
-
-        public int fromId;
-        public string fromName;
-        public sbyte maxParticipants;
-        public sbyte partyType;
-        public int toId;
+        public const uint ID = 5586;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PartyType { get; set; }
+        public sbyte MaxParticipants { get; set; }
+        public int FromId { get; set; }
+        public string FromName { get; set; }
+        public int ToId { get; set; }
 
 
         public PartyInvitationMessage()
@@ -42,42 +43,34 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyInvitationMessage(int partyId, sbyte partyType, sbyte maxParticipants, int fromId, string fromName, int toId)
-            : base(partyId)
+                : base(partyId)
         {
-            this.partyType = partyType;
-            this.maxParticipants = maxParticipants;
-            this.fromId = fromId;
-            this.fromName = fromName;
-            this.toId = toId;
+            PartyType = partyType;
+            MaxParticipants = maxParticipants;
+            FromId = fromId;
+            FromName = fromName;
+            ToId = toId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(partyType);
-            writer.WriteSByte(maxParticipants);
-            writer.WriteInt(fromId);
-            writer.WriteUTF(fromName);
-            writer.WriteInt(toId);
+            writer.WriteSByte(PartyType);
+            writer.WriteSByte(MaxParticipants);
+            writer.WriteInt(FromId);
+            writer.WriteUTF(FromName);
+            writer.WriteInt(ToId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            partyType = reader.ReadSByte();
-            if (partyType < 0)
-                throw new Exception("Forbidden value on partyType = " + partyType + ", it doesn't respect the following condition : partyType < 0");
-            maxParticipants = reader.ReadSByte();
-            if (maxParticipants < 0)
-                throw new Exception("Forbidden value on maxParticipants = " + maxParticipants + ", it doesn't respect the following condition : maxParticipants < 0");
-            fromId = reader.ReadInt();
-            if (fromId < 0)
-                throw new Exception("Forbidden value on fromId = " + fromId + ", it doesn't respect the following condition : fromId < 0");
-            fromName = reader.ReadUTF();
-            toId = reader.ReadInt();
-            if (toId < 0)
-                throw new Exception("Forbidden value on toId = " + toId + ", it doesn't respect the following condition : toId < 0");
+            PartyType = reader.ReadSByte();
+            MaxParticipants = reader.ReadSByte();
+            FromId = reader.ReadInt();
+            FromName = reader.ReadUTF();
+            ToId = reader.ReadInt();
         }
     }
 }

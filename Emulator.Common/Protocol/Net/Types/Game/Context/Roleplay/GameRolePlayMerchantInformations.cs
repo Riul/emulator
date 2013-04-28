@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayMerchantInformations : GameRolePlayNamedActorInformations
     {
-        public const short Id = 129;
-
-        public int sellType;
+        public const short ID = 129;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SellType { get; set; }
 
 
         public GameRolePlayMerchantInformations()
@@ -39,24 +40,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayMerchantInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, string name, int sellType)
-            : base(contextualId, look, disposition, name)
+                : base(contextualId, look, disposition, name)
         {
-            this.sellType = sellType;
+            SellType = sellType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(sellType);
+            writer.WriteInt(SellType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            sellType = reader.ReadInt();
-            if (sellType < 0)
-                throw new Exception("Forbidden value on sellType = " + sellType + ", it doesn't respect the following condition : sellType < 0");
+            SellType = reader.ReadInt();
         }
     }
 }

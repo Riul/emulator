@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 {
     public class InteractiveElementWithAgeBonus : InteractiveElement
     {
-        public const short Id = 398;
-
-        public short ageBonus;
+        public const short ID = 398;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short AgeBonus { get; set; }
 
 
         public InteractiveElementWithAgeBonus()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
         }
 
         public InteractiveElementWithAgeBonus(int elementId, int elementTypeId, InteractiveElementSkill[] enabledSkills, InteractiveElementSkill[] disabledSkills, short ageBonus)
-            : base(elementId, elementTypeId, enabledSkills, disabledSkills)
+                : base(elementId, elementTypeId, enabledSkills, disabledSkills)
         {
-            this.ageBonus = ageBonus;
+            AgeBonus = ageBonus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(ageBonus);
+            writer.WriteShort(AgeBonus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            ageBonus = reader.ReadShort();
-            if (ageBonus < -1 || ageBonus > 1000)
-                throw new Exception("Forbidden value on ageBonus = " + ageBonus + ", it doesn't respect the following condition : ageBonus < -1 || ageBonus > 1000");
+            AgeBonus = reader.ReadShort();
         }
     }
 }

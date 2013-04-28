@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeHandleMountStableMessage : NetworkMessage
     {
-        public const uint Id = 5965;
-
-        public sbyte actionType;
-        public int rideId;
+        public const uint ID = 5965;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte ActionType { get; set; }
+        public int RideId { get; set; }
 
 
         public ExchangeHandleMountStableMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeHandleMountStableMessage(sbyte actionType, int rideId)
         {
-            this.actionType = actionType;
-            this.rideId = rideId;
+            ActionType = actionType;
+            RideId = rideId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(actionType);
-            writer.WriteInt(rideId);
+            writer.WriteSByte(ActionType);
+            writer.WriteInt(RideId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            actionType = reader.ReadSByte();
-            rideId = reader.ReadInt();
-            if (rideId < 0)
-                throw new Exception("Forbidden value on rideId = " + rideId + ", it doesn't respect the following condition : rideId < 0");
+            ActionType = reader.ReadSByte();
+            RideId = reader.ReadInt();
         }
     }
 }

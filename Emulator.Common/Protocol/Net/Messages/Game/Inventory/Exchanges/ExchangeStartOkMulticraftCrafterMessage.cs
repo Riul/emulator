@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeStartOkMulticraftCrafterMessage : NetworkMessage
     {
-        public const uint Id = 5818;
-
-        public sbyte maxCase;
-        public int skillId;
+        public const uint ID = 5818;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte MaxCase { get; set; }
+        public int SkillId { get; set; }
 
 
         public ExchangeStartOkMulticraftCrafterMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeStartOkMulticraftCrafterMessage(sbyte maxCase, int skillId)
         {
-            this.maxCase = maxCase;
-            this.skillId = skillId;
+            MaxCase = maxCase;
+            SkillId = skillId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(maxCase);
-            writer.WriteInt(skillId);
+            writer.WriteSByte(MaxCase);
+            writer.WriteInt(SkillId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            maxCase = reader.ReadSByte();
-            if (maxCase < 0)
-                throw new Exception("Forbidden value on maxCase = " + maxCase + ", it doesn't respect the following condition : maxCase < 0");
-            skillId = reader.ReadInt();
-            if (skillId < 0)
-                throw new Exception("Forbidden value on skillId = " + skillId + ", it doesn't respect the following condition : skillId < 0");
+            MaxCase = reader.ReadSByte();
+            SkillId = reader.ReadInt();
         }
     }
 }

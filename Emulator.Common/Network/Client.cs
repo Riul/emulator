@@ -120,10 +120,19 @@ namespace Emulator.Common.Network
             }
         }
 
+        public void Send(uint id, byte[] data)
+        {
+            lock (locker)
+            {
+                if (!Connected)
+                    throw new Exception("Cannot send a message if the client isn't connected.");
+                Writer.WriteBytes(NetworkMessage.BuildPacket(id, data));
+            }
+        }
+
         protected virtual void OnMessageReceived(NetworkMessage message)
         {
             MessageReceivedEventHandler handler = MessageReceived;
-            Logger.Debug("- " + message.GetType().Name);
             if (handler != null) handler(this, message);
         }
 

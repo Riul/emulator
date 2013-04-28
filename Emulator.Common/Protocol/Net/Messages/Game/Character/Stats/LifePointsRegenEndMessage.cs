@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 {
     public class LifePointsRegenEndMessage : UpdateLifePointsMessage
     {
-        public const uint Id = 5686;
-
-        public int lifePointsGained;
+        public const uint ID = 5686;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int LifePointsGained { get; set; }
 
 
         public LifePointsRegenEndMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         }
 
         public LifePointsRegenEndMessage(int lifePoints, int maxLifePoints, int lifePointsGained)
-            : base(lifePoints, maxLifePoints)
+                : base(lifePoints, maxLifePoints)
         {
-            this.lifePointsGained = lifePointsGained;
+            LifePointsGained = lifePointsGained;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(lifePointsGained);
+            writer.WriteInt(LifePointsGained);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            lifePointsGained = reader.ReadInt();
-            if (lifePointsGained < 0)
-                throw new Exception("Forbidden value on lifePointsGained = " + lifePointsGained + ", it doesn't respect the following condition : lifePointsGained < 0");
+            LifePointsGained = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Subscriber
 {
     public class SubscriptionZoneMessage : NetworkMessage
     {
-        public const uint Id = 5573;
-
-        public bool active;
+        public const uint ID = 5573;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Active { get; set; }
 
 
         public SubscriptionZoneMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Subscriber
 
         public SubscriptionZoneMessage(bool active)
         {
-            this.active = active;
+            Active = active;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(active);
+            writer.WriteBoolean(Active);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            active = reader.ReadBoolean();
+            Active = reader.ReadBoolean();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 {
     public class ObjectGroundListAddedMessage : NetworkMessage
     {
-        public const uint Id = 5925;
-
-        public short[] cells;
-        public int[] referenceIds;
+        public const uint ID = 5925;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Cells { get; set; }
+        public int[] ReferenceIds { get; set; }
 
 
         public ObjectGroundListAddedMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 
         public ObjectGroundListAddedMessage(short[] cells, int[] referenceIds)
         {
-            this.cells = cells;
-            this.referenceIds = referenceIds;
+            Cells = cells;
+            ReferenceIds = referenceIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) cells.Length);
-            foreach (var entry in cells)
+            writer.WriteUShort((ushort) Cells.Length);
+            foreach (var entry in Cells)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) referenceIds.Length);
-            foreach (var entry in referenceIds)
+            writer.WriteUShort((ushort) ReferenceIds.Length);
+            foreach (var entry in ReferenceIds)
             {
                 writer.WriteInt(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            cells = new short[limit];
+            Cells = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                cells[i] = reader.ReadShort();
+                Cells[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            referenceIds = new int[limit];
+            ReferenceIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                referenceIds[i] = reader.ReadInt();
+                ReferenceIds[i] = reader.ReadInt();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class BasicAckMessage : NetworkMessage
     {
-        public const uint Id = 6362;
-
-        public short lastPacketId;
-        public int seq;
+        public const uint ID = 6362;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Seq { get; set; }
+        public short LastPacketId { get; set; }
 
 
         public BasicAckMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public BasicAckMessage(int seq, short lastPacketId)
         {
-            this.seq = seq;
-            this.lastPacketId = lastPacketId;
+            Seq = seq;
+            LastPacketId = lastPacketId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(seq);
-            writer.WriteShort(lastPacketId);
+            writer.WriteInt(Seq);
+            writer.WriteShort(LastPacketId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            seq = reader.ReadInt();
-            if (seq < 0)
-                throw new Exception("Forbidden value on seq = " + seq + ", it doesn't respect the following condition : seq < 0");
-            lastPacketId = reader.ReadShort();
-            if (lastPacketId < 0)
-                throw new Exception("Forbidden value on lastPacketId = " + lastPacketId + ", it doesn't respect the following condition : lastPacketId < 0");
+            Seq = reader.ReadInt();
+            LastPacketId = reader.ReadShort();
         }
     }
 }

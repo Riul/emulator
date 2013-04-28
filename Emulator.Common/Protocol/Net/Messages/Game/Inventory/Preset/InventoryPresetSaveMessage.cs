@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 {
     public class InventoryPresetSaveMessage : NetworkMessage
     {
-        public const uint Id = 6165;
-
-        public sbyte presetId;
-        public bool saveEquipment;
-        public sbyte symbolId;
+        public const uint ID = 6165;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PresetId { get; set; }
+        public sbyte SymbolId { get; set; }
+        public bool SaveEquipment { get; set; }
 
 
         public InventoryPresetSaveMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 
         public InventoryPresetSaveMessage(sbyte presetId, sbyte symbolId, bool saveEquipment)
         {
-            this.presetId = presetId;
-            this.symbolId = symbolId;
-            this.saveEquipment = saveEquipment;
+            PresetId = presetId;
+            SymbolId = symbolId;
+            SaveEquipment = saveEquipment;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(presetId);
-            writer.WriteSByte(symbolId);
-            writer.WriteBoolean(saveEquipment);
+            writer.WriteSByte(PresetId);
+            writer.WriteSByte(SymbolId);
+            writer.WriteBoolean(SaveEquipment);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            presetId = reader.ReadSByte();
-            if (presetId < 0)
-                throw new Exception("Forbidden value on presetId = " + presetId + ", it doesn't respect the following condition : presetId < 0");
-            symbolId = reader.ReadSByte();
-            if (symbolId < 0)
-                throw new Exception("Forbidden value on symbolId = " + symbolId + ", it doesn't respect the following condition : symbolId < 0");
-            saveEquipment = reader.ReadBoolean();
+            PresetId = reader.ReadSByte();
+            SymbolId = reader.ReadSByte();
+            SaveEquipment = reader.ReadBoolean();
         }
     }
 }

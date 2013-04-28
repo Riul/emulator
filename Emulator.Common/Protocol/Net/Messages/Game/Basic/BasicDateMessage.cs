@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class BasicDateMessage : NetworkMessage
     {
-        public const uint Id = 177;
-
-        public sbyte day;
-        public sbyte month;
-        public short year;
+        public const uint ID = 177;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Day { get; set; }
+        public sbyte Month { get; set; }
+        public short Year { get; set; }
 
 
         public BasicDateMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public BasicDateMessage(sbyte day, sbyte month, short year)
         {
-            this.day = day;
-            this.month = month;
-            this.year = year;
+            Day = day;
+            Month = month;
+            Year = year;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(day);
-            writer.WriteSByte(month);
-            writer.WriteShort(year);
+            writer.WriteSByte(Day);
+            writer.WriteSByte(Month);
+            writer.WriteShort(Year);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            day = reader.ReadSByte();
-            if (day < 0)
-                throw new Exception("Forbidden value on day = " + day + ", it doesn't respect the following condition : day < 0");
-            month = reader.ReadSByte();
-            if (month < 0)
-                throw new Exception("Forbidden value on month = " + month + ", it doesn't respect the following condition : month < 0");
-            year = reader.ReadShort();
-            if (year < 0)
-                throw new Exception("Forbidden value on year = " + year + ", it doesn't respect the following condition : year < 0");
+            Day = reader.ReadSByte();
+            Month = reader.ReadSByte();
+            Year = reader.ReadShort();
         }
     }
 }

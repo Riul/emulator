@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobCrafterDirectoryAddMessage : NetworkMessage
     {
-        public const uint Id = 5651;
-
-        public JobCrafterDirectoryListEntry listEntry;
+        public const uint ID = 5651;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobCrafterDirectoryListEntry ListEntry { get; set; }
 
 
         public JobCrafterDirectoryAddMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobCrafterDirectoryAddMessage(JobCrafterDirectoryListEntry listEntry)
         {
-            this.listEntry = listEntry;
+            ListEntry = listEntry;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            listEntry.Serialize(writer);
+            ListEntry.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            listEntry = new JobCrafterDirectoryListEntry();
-            listEntry.Deserialize(reader);
+            ListEntry = new JobCrafterDirectoryListEntry();
+            ListEntry.Deserialize(reader);
         }
     }
 }

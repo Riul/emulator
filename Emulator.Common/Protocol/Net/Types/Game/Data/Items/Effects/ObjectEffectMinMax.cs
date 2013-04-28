@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffectMinMax : ObjectEffect
     {
-        public const short Id = 82;
-
-        public short max;
-        public short min;
+        public const short ID = 82;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Min { get; set; }
+        public short Max { get; set; }
 
 
         public ObjectEffectMinMax()
@@ -39,29 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         }
 
         public ObjectEffectMinMax(short actionId, short min, short max)
-            : base(actionId)
+                : base(actionId)
         {
-            this.min = min;
-            this.max = max;
+            Min = min;
+            Max = max;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(min);
-            writer.WriteShort(max);
+            writer.WriteShort(Min);
+            writer.WriteShort(Max);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            min = reader.ReadShort();
-            if (min < 0)
-                throw new Exception("Forbidden value on min = " + min + ", it doesn't respect the following condition : min < 0");
-            max = reader.ReadShort();
-            if (max < 0)
-                throw new Exception("Forbidden value on max = " + max + ", it doesn't respect the following condition : max < 0");
+            Min = reader.ReadShort();
+            Max = reader.ReadShort();
         }
     }
 }

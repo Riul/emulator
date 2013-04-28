@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 {
     public class Achievement
     {
-        public const short Id = 363;
-
-        public AchievementObjective[] finishedObjective;
-        public short id;
-        public AchievementStartedObjective[] startedObjectives;
+        public const short ID = 363;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Id { get; set; }
+        public AchievementObjective[] FinishedObjective { get; set; }
+        public AchievementStartedObjective[] StartedObjectives { get; set; }
 
 
         public Achievement()
@@ -41,22 +42,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 
         public Achievement(short id, AchievementObjective[] finishedObjective, AchievementStartedObjective[] startedObjectives)
         {
-            this.id = id;
-            this.finishedObjective = finishedObjective;
-            this.startedObjectives = startedObjectives;
+            Id = id;
+            FinishedObjective = finishedObjective;
+            StartedObjectives = startedObjectives;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(id);
-            writer.WriteUShort((ushort) finishedObjective.Length);
-            foreach (var entry in finishedObjective)
+            writer.WriteShort(Id);
+            writer.WriteUShort((ushort) FinishedObjective.Length);
+            foreach (var entry in FinishedObjective)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) startedObjectives.Length);
-            foreach (var entry in startedObjectives)
+            writer.WriteUShort((ushort) StartedObjectives.Length);
+            foreach (var entry in StartedObjectives)
             {
                 entry.Serialize(writer);
             }
@@ -64,22 +65,20 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadShort();
-            if (id < 0)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0");
+            Id = reader.ReadShort();
             var limit = reader.ReadUShort();
-            finishedObjective = new AchievementObjective[limit];
+            FinishedObjective = new AchievementObjective[limit];
             for (int i = 0; i < limit; i++)
             {
-                finishedObjective[i] = new AchievementObjective();
-                finishedObjective[i].Deserialize(reader);
+                FinishedObjective[i] = new AchievementObjective();
+                FinishedObjective[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            startedObjectives = new AchievementStartedObjective[limit];
+            StartedObjectives = new AchievementStartedObjective[limit];
             for (int i = 0; i < limit; i++)
             {
-                startedObjectives[i] = new AchievementStartedObjective();
-                startedObjectives[i].Deserialize(reader);
+                StartedObjectives[i] = new AchievementStartedObjective();
+                StartedObjectives[i].Deserialize(reader);
             }
         }
     }

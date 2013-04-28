@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class LivingObjectMessageMessage : NetworkMessage
     {
-        public const uint Id = 6065;
-
-        public short msgId;
-        public uint objectGenericId;
-        public string owner;
-        public uint timeStamp;
+        public const uint ID = 6065;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short MsgId { get; set; }
+        public uint TimeStamp { get; set; }
+        public string Owner { get; set; }
+        public uint ObjectGenericId { get; set; }
 
 
         public LivingObjectMessageMessage()
@@ -42,33 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public LivingObjectMessageMessage(short msgId, uint timeStamp, string owner, uint objectGenericId)
         {
-            this.msgId = msgId;
-            this.timeStamp = timeStamp;
-            this.owner = owner;
-            this.objectGenericId = objectGenericId;
+            MsgId = msgId;
+            TimeStamp = timeStamp;
+            Owner = owner;
+            ObjectGenericId = objectGenericId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(msgId);
-            writer.WriteUInt(timeStamp);
-            writer.WriteUTF(owner);
-            writer.WriteUInt(objectGenericId);
+            writer.WriteShort(MsgId);
+            writer.WriteUInt(TimeStamp);
+            writer.WriteUTF(Owner);
+            writer.WriteUInt(ObjectGenericId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            msgId = reader.ReadShort();
-            if (msgId < 0)
-                throw new Exception("Forbidden value on msgId = " + msgId + ", it doesn't respect the following condition : msgId < 0");
-            timeStamp = reader.ReadUInt();
-            if (timeStamp < 0 || timeStamp > 4294967295)
-                throw new Exception("Forbidden value on timeStamp = " + timeStamp + ", it doesn't respect the following condition : timeStamp < 0 || timeStamp > 4294967295");
-            owner = reader.ReadUTF();
-            objectGenericId = reader.ReadUInt();
-            if (objectGenericId < 0 || objectGenericId > 4294967295)
-                throw new Exception("Forbidden value on objectGenericId = " + objectGenericId + ", it doesn't respect the following condition : objectGenericId < 0 || objectGenericId > 4294967295");
+            MsgId = reader.ReadShort();
+            TimeStamp = reader.ReadUInt();
+            Owner = reader.ReadUTF();
+            ObjectGenericId = reader.ReadUInt();
         }
     }
 }

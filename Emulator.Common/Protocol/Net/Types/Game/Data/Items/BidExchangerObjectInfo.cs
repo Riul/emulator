@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects;
 
@@ -24,18 +25,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class BidExchangerObjectInfo
     {
-        public const short Id = 122;
-        public ObjectEffect[] effects;
-
-        public int objectUID;
-        public bool overMax;
-        public short powerRate;
-        public int[] prices;
+        public const short ID = 122;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ObjectUID { get; set; }
+        public short PowerRate { get; set; }
+        public bool OverMax { get; set; }
+        public ObjectEffect[] Effects { get; set; }
+        public int[] Prices { get; set; }
 
 
         public BidExchangerObjectInfo()
@@ -44,27 +45,27 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public BidExchangerObjectInfo(int objectUID, short powerRate, bool overMax, ObjectEffect[] effects, int[] prices)
         {
-            this.objectUID = objectUID;
-            this.powerRate = powerRate;
-            this.overMax = overMax;
-            this.effects = effects;
-            this.prices = prices;
+            ObjectUID = objectUID;
+            PowerRate = powerRate;
+            OverMax = overMax;
+            Effects = effects;
+            Prices = prices;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(objectUID);
-            writer.WriteShort(powerRate);
-            writer.WriteBoolean(overMax);
-            writer.WriteUShort((ushort) effects.Length);
-            foreach (var entry in effects)
+            writer.WriteInt(ObjectUID);
+            writer.WriteShort(PowerRate);
+            writer.WriteBoolean(OverMax);
+            writer.WriteUShort((ushort) Effects.Length);
+            foreach (var entry in Effects)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) prices.Length);
-            foreach (var entry in prices)
+            writer.WriteUShort((ushort) Prices.Length);
+            foreach (var entry in Prices)
             {
                 writer.WriteInt(entry);
             }
@@ -72,23 +73,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            objectUID = reader.ReadInt();
-            if (objectUID < 0)
-                throw new Exception("Forbidden value on objectUID = " + objectUID + ", it doesn't respect the following condition : objectUID < 0");
-            powerRate = reader.ReadShort();
-            overMax = reader.ReadBoolean();
+            ObjectUID = reader.ReadInt();
+            PowerRate = reader.ReadShort();
+            OverMax = reader.ReadBoolean();
             var limit = reader.ReadUShort();
-            effects = new ObjectEffect[limit];
+            Effects = new ObjectEffect[limit];
             for (int i = 0; i < limit; i++)
             {
-                effects[i] = Types.ProtocolTypeManager.GetInstance<ObjectEffect>(reader.ReadShort());
-                effects[i].Deserialize(reader);
+                Effects[i] = Types.ProtocolTypeManager.GetInstance<ObjectEffect>(reader.ReadShort());
+                Effects[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            prices = new int[limit];
+            Prices = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                prices[i] = reader.ReadInt();
+                Prices[i] = reader.ReadInt();
             }
         }
     }

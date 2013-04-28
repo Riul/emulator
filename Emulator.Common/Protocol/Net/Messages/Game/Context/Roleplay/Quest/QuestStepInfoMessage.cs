@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 {
     public class QuestStepInfoMessage : NetworkMessage
     {
-        public const uint Id = 5625;
-
-        public QuestActiveInformations infos;
+        public const uint ID = 5625;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public QuestActiveInformations Infos { get; set; }
 
 
         public QuestStepInfoMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 
         public QuestStepInfoMessage(QuestActiveInformations infos)
         {
-            this.infos = infos;
+            Infos = infos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(infos.TypeId);
-            infos.Serialize(writer);
+            writer.WriteShort(Infos.TypeId);
+            Infos.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            infos = Types.ProtocolTypeManager.GetInstance<QuestActiveInformations>(reader.ReadShort());
-            infos.Deserialize(reader);
+            Infos = Types.ProtocolTypeManager.GetInstance<QuestActiveInformations>(reader.ReadShort());
+            Infos.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameContextRemoveElementMessage : NetworkMessage
     {
-        public const uint Id = 251;
-
-        public int id;
+        public const uint ID = 251;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
 
 
         public GameContextRemoveElementMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameContextRemoveElementMessage(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
+            writer.WriteInt(Id);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
+            Id = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightTeamMemberCharacterInformations : FightTeamMemberInformations
     {
-        public const short Id = 13;
-
-        public short level;
-        public string name;
+        public const short ID = 13;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
+        public short Level { get; set; }
 
 
         public FightTeamMemberCharacterInformations()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public FightTeamMemberCharacterInformations(int id, string name, short level)
-            : base(id)
+                : base(id)
         {
-            this.name = name;
-            this.level = level;
+            Name = name;
+            Level = level;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(name);
-            writer.WriteShort(level);
+            writer.WriteUTF(Name);
+            writer.WriteShort(Level);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            name = reader.ReadUTF();
-            level = reader.ReadShort();
-            if (level < 0)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0");
+            Name = reader.ReadUTF();
+            Level = reader.ReadShort();
         }
     }
 }

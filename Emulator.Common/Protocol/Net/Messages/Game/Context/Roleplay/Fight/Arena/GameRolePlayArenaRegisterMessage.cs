@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Arena
 {
     public class GameRolePlayArenaRegisterMessage : NetworkMessage
     {
-        public const uint Id = 6280;
-
-        public int battleMode;
+        public const uint ID = 6280;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int BattleMode { get; set; }
 
 
         public GameRolePlayArenaRegisterMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
 
         public GameRolePlayArenaRegisterMessage(int battleMode)
         {
-            this.battleMode = battleMode;
+            BattleMode = battleMode;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(battleMode);
+            writer.WriteInt(BattleMode);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            battleMode = reader.ReadInt();
-            if (battleMode < 0)
-                throw new Exception("Forbidden value on battleMode = " + battleMode + ", it doesn't respect the following condition : battleMode < 0");
+            BattleMode = reader.ReadInt();
         }
     }
 }

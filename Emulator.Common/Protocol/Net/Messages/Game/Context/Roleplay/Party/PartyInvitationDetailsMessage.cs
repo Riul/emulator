@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party;
 
@@ -24,19 +25,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyInvitationDetailsMessage : AbstractPartyMessage
     {
-        public const uint Id = 6263;
-
-        public int fromId;
-        public string fromName;
-        public PartyGuestInformations[] guests;
-        public int leaderId;
-        public PartyInvitationMemberInformations[] members;
-        public sbyte partyType;
+        public const uint ID = 6263;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PartyType { get; set; }
+        public int FromId { get; set; }
+        public string FromName { get; set; }
+        public int LeaderId { get; set; }
+        public PartyInvitationMemberInformations[] Members { get; set; }
+        public PartyGuestInformations[] Guests { get; set; }
 
 
         public PartyInvitationDetailsMessage()
@@ -44,31 +45,31 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyInvitationDetailsMessage(int partyId, sbyte partyType, int fromId, string fromName, int leaderId, PartyInvitationMemberInformations[] members, PartyGuestInformations[] guests)
-            : base(partyId)
+                : base(partyId)
         {
-            this.partyType = partyType;
-            this.fromId = fromId;
-            this.fromName = fromName;
-            this.leaderId = leaderId;
-            this.members = members;
-            this.guests = guests;
+            PartyType = partyType;
+            FromId = fromId;
+            FromName = fromName;
+            LeaderId = leaderId;
+            Members = members;
+            Guests = guests;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(partyType);
-            writer.WriteInt(fromId);
-            writer.WriteUTF(fromName);
-            writer.WriteInt(leaderId);
-            writer.WriteUShort((ushort) members.Length);
-            foreach (var entry in members)
+            writer.WriteSByte(PartyType);
+            writer.WriteInt(FromId);
+            writer.WriteUTF(FromName);
+            writer.WriteInt(LeaderId);
+            writer.WriteUShort((ushort) Members.Length);
+            foreach (var entry in Members)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) guests.Length);
-            foreach (var entry in guests)
+            writer.WriteUShort((ushort) Guests.Length);
+            foreach (var entry in Guests)
             {
                 entry.Serialize(writer);
             }
@@ -77,29 +78,23 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            partyType = reader.ReadSByte();
-            if (partyType < 0)
-                throw new Exception("Forbidden value on partyType = " + partyType + ", it doesn't respect the following condition : partyType < 0");
-            fromId = reader.ReadInt();
-            if (fromId < 0)
-                throw new Exception("Forbidden value on fromId = " + fromId + ", it doesn't respect the following condition : fromId < 0");
-            fromName = reader.ReadUTF();
-            leaderId = reader.ReadInt();
-            if (leaderId < 0)
-                throw new Exception("Forbidden value on leaderId = " + leaderId + ", it doesn't respect the following condition : leaderId < 0");
+            PartyType = reader.ReadSByte();
+            FromId = reader.ReadInt();
+            FromName = reader.ReadUTF();
+            LeaderId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            members = new PartyInvitationMemberInformations[limit];
+            Members = new PartyInvitationMemberInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                members[i] = new PartyInvitationMemberInformations();
-                members[i].Deserialize(reader);
+                Members[i] = new PartyInvitationMemberInformations();
+                Members[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            guests = new PartyGuestInformations[limit];
+            Guests = new PartyGuestInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                guests[i] = new PartyGuestInformations();
-                guests[i].Deserialize(reader);
+                Guests[i] = new PartyGuestInformations();
+                Guests[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 {
     public class NpcDialogQuestionMessage : NetworkMessage
     {
-        public const uint Id = 5617;
-
-        public string[] dialogParams;
-        public short messageId;
-        public short[] visibleReplies;
+        public const uint ID = 5617;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Messageid { get; set; }
+        public string[] DialogParams { get; set; }
+        public short[] VisibleReplies { get; set; }
 
 
         public NpcDialogQuestionMessage()
@@ -41,22 +42,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public NpcDialogQuestionMessage(short messageId, string[] dialogParams, short[] visibleReplies)
         {
-            this.messageId = messageId;
-            this.dialogParams = dialogParams;
-            this.visibleReplies = visibleReplies;
+            Messageid = messageId;
+            DialogParams = dialogParams;
+            VisibleReplies = visibleReplies;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(messageId);
-            writer.WriteUShort((ushort) dialogParams.Length);
-            foreach (var entry in dialogParams)
+            writer.WriteShort(Messageid);
+            writer.WriteUShort((ushort) DialogParams.Length);
+            foreach (var entry in DialogParams)
             {
                 writer.WriteUTF(entry);
             }
-            writer.WriteUShort((ushort) visibleReplies.Length);
-            foreach (var entry in visibleReplies)
+            writer.WriteUShort((ushort) VisibleReplies.Length);
+            foreach (var entry in VisibleReplies)
             {
                 writer.WriteShort(entry);
             }
@@ -64,20 +65,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public override void Deserialize(BigEndianReader reader)
         {
-            messageId = reader.ReadShort();
-            if (messageId < 0)
-                throw new Exception("Forbidden value on messageId = " + messageId + ", it doesn't respect the following condition : messageId < 0");
+            Messageid = reader.ReadShort();
             var limit = reader.ReadUShort();
-            dialogParams = new string[limit];
+            DialogParams = new string[limit];
             for (int i = 0; i < limit; i++)
             {
-                dialogParams[i] = reader.ReadUTF();
+                DialogParams[i] = reader.ReadUTF();
             }
             limit = reader.ReadUShort();
-            visibleReplies = new short[limit];
+            VisibleReplies = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                visibleReplies[i] = reader.ReadShort();
+                VisibleReplies[i] = reader.ReadShort();
             }
         }
     }

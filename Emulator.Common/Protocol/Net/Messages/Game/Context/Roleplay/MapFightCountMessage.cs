@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 {
     public class MapFightCountMessage : NetworkMessage
     {
-        public const uint Id = 210;
-
-        public short fightCount;
+        public const uint ID = 210;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short FightCount { get; set; }
 
 
         public MapFightCountMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public MapFightCountMessage(short fightCount)
         {
-            this.fightCount = fightCount;
+            FightCount = fightCount;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(fightCount);
+            writer.WriteShort(FightCount);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightCount = reader.ReadShort();
-            if (fightCount < 0)
-                throw new Exception("Forbidden value on fightCount = " + fightCount + ", it doesn't respect the following condition : fightCount < 0");
+            FightCount = reader.ReadShort();
         }
     }
 }

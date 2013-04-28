@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,32 +14,32 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.House
 {
     public class HouseInformationsForGuild
     {
-        public const short Id = 170;
-        public uint guildshareParams;
-
-        public int houseId;
-        public int mapId;
-        public int modelId;
-        public string ownerName;
-        public int[] skillListIds;
-        public short subAreaId;
-        public short worldX;
-        public short worldY;
+        public const short ID = 170;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int HouseId { get; set; }
+        public int ModelId { get; set; }
+        public string OwnerName { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public int MapId { get; set; }
+        public short SubAreaId { get; set; }
+        public int[] SkillListIds { get; set; }
+        public uint GuildshareParams { get; set; }
 
 
         public HouseInformationsForGuild()
@@ -47,63 +48,51 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
 
         public HouseInformationsForGuild(int houseId, int modelId, string ownerName, short worldX, short worldY, int mapId, short subAreaId, int[] skillListIds, uint guildshareParams)
         {
-            this.houseId = houseId;
-            this.modelId = modelId;
-            this.ownerName = ownerName;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.mapId = mapId;
-            this.subAreaId = subAreaId;
-            this.skillListIds = skillListIds;
-            this.guildshareParams = guildshareParams;
+            HouseId = houseId;
+            ModelId = modelId;
+            OwnerName = ownerName;
+            WorldX = worldX;
+            WorldY = worldY;
+            MapId = mapId;
+            SubAreaId = subAreaId;
+            SkillListIds = skillListIds;
+            GuildshareParams = guildshareParams;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(houseId);
-            writer.WriteInt(modelId);
-            writer.WriteUTF(ownerName);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteInt(mapId);
-            writer.WriteShort(subAreaId);
-            writer.WriteUShort((ushort) skillListIds.Length);
-            foreach (var entry in skillListIds)
+            writer.WriteInt(HouseId);
+            writer.WriteInt(ModelId);
+            writer.WriteUTF(OwnerName);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteInt(MapId);
+            writer.WriteShort(SubAreaId);
+            writer.WriteUShort((ushort) SkillListIds.Length);
+            foreach (var entry in SkillListIds)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUInt(guildshareParams);
+            writer.WriteUInt(GuildshareParams);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            houseId = reader.ReadInt();
-            if (houseId < 0)
-                throw new Exception("Forbidden value on houseId = " + houseId + ", it doesn't respect the following condition : houseId < 0");
-            modelId = reader.ReadInt();
-            if (modelId < 0)
-                throw new Exception("Forbidden value on modelId = " + modelId + ", it doesn't respect the following condition : modelId < 0");
-            ownerName = reader.ReadUTF();
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            mapId = reader.ReadInt();
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
+            HouseId = reader.ReadInt();
+            ModelId = reader.ReadInt();
+            OwnerName = reader.ReadUTF();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            MapId = reader.ReadInt();
+            SubAreaId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            skillListIds = new int[limit];
+            SkillListIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                skillListIds[i] = reader.ReadInt();
+                SkillListIds[i] = reader.ReadInt();
             }
-            guildshareParams = reader.ReadUInt();
-            if (guildshareParams < 0 || guildshareParams > 4294967295)
-                throw new Exception("Forbidden value on guildshareParams = " + guildshareParams + ", it doesn't respect the following condition : guildshareParams < 0 || guildshareParams > 4294967295");
+            GuildshareParams = reader.ReadUInt();
         }
     }
 }

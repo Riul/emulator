@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 {
     public class AlignmentSubAreaUpdateExtendedMessage : AlignmentSubAreaUpdateMessage
     {
-        public const uint Id = 6319;
-        public sbyte eventType;
-        public int mapId;
-
-        public short worldX;
-        public short worldY;
+        public const uint ID = 6319;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public int MapId { get; set; }
+        public sbyte EventType { get; set; }
 
 
         public AlignmentSubAreaUpdateExtendedMessage()
@@ -41,35 +42,31 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         }
 
         public AlignmentSubAreaUpdateExtendedMessage(short subAreaId, sbyte side, bool quiet, short worldX, short worldY, int mapId, sbyte eventType)
-            : base(subAreaId, side, quiet)
+                : base(subAreaId, side, quiet)
         {
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.mapId = mapId;
-            this.eventType = eventType;
+            WorldX = worldX;
+            WorldY = worldY;
+            MapId = mapId;
+            EventType = eventType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteInt(mapId);
-            writer.WriteSByte(eventType);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteInt(MapId);
+            writer.WriteSByte(EventType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            mapId = reader.ReadInt();
-            eventType = reader.ReadSByte();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            MapId = reader.ReadInt();
+            EventType = reader.ReadSByte();
         }
     }
 }

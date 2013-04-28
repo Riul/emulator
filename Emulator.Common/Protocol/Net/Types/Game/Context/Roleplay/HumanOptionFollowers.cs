@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class HumanOptionFollowers : HumanOption
     {
-        public const short Id = 410;
-
-        public IndexedEntityLook[] followingCharactersLook;
+        public const short ID = 410;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public IndexedEntityLook[] FollowingCharactersLook { get; set; }
 
 
         public HumanOptionFollowers()
@@ -39,15 +41,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public HumanOptionFollowers(IndexedEntityLook[] followingCharactersLook)
         {
-            this.followingCharactersLook = followingCharactersLook;
+            FollowingCharactersLook = followingCharactersLook;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) followingCharactersLook.Length);
-            foreach (var entry in followingCharactersLook)
+            writer.WriteUShort((ushort) FollowingCharactersLook.Length);
+            foreach (var entry in FollowingCharactersLook)
             {
                 entry.Serialize(writer);
             }
@@ -57,11 +59,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            followingCharactersLook = new IndexedEntityLook[limit];
+            FollowingCharactersLook = new IndexedEntityLook[limit];
             for (int i = 0; i < limit; i++)
             {
-                followingCharactersLook[i] = new IndexedEntityLook();
-                followingCharactersLook[i].Deserialize(reader);
+                FollowingCharactersLook[i] = new IndexedEntityLook();
+                FollowingCharactersLook[i].Deserialize(reader);
             }
         }
     }

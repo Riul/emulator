@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightResultPlayerListEntry : FightResultFighterListEntry
     {
-        public const short Id = 24;
-
-        public FightResultAdditionalData[] additional;
-        public byte level;
+        public const short ID = 24;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte Level { get; set; }
+        public FightResultAdditionalData[] Additional { get; set; }
 
 
         public FightResultPlayerListEntry()
@@ -39,19 +40,19 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public FightResultPlayerListEntry(short outcome, FightLoot rewards, int id, bool alive, byte level, FightResultAdditionalData[] additional)
-            : base(outcome, rewards, id, alive)
+                : base(outcome, rewards, id, alive)
         {
-            this.level = level;
-            this.additional = additional;
+            Level = level;
+            Additional = additional;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteByte(level);
-            writer.WriteUShort((ushort) additional.Length);
-            foreach (var entry in additional)
+            writer.WriteByte(Level);
+            writer.WriteUShort((ushort) Additional.Length);
+            foreach (var entry in Additional)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -61,15 +62,13 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            level = reader.ReadByte();
-            if (level < 1 || level > 200)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 1 || level > 200");
+            Level = reader.ReadByte();
             var limit = reader.ReadUShort();
-            additional = new FightResultAdditionalData[limit];
+            Additional = new FightResultAdditionalData[limit];
             for (int i = 0; i < limit; i++)
             {
-                additional[i] = Types.ProtocolTypeManager.GetInstance<FightResultAdditionalData>(reader.ReadShort());
-                additional[i].Deserialize(reader);
+                Additional[i] = Types.ProtocolTypeManager.GetInstance<FightResultAdditionalData>(reader.ReadShort());
+                Additional[i].Deserialize(reader);
             }
         }
     }

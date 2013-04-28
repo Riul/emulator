@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Prism
 {
     public class VillageConquestPrismInformation
     {
-        public const short Id = 379;
-        public sbyte areaAlignment;
-        public short areaId;
-
-        public bool isEntered;
-        public bool isInRoom;
+        public const short ID = 379;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool IsEntered { get; set; }
+        public bool IsInRoom { get; set; }
+        public short AreaId { get; set; }
+        public sbyte AreaAlignment { get; set; }
 
 
         public VillageConquestPrismInformation()
@@ -42,34 +43,30 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
 
         public VillageConquestPrismInformation(bool isEntered, bool isInRoom, short areaId, sbyte areaAlignment)
         {
-            this.isEntered = isEntered;
-            this.isInRoom = isInRoom;
-            this.areaId = areaId;
-            this.areaAlignment = areaAlignment;
+            IsEntered = isEntered;
+            IsInRoom = isInRoom;
+            AreaId = areaId;
+            AreaAlignment = areaAlignment;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, isEntered);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, isInRoom);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, IsEntered);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, IsInRoom);
             writer.WriteByte(flag1);
-            writer.WriteShort(areaId);
-            writer.WriteSByte(areaAlignment);
+            writer.WriteShort(AreaId);
+            writer.WriteSByte(AreaAlignment);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            isEntered = BooleanByteWrapper.GetFlag(flag1, 0);
-            isInRoom = BooleanByteWrapper.GetFlag(flag1, 1);
-            areaId = reader.ReadShort();
-            if (areaId < 0)
-                throw new Exception("Forbidden value on areaId = " + areaId + ", it doesn't respect the following condition : areaId < 0");
-            areaAlignment = reader.ReadSByte();
-            if (areaAlignment < 0)
-                throw new Exception("Forbidden value on areaAlignment = " + areaAlignment + ", it doesn't respect the following condition : areaAlignment < 0");
+            IsEntered = BooleanByteWrapper.GetFlag(flag1, 0);
+            IsInRoom = BooleanByteWrapper.GetFlag(flag1, 1);
+            AreaId = reader.ReadShort();
+            AreaAlignment = reader.ReadSByte();
         }
     }
 }

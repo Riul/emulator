@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffectDate : ObjectEffect
     {
-        public const short Id = 72;
-
-        public short day;
-        public short hour;
-        public short minute;
-        public short month;
-        public short year;
+        public const short ID = 72;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Year { get; set; }
+        public short Month { get; set; }
+        public short Day { get; set; }
+        public short Hour { get; set; }
+        public short Minute { get; set; }
 
 
         public ObjectEffectDate()
@@ -42,44 +43,34 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         }
 
         public ObjectEffectDate(short actionId, short year, short month, short day, short hour, short minute)
-            : base(actionId)
+                : base(actionId)
         {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-            this.hour = hour;
-            this.minute = minute;
+            Year = year;
+            Month = month;
+            Day = day;
+            Hour = hour;
+            Minute = minute;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(year);
-            writer.WriteShort(month);
-            writer.WriteShort(day);
-            writer.WriteShort(hour);
-            writer.WriteShort(minute);
+            writer.WriteShort(Year);
+            writer.WriteShort(Month);
+            writer.WriteShort(Day);
+            writer.WriteShort(Hour);
+            writer.WriteShort(Minute);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            year = reader.ReadShort();
-            if (year < 0)
-                throw new Exception("Forbidden value on year = " + year + ", it doesn't respect the following condition : year < 0");
-            month = reader.ReadShort();
-            if (month < 0)
-                throw new Exception("Forbidden value on month = " + month + ", it doesn't respect the following condition : month < 0");
-            day = reader.ReadShort();
-            if (day < 0)
-                throw new Exception("Forbidden value on day = " + day + ", it doesn't respect the following condition : day < 0");
-            hour = reader.ReadShort();
-            if (hour < 0)
-                throw new Exception("Forbidden value on hour = " + hour + ", it doesn't respect the following condition : hour < 0");
-            minute = reader.ReadShort();
-            if (minute < 0)
-                throw new Exception("Forbidden value on minute = " + minute + ", it doesn't respect the following condition : minute < 0");
+            Year = reader.ReadShort();
+            Month = reader.ReadShort();
+            Day = reader.ReadShort();
+            Hour = reader.ReadShort();
+            Minute = reader.ReadShort();
         }
     }
 }

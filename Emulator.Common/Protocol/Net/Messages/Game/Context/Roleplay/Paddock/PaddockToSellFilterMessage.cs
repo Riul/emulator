@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 {
     public class PaddockToSellFilterMessage : NetworkMessage
     {
-        public const uint Id = 6161;
-
-        public int areaId;
-        public sbyte atLeastNbMachine;
-        public sbyte atLeastNbMount;
-        public int maxPrice;
+        public const uint ID = 6161;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int AreaId { get; set; }
+        public sbyte AtLeastNbMount { get; set; }
+        public sbyte AtLeastNbMachine { get; set; }
+        public int MaxPrice { get; set; }
 
 
         public PaddockToSellFilterMessage()
@@ -42,29 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 
         public PaddockToSellFilterMessage(int areaId, sbyte atLeastNbMount, sbyte atLeastNbMachine, int maxPrice)
         {
-            this.areaId = areaId;
-            this.atLeastNbMount = atLeastNbMount;
-            this.atLeastNbMachine = atLeastNbMachine;
-            this.maxPrice = maxPrice;
+            AreaId = areaId;
+            AtLeastNbMount = atLeastNbMount;
+            AtLeastNbMachine = atLeastNbMachine;
+            MaxPrice = maxPrice;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(areaId);
-            writer.WriteSByte(atLeastNbMount);
-            writer.WriteSByte(atLeastNbMachine);
-            writer.WriteInt(maxPrice);
+            writer.WriteInt(AreaId);
+            writer.WriteSByte(AtLeastNbMount);
+            writer.WriteSByte(AtLeastNbMachine);
+            writer.WriteInt(MaxPrice);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            areaId = reader.ReadInt();
-            atLeastNbMount = reader.ReadSByte();
-            atLeastNbMachine = reader.ReadSByte();
-            maxPrice = reader.ReadInt();
-            if (maxPrice < 0)
-                throw new Exception("Forbidden value on maxPrice = " + maxPrice + ", it doesn't respect the following condition : maxPrice < 0");
+            AreaId = reader.ReadInt();
+            AtLeastNbMount = reader.ReadSByte();
+            AtLeastNbMachine = reader.ReadSByte();
+            MaxPrice = reader.ReadInt();
         }
     }
 }

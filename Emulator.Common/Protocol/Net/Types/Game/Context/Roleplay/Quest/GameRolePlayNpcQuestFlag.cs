@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 {
     public class GameRolePlayNpcQuestFlag
     {
-        public const short Id = 384;
-
-        public short[] questsToStartId;
-        public short[] questsToValidId;
+        public const short ID = 384;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] QuestsToValidId { get; set; }
+        public short[] QuestsToStartId { get; set; }
 
 
         public GameRolePlayNpcQuestFlag()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 
         public GameRolePlayNpcQuestFlag(short[] questsToValidId, short[] questsToStartId)
         {
-            this.questsToValidId = questsToValidId;
-            this.questsToStartId = questsToStartId;
+            QuestsToValidId = questsToValidId;
+            QuestsToStartId = questsToStartId;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) questsToValidId.Length);
-            foreach (var entry in questsToValidId)
+            writer.WriteUShort((ushort) QuestsToValidId.Length);
+            foreach (var entry in QuestsToValidId)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) questsToStartId.Length);
-            foreach (var entry in questsToStartId)
+            writer.WriteUShort((ushort) QuestsToStartId.Length);
+            foreach (var entry in QuestsToStartId)
             {
                 writer.WriteShort(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public virtual void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            questsToValidId = new short[limit];
+            QuestsToValidId = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                questsToValidId[i] = reader.ReadShort();
+                QuestsToValidId[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            questsToStartId = new short[limit];
+            QuestsToStartId = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                questsToStartId[i] = reader.ReadShort();
+                QuestsToStartId[i] = reader.ReadShort();
             }
         }
     }

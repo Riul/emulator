@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobExperienceUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5654;
-
-        public JobExperience experiencesUpdate;
+        public const uint ID = 5654;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobExperience ExperiencesUpdate { get; set; }
 
 
         public JobExperienceUpdateMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobExperienceUpdateMessage(JobExperience experiencesUpdate)
         {
-            this.experiencesUpdate = experiencesUpdate;
+            ExperiencesUpdate = experiencesUpdate;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            experiencesUpdate.Serialize(writer);
+            ExperiencesUpdate.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            experiencesUpdate = new JobExperience();
-            experiencesUpdate.Deserialize(reader);
+            ExperiencesUpdate = new JobExperience();
+            ExperiencesUpdate.Deserialize(reader);
         }
     }
 }

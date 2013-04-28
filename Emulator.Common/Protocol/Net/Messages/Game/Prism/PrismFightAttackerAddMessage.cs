@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismFightAttackerAddMessage : NetworkMessage
     {
-        public const uint Id = 5893;
-
-        public CharacterMinimalPlusLookAndGradeInformations[] charactersDescription;
-        public double fightId;
+        public const uint ID = 5893;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public CharacterMinimalPlusLookAndGradeInformations[] CharactersDescription { get; set; }
 
 
         public PrismFightAttackerAddMessage()
@@ -40,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismFightAttackerAddMessage(double fightId, CharacterMinimalPlusLookAndGradeInformations[] charactersDescription)
         {
-            this.fightId = fightId;
-            this.charactersDescription = charactersDescription;
+            FightId = fightId;
+            CharactersDescription = charactersDescription;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            writer.WriteUShort((ushort) charactersDescription.Length);
-            foreach (var entry in charactersDescription)
+            writer.WriteDouble(FightId);
+            writer.WriteUShort((ushort) CharactersDescription.Length);
+            foreach (var entry in CharactersDescription)
             {
                 entry.Serialize(writer);
             }
@@ -57,13 +59,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
+            FightId = reader.ReadDouble();
             var limit = reader.ReadUShort();
-            charactersDescription = new CharacterMinimalPlusLookAndGradeInformations[limit];
+            CharactersDescription = new CharacterMinimalPlusLookAndGradeInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                charactersDescription[i] = new CharacterMinimalPlusLookAndGradeInformations();
-                charactersDescription[i].Deserialize(reader);
+                CharactersDescription[i] = new CharacterMinimalPlusLookAndGradeInformations();
+                CharactersDescription[i].Deserialize(reader);
             }
         }
     }

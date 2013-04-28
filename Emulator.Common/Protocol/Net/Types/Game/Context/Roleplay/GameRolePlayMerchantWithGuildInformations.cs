@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayMerchantWithGuildInformations : GameRolePlayMerchantInformations
     {
-        public const short Id = 146;
-
-        public GuildInformations guildInformations;
+        public const short ID = 146;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GuildInformations GuildInformations { get; set; }
 
 
         public GameRolePlayMerchantWithGuildInformations()
@@ -38,23 +40,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayMerchantWithGuildInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, string name, int sellType, GuildInformations guildInformations)
-            : base(contextualId, look, disposition, name, sellType)
+                : base(contextualId, look, disposition, name, sellType)
         {
-            this.guildInformations = guildInformations;
+            GuildInformations = guildInformations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            guildInformations.Serialize(writer);
+            GuildInformations.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            guildInformations = new GuildInformations();
-            guildInformations.Deserialize(reader);
+            GuildInformations = new GuildInformations();
+            GuildInformations.Deserialize(reader);
         }
     }
 }

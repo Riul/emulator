@@ -113,6 +113,7 @@
     <Compile Include="Protocol\Enums\PlayableBreedEnum.cs" />
     <Compile Include="Protocol\Enums\PlayerLifeStatusEnum.cs" />
     <Compile Include="Protocol\Enums\PlayerStateEnum.cs" />
+    <Compile Include="Protocol\Enums\PlayerStatusEnum.cs" />
     <Compile Include="Protocol\Enums\PresetDeleteResultEnum.cs" />
     <Compile Include="Protocol\Enums\PresetSaveResultEnum.cs" />
     <Compile Include="Protocol\Enums\PresetSaveUpdateErrorEnum.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="Protocol\Enums\PvpArenaTypeEnum.cs" />
     <Compile Include="Protocol\Enums\SequenceTypeEnum.cs" />
     <Compile Include="Protocol\Enums\ServerConnectionErrorEnum.cs" />
-    <Compile Include="Protocol\Enums\ServersEnum.cs" />
     <Compile Include="Protocol\Enums\ServerStatusEnum.cs" />
     <Compile Include="Protocol\Enums\ShortcutBarEnum.cs" />
     <Compile Include="Protocol\Enums\SocialContactCategoryEnum.cs" />
@@ -248,7 +248,6 @@
     <Compile Include="Protocol\Net\Messages\Game\Basic\BasicLatencyStatsRequestMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Basic\BasicNoOperationMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Basic\BasicSetAwayModeRequestMessage.cs" />
-    <Compile Include="Protocol\Net\Messages\Game\Basic\BasicSwitchModeRequestMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Basic\BasicTimeMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Basic\BasicWhoAmIRequestMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Basic\BasicWhoIsMessage.cs" />
@@ -292,6 +291,9 @@
     <Compile Include="Protocol\Net\Messages\Game\Character\Stats\LifePointsRegenBeginMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Character\Stats\LifePointsRegenEndMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Character\Stats\UpdateLifePointsMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Character\Status\PlayerStatusUpdateErrorMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Character\Status\PlayerStatusUpdateMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Character\Status\PlayerStatusUpdateRequestMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Chat\Channel\ChannelEnablingChangeMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Chat\Channel\ChannelEnablingMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Chat\Channel\EnabledChannelsMessage.cs" />
@@ -313,6 +315,7 @@
     <Compile Include="Protocol\Net\Messages\Game\Chat\Smiley\LocalizedChatSmileyMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Chat\Smiley\MoodSmileyRequestMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Chat\Smiley\MoodSmileyResultMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Chat\Smiley\MoodSmileyUpdateMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Context\Display\DisplayNumericalValueMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Context\Display\DisplayNumericalValueWithAgeBonusMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Context\Dungeon\DungeonEnteredMessage.cs" />
@@ -682,6 +685,7 @@
     <Compile Include="Protocol\Net\Messages\Game\Interactive\InteractiveMapUpdateMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Interactive\InteractiveUsedMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Interactive\InteractiveUseEndedMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Interactive\InteractiveUseErrorMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Interactive\InteractiveUseRequestMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Interactive\Meeting\TeleportBuddiesAnswerMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Interactive\Meeting\TeleportBuddiesMessage.cs" />
@@ -771,6 +775,7 @@
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeRequestOnTaxCollectorMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeSellMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeSellOkMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeSetCraftRecipeMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeShopStockMovementRemovedMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeShopStockMovementUpdatedMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Exchanges\ExchangeShopStockMultiMovementRemovedMessage.cs" />
@@ -846,6 +851,7 @@
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetItemUpdateErrorMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetItemUpdateMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetItemUpdateRequestMessage.cs" />
+    <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetSaveCustomMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetSaveMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetSaveResultMessage.cs" />
     <Compile Include="Protocol\Net\Messages\Game\Inventory\Preset\InventoryPresetUpdateMessage.cs" />
@@ -982,6 +988,8 @@
     <Compile Include="Protocol\Net\Types\Game\Character\Choice\CharacterToRecolorInformation.cs" />
     <Compile Include="Protocol\Net\Types\Game\Character\Choice\CharacterToRelookInformation.cs" />
     <Compile Include="Protocol\Net\Types\Game\Character\Restriction\ActorRestrictionsInformations.cs" />
+    <Compile Include="Protocol\Net\Types\Game\Character\Status\PlayerStatus.cs" />
+    <Compile Include="Protocol\Net\Types\Game\Character\Status\PlayerStatusExtended.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\ActorOrientation.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\EntityDispositionInformations.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\EntityMovementInformations.cs" />
@@ -1008,6 +1016,7 @@
     <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightAIInformations.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightCharacterInformations.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightFighterInformations.cs" />
+    <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightFighterLightInformations.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightFighterNamedInformations.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightMinimalStats.cs" />
     <Compile Include="Protocol\Net\Types\Game\Context\Fight\GameFightMinimalStatsPreparation.cs" />
@@ -1121,7 +1130,6 @@
     <Compile Include="Protocol\Net\Types\Game\Interactive\Skill\SkillActionDescription.cs" />
     <Compile Include="Protocol\Net\Types\Game\Interactive\Skill\SkillActionDescriptionCollect.cs" />
     <Compile Include="Protocol\Net\Types\Game\Interactive\Skill\SkillActionDescriptionCraft.cs" />
-    <Compile Include="Protocol\Net\Types\Game\Interactive\Skill\SkillActionDescriptionCraftExtended.cs" />
     <Compile Include="Protocol\Net\Types\Game\Interactive\Skill\SkillActionDescriptionTimed.cs" />
     <Compile Include="Protocol\Net\Types\Game\Interactive\StatedElement.cs" />
     <Compile Include="Protocol\Net\Types\Game\Inventory\Preset\Preset.cs" />

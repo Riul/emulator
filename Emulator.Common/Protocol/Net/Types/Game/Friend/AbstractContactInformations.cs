@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Friend
 {
     public class AbstractContactInformations
     {
-        public const short Id = 380;
-
-        public int accountId;
-        public string accountName;
+        public const short ID = 380;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int AccountId { get; set; }
+        public string AccountName { get; set; }
 
 
         public AbstractContactInformations()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
 
         public AbstractContactInformations(int accountId, string accountName)
         {
-            this.accountId = accountId;
-            this.accountName = accountName;
+            AccountId = accountId;
+            AccountName = accountName;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(accountId);
-            writer.WriteUTF(accountName);
+            writer.WriteInt(AccountId);
+            writer.WriteUTF(AccountName);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            accountId = reader.ReadInt();
-            if (accountId < 0)
-                throw new Exception("Forbidden value on accountId = " + accountId + ", it doesn't respect the following condition : accountId < 0");
-            accountName = reader.ReadUTF();
+            AccountId = reader.ReadInt();
+            AccountName = reader.ReadUTF();
         }
     }
 }

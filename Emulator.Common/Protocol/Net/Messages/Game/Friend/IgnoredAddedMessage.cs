@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class IgnoredAddedMessage : NetworkMessage
     {
-        public const uint Id = 5678;
-
-        public IgnoredInformations ignoreAdded;
-        public bool session;
+        public const uint ID = 5678;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public IgnoredInformations IgnoreAdded { get; set; }
+        public bool Session { get; set; }
 
 
         public IgnoredAddedMessage()
@@ -40,23 +42,23 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public IgnoredAddedMessage(IgnoredInformations ignoreAdded, bool session)
         {
-            this.ignoreAdded = ignoreAdded;
-            this.session = session;
+            IgnoreAdded = ignoreAdded;
+            Session = session;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(ignoreAdded.TypeId);
-            ignoreAdded.Serialize(writer);
-            writer.WriteBoolean(session);
+            writer.WriteShort(IgnoreAdded.TypeId);
+            IgnoreAdded.Serialize(writer);
+            writer.WriteBoolean(Session);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            ignoreAdded = Types.ProtocolTypeManager.GetInstance<IgnoredInformations>(reader.ReadShort());
-            ignoreAdded.Deserialize(reader);
-            session = reader.ReadBoolean();
+            IgnoreAdded = Types.ProtocolTypeManager.GetInstance<IgnoredInformations>(reader.ReadShort());
+            IgnoreAdded.Deserialize(reader);
+            Session = reader.ReadBoolean();
         }
     }
 }

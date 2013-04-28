@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
 {
     public class NewMailMessage : MailStatusMessage
     {
-        public const uint Id = 6292;
-
-        public int[] sendersAccountId;
+        public const uint ID = 6292;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] SendersAccountId { get; set; }
 
 
         public NewMailMessage()
@@ -37,17 +39,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
         }
 
         public NewMailMessage(short unread, short total, int[] sendersAccountId)
-            : base(unread, total)
+                : base(unread, total)
         {
-            this.sendersAccountId = sendersAccountId;
+            SendersAccountId = sendersAccountId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) sendersAccountId.Length);
-            foreach (var entry in sendersAccountId)
+            writer.WriteUShort((ushort) SendersAccountId.Length);
+            foreach (var entry in SendersAccountId)
             {
                 writer.WriteInt(entry);
             }
@@ -57,10 +59,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            sendersAccountId = new int[limit];
+            SendersAccountId = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                sendersAccountId[i] = reader.ReadInt();
+                SendersAccountId[i] = reader.ReadInt();
             }
         }
     }

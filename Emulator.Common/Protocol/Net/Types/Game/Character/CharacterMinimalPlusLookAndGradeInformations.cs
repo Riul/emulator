@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
 {
     public class CharacterMinimalPlusLookAndGradeInformations : CharacterMinimalPlusLookInformations
     {
-        public const short Id = 193;
-
-        public int grade;
+        public const short ID = 193;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Grade { get; set; }
 
 
         public CharacterMinimalPlusLookAndGradeInformations()
@@ -39,24 +40,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
         }
 
         public CharacterMinimalPlusLookAndGradeInformations(int id, byte level, string name, EntityLook entityLook, int grade)
-            : base(id, level, name, entityLook)
+                : base(id, level, name, entityLook)
         {
-            this.grade = grade;
+            Grade = grade;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(grade);
+            writer.WriteInt(Grade);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            grade = reader.ReadInt();
-            if (grade < 0)
-                throw new Exception("Forbidden value on grade = " + grade + ", it doesn't respect the following condition : grade < 0");
+            Grade = reader.ReadInt();
         }
     }
 }

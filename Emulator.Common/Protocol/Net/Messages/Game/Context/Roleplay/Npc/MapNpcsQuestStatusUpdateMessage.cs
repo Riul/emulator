@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,17 +25,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 {
     public class MapNpcsQuestStatusUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5642;
-
-        public int mapId;
-        public int[] npcsIdsWithQuest;
-        public int[] npcsIdsWithoutQuest;
-        public GameRolePlayNpcQuestFlag[] questFlags;
+        public const uint ID = 5642;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MapId { get; set; }
+        public int[] NpcsIdsWithQuest { get; set; }
+        public GameRolePlayNpcQuestFlag[] QuestFlags { get; set; }
+        public int[] NpcsIdsWithoutQuest { get; set; }
 
 
         public MapNpcsQuestStatusUpdateMessage()
@@ -42,28 +44,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public MapNpcsQuestStatusUpdateMessage(int mapId, int[] npcsIdsWithQuest, GameRolePlayNpcQuestFlag[] questFlags, int[] npcsIdsWithoutQuest)
         {
-            this.mapId = mapId;
-            this.npcsIdsWithQuest = npcsIdsWithQuest;
-            this.questFlags = questFlags;
-            this.npcsIdsWithoutQuest = npcsIdsWithoutQuest;
+            MapId = mapId;
+            NpcsIdsWithQuest = npcsIdsWithQuest;
+            QuestFlags = questFlags;
+            NpcsIdsWithoutQuest = npcsIdsWithoutQuest;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(mapId);
-            writer.WriteUShort((ushort) npcsIdsWithQuest.Length);
-            foreach (var entry in npcsIdsWithQuest)
+            writer.WriteInt(MapId);
+            writer.WriteUShort((ushort) NpcsIdsWithQuest.Length);
+            foreach (var entry in NpcsIdsWithQuest)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) questFlags.Length);
-            foreach (var entry in questFlags)
+            writer.WriteUShort((ushort) QuestFlags.Length);
+            foreach (var entry in QuestFlags)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) npcsIdsWithoutQuest.Length);
-            foreach (var entry in npcsIdsWithoutQuest)
+            writer.WriteUShort((ushort) NpcsIdsWithoutQuest.Length);
+            foreach (var entry in NpcsIdsWithoutQuest)
             {
                 writer.WriteInt(entry);
             }
@@ -71,25 +73,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mapId = reader.ReadInt();
+            MapId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            npcsIdsWithQuest = new int[limit];
+            NpcsIdsWithQuest = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                npcsIdsWithQuest[i] = reader.ReadInt();
+                NpcsIdsWithQuest[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            questFlags = new GameRolePlayNpcQuestFlag[limit];
+            QuestFlags = new GameRolePlayNpcQuestFlag[limit];
             for (int i = 0; i < limit; i++)
             {
-                questFlags[i] = new GameRolePlayNpcQuestFlag();
-                questFlags[i].Deserialize(reader);
+                QuestFlags[i] = new GameRolePlayNpcQuestFlag();
+                QuestFlags[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            npcsIdsWithoutQuest = new int[limit];
+            NpcsIdsWithoutQuest = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                npcsIdsWithoutQuest[i] = reader.ReadInt();
+                NpcsIdsWithoutQuest[i] = reader.ReadInt();
             }
         }
     }

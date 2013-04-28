@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -14,7 +15,9 @@
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
 // Created on 26/04/2013 at 16:48
+
 #endregion
+
 namespace Emulator.Common.Protocol.Enums
 {
     public enum TeamEnum
@@ -22,6 +25,5 @@ namespace Emulator.Common.Protocol.Enums
         TEAM_CHALLENGER = 0,
         TEAM_DEFENDER = 1,
         TEAM_SPECTATOR = 2,
-        ALL
     }
 }

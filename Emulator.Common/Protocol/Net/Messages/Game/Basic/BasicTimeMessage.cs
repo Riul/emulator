@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class BasicTimeMessage : NetworkMessage
     {
-        public const uint Id = 175;
-
-        public int timestamp;
-        public short timezoneOffset;
+        public const uint ID = 175;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Timestamp { get; set; }
+        public short TimezoneOffset { get; set; }
 
 
         public BasicTimeMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public BasicTimeMessage(int timestamp, short timezoneOffset)
         {
-            this.timestamp = timestamp;
-            this.timezoneOffset = timezoneOffset;
+            Timestamp = timestamp;
+            TimezoneOffset = timezoneOffset;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(timestamp);
-            writer.WriteShort(timezoneOffset);
+            writer.WriteInt(Timestamp);
+            writer.WriteShort(TimezoneOffset);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            timestamp = reader.ReadInt();
-            if (timestamp < 0)
-                throw new Exception("Forbidden value on timestamp = " + timestamp + ", it doesn't respect the following condition : timestamp < 0");
-            timezoneOffset = reader.ReadShort();
+            Timestamp = reader.ReadInt();
+            TimezoneOffset = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GroupMonsterStaticInformations
     {
-        public const short Id = 140;
-
-        public MonsterInGroupLightInformations mainCreatureLightInfos;
-        public MonsterInGroupInformations[] underlings;
+        public const short ID = 140;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public MonsterInGroupLightInformations MainCreatureLightInfos { get; set; }
+        public MonsterInGroupInformations[] Underlings { get; set; }
 
 
         public GroupMonsterStaticInformations()
@@ -39,16 +41,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public GroupMonsterStaticInformations(MonsterInGroupLightInformations mainCreatureLightInfos, MonsterInGroupInformations[] underlings)
         {
-            this.mainCreatureLightInfos = mainCreatureLightInfos;
-            this.underlings = underlings;
+            MainCreatureLightInfos = mainCreatureLightInfos;
+            Underlings = underlings;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            mainCreatureLightInfos.Serialize(writer);
-            writer.WriteUShort((ushort) underlings.Length);
-            foreach (var entry in underlings)
+            MainCreatureLightInfos.Serialize(writer);
+            writer.WriteUShort((ushort) Underlings.Length);
+            foreach (var entry in Underlings)
             {
                 entry.Serialize(writer);
             }
@@ -56,14 +58,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            mainCreatureLightInfos = new MonsterInGroupLightInformations();
-            mainCreatureLightInfos.Deserialize(reader);
+            MainCreatureLightInfos = new MonsterInGroupLightInformations();
+            MainCreatureLightInfos.Deserialize(reader);
             var limit = reader.ReadUShort();
-            underlings = new MonsterInGroupInformations[limit];
+            Underlings = new MonsterInGroupInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                underlings[i] = new MonsterInGroupInformations();
-                underlings[i].Deserialize(reader);
+                Underlings[i] = new MonsterInGroupInformations();
+                Underlings[i].Deserialize(reader);
             }
         }
     }

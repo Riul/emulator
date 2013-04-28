@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -31,6 +31,11 @@ namespace Emulator.Common.IO
         public BigEndianWriter()
         {
             writer = new BinaryWriter(new MemoryStream());
+        }
+
+        public BigEndianWriter(byte[] buffer)
+        {
+            writer = new BinaryWriter(new MemoryStream(buffer));
         }
 
         public BigEndianWriter(Stream output)

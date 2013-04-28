@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
 {
     public class AdminCommandMessage : NetworkMessage
     {
-        public const uint Id = 76;
-
-        public string content;
+        public const uint ID = 76;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Content { get; set; }
 
 
         public AdminCommandMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Authorized
 
         public AdminCommandMessage(string content)
         {
-            this.content = content;
+            Content = content;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(content);
+            writer.WriteUTF(Content);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            content = reader.ReadUTF();
+            Content = reader.ReadUTF();
         }
     }
 }

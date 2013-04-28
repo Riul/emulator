@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class ServerSelectionMessage : NetworkMessage
     {
-        public const uint Id = 40;
-
-        public short serverId;
+        public const uint ID = 40;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ServerId { get; set; }
 
 
         public ServerSelectionMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public ServerSelectionMessage(short serverId)
         {
-            this.serverId = serverId;
+            ServerId = serverId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(serverId);
+            writer.WriteShort(ServerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            serverId = reader.ReadShort();
+            ServerId = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,43 +14,44 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
 
-namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
+namespace Emulator.Common.Protocol.Net.Types.Game.Character.Status
 {
-    public class BasicSwitchModeRequestMessage : NetworkMessage
+    public class PlayerStatus
     {
-        public const uint Id = 6101;
+        public const short ID = 415;
 
-        public sbyte mode;
-
-        public override uint MessageId
+        public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
+        }
+
+        public sbyte StatusId { get; set; }
+
+
+        public PlayerStatus()
+        {
+        }
+
+        public PlayerStatus(sbyte statusId)
+        {
+            StatusId = statusId;
         }
 
 
-        public BasicSwitchModeRequestMessage()
+        public virtual void Serialize(BigEndianWriter writer)
         {
+            writer.WriteSByte(StatusId);
         }
 
-        public BasicSwitchModeRequestMessage(sbyte mode)
+        public virtual void Deserialize(BigEndianReader reader)
         {
-            this.mode = mode;
-        }
-
-
-        public override void Serialize(BigEndianWriter writer)
-        {
-            writer.WriteSByte(mode);
-        }
-
-        public override void Deserialize(BigEndianReader reader)
-        {
-            mode = reader.ReadSByte();
+            StatusId = reader.ReadSByte();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ExchangeMultiCraftSetCrafterCanUseHisRessourcesMessage : NetworkMessage
     {
-        public const uint Id = 6021;
-
-        public bool allow;
+        public const uint ID = 6021;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Allow { get; set; }
 
 
         public ExchangeMultiCraftSetCrafterCanUseHisRessourcesMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ExchangeMultiCraftSetCrafterCanUseHisRessourcesMessage(bool allow)
         {
-            this.allow = allow;
+            Allow = allow;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(allow);
+            writer.WriteBoolean(Allow);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            allow = reader.ReadBoolean();
+            Allow = reader.ReadBoolean();
         }
     }
 }

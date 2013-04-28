@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Display
 {
     public class DisplayNumericalValueWithAgeBonusMessage : DisplayNumericalValueMessage
     {
-        public const uint Id = 6361;
-
-        public int valueOfBonus;
+        public const uint ID = 6361;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ValueOfBonus { get; set; }
 
 
         public DisplayNumericalValueWithAgeBonusMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Display
         }
 
         public DisplayNumericalValueWithAgeBonusMessage(int entityId, int value, sbyte type, int valueOfBonus)
-            : base(entityId, value, type)
+                : base(entityId, value, type)
         {
-            this.valueOfBonus = valueOfBonus;
+            ValueOfBonus = valueOfBonus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(valueOfBonus);
+            writer.WriteInt(ValueOfBonus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            valueOfBonus = reader.ReadInt();
+            ValueOfBonus = reader.ReadInt();
         }
     }
 }

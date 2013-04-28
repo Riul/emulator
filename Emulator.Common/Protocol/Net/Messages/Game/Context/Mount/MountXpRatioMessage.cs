@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class MountXpRatioMessage : NetworkMessage
     {
-        public const uint Id = 5970;
-
-        public sbyte ratio;
+        public const uint ID = 5970;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Ratio { get; set; }
 
 
         public MountXpRatioMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public MountXpRatioMessage(sbyte ratio)
         {
-            this.ratio = ratio;
+            Ratio = ratio;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(ratio);
+            writer.WriteSByte(Ratio);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            ratio = reader.ReadSByte();
-            if (ratio < 0)
-                throw new Exception("Forbidden value on ratio = " + ratio + ", it doesn't respect the following condition : ratio < 0");
+            Ratio = reader.ReadSByte();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeObjectMovePricedMessage : ExchangeObjectMoveMessage
     {
-        public const uint Id = 5514;
-
-        public int price;
+        public const uint ID = 5514;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Price { get; set; }
 
 
         public ExchangeObjectMovePricedMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangeObjectMovePricedMessage(int objectUID, int quantity, int price)
-            : base(objectUID, quantity)
+                : base(objectUID, quantity)
         {
-            this.price = price;
+            Price = price;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(price);
+            writer.WriteInt(Price);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            price = reader.ReadInt();
+            Price = reader.ReadInt();
         }
     }
 }

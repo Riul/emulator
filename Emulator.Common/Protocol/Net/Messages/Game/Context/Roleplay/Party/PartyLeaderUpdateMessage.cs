@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyLeaderUpdateMessage : AbstractPartyEventMessage
     {
-        public const uint Id = 5578;
-
-        public int partyLeaderId;
+        public const uint ID = 5578;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PartyLeaderId { get; set; }
 
 
         public PartyLeaderUpdateMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyLeaderUpdateMessage(int partyId, int partyLeaderId)
-            : base(partyId)
+                : base(partyId)
         {
-            this.partyLeaderId = partyLeaderId;
+            PartyLeaderId = partyLeaderId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(partyLeaderId);
+            writer.WriteInt(PartyLeaderId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            partyLeaderId = reader.ReadInt();
-            if (partyLeaderId < 0)
-                throw new Exception("Forbidden value on partyLeaderId = " + partyLeaderId + ", it doesn't respect the following condition : partyLeaderId < 0");
+            PartyLeaderId = reader.ReadInt();
         }
     }
 }

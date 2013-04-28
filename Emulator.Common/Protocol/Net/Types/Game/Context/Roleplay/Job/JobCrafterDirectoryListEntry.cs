@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
 {
     public class JobCrafterDirectoryListEntry
     {
-        public const short Id = 196;
-
-        public JobCrafterDirectoryEntryJobInfo jobInfo;
-        public JobCrafterDirectoryEntryPlayerInfo playerInfo;
+        public const short ID = 196;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobCrafterDirectoryEntryPlayerInfo PlayerInfo { get; set; }
+        public JobCrafterDirectoryEntryJobInfo JobInfo { get; set; }
 
 
         public JobCrafterDirectoryListEntry()
@@ -39,23 +41,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
 
         public JobCrafterDirectoryListEntry(JobCrafterDirectoryEntryPlayerInfo playerInfo, JobCrafterDirectoryEntryJobInfo jobInfo)
         {
-            this.playerInfo = playerInfo;
-            this.jobInfo = jobInfo;
+            PlayerInfo = playerInfo;
+            JobInfo = jobInfo;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            playerInfo.Serialize(writer);
-            jobInfo.Serialize(writer);
+            PlayerInfo.Serialize(writer);
+            JobInfo.Serialize(writer);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            playerInfo = new JobCrafterDirectoryEntryPlayerInfo();
-            playerInfo.Deserialize(reader);
-            jobInfo = new JobCrafterDirectoryEntryJobInfo();
-            jobInfo.Deserialize(reader);
+            PlayerInfo = new JobCrafterDirectoryEntryPlayerInfo();
+            PlayerInfo.Deserialize(reader);
+            JobInfo = new JobCrafterDirectoryEntryJobInfo();
+            JobInfo.Deserialize(reader);
         }
     }
 }

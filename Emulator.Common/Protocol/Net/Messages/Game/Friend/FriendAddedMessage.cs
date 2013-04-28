@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class FriendAddedMessage : NetworkMessage
     {
-        public const uint Id = 5599;
-
-        public FriendInformations friendAdded;
+        public const uint ID = 5599;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public FriendInformations FriendAdded { get; set; }
 
 
         public FriendAddedMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public FriendAddedMessage(FriendInformations friendAdded)
         {
-            this.friendAdded = friendAdded;
+            FriendAdded = friendAdded;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(friendAdded.TypeId);
-            friendAdded.Serialize(writer);
+            writer.WriteShort(FriendAdded.TypeId);
+            FriendAdded.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            friendAdded = Types.ProtocolTypeManager.GetInstance<FriendInformations>(reader.ReadShort());
-            friendAdded.Deserialize(reader);
+            FriendAdded = Types.ProtocolTypeManager.GetInstance<FriendInformations>(reader.ReadShort());
+            FriendAdded.Deserialize(reader);
         }
     }
 }

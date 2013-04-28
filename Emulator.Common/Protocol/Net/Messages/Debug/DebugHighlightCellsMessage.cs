@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
 {
     public class DebugHighlightCellsMessage : NetworkMessage
     {
-        public const uint Id = 2001;
-
-        public short[] cells;
-        public int color;
+        public const uint ID = 2001;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Color { get; set; }
+        public short[] Cells { get; set; }
 
 
         public DebugHighlightCellsMessage()
@@ -39,16 +41,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
 
         public DebugHighlightCellsMessage(int color, short[] cells)
         {
-            this.color = color;
-            this.cells = cells;
+            Color = color;
+            Cells = cells;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(color);
-            writer.WriteUShort((ushort) cells.Length);
-            foreach (var entry in cells)
+            writer.WriteInt(Color);
+            writer.WriteUShort((ushort) Cells.Length);
+            foreach (var entry in Cells)
             {
                 writer.WriteShort(entry);
             }
@@ -56,12 +58,12 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
 
         public override void Deserialize(BigEndianReader reader)
         {
-            color = reader.ReadInt();
+            Color = reader.ReadInt();
             var limit = reader.ReadUShort();
-            cells = new short[limit];
+            Cells = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                cells[i] = reader.ReadShort();
+                Cells[i] = reader.ReadShort();
             }
         }
     }

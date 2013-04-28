@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,17 +24,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightOptionsInformations
     {
-        public const short Id = 20;
-
-        public bool isAskingForHelp;
-        public bool isClosed;
-        public bool isRestrictedToPartyOnly;
-        public bool isSecret;
+        public const short ID = 20;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool IsSecret { get; set; }
+        public bool IsRestrictedToPartyOnly { get; set; }
+        public bool IsClosed { get; set; }
+        public bool IsAskingForHelp { get; set; }
 
 
         public FightOptionsInformations()
@@ -41,30 +43,30 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public FightOptionsInformations(bool isSecret, bool isRestrictedToPartyOnly, bool isClosed, bool isAskingForHelp)
         {
-            this.isSecret = isSecret;
-            this.isRestrictedToPartyOnly = isRestrictedToPartyOnly;
-            this.isClosed = isClosed;
-            this.isAskingForHelp = isAskingForHelp;
+            IsSecret = isSecret;
+            IsRestrictedToPartyOnly = isRestrictedToPartyOnly;
+            IsClosed = isClosed;
+            IsAskingForHelp = isAskingForHelp;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, isSecret);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, isRestrictedToPartyOnly);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 2, isClosed);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 3, isAskingForHelp);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, IsSecret);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, IsRestrictedToPartyOnly);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 2, IsClosed);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 3, IsAskingForHelp);
             writer.WriteByte(flag1);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            isSecret = BooleanByteWrapper.GetFlag(flag1, 0);
-            isRestrictedToPartyOnly = BooleanByteWrapper.GetFlag(flag1, 1);
-            isClosed = BooleanByteWrapper.GetFlag(flag1, 2);
-            isAskingForHelp = BooleanByteWrapper.GetFlag(flag1, 3);
+            IsSecret = BooleanByteWrapper.GetFlag(flag1, 0);
+            IsRestrictedToPartyOnly = BooleanByteWrapper.GetFlag(flag1, 1);
+            IsClosed = BooleanByteWrapper.GetFlag(flag1, 2);
+            IsAskingForHelp = BooleanByteWrapper.GetFlag(flag1, 3);
         }
     }
 }

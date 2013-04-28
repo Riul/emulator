@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeRequestedTradeMessage : ExchangeRequestedMessage
     {
-        public const uint Id = 5523;
-
-        public int source;
-        public int target;
+        public const uint ID = 5523;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Source { get; set; }
+        public int Target { get; set; }
 
 
         public ExchangeRequestedTradeMessage()
@@ -39,29 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangeRequestedTradeMessage(sbyte exchangeType, int source, int target)
-            : base(exchangeType)
+                : base(exchangeType)
         {
-            this.source = source;
-            this.target = target;
+            Source = source;
+            Target = target;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(source);
-            writer.WriteInt(target);
+            writer.WriteInt(Source);
+            writer.WriteInt(Target);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            source = reader.ReadInt();
-            if (source < 0)
-                throw new Exception("Forbidden value on source = " + source + ", it doesn't respect the following condition : source < 0");
-            target = reader.ReadInt();
-            if (target < 0)
-                throw new Exception("Forbidden value on target = " + target + ", it doesn't respect the following condition : target < 0");
+            Source = reader.ReadInt();
+            Target = reader.ReadInt();
         }
     }
 }

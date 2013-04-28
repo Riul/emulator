@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class ObjectItemToSellInNpcShop : ObjectItemMinimalInformation
     {
-        public const short Id = 352;
-
-        public string buyCriterion;
-        public int objectPrice;
+        public const short ID = 352;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ObjectPrice { get; set; }
+        public string BuyCriterion { get; set; }
 
 
         public ObjectItemToSellInNpcShop()
@@ -40,27 +41,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         }
 
         public ObjectItemToSellInNpcShop(short objectGID, short powerRate, bool overMax, ObjectEffect[] effects, int objectPrice, string buyCriterion)
-            : base(objectGID, powerRate, overMax, effects)
+                : base(objectGID, powerRate, overMax, effects)
         {
-            this.objectPrice = objectPrice;
-            this.buyCriterion = buyCriterion;
+            ObjectPrice = objectPrice;
+            BuyCriterion = buyCriterion;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(objectPrice);
-            writer.WriteUTF(buyCriterion);
+            writer.WriteInt(ObjectPrice);
+            writer.WriteUTF(BuyCriterion);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            objectPrice = reader.ReadInt();
-            if (objectPrice < 0)
-                throw new Exception("Forbidden value on objectPrice = " + objectPrice + ", it doesn't respect the following condition : objectPrice < 0");
-            buyCriterion = reader.ReadUTF();
+            ObjectPrice = reader.ReadInt();
+            BuyCriterion = reader.ReadUTF();
         }
     }
 }

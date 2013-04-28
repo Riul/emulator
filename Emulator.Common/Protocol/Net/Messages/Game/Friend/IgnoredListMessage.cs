@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class IgnoredListMessage : NetworkMessage
     {
-        public const uint Id = 5674;
-
-        public IgnoredInformations[] ignoredList;
+        public const uint ID = 5674;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public IgnoredInformations[] IgnoredList { get; set; }
 
 
         public IgnoredListMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public IgnoredListMessage(IgnoredInformations[] ignoredList)
         {
-            this.ignoredList = ignoredList;
+            IgnoredList = ignoredList;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) ignoredList.Length);
-            foreach (var entry in ignoredList)
+            writer.WriteUShort((ushort) IgnoredList.Length);
+            foreach (var entry in IgnoredList)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -56,11 +58,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            ignoredList = new IgnoredInformations[limit];
+            IgnoredList = new IgnoredInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                ignoredList[i] = Types.ProtocolTypeManager.GetInstance<IgnoredInformations>(reader.ReadShort());
-                ignoredList[i].Deserialize(reader);
+                IgnoredList[i] = Types.ProtocolTypeManager.GetInstance<IgnoredInformations>(reader.ReadShort());
+                IgnoredList[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 {
     public class GameActionMarkedCell
     {
-        public const short Id = 85;
-
-        public int cellColor;
-        public short cellId;
-        public sbyte cellsType;
-        public sbyte zoneSize;
+        public const short ID = 85;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short CellId { get; set; }
+        public sbyte ZoneSize { get; set; }
+        public int CellColor { get; set; }
+        public sbyte CellsType { get; set; }
 
 
         public GameActionMarkedCell()
@@ -42,29 +43,27 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public GameActionMarkedCell(short cellId, sbyte zoneSize, int cellColor, sbyte cellsType)
         {
-            this.cellId = cellId;
-            this.zoneSize = zoneSize;
-            this.cellColor = cellColor;
-            this.cellsType = cellsType;
+            CellId = cellId;
+            ZoneSize = zoneSize;
+            CellColor = cellColor;
+            CellsType = cellsType;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(cellId);
-            writer.WriteSByte(zoneSize);
-            writer.WriteInt(cellColor);
-            writer.WriteSByte(cellsType);
+            writer.WriteShort(CellId);
+            writer.WriteSByte(ZoneSize);
+            writer.WriteInt(CellColor);
+            writer.WriteSByte(CellsType);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            cellId = reader.ReadShort();
-            if (cellId < 0 || cellId > 559)
-                throw new Exception("Forbidden value on cellId = " + cellId + ", it doesn't respect the following condition : cellId < 0 || cellId > 559");
-            zoneSize = reader.ReadSByte();
-            cellColor = reader.ReadInt();
-            cellsType = reader.ReadSByte();
+            CellId = reader.ReadShort();
+            ZoneSize = reader.ReadSByte();
+            CellColor = reader.ReadInt();
+            CellsType = reader.ReadSByte();
         }
     }
 }

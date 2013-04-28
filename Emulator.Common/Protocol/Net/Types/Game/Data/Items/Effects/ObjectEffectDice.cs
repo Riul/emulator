@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffectDice : ObjectEffect
     {
-        public const short Id = 73;
-        public short diceConst;
-
-        public short diceNum;
-        public short diceSide;
+        public const short ID = 73;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short DiceNum { get; set; }
+        public short DiceSide { get; set; }
+        public short DiceConst { get; set; }
 
 
         public ObjectEffectDice()
@@ -40,34 +41,28 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         }
 
         public ObjectEffectDice(short actionId, short diceNum, short diceSide, short diceConst)
-            : base(actionId)
+                : base(actionId)
         {
-            this.diceNum = diceNum;
-            this.diceSide = diceSide;
-            this.diceConst = diceConst;
+            DiceNum = diceNum;
+            DiceSide = diceSide;
+            DiceConst = diceConst;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(diceNum);
-            writer.WriteShort(diceSide);
-            writer.WriteShort(diceConst);
+            writer.WriteShort(DiceNum);
+            writer.WriteShort(DiceSide);
+            writer.WriteShort(DiceConst);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            diceNum = reader.ReadShort();
-            if (diceNum < 0)
-                throw new Exception("Forbidden value on diceNum = " + diceNum + ", it doesn't respect the following condition : diceNum < 0");
-            diceSide = reader.ReadShort();
-            if (diceSide < 0)
-                throw new Exception("Forbidden value on diceSide = " + diceSide + ", it doesn't respect the following condition : diceSide < 0");
-            diceConst = reader.ReadShort();
-            if (diceConst < 0)
-                throw new Exception("Forbidden value on diceConst = " + diceConst + ", it doesn't respect the following condition : diceConst < 0");
+            DiceNum = reader.ReadShort();
+            DiceSide = reader.ReadShort();
+            DiceConst = reader.ReadShort();
         }
     }
 }

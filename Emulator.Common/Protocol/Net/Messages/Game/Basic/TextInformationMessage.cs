@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class TextInformationMessage : NetworkMessage
     {
-        public const uint Id = 780;
-
-        public short msgId;
-        public sbyte msgType;
-        public string[] parameters;
+        public const uint ID = 780;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte MsgType { get; set; }
+        public short MsgId { get; set; }
+        public string[] Parameters { get; set; }
 
 
         public TextInformationMessage()
@@ -41,18 +42,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public TextInformationMessage(sbyte msgType, short msgId, string[] parameters)
         {
-            this.msgType = msgType;
-            this.msgId = msgId;
-            this.parameters = parameters;
+            MsgType = msgType;
+            MsgId = msgId;
+            Parameters = parameters;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(msgType);
-            writer.WriteShort(msgId);
-            writer.WriteUShort((ushort) parameters.Length);
-            foreach (var entry in parameters)
+            writer.WriteSByte(MsgType);
+            writer.WriteShort(MsgId);
+            writer.WriteUShort((ushort) Parameters.Length);
+            foreach (var entry in Parameters)
             {
                 writer.WriteUTF(entry);
             }
@@ -60,17 +61,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public override void Deserialize(BigEndianReader reader)
         {
-            msgType = reader.ReadSByte();
-            if (msgType < 0)
-                throw new Exception("Forbidden value on msgType = " + msgType + ", it doesn't respect the following condition : msgType < 0");
-            msgId = reader.ReadShort();
-            if (msgId < 0)
-                throw new Exception("Forbidden value on msgId = " + msgId + ", it doesn't respect the following condition : msgId < 0");
+            MsgType = reader.ReadSByte();
+            MsgId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            parameters = new string[limit];
+            Parameters = new string[limit];
             for (int i = 0; i < limit; i++)
             {
-                parameters[i] = reader.ReadUTF();
+                Parameters[i] = reader.ReadUTF();
             }
         }
     }

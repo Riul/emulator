@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightTackledMessage : AbstractGameActionMessage
     {
-        public const uint Id = 1004;
-
-        public int[] tacklersIds;
+        public const uint ID = 1004;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] TacklersIds { get; set; }
 
 
         public GameActionFightTackledMessage()
@@ -37,17 +39,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightTackledMessage(short actionId, int sourceId, int[] tacklersIds)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.tacklersIds = tacklersIds;
+            TacklersIds = tacklersIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) tacklersIds.Length);
-            foreach (var entry in tacklersIds)
+            writer.WriteUShort((ushort) TacklersIds.Length);
+            foreach (var entry in TacklersIds)
             {
                 writer.WriteInt(entry);
             }
@@ -57,10 +59,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            tacklersIds = new int[limit];
+            TacklersIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                tacklersIds[i] = reader.ReadInt();
+                TacklersIds[i] = reader.ReadInt();
             }
         }
     }

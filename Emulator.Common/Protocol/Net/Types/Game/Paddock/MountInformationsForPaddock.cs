@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,16 +24,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 {
     public class MountInformationsForPaddock
     {
-        public const short Id = 184;
-
-        public int modelId;
-        public string name;
-        public string ownerName;
+        public const short ID = 184;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ModelId { get; set; }
+        public string Name { get; set; }
+        public string OwnerName { get; set; }
 
 
         public MountInformationsForPaddock()
@@ -40,24 +42,24 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 
         public MountInformationsForPaddock(int modelId, string name, string ownerName)
         {
-            this.modelId = modelId;
-            this.name = name;
-            this.ownerName = ownerName;
+            ModelId = modelId;
+            Name = name;
+            OwnerName = ownerName;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(modelId);
-            writer.WriteUTF(name);
-            writer.WriteUTF(ownerName);
+            writer.WriteInt(ModelId);
+            writer.WriteUTF(Name);
+            writer.WriteUTF(OwnerName);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            modelId = reader.ReadInt();
-            name = reader.ReadUTF();
-            ownerName = reader.ReadUTF();
+            ModelId = reader.ReadInt();
+            Name = reader.ReadUTF();
+            OwnerName = reader.ReadUTF();
         }
     }
 }

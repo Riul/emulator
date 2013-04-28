@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,11 +25,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeBidHouseInListUpdatedMessage : ExchangeBidHouseInListAddedMessage
     {
-        public const uint Id = 6337;
+        public const uint ID = 6337;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
 
@@ -36,7 +38,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangeBidHouseInListUpdatedMessage(int itemUID, int objGenericId, short powerRate, bool overMax, ObjectEffect[] effects, int[] prices)
-            : base(itemUID, objGenericId, powerRate, overMax, effects, prices)
+                : base(itemUID, objGenericId, powerRate, overMax, effects, prices)
         {
         }
 

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GroupMonsterStaticInformationsWithAlternatives : GroupMonsterStaticInformations
     {
-        public const short Id = 396;
-
-        public AlternativeMonstersInGroupLightInformations[] alternatives;
+        public const short ID = 396;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public AlternativeMonstersInGroupLightInformations[] Alternatives { get; set; }
 
 
         public GroupMonsterStaticInformationsWithAlternatives()
@@ -37,17 +39,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GroupMonsterStaticInformationsWithAlternatives(MonsterInGroupLightInformations mainCreatureLightInfos, MonsterInGroupInformations[] underlings, AlternativeMonstersInGroupLightInformations[] alternatives)
-            : base(mainCreatureLightInfos, underlings)
+                : base(mainCreatureLightInfos, underlings)
         {
-            this.alternatives = alternatives;
+            Alternatives = alternatives;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) alternatives.Length);
-            foreach (var entry in alternatives)
+            writer.WriteUShort((ushort) Alternatives.Length);
+            foreach (var entry in Alternatives)
             {
                 entry.Serialize(writer);
             }
@@ -57,11 +59,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            alternatives = new AlternativeMonstersInGroupLightInformations[limit];
+            Alternatives = new AlternativeMonstersInGroupLightInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                alternatives[i] = new AlternativeMonstersInGroupLightInformations();
-                alternatives[i].Deserialize(reader);
+                Alternatives[i] = new AlternativeMonstersInGroupLightInformations();
+                Alternatives[i].Deserialize(reader);
             }
         }
     }

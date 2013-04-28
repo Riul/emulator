@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameMapMovementCancelMessage : NetworkMessage
     {
-        public const uint Id = 953;
-
-        public short cellId;
+        public const uint ID = 953;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short CellId { get; set; }
 
 
         public GameMapMovementCancelMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameMapMovementCancelMessage(short cellId)
         {
-            this.cellId = cellId;
+            CellId = cellId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(cellId);
+            writer.WriteShort(CellId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            cellId = reader.ReadShort();
-            if (cellId < 0 || cellId > 559)
-                throw new Exception("Forbidden value on cellId = " + cellId + ", it doesn't respect the following condition : cellId < 0 || cellId > 559");
+            CellId = reader.ReadShort();
         }
     }
 }

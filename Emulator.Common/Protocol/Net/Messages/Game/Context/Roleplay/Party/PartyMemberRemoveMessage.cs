@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyMemberRemoveMessage : AbstractPartyEventMessage
     {
-        public const uint Id = 5579;
-
-        public int leavingPlayerId;
+        public const uint ID = 5579;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int LeavingPlayerId { get; set; }
 
 
         public PartyMemberRemoveMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyMemberRemoveMessage(int partyId, int leavingPlayerId)
-            : base(partyId)
+                : base(partyId)
         {
-            this.leavingPlayerId = leavingPlayerId;
+            LeavingPlayerId = leavingPlayerId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(leavingPlayerId);
+            writer.WriteInt(LeavingPlayerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            leavingPlayerId = reader.ReadInt();
-            if (leavingPlayerId < 0)
-                throw new Exception("Forbidden value on leavingPlayerId = " + leavingPlayerId + ", it doesn't respect the following condition : leavingPlayerId < 0");
+            LeavingPlayerId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeReplayMessage : NetworkMessage
     {
-        public const uint Id = 6002;
-
-        public int count;
+        public const uint ID = 6002;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Count { get; set; }
 
 
         public ExchangeReplayMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeReplayMessage(int count)
         {
-            this.count = count;
+            Count = count;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(count);
+            writer.WriteInt(Count);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            count = reader.ReadInt();
+            Count = reader.ReadInt();
         }
     }
 }

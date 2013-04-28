@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildKickRequestMessage : NetworkMessage
     {
-        public const uint Id = 5887;
-
-        public int kickedId;
+        public const uint ID = 5887;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int KickedId { get; set; }
 
 
         public GuildKickRequestMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildKickRequestMessage(int kickedId)
         {
-            this.kickedId = kickedId;
+            KickedId = kickedId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(kickedId);
+            writer.WriteInt(KickedId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            kickedId = reader.ReadInt();
-            if (kickedId < 0)
-                throw new Exception("Forbidden value on kickedId = " + kickedId + ", it doesn't respect the following condition : kickedId < 0");
+            KickedId = reader.ReadInt();
         }
     }
 }

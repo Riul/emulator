@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 {
     public class TeleportRequestMessage : NetworkMessage
     {
-        public const uint Id = 5961;
-
-        public int mapId;
-        public sbyte teleporterType;
+        public const uint ID = 5961;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte TeleporterType { get; set; }
+        public int MapId { get; set; }
 
 
         public TeleportRequestMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 
         public TeleportRequestMessage(sbyte teleporterType, int mapId)
         {
-            this.teleporterType = teleporterType;
-            this.mapId = mapId;
+            TeleporterType = teleporterType;
+            MapId = mapId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(teleporterType);
-            writer.WriteInt(mapId);
+            writer.WriteSByte(TeleporterType);
+            writer.WriteInt(MapId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            teleporterType = reader.ReadSByte();
-            if (teleporterType < 0)
-                throw new Exception("Forbidden value on teleporterType = " + teleporterType + ", it doesn't respect the following condition : teleporterType < 0");
-            mapId = reader.ReadInt();
-            if (mapId < 0)
-                throw new Exception("Forbidden value on mapId = " + mapId + ", it doesn't respect the following condition : mapId < 0");
+            TeleporterType = reader.ReadSByte();
+            MapId = reader.ReadInt();
         }
     }
 }

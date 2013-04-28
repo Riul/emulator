@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 {
     public class TeleportToBuddyOfferMessage : NetworkMessage
     {
-        public const uint Id = 6287;
-
-        public int buddyId;
-        public short dungeonId;
-        public int timeLeft;
+        public const uint ID = 6287;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short DungeonId { get; set; }
+        public int BuddyId { get; set; }
+        public int TimeLeft { get; set; }
 
 
         public TeleportToBuddyOfferMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 
         public TeleportToBuddyOfferMessage(short dungeonId, int buddyId, int timeLeft)
         {
-            this.dungeonId = dungeonId;
-            this.buddyId = buddyId;
-            this.timeLeft = timeLeft;
+            DungeonId = dungeonId;
+            BuddyId = buddyId;
+            TimeLeft = timeLeft;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(dungeonId);
-            writer.WriteInt(buddyId);
-            writer.WriteInt(timeLeft);
+            writer.WriteShort(DungeonId);
+            writer.WriteInt(BuddyId);
+            writer.WriteInt(TimeLeft);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            dungeonId = reader.ReadShort();
-            if (dungeonId < 0)
-                throw new Exception("Forbidden value on dungeonId = " + dungeonId + ", it doesn't respect the following condition : dungeonId < 0");
-            buddyId = reader.ReadInt();
-            if (buddyId < 0)
-                throw new Exception("Forbidden value on buddyId = " + buddyId + ", it doesn't respect the following condition : buddyId < 0");
-            timeLeft = reader.ReadInt();
-            if (timeLeft < 0)
-                throw new Exception("Forbidden value on timeLeft = " + timeLeft + ", it doesn't respect the following condition : timeLeft < 0");
+            DungeonId = reader.ReadShort();
+            BuddyId = reader.ReadInt();
+            TimeLeft = reader.ReadInt();
         }
     }
 }

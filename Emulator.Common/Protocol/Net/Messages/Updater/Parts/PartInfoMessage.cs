@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 {
     public class PartInfoMessage : NetworkMessage
     {
-        public const uint Id = 1508;
-
-        public float installationPercent;
-        public ContentPart part;
+        public const uint ID = 1508;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ContentPart Part { get; set; }
+        public float InstallationPercent { get; set; }
 
 
         public PartInfoMessage()
@@ -40,22 +42,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 
         public PartInfoMessage(ContentPart part, float installationPercent)
         {
-            this.part = part;
-            this.installationPercent = installationPercent;
+            Part = part;
+            InstallationPercent = installationPercent;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            part.Serialize(writer);
-            writer.WriteFloat(installationPercent);
+            Part.Serialize(writer);
+            writer.WriteFloat(InstallationPercent);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            part = new ContentPart();
-            part.Deserialize(reader);
-            installationPercent = reader.ReadFloat();
+            Part = new ContentPart();
+            Part.Deserialize(reader);
+            InstallationPercent = reader.ReadFloat();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 {
     public class ShortcutBarContentMessage : NetworkMessage
     {
-        public const uint Id = 6231;
-
-        public sbyte barType;
-        public Types.Game.Shortcut.Shortcut[] shortcuts;
+        public const uint ID = 6231;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte BarType { get; set; }
+        public Types.Game.Shortcut.Shortcut[] Shortcuts { get; set; }
 
 
         public ShortcutBarContentMessage()
@@ -40,16 +41,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 
         public ShortcutBarContentMessage(sbyte barType, Types.Game.Shortcut.Shortcut[] shortcuts)
         {
-            this.barType = barType;
-            this.shortcuts = shortcuts;
+            BarType = barType;
+            Shortcuts = shortcuts;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(barType);
-            writer.WriteUShort((ushort) shortcuts.Length);
-            foreach (var entry in shortcuts)
+            writer.WriteSByte(BarType);
+            writer.WriteUShort((ushort) Shortcuts.Length);
+            foreach (var entry in Shortcuts)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -58,15 +59,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 
         public override void Deserialize(BigEndianReader reader)
         {
-            barType = reader.ReadSByte();
-            if (barType < 0)
-                throw new Exception("Forbidden value on barType = " + barType + ", it doesn't respect the following condition : barType < 0");
+            BarType = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            shortcuts = new Types.Game.Shortcut.Shortcut[limit];
+            Shortcuts = new Types.Game.Shortcut.Shortcut[limit];
             for (int i = 0; i < limit; i++)
             {
-                shortcuts[i] = Types.ProtocolTypeManager.GetInstance<Types.Game.Shortcut.Shortcut>(reader.ReadShort());
-                shortcuts[i].Deserialize(reader);
+                Shortcuts[i] = Types.ProtocolTypeManager.GetInstance<Types.Game.Shortcut.Shortcut>(reader.ReadShort());
+                Shortcuts[i].Deserialize(reader);
             }
         }
     }

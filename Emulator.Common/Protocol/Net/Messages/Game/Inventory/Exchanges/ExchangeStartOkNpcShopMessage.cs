@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeStartOkNpcShopMessage : NetworkMessage
     {
-        public const uint Id = 5761;
-
-        public int npcSellerId;
-        public ObjectItemToSellInNpcShop[] objectsInfos;
-        public int tokenId;
+        public const uint ID = 5761;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int NpcSellerId { get; set; }
+        public int TokenId { get; set; }
+        public ObjectItemToSellInNpcShop[] ObjectsInfos { get; set; }
 
 
         public ExchangeStartOkNpcShopMessage()
@@ -42,18 +43,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeStartOkNpcShopMessage(int npcSellerId, int tokenId, ObjectItemToSellInNpcShop[] objectsInfos)
         {
-            this.npcSellerId = npcSellerId;
-            this.tokenId = tokenId;
-            this.objectsInfos = objectsInfos;
+            NpcSellerId = npcSellerId;
+            TokenId = tokenId;
+            ObjectsInfos = objectsInfos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(npcSellerId);
-            writer.WriteInt(tokenId);
-            writer.WriteUShort((ushort) objectsInfos.Length);
-            foreach (var entry in objectsInfos)
+            writer.WriteInt(NpcSellerId);
+            writer.WriteInt(TokenId);
+            writer.WriteUShort((ushort) ObjectsInfos.Length);
+            foreach (var entry in ObjectsInfos)
             {
                 entry.Serialize(writer);
             }
@@ -61,16 +62,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public override void Deserialize(BigEndianReader reader)
         {
-            npcSellerId = reader.ReadInt();
-            tokenId = reader.ReadInt();
-            if (tokenId < 0)
-                throw new Exception("Forbidden value on tokenId = " + tokenId + ", it doesn't respect the following condition : tokenId < 0");
+            NpcSellerId = reader.ReadInt();
+            TokenId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            objectsInfos = new ObjectItemToSellInNpcShop[limit];
+            ObjectsInfos = new ObjectItemToSellInNpcShop[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectsInfos[i] = new ObjectItemToSellInNpcShop();
-                objectsInfos[i].Deserialize(reader);
+                ObjectsInfos[i] = new ObjectItemToSellInNpcShop();
+                ObjectsInfos[i].Deserialize(reader);
             }
         }
     }

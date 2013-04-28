@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameContextCreateMessage : NetworkMessage
     {
-        public const uint Id = 200;
-
-        public sbyte context;
+        public const uint ID = 200;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Context { get; set; }
 
 
         public GameContextCreateMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameContextCreateMessage(sbyte context)
         {
-            this.context = context;
+            Context = context;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(context);
+            writer.WriteSByte(Context);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            context = reader.ReadSByte();
-            if (context < 0)
-                throw new Exception("Forbidden value on context = " + context + ", it doesn't respect the following condition : context < 0");
+            Context = reader.ReadSByte();
         }
     }
 }

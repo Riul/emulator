@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeCraftSlotCountIncreasedMessage : NetworkMessage
     {
-        public const uint Id = 6125;
-
-        public sbyte newMaxSlot;
+        public const uint ID = 6125;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte NewMaxSlot { get; set; }
 
 
         public ExchangeCraftSlotCountIncreasedMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeCraftSlotCountIncreasedMessage(sbyte newMaxSlot)
         {
-            this.newMaxSlot = newMaxSlot;
+            NewMaxSlot = newMaxSlot;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(newMaxSlot);
+            writer.WriteSByte(NewMaxSlot);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            newMaxSlot = reader.ReadSByte();
-            if (newMaxSlot < 0)
-                throw new Exception("Forbidden value on newMaxSlot = " + newMaxSlot + ", it doesn't respect the following condition : newMaxSlot < 0");
+            NewMaxSlot = reader.ReadSByte();
         }
     }
 }

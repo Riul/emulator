@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 {
     public class GuildFightTakePlaceRequestMessage : GuildFightJoinRequestMessage
     {
-        public const uint Id = 6235;
-
-        public int replacedCharacterId;
+        public const uint ID = 6235;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ReplacedCharacterId { get; set; }
 
 
         public GuildFightTakePlaceRequestMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
         }
 
         public GuildFightTakePlaceRequestMessage(int taxCollectorId, int replacedCharacterId)
-            : base(taxCollectorId)
+                : base(taxCollectorId)
         {
-            this.replacedCharacterId = replacedCharacterId;
+            ReplacedCharacterId = replacedCharacterId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(replacedCharacterId);
+            writer.WriteInt(ReplacedCharacterId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            replacedCharacterId = reader.ReadInt();
+            ReplacedCharacterId = reader.ReadInt();
         }
     }
 }

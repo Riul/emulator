@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class AbstractPartyMessage : NetworkMessage
     {
-        public const uint Id = 6274;
-
-        public int partyId;
+        public const uint ID = 6274;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PartyId { get; set; }
 
 
         public AbstractPartyMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public AbstractPartyMessage(int partyId)
         {
-            this.partyId = partyId;
+            PartyId = partyId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(partyId);
+            writer.WriteInt(PartyId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            partyId = reader.ReadInt();
-            if (partyId < 0)
-                throw new Exception("Forbidden value on partyId = " + partyId + ", it doesn't respect the following condition : partyId < 0");
+            PartyId = reader.ReadInt();
         }
     }
 }

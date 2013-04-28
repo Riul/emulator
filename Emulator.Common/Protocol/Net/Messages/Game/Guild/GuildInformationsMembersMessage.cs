@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInformationsMembersMessage : NetworkMessage
     {
-        public const uint Id = 5558;
-
-        public GuildMember[] members;
+        public const uint ID = 5558;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GuildMember[] Members { get; set; }
 
 
         public GuildInformationsMembersMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInformationsMembersMessage(GuildMember[] members)
         {
-            this.members = members;
+            Members = members;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) members.Length);
-            foreach (var entry in members)
+            writer.WriteUShort((ushort) Members.Length);
+            foreach (var entry in Members)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            members = new GuildMember[limit];
+            Members = new GuildMember[limit];
             for (int i = 0; i < limit; i++)
             {
-                members[i] = new GuildMember();
-                members[i].Deserialize(reader);
+                Members[i] = new GuildMember();
+                Members[i].Deserialize(reader);
             }
         }
     }

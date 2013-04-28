@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightSpellCooldownVariationMessage : AbstractGameActionMessage
     {
-        public const uint Id = 6219;
-
-        public int spellId;
-        public int targetId;
-        public short value;
+        public const uint ID = 6219;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public int SpellId { get; set; }
+        public short Value { get; set; }
 
 
         public GameActionFightSpellCooldownVariationMessage()
@@ -40,30 +41,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightSpellCooldownVariationMessage(short actionId, int sourceId, int targetId, int spellId, short value)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.spellId = spellId;
-            this.value = value;
+            TargetId = targetId;
+            SpellId = spellId;
+            Value = value;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteInt(spellId);
-            writer.WriteShort(value);
+            writer.WriteInt(TargetId);
+            writer.WriteInt(SpellId);
+            writer.WriteShort(Value);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            spellId = reader.ReadInt();
-            if (spellId < 0)
-                throw new Exception("Forbidden value on spellId = " + spellId + ", it doesn't respect the following condition : spellId < 0");
-            value = reader.ReadShort();
+            TargetId = reader.ReadInt();
+            SpellId = reader.ReadInt();
+            Value = reader.ReadShort();
         }
     }
 }

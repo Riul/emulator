@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses.Gui
 {
     public class HouseGuildRightsMessage : NetworkMessage
     {
-        public const uint Id = 5703;
-
-        public GuildInformations guildInfo;
-        public short houseId;
-        public uint rights;
+        public const uint ID = 5703;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short HouseId { get; set; }
+        public GuildInformations GuildInfo { get; set; }
+        public uint Rights { get; set; }
 
 
         public HouseGuildRightsMessage()
@@ -42,29 +43,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses.Gui
 
         public HouseGuildRightsMessage(short houseId, GuildInformations guildInfo, uint rights)
         {
-            this.houseId = houseId;
-            this.guildInfo = guildInfo;
-            this.rights = rights;
+            HouseId = houseId;
+            GuildInfo = guildInfo;
+            Rights = rights;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(houseId);
-            guildInfo.Serialize(writer);
-            writer.WriteUInt(rights);
+            writer.WriteShort(HouseId);
+            GuildInfo.Serialize(writer);
+            writer.WriteUInt(Rights);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            houseId = reader.ReadShort();
-            if (houseId < 0)
-                throw new Exception("Forbidden value on houseId = " + houseId + ", it doesn't respect the following condition : houseId < 0");
-            guildInfo = new GuildInformations();
-            guildInfo.Deserialize(reader);
-            rights = reader.ReadUInt();
-            if (rights < 0 || rights > 4294967295)
-                throw new Exception("Forbidden value on rights = " + rights + ", it doesn't respect the following condition : rights < 0 || rights > 4294967295");
+            HouseId = reader.ReadShort();
+            GuildInfo = new GuildInformations();
+            GuildInfo.Deserialize(reader);
+            Rights = reader.ReadUInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeCraftResultMessage : NetworkMessage
     {
-        public const uint Id = 5790;
-
-        public sbyte craftResult;
+        public const uint ID = 5790;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte CraftResult { get; set; }
 
 
         public ExchangeCraftResultMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeCraftResultMessage(sbyte craftResult)
         {
-            this.craftResult = craftResult;
+            CraftResult = craftResult;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(craftResult);
+            writer.WriteSByte(CraftResult);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            craftResult = reader.ReadSByte();
-            if (craftResult < 0)
-                throw new Exception("Forbidden value on craftResult = " + craftResult + ", it doesn't respect the following condition : craftResult < 0");
+            CraftResult = reader.ReadSByte();
         }
     }
 }

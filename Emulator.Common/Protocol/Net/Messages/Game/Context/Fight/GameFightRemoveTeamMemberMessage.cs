@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightRemoveTeamMemberMessage : NetworkMessage
     {
-        public const uint Id = 711;
-        public int charId;
-
-        public short fightId;
-        public sbyte teamId;
+        public const uint ID = 711;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short FightId { get; set; }
+        public sbyte TeamId { get; set; }
+        public int CharId { get; set; }
 
 
         public GameFightRemoveTeamMemberMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightRemoveTeamMemberMessage(short fightId, sbyte teamId, int charId)
         {
-            this.fightId = fightId;
-            this.teamId = teamId;
-            this.charId = charId;
+            FightId = fightId;
+            TeamId = teamId;
+            CharId = charId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(fightId);
-            writer.WriteSByte(teamId);
-            writer.WriteInt(charId);
+            writer.WriteShort(FightId);
+            writer.WriteSByte(TeamId);
+            writer.WriteInt(CharId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadShort();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
-            teamId = reader.ReadSByte();
-            if (teamId < 0)
-                throw new Exception("Forbidden value on teamId = " + teamId + ", it doesn't respect the following condition : teamId < 0");
-            charId = reader.ReadInt();
+            FightId = reader.ReadShort();
+            TeamId = reader.ReadSByte();
+            CharId = reader.ReadInt();
         }
     }
 }

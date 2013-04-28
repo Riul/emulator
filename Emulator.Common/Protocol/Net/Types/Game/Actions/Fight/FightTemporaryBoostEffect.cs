@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 {
     public class FightTemporaryBoostEffect : AbstractFightDispellableEffect
     {
-        public const short Id = 209;
-
-        public short delta;
+        public const short ID = 209;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Delta { get; set; }
 
 
         public FightTemporaryBoostEffect()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         }
 
         public FightTemporaryBoostEffect(int uid, int targetId, short turnDuration, sbyte dispelable, short spellId, int parentBoostUid, short delta)
-            : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
+                : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
         {
-            this.delta = delta;
+            Delta = delta;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(delta);
+            writer.WriteShort(Delta);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            delta = reader.ReadShort();
+            Delta = reader.ReadShort();
         }
     }
 }

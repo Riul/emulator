@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 {
     public class MapObstacle
     {
-        public const short Id = 200;
-
-        public short obstacleCellId;
-        public sbyte state;
+        public const short ID = 200;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ObstacleCellId { get; set; }
+        public sbyte State { get; set; }
 
 
         public MapObstacle()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 
         public MapObstacle(short obstacleCellId, sbyte state)
         {
-            this.obstacleCellId = obstacleCellId;
-            this.state = state;
+            ObstacleCellId = obstacleCellId;
+            State = state;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(obstacleCellId);
-            writer.WriteSByte(state);
+            writer.WriteShort(ObstacleCellId);
+            writer.WriteSByte(State);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            obstacleCellId = reader.ReadShort();
-            if (obstacleCellId < 0 || obstacleCellId > 559)
-                throw new Exception("Forbidden value on obstacleCellId = " + obstacleCellId + ", it doesn't respect the following condition : obstacleCellId < 0 || obstacleCellId > 559");
-            state = reader.ReadSByte();
-            if (state < 0)
-                throw new Exception("Forbidden value on state = " + state + ", it doesn't respect the following condition : state < 0");
+            ObstacleCellId = reader.ReadShort();
+            State = reader.ReadSByte();
         }
     }
 }

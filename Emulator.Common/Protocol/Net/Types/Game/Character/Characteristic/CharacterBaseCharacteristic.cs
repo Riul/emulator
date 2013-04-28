@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,17 +24,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
 {
     public class CharacterBaseCharacteristic
     {
-        public const short Id = 4;
-
-        public short alignGiftBonus;
-        public short @base;
-        public short contextModif;
-        public short objectsAndMountBonus;
+        public const short ID = 4;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short @base { get; set; }
+        public short ObjectsAndMountBonus { get; set; }
+        public short AlignGiftBonus { get; set; }
+        public short ContextModif { get; set; }
 
 
         public CharacterBaseCharacteristic()
@@ -42,26 +44,26 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
         public CharacterBaseCharacteristic(short @base, short objectsAndMountBonus, short alignGiftBonus, short contextModif)
         {
             this.@base = @base;
-            this.objectsAndMountBonus = objectsAndMountBonus;
-            this.alignGiftBonus = alignGiftBonus;
-            this.contextModif = contextModif;
+            ObjectsAndMountBonus = objectsAndMountBonus;
+            AlignGiftBonus = alignGiftBonus;
+            ContextModif = contextModif;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
             writer.WriteShort(@base);
-            writer.WriteShort(objectsAndMountBonus);
-            writer.WriteShort(alignGiftBonus);
-            writer.WriteShort(contextModif);
+            writer.WriteShort(ObjectsAndMountBonus);
+            writer.WriteShort(AlignGiftBonus);
+            writer.WriteShort(ContextModif);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
             @base = reader.ReadShort();
-            objectsAndMountBonus = reader.ReadShort();
-            alignGiftBonus = reader.ReadShort();
-            contextModif = reader.ReadShort();
+            ObjectsAndMountBonus = reader.ReadShort();
+            AlignGiftBonus = reader.ReadShort();
+            ContextModif = reader.ReadShort();
         }
     }
 }

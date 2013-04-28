@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,16 +24,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightStateChangeMessage : AbstractGameActionMessage
     {
-        public const uint Id = 5569;
-
-        public bool active;
-        public short stateId;
-        public int targetId;
+        public const uint ID = 5569;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public short StateId { get; set; }
+        public bool Active { get; set; }
 
 
         public GameActionFightStateChangeMessage()
@@ -39,28 +41,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightStateChangeMessage(short actionId, int sourceId, int targetId, short stateId, bool active)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.stateId = stateId;
-            this.active = active;
+            TargetId = targetId;
+            StateId = stateId;
+            Active = active;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteShort(stateId);
-            writer.WriteBoolean(active);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(StateId);
+            writer.WriteBoolean(Active);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            stateId = reader.ReadShort();
-            active = reader.ReadBoolean();
+            TargetId = reader.ReadInt();
+            StateId = reader.ReadShort();
+            Active = reader.ReadBoolean();
         }
     }
 }

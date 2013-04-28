@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 {
     public class AuthenticationTicketMessage : NetworkMessage
     {
-        public const uint Id = 110;
-
-        public string lang;
-        public string ticket;
+        public const uint ID = 110;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Lang { get; set; }
+        public string Ticket { get; set; }
 
 
         public AuthenticationTicketMessage()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 
         public AuthenticationTicketMessage(string lang, string ticket)
         {
-            this.lang = lang;
-            this.ticket = ticket;
+            Lang = lang;
+            Ticket = ticket;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(lang);
-            writer.WriteUTF(ticket);
+            writer.WriteUTF(Lang);
+            writer.WriteUTF(Ticket);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            lang = reader.ReadUTF();
-            ticket = reader.ReadUTF();
+            Lang = reader.ReadUTF();
+            Ticket = reader.ReadUTF();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightTurnListMessage : NetworkMessage
     {
-        public const uint Id = 713;
-
-        public int[] deadsIds;
-        public int[] ids;
+        public const uint ID = 713;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] Ids { get; set; }
+        public int[] DeadsIds { get; set; }
 
 
         public GameFightTurnListMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightTurnListMessage(int[] ids, int[] deadsIds)
         {
-            this.ids = ids;
-            this.deadsIds = deadsIds;
+            Ids = ids;
+            DeadsIds = deadsIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) ids.Length);
-            foreach (var entry in ids)
+            writer.WriteUShort((ushort) Ids.Length);
+            foreach (var entry in Ids)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) deadsIds.Length);
-            foreach (var entry in deadsIds)
+            writer.WriteUShort((ushort) DeadsIds.Length);
+            foreach (var entry in DeadsIds)
             {
                 writer.WriteInt(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            ids = new int[limit];
+            Ids = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                ids[i] = reader.ReadInt();
+                Ids[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            deadsIds = new int[limit];
+            DeadsIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                deadsIds[i] = reader.ReadInt();
+                DeadsIds[i] = reader.ReadInt();
             }
         }
     }

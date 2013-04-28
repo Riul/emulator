@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeMountPaddockRemoveMessage : NetworkMessage
     {
-        public const uint Id = 6050;
-
-        public double mountId;
+        public const uint ID = 6050;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double MountId { get; set; }
 
 
         public ExchangeMountPaddockRemoveMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeMountPaddockRemoveMessage(double mountId)
         {
-            this.mountId = mountId;
+            MountId = mountId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(mountId);
+            writer.WriteDouble(MountId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mountId = reader.ReadDouble();
+            MountId = reader.ReadDouble();
         }
     }
 }

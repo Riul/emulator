@@ -1,4 +1,5 @@
 ﻿#region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -14,6 +15,7 @@
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
 // Created on 26/04/2013 at 16:46
+
 #endregion
 
 using System;
@@ -68,7 +70,7 @@ namespace Emulator.Common.Protocol.Net
             {
                 if (type.IsSubclassOf(typeof (NetworkMessage)))
                 {
-                    FieldInfo fieldId = type.GetField("Id");
+                    FieldInfo fieldId = type.GetField("ID");
                     if (fieldId != null)
                     {
                         uint id = (uint) fieldId.GetValue(type);

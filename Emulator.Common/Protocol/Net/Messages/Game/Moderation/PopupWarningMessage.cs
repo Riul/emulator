@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Moderation
 {
     public class PopupWarningMessage : NetworkMessage
     {
-        public const uint Id = 6134;
-
-        public string author;
-        public string content;
-        public byte lockDuration;
+        public const uint ID = 6134;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte LockDuration { get; set; }
+        public string Author { get; set; }
+        public string Content { get; set; }
 
 
         public PopupWarningMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Moderation
 
         public PopupWarningMessage(byte lockDuration, string author, string content)
         {
-            this.lockDuration = lockDuration;
-            this.author = author;
-            this.content = content;
+            LockDuration = lockDuration;
+            Author = author;
+            Content = content;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteByte(lockDuration);
-            writer.WriteUTF(author);
-            writer.WriteUTF(content);
+            writer.WriteByte(LockDuration);
+            writer.WriteUTF(Author);
+            writer.WriteUTF(Content);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            lockDuration = reader.ReadByte();
-            if (lockDuration < 0 || lockDuration > 255)
-                throw new Exception("Forbidden value on lockDuration = " + lockDuration + ", it doesn't respect the following condition : lockDuration < 0 || lockDuration > 255");
-            author = reader.ReadUTF();
-            content = reader.ReadUTF();
+            LockDuration = reader.ReadByte();
+            Author = reader.ReadUTF();
+            Content = reader.ReadUTF();
         }
     }
 }

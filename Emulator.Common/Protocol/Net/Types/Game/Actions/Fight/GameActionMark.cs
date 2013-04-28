@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 {
     public class GameActionMark
     {
-        public const short Id = 351;
-        public GameActionMarkedCell[] cells;
-
-        public int markAuthorId;
-        public short markId;
-        public int markSpellId;
-        public sbyte markType;
+        public const short ID = 351;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MarkAuthorId { get; set; }
+        public int MarkSpellId { get; set; }
+        public short MarkId { get; set; }
+        public sbyte MarkType { get; set; }
+        public GameActionMarkedCell[] Cells { get; set; }
 
 
         public GameActionMark()
@@ -43,22 +44,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public GameActionMark(int markAuthorId, int markSpellId, short markId, sbyte markType, GameActionMarkedCell[] cells)
         {
-            this.markAuthorId = markAuthorId;
-            this.markSpellId = markSpellId;
-            this.markId = markId;
-            this.markType = markType;
-            this.cells = cells;
+            MarkAuthorId = markAuthorId;
+            MarkSpellId = markSpellId;
+            MarkId = markId;
+            MarkType = markType;
+            Cells = cells;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(markAuthorId);
-            writer.WriteInt(markSpellId);
-            writer.WriteShort(markId);
-            writer.WriteSByte(markType);
-            writer.WriteUShort((ushort) cells.Length);
-            foreach (var entry in cells)
+            writer.WriteInt(MarkAuthorId);
+            writer.WriteInt(MarkSpellId);
+            writer.WriteShort(MarkId);
+            writer.WriteSByte(MarkType);
+            writer.WriteUShort((ushort) Cells.Length);
+            foreach (var entry in Cells)
             {
                 entry.Serialize(writer);
             }
@@ -66,18 +67,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            markAuthorId = reader.ReadInt();
-            markSpellId = reader.ReadInt();
-            if (markSpellId < 0)
-                throw new Exception("Forbidden value on markSpellId = " + markSpellId + ", it doesn't respect the following condition : markSpellId < 0");
-            markId = reader.ReadShort();
-            markType = reader.ReadSByte();
+            MarkAuthorId = reader.ReadInt();
+            MarkSpellId = reader.ReadInt();
+            MarkId = reader.ReadShort();
+            MarkType = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            cells = new GameActionMarkedCell[limit];
+            Cells = new GameActionMarkedCell[limit];
             for (int i = 0; i < limit; i++)
             {
-                cells[i] = new GameActionMarkedCell();
-                cells[i].Deserialize(reader);
+                Cells[i] = new GameActionMarkedCell();
+                Cells[i].Deserialize(reader);
             }
         }
     }

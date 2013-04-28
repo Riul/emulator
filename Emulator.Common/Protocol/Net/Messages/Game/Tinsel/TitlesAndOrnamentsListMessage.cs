@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 {
     public class TitlesAndOrnamentsListMessage : NetworkMessage
     {
-        public const uint Id = 6367;
-
-        public short activeOrnament;
-        public short activeTitle;
-        public short[] ornaments;
-        public short[] titles;
+        public const uint ID = 6367;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Titles { get; set; }
+        public short[] Ornaments { get; set; }
+        public short ActiveTitle { get; set; }
+        public short ActiveOrnament { get; set; }
 
 
         public TitlesAndOrnamentsListMessage()
@@ -42,49 +43,45 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 
         public TitlesAndOrnamentsListMessage(short[] titles, short[] ornaments, short activeTitle, short activeOrnament)
         {
-            this.titles = titles;
-            this.ornaments = ornaments;
-            this.activeTitle = activeTitle;
-            this.activeOrnament = activeOrnament;
+            Titles = titles;
+            Ornaments = ornaments;
+            ActiveTitle = activeTitle;
+            ActiveOrnament = activeOrnament;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) titles.Length);
-            foreach (var entry in titles)
+            writer.WriteUShort((ushort) Titles.Length);
+            foreach (var entry in Titles)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) ornaments.Length);
-            foreach (var entry in ornaments)
+            writer.WriteUShort((ushort) Ornaments.Length);
+            foreach (var entry in Ornaments)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteShort(activeTitle);
-            writer.WriteShort(activeOrnament);
+            writer.WriteShort(ActiveTitle);
+            writer.WriteShort(ActiveOrnament);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            titles = new short[limit];
+            Titles = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                titles[i] = reader.ReadShort();
+                Titles[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            ornaments = new short[limit];
+            Ornaments = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                ornaments[i] = reader.ReadShort();
+                Ornaments[i] = reader.ReadShort();
             }
-            activeTitle = reader.ReadShort();
-            if (activeTitle < 0)
-                throw new Exception("Forbidden value on activeTitle = " + activeTitle + ", it doesn't respect the following condition : activeTitle < 0");
-            activeOrnament = reader.ReadShort();
-            if (activeOrnament < 0)
-                throw new Exception("Forbidden value on activeOrnament = " + activeOrnament + ", it doesn't respect the following condition : activeOrnament < 0");
+            ActiveTitle = reader.ReadShort();
+            ActiveOrnament = reader.ReadShort();
         }
     }
 }

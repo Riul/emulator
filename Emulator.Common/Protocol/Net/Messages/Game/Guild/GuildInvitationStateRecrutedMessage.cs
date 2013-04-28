@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInvitationStateRecrutedMessage : NetworkMessage
     {
-        public const uint Id = 5548;
-
-        public sbyte invitationState;
+        public const uint ID = 5548;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte InvitationState { get; set; }
 
 
         public GuildInvitationStateRecrutedMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInvitationStateRecrutedMessage(sbyte invitationState)
         {
-            this.invitationState = invitationState;
+            InvitationState = invitationState;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(invitationState);
+            writer.WriteSByte(InvitationState);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            invitationState = reader.ReadSByte();
-            if (invitationState < 0)
-                throw new Exception("Forbidden value on invitationState = " + invitationState + ", it doesn't respect the following condition : invitationState < 0");
+            InvitationState = reader.ReadSByte();
         }
     }
 }

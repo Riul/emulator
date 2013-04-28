@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
 {
     public class NotificationListMessage : NetworkMessage
     {
-        public const uint Id = 6087;
-
-        public int[] flags;
+        public const uint ID = 6087;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] Flags { get; set; }
 
 
         public NotificationListMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
 
         public NotificationListMessage(int[] flags)
         {
-            this.flags = flags;
+            Flags = flags;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) flags.Length);
-            foreach (var entry in flags)
+            writer.WriteUShort((ushort) Flags.Length);
+            foreach (var entry in Flags)
             {
                 writer.WriteInt(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            flags = new int[limit];
+            Flags = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                flags[i] = reader.ReadInt();
+                Flags[i] = reader.ReadInt();
             }
         }
     }

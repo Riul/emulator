@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,30 +14,30 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class SellerBuyerDescriptor
     {
-        public const short Id = 121;
-
-        public int maxItemLevel;
-        public int maxItemPerAccount;
-        public int npcContextualId;
-        public int[] quantities;
-        public float taxPercentage;
-        public int[] types;
-        public short unsoldDelay;
+        public const short ID = 121;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] Quantities { get; set; }
+        public int[] Types { get; set; }
+        public float TaxPercentage { get; set; }
+        public int MaxItemLevel { get; set; }
+        public int MaxItemPerAccount { get; set; }
+        public int NpcContextualId { get; set; }
+        public short UnsoldDelay { get; set; }
 
 
         public SellerBuyerDescriptor()
@@ -45,60 +46,54 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public SellerBuyerDescriptor(int[] quantities, int[] types, float taxPercentage, int maxItemLevel, int maxItemPerAccount, int npcContextualId, short unsoldDelay)
         {
-            this.quantities = quantities;
-            this.types = types;
-            this.taxPercentage = taxPercentage;
-            this.maxItemLevel = maxItemLevel;
-            this.maxItemPerAccount = maxItemPerAccount;
-            this.npcContextualId = npcContextualId;
-            this.unsoldDelay = unsoldDelay;
+            Quantities = quantities;
+            Types = types;
+            TaxPercentage = taxPercentage;
+            MaxItemLevel = maxItemLevel;
+            MaxItemPerAccount = maxItemPerAccount;
+            NpcContextualId = npcContextualId;
+            UnsoldDelay = unsoldDelay;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) quantities.Length);
-            foreach (var entry in quantities)
+            writer.WriteUShort((ushort) Quantities.Length);
+            foreach (var entry in Quantities)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) types.Length);
-            foreach (var entry in types)
+            writer.WriteUShort((ushort) Types.Length);
+            foreach (var entry in Types)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteFloat(taxPercentage);
-            writer.WriteInt(maxItemLevel);
-            writer.WriteInt(maxItemPerAccount);
-            writer.WriteInt(npcContextualId);
-            writer.WriteShort(unsoldDelay);
+            writer.WriteFloat(TaxPercentage);
+            writer.WriteInt(MaxItemLevel);
+            writer.WriteInt(MaxItemPerAccount);
+            writer.WriteInt(NpcContextualId);
+            writer.WriteShort(UnsoldDelay);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            quantities = new int[limit];
+            Quantities = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                quantities[i] = reader.ReadInt();
+                Quantities[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            types = new int[limit];
+            Types = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                types[i] = reader.ReadInt();
+                Types[i] = reader.ReadInt();
             }
-            taxPercentage = reader.ReadFloat();
-            maxItemLevel = reader.ReadInt();
-            if (maxItemLevel < 0)
-                throw new Exception("Forbidden value on maxItemLevel = " + maxItemLevel + ", it doesn't respect the following condition : maxItemLevel < 0");
-            maxItemPerAccount = reader.ReadInt();
-            if (maxItemPerAccount < 0)
-                throw new Exception("Forbidden value on maxItemPerAccount = " + maxItemPerAccount + ", it doesn't respect the following condition : maxItemPerAccount < 0");
-            npcContextualId = reader.ReadInt();
-            unsoldDelay = reader.ReadShort();
-            if (unsoldDelay < 0)
-                throw new Exception("Forbidden value on unsoldDelay = " + unsoldDelay + ", it doesn't respect the following condition : unsoldDelay < 0");
+            TaxPercentage = reader.ReadFloat();
+            MaxItemLevel = reader.ReadInt();
+            MaxItemPerAccount = reader.ReadInt();
+            NpcContextualId = reader.ReadInt();
+            UnsoldDelay = reader.ReadShort();
         }
     }
 }

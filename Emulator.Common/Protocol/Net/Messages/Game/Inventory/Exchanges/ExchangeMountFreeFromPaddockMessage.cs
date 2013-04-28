@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeMountFreeFromPaddockMessage : NetworkMessage
     {
-        public const uint Id = 6055;
-        public string liberator;
-
-        public string name;
-        public short worldX;
-        public short worldY;
+        public const uint ID = 6055;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public string Liberator { get; set; }
 
 
         public ExchangeMountFreeFromPaddockMessage()
@@ -42,31 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeMountFreeFromPaddockMessage(string name, short worldX, short worldY, string liberator)
         {
-            this.name = name;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.liberator = liberator;
+            Name = name;
+            WorldX = worldX;
+            WorldY = worldY;
+            Liberator = liberator;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(name);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteUTF(liberator);
+            writer.WriteUTF(Name);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteUTF(Liberator);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            name = reader.ReadUTF();
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            liberator = reader.ReadUTF();
+            Name = reader.ReadUTF();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            Liberator = reader.ReadUTF();
         }
     }
 }

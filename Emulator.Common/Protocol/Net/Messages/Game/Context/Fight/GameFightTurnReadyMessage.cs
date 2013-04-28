@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightTurnReadyMessage : NetworkMessage
     {
-        public const uint Id = 716;
-
-        public bool isReady;
+        public const uint ID = 716;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool IsReady { get; set; }
 
 
         public GameFightTurnReadyMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightTurnReadyMessage(bool isReady)
         {
-            this.isReady = isReady;
+            IsReady = isReady;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(isReady);
+            writer.WriteBoolean(IsReady);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            isReady = reader.ReadBoolean();
+            IsReady = reader.ReadBoolean();
         }
     }
 }

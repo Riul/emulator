@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 {
     public class InventoryPresetUseMessage : NetworkMessage
     {
-        public const uint Id = 6167;
-
-        public sbyte presetId;
+        public const uint ID = 6167;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PresetId { get; set; }
 
 
         public InventoryPresetUseMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 
         public InventoryPresetUseMessage(sbyte presetId)
         {
-            this.presetId = presetId;
+            PresetId = presetId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(presetId);
+            writer.WriteSByte(PresetId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            presetId = reader.ReadSByte();
-            if (presetId < 0)
-                throw new Exception("Forbidden value on presetId = " + presetId + ", it doesn't respect the following condition : presetId < 0");
+            PresetId = reader.ReadSByte();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -24,11 +26,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
 {
     public class StorageInventoryContentMessage : InventoryContentMessage
     {
-        public const uint Id = 5646;
+        public const uint ID = 5646;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
 
@@ -37,7 +39,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
         }
 
         public StorageInventoryContentMessage(ObjectItem[] objects, int kamas)
-            : base(objects, kamas)
+                : base(objects, kamas)
         {
         }
 

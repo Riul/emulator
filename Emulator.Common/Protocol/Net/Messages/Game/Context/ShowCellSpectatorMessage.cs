@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class ShowCellSpectatorMessage : ShowCellMessage
     {
-        public const uint Id = 6158;
-
-        public string playerName;
+        public const uint ID = 6158;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string PlayerName { get; set; }
 
 
         public ShowCellSpectatorMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         }
 
         public ShowCellSpectatorMessage(int sourceId, short cellId, string playerName)
-            : base(sourceId, cellId)
+                : base(sourceId, cellId)
         {
-            this.playerName = playerName;
+            PlayerName = playerName;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(playerName);
+            writer.WriteUTF(PlayerName);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            playerName = reader.ReadUTF();
+            PlayerName = reader.ReadUTF();
         }
     }
 }

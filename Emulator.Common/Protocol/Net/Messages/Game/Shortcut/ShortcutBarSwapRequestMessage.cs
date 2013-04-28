@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 {
     public class ShortcutBarSwapRequestMessage : NetworkMessage
     {
-        public const uint Id = 6230;
-
-        public sbyte barType;
-        public int firstSlot;
-        public int secondSlot;
+        public const uint ID = 6230;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte BarType { get; set; }
+        public int FirstSlot { get; set; }
+        public int SecondSlot { get; set; }
 
 
         public ShortcutBarSwapRequestMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 
         public ShortcutBarSwapRequestMessage(sbyte barType, int firstSlot, int secondSlot)
         {
-            this.barType = barType;
-            this.firstSlot = firstSlot;
-            this.secondSlot = secondSlot;
+            BarType = barType;
+            FirstSlot = firstSlot;
+            SecondSlot = secondSlot;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(barType);
-            writer.WriteInt(firstSlot);
-            writer.WriteInt(secondSlot);
+            writer.WriteSByte(BarType);
+            writer.WriteInt(FirstSlot);
+            writer.WriteInt(SecondSlot);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            barType = reader.ReadSByte();
-            if (barType < 0)
-                throw new Exception("Forbidden value on barType = " + barType + ", it doesn't respect the following condition : barType < 0");
-            firstSlot = reader.ReadInt();
-            if (firstSlot < 0 || firstSlot > 99)
-                throw new Exception("Forbidden value on firstSlot = " + firstSlot + ", it doesn't respect the following condition : firstSlot < 0 || firstSlot > 99");
-            secondSlot = reader.ReadInt();
-            if (secondSlot < 0 || secondSlot > 99)
-                throw new Exception("Forbidden value on secondSlot = " + secondSlot + ", it doesn't respect the following condition : secondSlot < 0 || secondSlot > 99");
+            BarType = reader.ReadSByte();
+            FirstSlot = reader.ReadInt();
+            SecondSlot = reader.ReadInt();
         }
     }
 }

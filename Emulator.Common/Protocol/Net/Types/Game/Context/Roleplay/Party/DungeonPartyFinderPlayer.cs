@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
 {
     public class DungeonPartyFinderPlayer
     {
-        public const short Id = 373;
-        public sbyte breed;
-        public short level;
-
-        public int playerId;
-        public string playerName;
-        public bool sex;
+        public const short ID = 373;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PlayerId { get; set; }
+        public string PlayerName { get; set; }
+        public sbyte Breed { get; set; }
+        public bool Sex { get; set; }
+        public short Level { get; set; }
 
 
         public DungeonPartyFinderPlayer()
@@ -43,36 +44,30 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
 
         public DungeonPartyFinderPlayer(int playerId, string playerName, sbyte breed, bool sex, short level)
         {
-            this.playerId = playerId;
-            this.playerName = playerName;
-            this.breed = breed;
-            this.sex = sex;
-            this.level = level;
+            PlayerId = playerId;
+            PlayerName = playerName;
+            Breed = breed;
+            Sex = sex;
+            Level = level;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(playerId);
-            writer.WriteUTF(playerName);
-            writer.WriteSByte(breed);
-            writer.WriteBoolean(sex);
-            writer.WriteShort(level);
+            writer.WriteInt(PlayerId);
+            writer.WriteUTF(PlayerName);
+            writer.WriteSByte(Breed);
+            writer.WriteBoolean(Sex);
+            writer.WriteShort(Level);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
-            playerName = reader.ReadUTF();
-            breed = reader.ReadSByte();
-            if (breed < (byte) Enums.PlayableBreedEnum.Feca || breed > (byte) Enums.PlayableBreedEnum.Steamer)
-                throw new Exception("Forbidden value on breed = " + breed + ", it doesn't respect the following condition : breed < (byte)Enums.PlayableBreedEnum.Feca || breed > (byte)Enums.PlayableBreedEnum.Steamer");
-            sex = reader.ReadBoolean();
-            level = reader.ReadShort();
-            if (level < 0)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0");
+            PlayerId = reader.ReadInt();
+            PlayerName = reader.ReadUTF();
+            Breed = reader.ReadSByte();
+            Sex = reader.ReadBoolean();
+            Level = reader.ReadShort();
         }
     }
 }

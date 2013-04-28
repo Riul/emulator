@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class DungeonPartyFinderAvailableDungeonsMessage : NetworkMessage
     {
-        public const uint Id = 6242;
-
-        public short[] dungeonIds;
+        public const uint ID = 6242;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] DungeonIds { get; set; }
 
 
         public DungeonPartyFinderAvailableDungeonsMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public DungeonPartyFinderAvailableDungeonsMessage(short[] dungeonIds)
         {
-            this.dungeonIds = dungeonIds;
+            DungeonIds = dungeonIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) dungeonIds.Length);
-            foreach (var entry in dungeonIds)
+            writer.WriteUShort((ushort) DungeonIds.Length);
+            foreach (var entry in DungeonIds)
             {
                 writer.WriteShort(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            dungeonIds = new short[limit];
+            DungeonIds = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                dungeonIds[i] = reader.ReadShort();
+                DungeonIds[i] = reader.ReadShort();
             }
         }
     }

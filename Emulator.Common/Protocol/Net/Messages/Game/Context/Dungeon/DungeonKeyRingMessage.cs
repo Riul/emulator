@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
 {
     public class DungeonKeyRingMessage : NetworkMessage
     {
-        public const uint Id = 6299;
-
-        public short[] availables;
-        public short[] unavailables;
+        public const uint ID = 6299;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Availables { get; set; }
+        public short[] Unavailables { get; set; }
 
 
         public DungeonKeyRingMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
 
         public DungeonKeyRingMessage(short[] availables, short[] unavailables)
         {
-            this.availables = availables;
-            this.unavailables = unavailables;
+            Availables = availables;
+            Unavailables = unavailables;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) availables.Length);
-            foreach (var entry in availables)
+            writer.WriteUShort((ushort) Availables.Length);
+            foreach (var entry in Availables)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) unavailables.Length);
-            foreach (var entry in unavailables)
+            writer.WriteUShort((ushort) Unavailables.Length);
+            foreach (var entry in Unavailables)
             {
                 writer.WriteShort(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            availables = new short[limit];
+            Availables = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                availables[i] = reader.ReadShort();
+                Availables[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            unavailables = new short[limit];
+            Unavailables = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                unavailables[i] = reader.ReadShort();
+                Unavailables[i] = reader.ReadShort();
             }
         }
     }

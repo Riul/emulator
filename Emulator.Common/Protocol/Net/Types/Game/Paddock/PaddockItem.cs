@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -24,14 +26,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 {
     public class PaddockItem : ObjectItemInRolePlay
     {
-        public const short Id = 185;
-
-        public ItemDurability durability;
+        public const short ID = 185;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ItemDurability Durability { get; set; }
 
 
         public PaddockItem()
@@ -39,23 +41,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         }
 
         public PaddockItem(short cellId, short objectGID, ItemDurability durability)
-            : base(cellId, objectGID)
+                : base(cellId, objectGID)
         {
-            this.durability = durability;
+            Durability = durability;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            durability.Serialize(writer);
+            Durability.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            durability = new ItemDurability();
-            durability.Deserialize(reader);
+            Durability = new ItemDurability();
+            Durability.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 {
     public class TeleportDestinationsListMessage : NetworkMessage
     {
-        public const uint Id = 5960;
-        public short[] costs;
-
-        public int[] mapIds;
-        public short[] subAreaIds;
-        public sbyte teleporterType;
+        public const uint ID = 5960;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte TeleporterType { get; set; }
+        public int[] MapIds { get; set; }
+        public short[] SubAreaIds { get; set; }
+        public short[] Costs { get; set; }
 
 
         public TeleportDestinationsListMessage()
@@ -42,28 +43,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 
         public TeleportDestinationsListMessage(sbyte teleporterType, int[] mapIds, short[] subAreaIds, short[] costs)
         {
-            this.teleporterType = teleporterType;
-            this.mapIds = mapIds;
-            this.subAreaIds = subAreaIds;
-            this.costs = costs;
+            TeleporterType = teleporterType;
+            MapIds = mapIds;
+            SubAreaIds = subAreaIds;
+            Costs = costs;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(teleporterType);
-            writer.WriteUShort((ushort) mapIds.Length);
-            foreach (var entry in mapIds)
+            writer.WriteSByte(TeleporterType);
+            writer.WriteUShort((ushort) MapIds.Length);
+            foreach (var entry in MapIds)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) subAreaIds.Length);
-            foreach (var entry in subAreaIds)
+            writer.WriteUShort((ushort) SubAreaIds.Length);
+            foreach (var entry in SubAreaIds)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) costs.Length);
-            foreach (var entry in costs)
+            writer.WriteUShort((ushort) Costs.Length);
+            foreach (var entry in Costs)
             {
                 writer.WriteShort(entry);
             }
@@ -71,26 +72,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 
         public override void Deserialize(BigEndianReader reader)
         {
-            teleporterType = reader.ReadSByte();
-            if (teleporterType < 0)
-                throw new Exception("Forbidden value on teleporterType = " + teleporterType + ", it doesn't respect the following condition : teleporterType < 0");
+            TeleporterType = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            mapIds = new int[limit];
+            MapIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                mapIds[i] = reader.ReadInt();
+                MapIds[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            subAreaIds = new short[limit];
+            SubAreaIds = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                subAreaIds[i] = reader.ReadShort();
+                SubAreaIds[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            costs = new short[limit];
+            Costs = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                costs[i] = reader.ReadShort();
+                Costs[i] = reader.ReadShort();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 {
     public class GuildFightPlayersHelpersLeaveMessage : NetworkMessage
     {
-        public const uint Id = 5719;
-
-        public double fightId;
-        public int playerId;
+        public const uint ID = 5719;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public int PlayerId { get; set; }
 
 
         public GuildFightPlayersHelpersLeaveMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public GuildFightPlayersHelpersLeaveMessage(double fightId, int playerId)
         {
-            this.fightId = fightId;
-            this.playerId = playerId;
+            FightId = fightId;
+            PlayerId = playerId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            writer.WriteInt(playerId);
+            writer.WriteDouble(FightId);
+            writer.WriteInt(PlayerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
+            FightId = reader.ReadDouble();
+            PlayerId = reader.ReadInt();
         }
     }
 }

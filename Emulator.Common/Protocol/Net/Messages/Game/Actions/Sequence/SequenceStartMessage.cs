@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Sequence
 {
     public class SequenceStartMessage : NetworkMessage
     {
-        public const uint Id = 955;
-
-        public int authorId;
-        public sbyte sequenceType;
+        public const uint ID = 955;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte SequenceType { get; set; }
+        public int AuthorId { get; set; }
 
 
         public SequenceStartMessage()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Sequence
 
         public SequenceStartMessage(sbyte sequenceType, int authorId)
         {
-            this.sequenceType = sequenceType;
-            this.authorId = authorId;
+            SequenceType = sequenceType;
+            AuthorId = authorId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(sequenceType);
-            writer.WriteInt(authorId);
+            writer.WriteSByte(SequenceType);
+            writer.WriteInt(AuthorId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            sequenceType = reader.ReadSByte();
-            authorId = reader.ReadInt();
+            SequenceType = reader.ReadSByte();
+            AuthorId = reader.ReadInt();
         }
     }
 }

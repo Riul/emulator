@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Look
 {
     public class IndexedEntityLook
     {
-        public const short Id = 405;
-
-        public sbyte index;
-        public EntityLook look;
+        public const short ID = 405;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public EntityLook Look { get; set; }
+        public sbyte Index { get; set; }
 
 
         public IndexedEntityLook()
@@ -40,24 +41,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
 
         public IndexedEntityLook(EntityLook look, sbyte index)
         {
-            this.look = look;
-            this.index = index;
+            Look = look;
+            Index = index;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            look.Serialize(writer);
-            writer.WriteSByte(index);
+            Look.Serialize(writer);
+            writer.WriteSByte(Index);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            look = new EntityLook();
-            look.Deserialize(reader);
-            index = reader.ReadSByte();
-            if (index < 0)
-                throw new Exception("Forbidden value on index = " + index + ", it doesn't respect the following condition : index < 0");
+            Look = new EntityLook();
+            Look.Deserialize(reader);
+            Index = reader.ReadSByte();
         }
     }
 }

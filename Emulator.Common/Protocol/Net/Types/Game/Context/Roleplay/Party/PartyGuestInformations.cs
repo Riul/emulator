@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,70 +14,73 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
+using Emulator.Common.Protocol.Net.Types.Game.Character.Status;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
 {
     public class PartyGuestInformations
     {
-        public const short Id = 374;
-        public sbyte breed;
-
-        public int guestId;
-        public EntityLook guestLook;
-        public int hostId;
-        public string name;
-        public bool sex;
+        public const short ID = 374;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int GuestId { get; set; }
+        public int HostId { get; set; }
+        public string Name { get; set; }
+        public EntityLook GuestLook { get; set; }
+        public sbyte Breed { get; set; }
+        public bool Sex { get; set; }
+        public PlayerStatus Status { get; set; }
 
 
         public PartyGuestInformations()
         {
         }
 
-        public PartyGuestInformations(int guestId, int hostId, string name, EntityLook guestLook, sbyte breed, bool sex)
+        public PartyGuestInformations(int guestId, int hostId, string name, EntityLook guestLook, sbyte breed, bool sex, PlayerStatus status)
         {
-            this.guestId = guestId;
-            this.hostId = hostId;
-            this.name = name;
-            this.guestLook = guestLook;
-            this.breed = breed;
-            this.sex = sex;
+            GuestId = guestId;
+            HostId = hostId;
+            Name = name;
+            GuestLook = guestLook;
+            Breed = breed;
+            Sex = sex;
+            Status = status;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(guestId);
-            writer.WriteInt(hostId);
-            writer.WriteUTF(name);
-            guestLook.Serialize(writer);
-            writer.WriteSByte(breed);
-            writer.WriteBoolean(sex);
+            writer.WriteInt(GuestId);
+            writer.WriteInt(HostId);
+            writer.WriteUTF(Name);
+            GuestLook.Serialize(writer);
+            writer.WriteSByte(Breed);
+            writer.WriteBoolean(Sex);
+            writer.WriteShort(Status.TypeId);
+            Status.Serialize(writer);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            guestId = reader.ReadInt();
-            if (guestId < 0)
-                throw new Exception("Forbidden value on guestId = " + guestId + ", it doesn't respect the following condition : guestId < 0");
-            hostId = reader.ReadInt();
-            if (hostId < 0)
-                throw new Exception("Forbidden value on hostId = " + hostId + ", it doesn't respect the following condition : hostId < 0");
-            name = reader.ReadUTF();
-            guestLook = new EntityLook();
-            guestLook.Deserialize(reader);
-            breed = reader.ReadSByte();
-            sex = reader.ReadBoolean();
+            GuestId = reader.ReadInt();
+            HostId = reader.ReadInt();
+            Name = reader.ReadUTF();
+            GuestLook = new EntityLook();
+            GuestLook.Deserialize(reader);
+            Breed = reader.ReadSByte();
+            Sex = reader.ReadBoolean();
+            Status = Types.ProtocolTypeManager.GetInstance<PlayerStatus>(reader.ReadShort());
+            Status.Deserialize(reader);
         }
     }
 }

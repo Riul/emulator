@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class InventoryContentAndPresetMessage : InventoryContentMessage
     {
-        public const uint Id = 6162;
-
-        public Types.Game.Inventory.Preset.Preset[] presets;
+        public const uint ID = 6162;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public Types.Game.Inventory.Preset.Preset[] Presets { get; set; }
 
 
         public InventoryContentAndPresetMessage()
@@ -38,17 +40,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         }
 
         public InventoryContentAndPresetMessage(ObjectItem[] objects, int kamas, Types.Game.Inventory.Preset.Preset[] presets)
-            : base(objects, kamas)
+                : base(objects, kamas)
         {
-            this.presets = presets;
+            Presets = presets;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) presets.Length);
-            foreach (var entry in presets)
+            writer.WriteUShort((ushort) Presets.Length);
+            foreach (var entry in Presets)
             {
                 entry.Serialize(writer);
             }
@@ -58,11 +60,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            presets = new Types.Game.Inventory.Preset.Preset[limit];
+            Presets = new Types.Game.Inventory.Preset.Preset[limit];
             for (int i = 0; i < limit; i++)
             {
-                presets[i] = new Types.Game.Inventory.Preset.Preset();
-                presets[i].Deserialize(reader);
+                Presets[i] = new Types.Game.Inventory.Preset.Preset();
+                Presets[i].Deserialize(reader);
             }
         }
     }

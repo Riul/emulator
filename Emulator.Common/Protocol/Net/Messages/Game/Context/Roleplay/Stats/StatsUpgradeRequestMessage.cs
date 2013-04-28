@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
 {
     public class StatsUpgradeRequestMessage : NetworkMessage
     {
-        public const uint Id = 5610;
-
-        public short boostPoint;
-        public sbyte statId;
+        public const uint ID = 5610;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte StatId { get; set; }
+        public short BoostPoint { get; set; }
 
 
         public StatsUpgradeRequestMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
 
         public StatsUpgradeRequestMessage(sbyte statId, short boostPoint)
         {
-            this.statId = statId;
-            this.boostPoint = boostPoint;
+            StatId = statId;
+            BoostPoint = boostPoint;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(statId);
-            writer.WriteShort(boostPoint);
+            writer.WriteSByte(StatId);
+            writer.WriteShort(BoostPoint);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            statId = reader.ReadSByte();
-            if (statId < 0)
-                throw new Exception("Forbidden value on statId = " + statId + ", it doesn't respect the following condition : statId < 0");
-            boostPoint = reader.ReadShort();
-            if (boostPoint < 0)
-                throw new Exception("Forbidden value on boostPoint = " + boostPoint + ", it doesn't respect the following condition : boostPoint < 0");
+            StatId = reader.ReadSByte();
+            BoostPoint = reader.ReadShort();
         }
     }
 }

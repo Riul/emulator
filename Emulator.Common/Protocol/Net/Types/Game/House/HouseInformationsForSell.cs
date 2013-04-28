@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,34 +14,34 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.House
 {
     public class HouseInformationsForSell
     {
-        public const short Id = 221;
-        public bool isLocked;
-
-        public int modelId;
-        public sbyte nbChest;
-        public sbyte nbRoom;
-        public bool ownerConnected;
-        public string ownerName;
-        public int price;
-        public int[] skillListIds;
-        public short subAreaId;
-        public short worldX;
-        public short worldY;
+        public const short ID = 221;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ModelId { get; set; }
+        public string OwnerName { get; set; }
+        public bool OwnerConnected { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public short SubAreaId { get; set; }
+        public sbyte NbRoom { get; set; }
+        public sbyte NbChest { get; set; }
+        public int[] SkillListIds { get; set; }
+        public bool IsLocked { get; set; }
+        public int Price { get; set; }
 
 
         public HouseInformationsForSell()
@@ -49,67 +50,57 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
 
         public HouseInformationsForSell(int modelId, string ownerName, bool ownerConnected, short worldX, short worldY, short subAreaId, sbyte nbRoom, sbyte nbChest, int[] skillListIds, bool isLocked, int price)
         {
-            this.modelId = modelId;
-            this.ownerName = ownerName;
-            this.ownerConnected = ownerConnected;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.subAreaId = subAreaId;
-            this.nbRoom = nbRoom;
-            this.nbChest = nbChest;
-            this.skillListIds = skillListIds;
-            this.isLocked = isLocked;
-            this.price = price;
+            ModelId = modelId;
+            OwnerName = ownerName;
+            OwnerConnected = ownerConnected;
+            WorldX = worldX;
+            WorldY = worldY;
+            SubAreaId = subAreaId;
+            NbRoom = nbRoom;
+            NbChest = nbChest;
+            SkillListIds = skillListIds;
+            IsLocked = isLocked;
+            Price = price;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(modelId);
-            writer.WriteUTF(ownerName);
-            writer.WriteBoolean(ownerConnected);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteShort(subAreaId);
-            writer.WriteSByte(nbRoom);
-            writer.WriteSByte(nbChest);
-            writer.WriteUShort((ushort) skillListIds.Length);
-            foreach (var entry in skillListIds)
+            writer.WriteInt(ModelId);
+            writer.WriteUTF(OwnerName);
+            writer.WriteBoolean(OwnerConnected);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteShort(SubAreaId);
+            writer.WriteSByte(NbRoom);
+            writer.WriteSByte(NbChest);
+            writer.WriteUShort((ushort) SkillListIds.Length);
+            foreach (var entry in SkillListIds)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteBoolean(isLocked);
-            writer.WriteInt(price);
+            writer.WriteBoolean(IsLocked);
+            writer.WriteInt(Price);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            modelId = reader.ReadInt();
-            if (modelId < 0)
-                throw new Exception("Forbidden value on modelId = " + modelId + ", it doesn't respect the following condition : modelId < 0");
-            ownerName = reader.ReadUTF();
-            ownerConnected = reader.ReadBoolean();
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
-            nbRoom = reader.ReadSByte();
-            nbChest = reader.ReadSByte();
+            ModelId = reader.ReadInt();
+            OwnerName = reader.ReadUTF();
+            OwnerConnected = reader.ReadBoolean();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            SubAreaId = reader.ReadShort();
+            NbRoom = reader.ReadSByte();
+            NbChest = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            skillListIds = new int[limit];
+            SkillListIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                skillListIds[i] = reader.ReadInt();
+                SkillListIds[i] = reader.ReadInt();
             }
-            isLocked = reader.ReadBoolean();
-            price = reader.ReadInt();
-            if (price < 0)
-                throw new Exception("Forbidden value on price = " + price + ", it doesn't respect the following condition : price < 0");
+            IsLocked = reader.ReadBoolean();
+            Price = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
 {
     public class StatsUpgradeResultMessage : NetworkMessage
     {
-        public const uint Id = 5609;
-
-        public short nbCharacBoost;
+        public const uint ID = 5609;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short NbCharacBoost { get; set; }
 
 
         public StatsUpgradeResultMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Stats
 
         public StatsUpgradeResultMessage(short nbCharacBoost)
         {
-            this.nbCharacBoost = nbCharacBoost;
+            NbCharacBoost = nbCharacBoost;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(nbCharacBoost);
+            writer.WriteShort(NbCharacBoost);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            nbCharacBoost = reader.ReadShort();
-            if (nbCharacBoost < 0)
-                throw new Exception("Forbidden value on nbCharacBoost = " + nbCharacBoost + ", it doesn't respect the following condition : nbCharacBoost < 0");
+            NbCharacBoost = reader.ReadShort();
         }
     }
 }

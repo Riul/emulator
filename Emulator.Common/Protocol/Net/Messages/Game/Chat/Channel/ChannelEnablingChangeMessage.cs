@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Channel
 {
     public class ChannelEnablingChangeMessage : NetworkMessage
     {
-        public const uint Id = 891;
-
-        public sbyte channel;
-        public bool enable;
+        public const uint ID = 891;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Channel { get; set; }
+        public bool Enable { get; set; }
 
 
         public ChannelEnablingChangeMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Channel
 
         public ChannelEnablingChangeMessage(sbyte channel, bool enable)
         {
-            this.channel = channel;
-            this.enable = enable;
+            Channel = channel;
+            Enable = enable;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(channel);
-            writer.WriteBoolean(enable);
+            writer.WriteSByte(Channel);
+            writer.WriteBoolean(Enable);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            channel = reader.ReadSByte();
-            if (channel < 0)
-                throw new Exception("Forbidden value on channel = " + channel + ", it doesn't respect the following condition : channel < 0");
-            enable = reader.ReadBoolean();
+            Channel = reader.ReadSByte();
+            Enable = reader.ReadBoolean();
         }
     }
 }

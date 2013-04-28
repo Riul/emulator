@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Secure
 {
     public class TrustStatusMessage : NetworkMessage
     {
-        public const uint Id = 6267;
-
-        public bool trusted;
+        public const uint ID = 6267;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Trusted { get; set; }
 
 
         public TrustStatusMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Secure
 
         public TrustStatusMessage(bool trusted)
         {
-            this.trusted = trusted;
+            Trusted = trusted;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(trusted);
+            writer.WriteBoolean(Trusted);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            trusted = reader.ReadBoolean();
+            Trusted = reader.ReadBoolean();
         }
     }
 }

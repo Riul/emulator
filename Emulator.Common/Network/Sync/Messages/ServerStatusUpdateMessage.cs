@@ -24,13 +24,13 @@ namespace Emulator.Common.Network.Sync.Messages
 {
     public class ServerStatusUpdateMessage : NetworkMessage
     {
-        public const uint Id = 2502;
+        public const uint ID = 2502;
 
         public ServerStatusEnum Status { get; set; }
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
         public ServerStatusUpdateMessage(){}

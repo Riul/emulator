@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,74 +14,56 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 {
     public class ChallengeInfoMessage : NetworkMessage
     {
-        public const uint Id = 6022;
-
-        public int baseDropBonus;
-        public int baseXpBonus;
-        public short challengeId;
-        public int extraDropBonus;
-        public int extraXpBonus;
-        public int targetId;
+        public const uint ID = 6022;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ChallengeId { get; set; }
+        public int TargetId { get; set; }
+        public int XpBonus { get; set; }
+        public int DropBonus { get; set; }
 
 
         public ChallengeInfoMessage()
         {
         }
 
-        public ChallengeInfoMessage(short challengeId, int targetId, int baseXpBonus, int extraXpBonus, int baseDropBonus, int extraDropBonus)
+        public ChallengeInfoMessage(short challengeId, int targetId, int xpBonus, int dropBonus)
         {
-            this.challengeId = challengeId;
-            this.targetId = targetId;
-            this.baseXpBonus = baseXpBonus;
-            this.extraXpBonus = extraXpBonus;
-            this.baseDropBonus = baseDropBonus;
-            this.extraDropBonus = extraDropBonus;
+            ChallengeId = challengeId;
+            TargetId = targetId;
+            XpBonus = xpBonus;
+            DropBonus = dropBonus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(challengeId);
-            writer.WriteInt(targetId);
-            writer.WriteInt(baseXpBonus);
-            writer.WriteInt(extraXpBonus);
-            writer.WriteInt(baseDropBonus);
-            writer.WriteInt(extraDropBonus);
+            writer.WriteShort(ChallengeId);
+            writer.WriteInt(TargetId);
+            writer.WriteInt(XpBonus);
+            writer.WriteInt(DropBonus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            challengeId = reader.ReadShort();
-            if (challengeId < 0)
-                throw new Exception("Forbidden value on challengeId = " + challengeId + ", it doesn't respect the following condition : challengeId < 0");
-            targetId = reader.ReadInt();
-            baseXpBonus = reader.ReadInt();
-            if (baseXpBonus < 0)
-                throw new Exception("Forbidden value on baseXpBonus = " + baseXpBonus + ", it doesn't respect the following condition : baseXpBonus < 0");
-            extraXpBonus = reader.ReadInt();
-            if (extraXpBonus < 0)
-                throw new Exception("Forbidden value on extraXpBonus = " + extraXpBonus + ", it doesn't respect the following condition : extraXpBonus < 0");
-            baseDropBonus = reader.ReadInt();
-            if (baseDropBonus < 0)
-                throw new Exception("Forbidden value on baseDropBonus = " + baseDropBonus + ", it doesn't respect the following condition : baseDropBonus < 0");
-            extraDropBonus = reader.ReadInt();
-            if (extraDropBonus < 0)
-                throw new Exception("Forbidden value on extraDropBonus = " + extraDropBonus + ", it doesn't respect the following condition : extraDropBonus < 0");
+            ChallengeId = reader.ReadShort();
+            TargetId = reader.ReadInt();
+            XpBonus = reader.ReadInt();
+            DropBonus = reader.ReadInt();
         }
     }
 }

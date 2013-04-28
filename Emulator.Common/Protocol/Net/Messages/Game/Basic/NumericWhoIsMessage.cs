@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class NumericWhoIsMessage : NetworkMessage
     {
-        public const uint Id = 6297;
-
-        public int accountId;
-        public int playerId;
+        public const uint ID = 6297;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PlayerId { get; set; }
+        public int AccountId { get; set; }
 
 
         public NumericWhoIsMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public NumericWhoIsMessage(int playerId, int accountId)
         {
-            this.playerId = playerId;
-            this.accountId = accountId;
+            PlayerId = playerId;
+            AccountId = accountId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(playerId);
-            writer.WriteInt(accountId);
+            writer.WriteInt(PlayerId);
+            writer.WriteInt(AccountId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
-            accountId = reader.ReadInt();
-            if (accountId < 0)
-                throw new Exception("Forbidden value on accountId = " + accountId + ", it doesn't respect the following condition : accountId < 0");
+            PlayerId = reader.ReadInt();
+            AccountId = reader.ReadInt();
         }
     }
 }

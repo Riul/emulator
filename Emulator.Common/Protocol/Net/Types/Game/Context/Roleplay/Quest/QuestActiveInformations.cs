@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 {
     public class QuestActiveInformations
     {
-        public const short Id = 381;
-
-        public short questId;
+        public const short ID = 381;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short QuestId { get; set; }
 
 
         public QuestActiveInformations()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 
         public QuestActiveInformations(short questId)
         {
-            this.questId = questId;
+            QuestId = questId;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(questId);
+            writer.WriteShort(QuestId);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            questId = reader.ReadShort();
-            if (questId < 0)
-                throw new Exception("Forbidden value on questId = " + questId + ", it doesn't respect the following condition : questId < 0");
+            QuestId = reader.ReadShort();
         }
     }
 }

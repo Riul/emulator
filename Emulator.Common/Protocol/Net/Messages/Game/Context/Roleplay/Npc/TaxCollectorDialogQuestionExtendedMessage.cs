@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay;
 
@@ -24,22 +25,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 {
     public class TaxCollectorDialogQuestionExtendedMessage : TaxCollectorDialogQuestionBasicMessage
     {
-        public const uint Id = 5615;
-        public double experience;
-        public int itemsValue;
-        public int kamas;
-
-        public short maxPods;
-        public int pods;
-        public short prospecting;
-        public int taxCollectorAttack;
-        public sbyte taxCollectorsCount;
-        public short wisdom;
+        public const uint ID = 5615;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short MaxPods { get; set; }
+        public short Prospecting { get; set; }
+        public short Wisdom { get; set; }
+        public sbyte TaxCollectorsCount { get; set; }
+        public int TaxCollectorAttack { get; set; }
+        public int Kamas { get; set; }
+        public double Experience { get; set; }
+        public int Pods { get; set; }
+        public int ItemsValue { get; set; }
 
 
         public TaxCollectorDialogQuestionExtendedMessage()
@@ -47,62 +48,46 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
         }
 
         public TaxCollectorDialogQuestionExtendedMessage(BasicGuildInformations guildInfo, short maxPods, short prospecting, short wisdom, sbyte taxCollectorsCount, int taxCollectorAttack, int kamas, double experience, int pods, int itemsValue)
-            : base(guildInfo)
+                : base(guildInfo)
         {
-            this.maxPods = maxPods;
-            this.prospecting = prospecting;
-            this.wisdom = wisdom;
-            this.taxCollectorsCount = taxCollectorsCount;
-            this.taxCollectorAttack = taxCollectorAttack;
-            this.kamas = kamas;
-            this.experience = experience;
-            this.pods = pods;
-            this.itemsValue = itemsValue;
+            MaxPods = maxPods;
+            Prospecting = prospecting;
+            Wisdom = wisdom;
+            TaxCollectorsCount = taxCollectorsCount;
+            TaxCollectorAttack = taxCollectorAttack;
+            Kamas = kamas;
+            Experience = experience;
+            Pods = pods;
+            ItemsValue = itemsValue;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(maxPods);
-            writer.WriteShort(prospecting);
-            writer.WriteShort(wisdom);
-            writer.WriteSByte(taxCollectorsCount);
-            writer.WriteInt(taxCollectorAttack);
-            writer.WriteInt(kamas);
-            writer.WriteDouble(experience);
-            writer.WriteInt(pods);
-            writer.WriteInt(itemsValue);
+            writer.WriteShort(MaxPods);
+            writer.WriteShort(Prospecting);
+            writer.WriteShort(Wisdom);
+            writer.WriteSByte(TaxCollectorsCount);
+            writer.WriteInt(TaxCollectorAttack);
+            writer.WriteInt(Kamas);
+            writer.WriteDouble(Experience);
+            writer.WriteInt(Pods);
+            writer.WriteInt(ItemsValue);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            maxPods = reader.ReadShort();
-            if (maxPods < 0)
-                throw new Exception("Forbidden value on maxPods = " + maxPods + ", it doesn't respect the following condition : maxPods < 0");
-            prospecting = reader.ReadShort();
-            if (prospecting < 0)
-                throw new Exception("Forbidden value on prospecting = " + prospecting + ", it doesn't respect the following condition : prospecting < 0");
-            wisdom = reader.ReadShort();
-            if (wisdom < 0)
-                throw new Exception("Forbidden value on wisdom = " + wisdom + ", it doesn't respect the following condition : wisdom < 0");
-            taxCollectorsCount = reader.ReadSByte();
-            if (taxCollectorsCount < 0)
-                throw new Exception("Forbidden value on taxCollectorsCount = " + taxCollectorsCount + ", it doesn't respect the following condition : taxCollectorsCount < 0");
-            taxCollectorAttack = reader.ReadInt();
-            kamas = reader.ReadInt();
-            if (kamas < 0)
-                throw new Exception("Forbidden value on kamas = " + kamas + ", it doesn't respect the following condition : kamas < 0");
-            experience = reader.ReadDouble();
-            if (experience < 0)
-                throw new Exception("Forbidden value on experience = " + experience + ", it doesn't respect the following condition : experience < 0");
-            pods = reader.ReadInt();
-            if (pods < 0)
-                throw new Exception("Forbidden value on pods = " + pods + ", it doesn't respect the following condition : pods < 0");
-            itemsValue = reader.ReadInt();
-            if (itemsValue < 0)
-                throw new Exception("Forbidden value on itemsValue = " + itemsValue + ", it doesn't respect the following condition : itemsValue < 0");
+            MaxPods = reader.ReadShort();
+            Prospecting = reader.ReadShort();
+            Wisdom = reader.ReadShort();
+            TaxCollectorsCount = reader.ReadSByte();
+            TaxCollectorAttack = reader.ReadInt();
+            Kamas = reader.ReadInt();
+            Experience = reader.ReadDouble();
+            Pods = reader.ReadInt();
+            ItemsValue = reader.ReadInt();
         }
     }
 }

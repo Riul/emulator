@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Fight;
 
@@ -24,17 +25,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightEndMessage : NetworkMessage
     {
-        public const uint Id = 720;
-
-        public short ageBonus;
-        public int duration;
-        public short lootShareLimitMalus;
-        public FightResultListEntry[] results;
+        public const uint ID = 720;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Duration { get; set; }
+        public short AgeBonus { get; set; }
+        public short LootShareLimitMalus { get; set; }
+        public FightResultListEntry[] Results { get; set; }
 
 
         public GameFightEndMessage()
@@ -43,20 +44,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightEndMessage(int duration, short ageBonus, short lootShareLimitMalus, FightResultListEntry[] results)
         {
-            this.duration = duration;
-            this.ageBonus = ageBonus;
-            this.lootShareLimitMalus = lootShareLimitMalus;
-            this.results = results;
+            Duration = duration;
+            AgeBonus = ageBonus;
+            LootShareLimitMalus = lootShareLimitMalus;
+            Results = results;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(duration);
-            writer.WriteShort(ageBonus);
-            writer.WriteShort(lootShareLimitMalus);
-            writer.WriteUShort((ushort) results.Length);
-            foreach (var entry in results)
+            writer.WriteInt(Duration);
+            writer.WriteShort(AgeBonus);
+            writer.WriteShort(LootShareLimitMalus);
+            writer.WriteUShort((ushort) Results.Length);
+            foreach (var entry in Results)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -65,17 +66,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public override void Deserialize(BigEndianReader reader)
         {
-            duration = reader.ReadInt();
-            if (duration < 0)
-                throw new Exception("Forbidden value on duration = " + duration + ", it doesn't respect the following condition : duration < 0");
-            ageBonus = reader.ReadShort();
-            lootShareLimitMalus = reader.ReadShort();
+            Duration = reader.ReadInt();
+            AgeBonus = reader.ReadShort();
+            LootShareLimitMalus = reader.ReadShort();
             var limit = reader.ReadUShort();
-            results = new FightResultListEntry[limit];
+            Results = new FightResultListEntry[limit];
             for (int i = 0; i < limit; i++)
             {
-                results[i] = Types.ProtocolTypeManager.GetInstance<FightResultListEntry>(reader.ReadShort());
-                results[i].Deserialize(reader);
+                Results[i] = Types.ProtocolTypeManager.GetInstance<FightResultListEntry>(reader.ReadShort());
+                Results[i].Deserialize(reader);
             }
         }
     }

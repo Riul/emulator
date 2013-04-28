@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 {
     public class MapRunningFightListMessage : NetworkMessage
     {
-        public const uint Id = 5743;
-
-        public FightExternalInformations[] fights;
+        public const uint ID = 5743;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public FightExternalInformations[] Fights { get; set; }
 
 
         public MapRunningFightListMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public MapRunningFightListMessage(FightExternalInformations[] fights)
         {
-            this.fights = fights;
+            Fights = fights;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) fights.Length);
-            foreach (var entry in fights)
+            writer.WriteUShort((ushort) Fights.Length);
+            foreach (var entry in Fights)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            fights = new FightExternalInformations[limit];
+            Fights = new FightExternalInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                fights[i] = new FightExternalInformations();
-                fights[i].Deserialize(reader);
+                Fights[i] = new FightExternalInformations();
+                Fights[i].Deserialize(reader);
             }
         }
     }

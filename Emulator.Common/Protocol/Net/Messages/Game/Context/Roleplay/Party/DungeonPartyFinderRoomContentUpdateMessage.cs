@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class DungeonPartyFinderRoomContentUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6250;
-
-        public DungeonPartyFinderPlayer[] addedPlayers;
-        public short dungeonId;
-        public int[] removedPlayersIds;
+        public const uint ID = 6250;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short DungeonId { get; set; }
+        public DungeonPartyFinderPlayer[] AddedPlayers { get; set; }
+        public int[] RemovedPlayersIds { get; set; }
 
 
         public DungeonPartyFinderRoomContentUpdateMessage()
@@ -42,22 +43,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public DungeonPartyFinderRoomContentUpdateMessage(short dungeonId, DungeonPartyFinderPlayer[] addedPlayers, int[] removedPlayersIds)
         {
-            this.dungeonId = dungeonId;
-            this.addedPlayers = addedPlayers;
-            this.removedPlayersIds = removedPlayersIds;
+            DungeonId = dungeonId;
+            AddedPlayers = addedPlayers;
+            RemovedPlayersIds = removedPlayersIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(dungeonId);
-            writer.WriteUShort((ushort) addedPlayers.Length);
-            foreach (var entry in addedPlayers)
+            writer.WriteShort(DungeonId);
+            writer.WriteUShort((ushort) AddedPlayers.Length);
+            foreach (var entry in AddedPlayers)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) removedPlayersIds.Length);
-            foreach (var entry in removedPlayersIds)
+            writer.WriteUShort((ushort) RemovedPlayersIds.Length);
+            foreach (var entry in RemovedPlayersIds)
             {
                 writer.WriteInt(entry);
             }
@@ -65,21 +66,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 
         public override void Deserialize(BigEndianReader reader)
         {
-            dungeonId = reader.ReadShort();
-            if (dungeonId < 0)
-                throw new Exception("Forbidden value on dungeonId = " + dungeonId + ", it doesn't respect the following condition : dungeonId < 0");
+            DungeonId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            addedPlayers = new DungeonPartyFinderPlayer[limit];
+            AddedPlayers = new DungeonPartyFinderPlayer[limit];
             for (int i = 0; i < limit; i++)
             {
-                addedPlayers[i] = new DungeonPartyFinderPlayer();
-                addedPlayers[i].Deserialize(reader);
+                AddedPlayers[i] = new DungeonPartyFinderPlayer();
+                AddedPlayers[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            removedPlayersIds = new int[limit];
+            RemovedPlayersIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                removedPlayersIds[i] = reader.ReadInt();
+                RemovedPlayersIds[i] = reader.ReadInt();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 {
     public class KrosmasterTransferMessage : NetworkMessage
     {
-        public const uint Id = 6348;
-
-        public sbyte failure;
-        public string uid;
+        public const uint ID = 6348;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Uid { get; set; }
+        public sbyte Failure { get; set; }
 
 
         public KrosmasterTransferMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public KrosmasterTransferMessage(string uid, sbyte failure)
         {
-            this.uid = uid;
-            this.failure = failure;
+            Uid = uid;
+            Failure = failure;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(uid);
-            writer.WriteSByte(failure);
+            writer.WriteUTF(Uid);
+            writer.WriteSByte(Failure);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadUTF();
-            failure = reader.ReadSByte();
-            if (failure < 0)
-                throw new Exception("Forbidden value on failure = " + failure + ", it doesn't respect the following condition : failure < 0");
+            Uid = reader.ReadUTF();
+            Failure = reader.ReadSByte();
         }
     }
 }

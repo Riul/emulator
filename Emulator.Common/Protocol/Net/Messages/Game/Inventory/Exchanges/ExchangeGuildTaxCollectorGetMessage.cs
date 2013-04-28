@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items;
 
@@ -24,21 +25,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeGuildTaxCollectorGetMessage : NetworkMessage
     {
-        public const uint Id = 5762;
-
-        public string collectorName;
-        public double experience;
-        public int mapId;
-        public ObjectItemQuantity[] objectsInfos;
-        public short subAreaId;
-        public string userName;
-        public short worldX;
-        public short worldY;
+        public const uint ID = 5762;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string CollectorName { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public int MapId { get; set; }
+        public short SubAreaId { get; set; }
+        public string UserName { get; set; }
+        public double Experience { get; set; }
+        public ObjectItemQuantity[] ObjectsInfos { get; set; }
 
 
         public ExchangeGuildTaxCollectorGetMessage()
@@ -47,28 +48,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeGuildTaxCollectorGetMessage(string collectorName, short worldX, short worldY, int mapId, short subAreaId, string userName, double experience, ObjectItemQuantity[] objectsInfos)
         {
-            this.collectorName = collectorName;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.mapId = mapId;
-            this.subAreaId = subAreaId;
-            this.userName = userName;
-            this.experience = experience;
-            this.objectsInfos = objectsInfos;
+            CollectorName = collectorName;
+            WorldX = worldX;
+            WorldY = worldY;
+            MapId = mapId;
+            SubAreaId = subAreaId;
+            UserName = userName;
+            Experience = experience;
+            ObjectsInfos = objectsInfos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(collectorName);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteInt(mapId);
-            writer.WriteShort(subAreaId);
-            writer.WriteUTF(userName);
-            writer.WriteDouble(experience);
-            writer.WriteUShort((ushort) objectsInfos.Length);
-            foreach (var entry in objectsInfos)
+            writer.WriteUTF(CollectorName);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteInt(MapId);
+            writer.WriteShort(SubAreaId);
+            writer.WriteUTF(UserName);
+            writer.WriteDouble(Experience);
+            writer.WriteUShort((ushort) ObjectsInfos.Length);
+            foreach (var entry in ObjectsInfos)
             {
                 entry.Serialize(writer);
             }
@@ -76,25 +77,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public override void Deserialize(BigEndianReader reader)
         {
-            collectorName = reader.ReadUTF();
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            mapId = reader.ReadInt();
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
-            userName = reader.ReadUTF();
-            experience = reader.ReadDouble();
+            CollectorName = reader.ReadUTF();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            MapId = reader.ReadInt();
+            SubAreaId = reader.ReadShort();
+            UserName = reader.ReadUTF();
+            Experience = reader.ReadDouble();
             var limit = reader.ReadUShort();
-            objectsInfos = new ObjectItemQuantity[limit];
+            ObjectsInfos = new ObjectItemQuantity[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectsInfos[i] = new ObjectItemQuantity();
-                objectsInfos[i].Deserialize(reader);
+                ObjectsInfos[i] = new ObjectItemQuantity();
+                ObjectsInfos[i].Deserialize(reader);
             }
         }
     }

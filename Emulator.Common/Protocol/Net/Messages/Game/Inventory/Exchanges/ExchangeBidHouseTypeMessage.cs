@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeBidHouseTypeMessage : NetworkMessage
     {
-        public const uint Id = 5803;
-
-        public int type;
+        public const uint ID = 5803;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Type { get; set; }
 
 
         public ExchangeBidHouseTypeMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeBidHouseTypeMessage(int type)
         {
-            this.type = type;
+            Type = type;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(type);
+            writer.WriteInt(Type);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            type = reader.ReadInt();
-            if (type < 0)
-                throw new Exception("Forbidden value on type = " + type + ", it doesn't respect the following condition : type < 0");
+            Type = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Handshake
 {
     public class ProtocolRequired : NetworkMessage
     {
-        public const uint Id = 1;
-
-        public int currentVersion;
-        public int requiredVersion;
+        public const uint ID = 1;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int RequiredVersion { get; set; }
+        public int CurrentVersion { get; set; }
 
 
         public ProtocolRequired()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Handshake
 
         public ProtocolRequired(int requiredVersion, int currentVersion)
         {
-            this.requiredVersion = requiredVersion;
-            this.currentVersion = currentVersion;
+            RequiredVersion = requiredVersion;
+            CurrentVersion = currentVersion;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(requiredVersion);
-            writer.WriteInt(currentVersion);
+            writer.WriteInt(RequiredVersion);
+            writer.WriteInt(CurrentVersion);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            requiredVersion = reader.ReadInt();
-            if (requiredVersion < 0)
-                throw new Exception("Forbidden value on requiredVersion = " + requiredVersion + ", it doesn't respect the following condition : requiredVersion < 0");
-            currentVersion = reader.ReadInt();
-            if (currentVersion < 0)
-                throw new Exception("Forbidden value on currentVersion = " + currentVersion + ", it doesn't respect the following condition : currentVersion < 0");
+            RequiredVersion = reader.ReadInt();
+            CurrentVersion = reader.ReadInt();
         }
     }
 }

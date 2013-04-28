@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class IdentificationSuccessWithLoginTokenMessage : IdentificationSuccessMessage
     {
-        public const uint Id = 6209;
-
-        public string loginToken;
+        public const uint ID = 6209;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string LoginToken { get; set; }
 
 
         public IdentificationSuccessWithLoginTokenMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         }
 
         public IdentificationSuccessWithLoginTokenMessage(bool hasRights, bool wasAlreadyConnected, string login, string nickname, int accountId, sbyte communityId, string secretQuestion, double subscriptionEndDate, double accountCreation, string loginToken)
-            : base(hasRights, wasAlreadyConnected, login, nickname, accountId, communityId, secretQuestion, subscriptionEndDate, accountCreation)
+                : base(hasRights, wasAlreadyConnected, login, nickname, accountId, communityId, secretQuestion, subscriptionEndDate, accountCreation)
         {
-            this.loginToken = loginToken;
+            LoginToken = loginToken;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(loginToken);
+            writer.WriteUTF(LoginToken);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            loginToken = reader.ReadUTF();
+            LoginToken = reader.ReadUTF();
         }
     }
 }

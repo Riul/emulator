@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameContextMoveMultipleElementsMessage : NetworkMessage
     {
-        public const uint Id = 254;
-
-        public EntityMovementInformations[] movements;
+        public const uint ID = 254;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public EntityMovementInformations[] Movements { get; set; }
 
 
         public GameContextMoveMultipleElementsMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameContextMoveMultipleElementsMessage(EntityMovementInformations[] movements)
         {
-            this.movements = movements;
+            Movements = movements;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) movements.Length);
-            foreach (var entry in movements)
+            writer.WriteUShort((ushort) Movements.Length);
+            foreach (var entry in Movements)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            movements = new EntityMovementInformations[limit];
+            Movements = new EntityMovementInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                movements[i] = new EntityMovementInformations();
-                movements[i].Deserialize(reader);
+                Movements[i] = new EntityMovementInformations();
+                Movements[i].Deserialize(reader);
             }
         }
     }

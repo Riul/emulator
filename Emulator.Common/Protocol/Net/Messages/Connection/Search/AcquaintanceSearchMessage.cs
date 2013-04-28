@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 {
     public class AcquaintanceSearchMessage : NetworkMessage
     {
-        public const uint Id = 6144;
-
-        public string nickname;
+        public const uint ID = 6144;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Nickname { get; set; }
 
 
         public AcquaintanceSearchMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 
         public AcquaintanceSearchMessage(string nickname)
         {
-            this.nickname = nickname;
+            Nickname = nickname;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(nickname);
+            writer.WriteUTF(Nickname);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            nickname = reader.ReadUTF();
+            Nickname = reader.ReadUTF();
         }
     }
 }

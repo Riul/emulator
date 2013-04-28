@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 {
     public class ChallengeTargetUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6123;
-
-        public short challengeId;
-        public int targetId;
+        public const uint ID = 6123;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ChallengeId { get; set; }
+        public int TargetId { get; set; }
 
 
         public ChallengeTargetUpdateMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 
         public ChallengeTargetUpdateMessage(short challengeId, int targetId)
         {
-            this.challengeId = challengeId;
-            this.targetId = targetId;
+            ChallengeId = challengeId;
+            TargetId = targetId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(challengeId);
-            writer.WriteInt(targetId);
+            writer.WriteShort(ChallengeId);
+            writer.WriteInt(TargetId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            challengeId = reader.ReadShort();
-            if (challengeId < 0)
-                throw new Exception("Forbidden value on challengeId = " + challengeId + ", it doesn't respect the following condition : challengeId < 0");
-            targetId = reader.ReadInt();
+            ChallengeId = reader.ReadShort();
+            TargetId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 {
     public class AccountHouseMessage : NetworkMessage
     {
-        public const uint Id = 6315;
-
-        public AccountHouseInformations[] houses;
+        public const uint ID = 6315;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public AccountHouseInformations[] Houses { get; set; }
 
 
         public AccountHouseMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public AccountHouseMessage(AccountHouseInformations[] houses)
         {
-            this.houses = houses;
+            Houses = houses;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) houses.Length);
-            foreach (var entry in houses)
+            writer.WriteUShort((ushort) Houses.Length);
+            foreach (var entry in Houses)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            houses = new AccountHouseInformations[limit];
+            Houses = new AccountHouseInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                houses[i] = new AccountHouseInformations();
-                houses[i].Deserialize(reader);
+                Houses[i] = new AccountHouseInformations();
+                Houses[i].Deserialize(reader);
             }
         }
     }

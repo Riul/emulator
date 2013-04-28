@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
 {
     public class NotificationUpdateFlagMessage : NetworkMessage
     {
-        public const uint Id = 6090;
-
-        public short index;
+        public const uint ID = 6090;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Index { get; set; }
 
 
         public NotificationUpdateFlagMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Notification
 
         public NotificationUpdateFlagMessage(short index)
         {
-            this.index = index;
+            Index = index;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(index);
+            writer.WriteShort(Index);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            index = reader.ReadShort();
-            if (index < 0)
-                throw new Exception("Forbidden value on index = " + index + ", it doesn't respect the following condition : index < 0");
+            Index = reader.ReadShort();
         }
     }
 }

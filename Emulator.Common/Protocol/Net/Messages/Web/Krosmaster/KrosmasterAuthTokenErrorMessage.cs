@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 {
     public class KrosmasterAuthTokenErrorMessage : NetworkMessage
     {
-        public const uint Id = 6345;
-
-        public sbyte reason;
+        public const uint ID = 6345;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Reason { get; set; }
 
 
         public KrosmasterAuthTokenErrorMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public KrosmasterAuthTokenErrorMessage(sbyte reason)
         {
-            this.reason = reason;
+            Reason = reason;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(reason);
+            writer.WriteSByte(Reason);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            reason = reader.ReadSByte();
-            if (reason < 0)
-                throw new Exception("Forbidden value on reason = " + reason + ", it doesn't respect the following condition : reason < 0");
+            Reason = reader.ReadSByte();
         }
     }
 }

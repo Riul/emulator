@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightResultListEntry
     {
-        public const short Id = 16;
-
-        public short outcome;
-        public FightLoot rewards;
+        public const short ID = 16;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Outcome { get; set; }
+        public FightLoot Rewards { get; set; }
 
 
         public FightResultListEntry()
@@ -40,24 +41,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public FightResultListEntry(short outcome, FightLoot rewards)
         {
-            this.outcome = outcome;
-            this.rewards = rewards;
+            Outcome = outcome;
+            Rewards = rewards;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(outcome);
-            rewards.Serialize(writer);
+            writer.WriteShort(Outcome);
+            Rewards.Serialize(writer);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            outcome = reader.ReadShort();
-            if (outcome < 0)
-                throw new Exception("Forbidden value on outcome = " + outcome + ", it doesn't respect the following condition : outcome < 0");
-            rewards = new FightLoot();
-            rewards.Deserialize(reader);
+            Outcome = reader.ReadShort();
+            Rewards = new FightLoot();
+            Rewards.Deserialize(reader);
         }
     }
 }

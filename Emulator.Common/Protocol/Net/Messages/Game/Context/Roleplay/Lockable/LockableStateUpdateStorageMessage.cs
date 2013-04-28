@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 {
     public class LockableStateUpdateStorageMessage : LockableStateUpdateAbstractMessage
     {
-        public const uint Id = 5669;
-
-        public int elementId;
-        public int mapId;
+        public const uint ID = 5669;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MapId { get; set; }
+        public int ElementId { get; set; }
 
 
         public LockableStateUpdateStorageMessage()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         }
 
         public LockableStateUpdateStorageMessage(bool locked, int mapId, int elementId)
-            : base(locked)
+                : base(locked)
         {
-            this.mapId = mapId;
-            this.elementId = elementId;
+            MapId = mapId;
+            ElementId = elementId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(mapId);
-            writer.WriteInt(elementId);
+            writer.WriteInt(MapId);
+            writer.WriteInt(ElementId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            mapId = reader.ReadInt();
-            elementId = reader.ReadInt();
-            if (elementId < 0)
-                throw new Exception("Forbidden value on elementId = " + elementId + ", it doesn't respect the following condition : elementId < 0");
+            MapId = reader.ReadInt();
+            ElementId = reader.ReadInt();
         }
     }
 }

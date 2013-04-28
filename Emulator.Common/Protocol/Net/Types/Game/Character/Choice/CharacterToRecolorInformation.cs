@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
 {
     public class CharacterToRecolorInformation : AbstractCharacterInformation
     {
-        public const short Id = 212;
-
-        public int[] colors;
+        public const short ID = 212;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] Colors { get; set; }
 
 
         public CharacterToRecolorInformation()
@@ -37,17 +39,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
         }
 
         public CharacterToRecolorInformation(int id, int[] colors)
-            : base(id)
+                : base(id)
         {
-            this.colors = colors;
+            Colors = colors;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) colors.Length);
-            foreach (var entry in colors)
+            writer.WriteUShort((ushort) Colors.Length);
+            foreach (var entry in Colors)
             {
                 writer.WriteInt(entry);
             }
@@ -57,10 +59,10 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            colors = new int[limit];
+            Colors = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                colors[i] = reader.ReadInt();
+                Colors[i] = reader.ReadInt();
             }
         }
     }

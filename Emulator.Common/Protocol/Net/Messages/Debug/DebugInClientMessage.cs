@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Debug
 {
     public class DebugInClientMessage : NetworkMessage
     {
-        public const uint Id = 6028;
-
-        public sbyte level;
-        public string message;
+        public const uint ID = 6028;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Level { get; set; }
+        public string Message { get; set; }
 
 
         public DebugInClientMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Debug
 
         public DebugInClientMessage(sbyte level, string message)
         {
-            this.level = level;
-            this.message = message;
+            Level = level;
+            Message = message;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(level);
-            writer.WriteUTF(message);
+            writer.WriteSByte(Level);
+            writer.WriteUTF(Message);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            level = reader.ReadSByte();
-            if (level < 0)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0");
-            message = reader.ReadUTF();
+            Level = reader.ReadSByte();
+            Message = reader.ReadUTF();
         }
     }
 }

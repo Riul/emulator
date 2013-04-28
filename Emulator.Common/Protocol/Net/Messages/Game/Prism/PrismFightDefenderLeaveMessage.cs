@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismFightDefenderLeaveMessage : NetworkMessage
     {
-        public const uint Id = 5892;
-
-        public double fightId;
-        public int fighterToRemoveId;
-        public int successor;
+        public const uint ID = 5892;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public int FighterToRemoveId { get; set; }
+        public int Successor { get; set; }
 
 
         public PrismFightDefenderLeaveMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismFightDefenderLeaveMessage(double fightId, int fighterToRemoveId, int successor)
         {
-            this.fightId = fightId;
-            this.fighterToRemoveId = fighterToRemoveId;
-            this.successor = successor;
+            FightId = fightId;
+            FighterToRemoveId = fighterToRemoveId;
+            Successor = successor;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            writer.WriteInt(fighterToRemoveId);
-            writer.WriteInt(successor);
+            writer.WriteDouble(FightId);
+            writer.WriteInt(FighterToRemoveId);
+            writer.WriteInt(Successor);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
-            fighterToRemoveId = reader.ReadInt();
-            if (fighterToRemoveId < 0)
-                throw new Exception("Forbidden value on fighterToRemoveId = " + fighterToRemoveId + ", it doesn't respect the following condition : fighterToRemoveId < 0");
-            successor = reader.ReadInt();
-            if (successor < 0)
-                throw new Exception("Forbidden value on successor = " + successor + ", it doesn't respect the following condition : successor < 0");
+            FightId = reader.ReadDouble();
+            FighterToRemoveId = reader.ReadInt();
+            Successor = reader.ReadInt();
         }
     }
 }

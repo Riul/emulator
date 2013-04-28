@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightSummonMessage : AbstractGameActionMessage
     {
-        public const uint Id = 5825;
-
-        public GameFightFighterInformations summon;
+        public const uint ID = 5825;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameFightFighterInformations Summon { get; set; }
 
 
         public GameActionFightSummonMessage()
@@ -38,24 +40,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightSummonMessage(short actionId, int sourceId, GameFightFighterInformations summon)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.summon = summon;
+            Summon = summon;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(summon.TypeId);
-            summon.Serialize(writer);
+            writer.WriteShort(Summon.TypeId);
+            Summon.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            summon = Types.ProtocolTypeManager.GetInstance<GameFightFighterInformations>(reader.ReadShort());
-            summon.Deserialize(reader);
+            Summon = Types.ProtocolTypeManager.GetInstance<GameFightFighterInformations>(reader.ReadShort());
+            Summon.Deserialize(reader);
         }
     }
 }

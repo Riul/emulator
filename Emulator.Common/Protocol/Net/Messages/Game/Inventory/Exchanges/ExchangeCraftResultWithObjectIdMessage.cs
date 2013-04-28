@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeCraftResultWithObjectIdMessage : ExchangeCraftResultMessage
     {
-        public const uint Id = 6000;
-
-        public int objectGenericId;
+        public const uint ID = 6000;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ObjectGenericId { get; set; }
 
 
         public ExchangeCraftResultWithObjectIdMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangeCraftResultWithObjectIdMessage(sbyte craftResult, int objectGenericId)
-            : base(craftResult)
+                : base(craftResult)
         {
-            this.objectGenericId = objectGenericId;
+            ObjectGenericId = objectGenericId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(objectGenericId);
+            writer.WriteInt(ObjectGenericId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            objectGenericId = reader.ReadInt();
-            if (objectGenericId < 0)
-                throw new Exception("Forbidden value on objectGenericId = " + objectGenericId + ", it doesn't respect the following condition : objectGenericId < 0");
+            ObjectGenericId = reader.ReadInt();
         }
     }
 }

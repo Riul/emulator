@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class SelectedServerRefusedMessage : NetworkMessage
     {
-        public const uint Id = 41;
-
-        public sbyte error;
-        public short serverId;
-        public sbyte serverStatus;
+        public const uint ID = 41;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ServerId { get; set; }
+        public sbyte Error { get; set; }
+        public sbyte ServerStatus { get; set; }
 
 
         public SelectedServerRefusedMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public SelectedServerRefusedMessage(short serverId, sbyte error, sbyte serverStatus)
         {
-            this.serverId = serverId;
-            this.error = error;
-            this.serverStatus = serverStatus;
+            ServerId = serverId;
+            Error = error;
+            ServerStatus = serverStatus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(serverId);
-            writer.WriteSByte(error);
-            writer.WriteSByte(serverStatus);
+            writer.WriteShort(ServerId);
+            writer.WriteSByte(Error);
+            writer.WriteSByte(ServerStatus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            serverId = reader.ReadShort();
-            error = reader.ReadSByte();
-            if (error < 0)
-                throw new Exception("Forbidden value on error = " + error + ", it doesn't respect the following condition : error < 0");
-            serverStatus = reader.ReadSByte();
-            if (serverStatus < 0)
-                throw new Exception("Forbidden value on serverStatus = " + serverStatus + ", it doesn't respect the following condition : serverStatus < 0");
+            ServerId = reader.ReadShort();
+            Error = reader.ReadSByte();
+            ServerStatus = reader.ReadSByte();
         }
     }
 }

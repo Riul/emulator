@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeShopStockMultiMovementRemovedMessage : NetworkMessage
     {
-        public const uint Id = 6037;
-
-        public int[] objectIdList;
+        public const uint ID = 6037;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] ObjectIdList { get; set; }
 
 
         public ExchangeShopStockMultiMovementRemovedMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeShopStockMultiMovementRemovedMessage(int[] objectIdList)
         {
-            this.objectIdList = objectIdList;
+            ObjectIdList = objectIdList;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objectIdList.Length);
-            foreach (var entry in objectIdList)
+            writer.WriteUShort((ushort) ObjectIdList.Length);
+            foreach (var entry in ObjectIdList)
             {
                 writer.WriteInt(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objectIdList = new int[limit];
+            ObjectIdList = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectIdList[i] = reader.ReadInt();
+                ObjectIdList[i] = reader.ReadInt();
             }
         }
     }

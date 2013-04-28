@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,29 +14,29 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Version
 {
     public class Version
     {
-        public const short Id = 11;
-        public sbyte buildType;
-
-        public sbyte major;
-        public sbyte minor;
-        public sbyte patch;
-        public sbyte release;
-        public int revision;
+        public const short ID = 11;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Major { get; set; }
+        public sbyte Minor { get; set; }
+        public sbyte Release { get; set; }
+        public int Revision { get; set; }
+        public sbyte Patch { get; set; }
+        public sbyte BuildType { get; set; }
 
 
         public Version()
@@ -44,45 +45,33 @@ namespace Emulator.Common.Protocol.Net.Types.Version
 
         public Version(sbyte major, sbyte minor, sbyte release, int revision, sbyte patch, sbyte buildType)
         {
-            this.major = major;
-            this.minor = minor;
-            this.release = release;
-            this.revision = revision;
-            this.patch = patch;
-            this.buildType = buildType;
+            Major = major;
+            Minor = minor;
+            Release = release;
+            Revision = revision;
+            Patch = patch;
+            BuildType = buildType;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(major);
-            writer.WriteSByte(minor);
-            writer.WriteSByte(release);
-            writer.WriteInt(revision);
-            writer.WriteSByte(patch);
-            writer.WriteSByte(buildType);
+            writer.WriteSByte(Major);
+            writer.WriteSByte(Minor);
+            writer.WriteSByte(Release);
+            writer.WriteInt(Revision);
+            writer.WriteSByte(Patch);
+            writer.WriteSByte(BuildType);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            major = reader.ReadSByte();
-            if (major < 0)
-                throw new Exception("Forbidden value on major = " + major + ", it doesn't respect the following condition : major < 0");
-            minor = reader.ReadSByte();
-            if (minor < 0)
-                throw new Exception("Forbidden value on minor = " + minor + ", it doesn't respect the following condition : minor < 0");
-            release = reader.ReadSByte();
-            if (release < 0)
-                throw new Exception("Forbidden value on release = " + release + ", it doesn't respect the following condition : release < 0");
-            revision = reader.ReadInt();
-            if (revision < 0)
-                throw new Exception("Forbidden value on revision = " + revision + ", it doesn't respect the following condition : revision < 0");
-            patch = reader.ReadSByte();
-            if (patch < 0)
-                throw new Exception("Forbidden value on patch = " + patch + ", it doesn't respect the following condition : patch < 0");
-            buildType = reader.ReadSByte();
-            if (buildType < 0)
-                throw new Exception("Forbidden value on buildType = " + buildType + ", it doesn't respect the following condition : buildType < 0");
+            Major = reader.ReadSByte();
+            Minor = reader.ReadSByte();
+            Release = reader.ReadSByte();
+            Revision = reader.ReadInt();
+            Patch = reader.ReadSByte();
+            BuildType = reader.ReadSByte();
         }
     }
 }

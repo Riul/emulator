@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffect
     {
-        public const short Id = 76;
-
-        public short actionId;
+        public const short ID = 76;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ActionId { get; set; }
 
 
         public ObjectEffect()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 
         public ObjectEffect(short actionId)
         {
-            this.actionId = actionId;
+            ActionId = actionId;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(actionId);
+            writer.WriteShort(ActionId);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            actionId = reader.ReadShort();
-            if (actionId < 0)
-                throw new Exception("Forbidden value on actionId = " + actionId + ", it doesn't respect the following condition : actionId < 0");
+            ActionId = reader.ReadShort();
         }
     }
 }

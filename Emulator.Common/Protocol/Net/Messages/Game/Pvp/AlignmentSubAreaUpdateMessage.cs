@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 {
     public class AlignmentSubAreaUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6057;
-
-        public bool quiet;
-        public sbyte side;
-        public short subAreaId;
+        public const uint ID = 6057;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short SubAreaId { get; set; }
+        public sbyte Side { get; set; }
+        public bool Quiet { get; set; }
 
 
         public AlignmentSubAreaUpdateMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 
         public AlignmentSubAreaUpdateMessage(short subAreaId, sbyte side, bool quiet)
         {
-            this.subAreaId = subAreaId;
-            this.side = side;
-            this.quiet = quiet;
+            SubAreaId = subAreaId;
+            Side = side;
+            Quiet = quiet;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(subAreaId);
-            writer.WriteSByte(side);
-            writer.WriteBoolean(quiet);
+            writer.WriteShort(SubAreaId);
+            writer.WriteSByte(Side);
+            writer.WriteBoolean(Quiet);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
-            side = reader.ReadSByte();
-            quiet = reader.ReadBoolean();
+            SubAreaId = reader.ReadShort();
+            Side = reader.ReadSByte();
+            Quiet = reader.ReadBoolean();
         }
     }
 }

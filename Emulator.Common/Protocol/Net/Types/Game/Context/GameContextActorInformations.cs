@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class GameContextActorInformations
     {
-        public const short Id = 150;
-
-        public int contextualId;
-        public EntityDispositionInformations disposition;
-        public EntityLook look;
+        public const short ID = 150;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ContextualId { get; set; }
+        public EntityLook Look { get; set; }
+        public EntityDispositionInformations Disposition { get; set; }
 
 
         public GameContextActorInformations()
@@ -41,27 +43,27 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public GameContextActorInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition)
         {
-            this.contextualId = contextualId;
-            this.look = look;
-            this.disposition = disposition;
+            ContextualId = contextualId;
+            Look = look;
+            Disposition = disposition;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(contextualId);
-            look.Serialize(writer);
-            writer.WriteShort(disposition.TypeId);
-            disposition.Serialize(writer);
+            writer.WriteInt(ContextualId);
+            Look.Serialize(writer);
+            writer.WriteShort(Disposition.TypeId);
+            Disposition.Serialize(writer);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            contextualId = reader.ReadInt();
-            look = new EntityLook();
-            look.Deserialize(reader);
-            disposition = Types.ProtocolTypeManager.GetInstance<EntityDispositionInformations>(reader.ReadShort());
-            disposition.Deserialize(reader);
+            ContextualId = reader.ReadInt();
+            Look = new EntityLook();
+            Look.Deserialize(reader);
+            Disposition = Types.ProtocolTypeManager.GetInstance<EntityDispositionInformations>(reader.ReadShort());
+            Disposition.Deserialize(reader);
         }
     }
 }

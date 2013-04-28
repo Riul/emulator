@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyCannotJoinErrorMessage : AbstractPartyMessage
     {
-        public const uint Id = 5583;
-
-        public sbyte reason;
+        public const uint ID = 5583;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Reason { get; set; }
 
 
         public PartyCannotJoinErrorMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyCannotJoinErrorMessage(int partyId, sbyte reason)
-            : base(partyId)
+                : base(partyId)
         {
-            this.reason = reason;
+            Reason = reason;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(reason);
+            writer.WriteSByte(Reason);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            reason = reader.ReadSByte();
-            if (reason < 0)
-                throw new Exception("Forbidden value on reason = " + reason + ", it doesn't respect the following condition : reason < 0");
+            Reason = reader.ReadSByte();
         }
     }
 }

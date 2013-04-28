@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffectLadder : ObjectEffectCreature
     {
-        public const short Id = 81;
-
-        public int monsterCount;
+        public const short ID = 81;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MonsterCount { get; set; }
 
 
         public ObjectEffectLadder()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         }
 
         public ObjectEffectLadder(short actionId, short monsterFamilyId, int monsterCount)
-            : base(actionId, monsterFamilyId)
+                : base(actionId, monsterFamilyId)
         {
-            this.monsterCount = monsterCount;
+            MonsterCount = monsterCount;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(monsterCount);
+            writer.WriteInt(MonsterCount);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            monsterCount = reader.ReadInt();
-            if (monsterCount < 0)
-                throw new Exception("Forbidden value on monsterCount = " + monsterCount + ", it doesn't respect the following condition : monsterCount < 0");
+            MonsterCount = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -24,14 +26,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayNpcWithQuestInformations : GameRolePlayNpcInformations
     {
-        public const short Id = 383;
-
-        public GameRolePlayNpcQuestFlag questFlag;
+        public const short ID = 383;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameRolePlayNpcQuestFlag QuestFlag { get; set; }
 
 
         public GameRolePlayNpcWithQuestInformations()
@@ -39,23 +41,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayNpcWithQuestInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, short npcId, bool sex, short specialArtworkId, GameRolePlayNpcQuestFlag questFlag)
-            : base(contextualId, look, disposition, npcId, sex, specialArtworkId)
+                : base(contextualId, look, disposition, npcId, sex, specialArtworkId)
         {
-            this.questFlag = questFlag;
+            QuestFlag = questFlag;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            questFlag.Serialize(writer);
+            QuestFlag.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            questFlag = new GameRolePlayNpcQuestFlag();
-            questFlag.Deserialize(reader);
+            QuestFlag = new GameRolePlayNpcQuestFlag();
+            QuestFlag.Deserialize(reader);
         }
     }
 }

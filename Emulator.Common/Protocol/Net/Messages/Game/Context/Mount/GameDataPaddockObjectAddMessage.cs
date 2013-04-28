@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class GameDataPaddockObjectAddMessage : NetworkMessage
     {
-        public const uint Id = 5990;
-
-        public PaddockItem paddockItemDescription;
+        public const uint ID = 5990;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public PaddockItem PaddockItemDescription { get; set; }
 
 
         public GameDataPaddockObjectAddMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public GameDataPaddockObjectAddMessage(PaddockItem paddockItemDescription)
         {
-            this.paddockItemDescription = paddockItemDescription;
+            PaddockItemDescription = paddockItemDescription;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            paddockItemDescription.Serialize(writer);
+            PaddockItemDescription.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            paddockItemDescription = new PaddockItem();
-            paddockItemDescription.Deserialize(reader);
+            PaddockItemDescription = new PaddockItem();
+            PaddockItemDescription.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightLoot
     {
-        public const short Id = 41;
-
-        public int kamas;
-        public short[] objects;
+        public const short ID = 41;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Objects { get; set; }
+        public int Kamas { get; set; }
 
 
         public FightLoot()
@@ -40,32 +41,30 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public FightLoot(short[] objects, int kamas)
         {
-            this.objects = objects;
-            this.kamas = kamas;
+            Objects = objects;
+            Kamas = kamas;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objects.Length);
-            foreach (var entry in objects)
+            writer.WriteUShort((ushort) Objects.Length);
+            foreach (var entry in Objects)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteInt(kamas);
+            writer.WriteInt(Kamas);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objects = new short[limit];
+            Objects = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                objects[i] = reader.ReadShort();
+                Objects[i] = reader.ReadShort();
             }
-            kamas = reader.ReadInt();
-            if (kamas < 0)
-                throw new Exception("Forbidden value on kamas = " + kamas + ", it doesn't respect the following condition : kamas < 0");
+            Kamas = reader.ReadInt();
         }
     }
 }

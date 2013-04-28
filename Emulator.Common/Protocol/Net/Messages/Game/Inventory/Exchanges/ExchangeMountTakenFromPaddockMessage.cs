@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeMountTakenFromPaddockMessage : NetworkMessage
     {
-        public const uint Id = 5994;
-
-        public string name;
-        public string ownername;
-        public short worldX;
-        public short worldY;
+        public const uint ID = 5994;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public string Ownername { get; set; }
 
 
         public ExchangeMountTakenFromPaddockMessage()
@@ -42,31 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeMountTakenFromPaddockMessage(string name, short worldX, short worldY, string ownername)
         {
-            this.name = name;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.ownername = ownername;
+            Name = name;
+            WorldX = worldX;
+            WorldY = worldY;
+            Ownername = ownername;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(name);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteUTF(ownername);
+            writer.WriteUTF(Name);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteUTF(Ownername);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            name = reader.ReadUTF();
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            ownername = reader.ReadUTF();
+            Name = reader.ReadUTF();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            Ownername = reader.ReadUTF();
         }
     }
 }

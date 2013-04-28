@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
 {
     public class SkillActionDescriptionCraft : SkillActionDescription
     {
-        public const short Id = 100;
-
-        public sbyte maxSlots;
-        public sbyte probability;
+        public const short ID = 100;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte MaxSlots { get; set; }
+        public sbyte Probability { get; set; }
 
 
         public SkillActionDescriptionCraft()
@@ -39,29 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         }
 
         public SkillActionDescriptionCraft(short skillId, sbyte maxSlots, sbyte probability)
-            : base(skillId)
+                : base(skillId)
         {
-            this.maxSlots = maxSlots;
-            this.probability = probability;
+            MaxSlots = maxSlots;
+            Probability = probability;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(maxSlots);
-            writer.WriteSByte(probability);
+            writer.WriteSByte(MaxSlots);
+            writer.WriteSByte(Probability);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            maxSlots = reader.ReadSByte();
-            if (maxSlots < 0)
-                throw new Exception("Forbidden value on maxSlots = " + maxSlots + ", it doesn't respect the following condition : maxSlots < 0");
-            probability = reader.ReadSByte();
-            if (probability < 0)
-                throw new Exception("Forbidden value on probability = " + probability + ", it doesn't respect the following condition : probability < 0");
+            MaxSlots = reader.ReadSByte();
+            Probability = reader.ReadSByte();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyFollowStatusUpdateMessage : AbstractPartyMessage
     {
-        public const uint Id = 5581;
-
-        public int followedId;
-        public bool success;
+        public const uint ID = 5581;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Success { get; set; }
+        public int FollowedId { get; set; }
 
 
         public PartyFollowStatusUpdateMessage()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyFollowStatusUpdateMessage(int partyId, bool success, int followedId)
-            : base(partyId)
+                : base(partyId)
         {
-            this.success = success;
-            this.followedId = followedId;
+            Success = success;
+            FollowedId = followedId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteBoolean(success);
-            writer.WriteInt(followedId);
+            writer.WriteBoolean(Success);
+            writer.WriteInt(FollowedId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            success = reader.ReadBoolean();
-            followedId = reader.ReadInt();
-            if (followedId < 0)
-                throw new Exception("Forbidden value on followedId = " + followedId + ", it doesn't respect the following condition : followedId < 0");
+            Success = reader.ReadBoolean();
+            FollowedId = reader.ReadInt();
         }
     }
 }

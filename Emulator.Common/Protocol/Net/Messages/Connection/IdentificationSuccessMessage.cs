@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,32 +14,32 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class IdentificationSuccessMessage : NetworkMessage
     {
-        public const uint Id = 22;
-        public double accountCreation;
-        public int accountId;
-        public sbyte communityId;
-
-        public bool hasRights;
-        public string login;
-        public string nickname;
-        public string secretQuestion;
-        public double subscriptionEndDate;
-        public bool wasAlreadyConnected;
+        public const uint ID = 22;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool HasRights { get; set; }
+        public bool WasAlreadyConnected { get; set; }
+        public string Login { get; set; }
+        public string Nickname { get; set; }
+        public int AccountId { get; set; }
+        public sbyte CommunityId { get; set; }
+        public string SecretQuestion { get; set; }
+        public double SubscriptionEndDate { get; set; }
+        public double AccountCreation { get; set; }
 
 
         public IdentificationSuccessMessage()
@@ -47,53 +48,45 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public IdentificationSuccessMessage(bool hasRights, bool wasAlreadyConnected, string login, string nickname, int accountId, sbyte communityId, string secretQuestion, double subscriptionEndDate, double accountCreation)
         {
-            this.hasRights = hasRights;
-            this.wasAlreadyConnected = wasAlreadyConnected;
-            this.login = login;
-            this.nickname = nickname;
-            this.accountId = accountId;
-            this.communityId = communityId;
-            this.secretQuestion = secretQuestion;
-            this.subscriptionEndDate = subscriptionEndDate;
-            this.accountCreation = accountCreation;
+            HasRights = hasRights;
+            WasAlreadyConnected = wasAlreadyConnected;
+            Login = login;
+            Nickname = nickname;
+            AccountId = accountId;
+            CommunityId = communityId;
+            SecretQuestion = secretQuestion;
+            SubscriptionEndDate = subscriptionEndDate;
+            AccountCreation = accountCreation;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, hasRights);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, wasAlreadyConnected);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, HasRights);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, WasAlreadyConnected);
             writer.WriteByte(flag1);
-            writer.WriteUTF(login);
-            writer.WriteUTF(nickname);
-            writer.WriteInt(accountId);
-            writer.WriteSByte(communityId);
-            writer.WriteUTF(secretQuestion);
-            writer.WriteDouble(subscriptionEndDate);
-            writer.WriteDouble(accountCreation);
+            writer.WriteUTF(Login);
+            writer.WriteUTF(Nickname);
+            writer.WriteInt(AccountId);
+            writer.WriteSByte(CommunityId);
+            writer.WriteUTF(SecretQuestion);
+            writer.WriteDouble(SubscriptionEndDate);
+            writer.WriteDouble(AccountCreation);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            hasRights = BooleanByteWrapper.GetFlag(flag1, 0);
-            wasAlreadyConnected = BooleanByteWrapper.GetFlag(flag1, 1);
-            login = reader.ReadUTF();
-            nickname = reader.ReadUTF();
-            accountId = reader.ReadInt();
-            if (accountId < 0)
-                throw new Exception("Forbidden value on accountId = " + accountId + ", it doesn't respect the following condition : accountId < 0");
-            communityId = reader.ReadSByte();
-            if (communityId < 0)
-                throw new Exception("Forbidden value on communityId = " + communityId + ", it doesn't respect the following condition : communityId < 0");
-            secretQuestion = reader.ReadUTF();
-            subscriptionEndDate = reader.ReadDouble();
-            if (subscriptionEndDate < 0)
-                throw new Exception("Forbidden value on subscriptionEndDate = " + subscriptionEndDate + ", it doesn't respect the following condition : subscriptionEndDate < 0");
-            accountCreation = reader.ReadDouble();
-            if (accountCreation < 0)
-                throw new Exception("Forbidden value on accountCreation = " + accountCreation + ", it doesn't respect the following condition : accountCreation < 0");
+            HasRights = BooleanByteWrapper.GetFlag(flag1, 0);
+            WasAlreadyConnected = BooleanByteWrapper.GetFlag(flag1, 1);
+            Login = reader.ReadUTF();
+            Nickname = reader.ReadUTF();
+            AccountId = reader.ReadInt();
+            CommunityId = reader.ReadSByte();
+            SecretQuestion = reader.ReadUTF();
+            SubscriptionEndDate = reader.ReadDouble();
+            AccountCreation = reader.ReadDouble();
         }
     }
 }

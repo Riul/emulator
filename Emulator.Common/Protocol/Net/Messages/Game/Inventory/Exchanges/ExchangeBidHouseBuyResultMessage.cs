@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeBidHouseBuyResultMessage : NetworkMessage
     {
-        public const uint Id = 6272;
-
-        public bool bought;
-        public int uid;
+        public const uint ID = 6272;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Uid { get; set; }
+        public bool Bought { get; set; }
 
 
         public ExchangeBidHouseBuyResultMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeBidHouseBuyResultMessage(int uid, bool bought)
         {
-            this.uid = uid;
-            this.bought = bought;
+            Uid = uid;
+            Bought = bought;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(uid);
-            writer.WriteBoolean(bought);
+            writer.WriteInt(Uid);
+            writer.WriteBoolean(Bought);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadInt();
-            if (uid < 0)
-                throw new Exception("Forbidden value on uid = " + uid + ", it doesn't respect the following condition : uid < 0");
-            bought = reader.ReadBoolean();
+            Uid = reader.ReadInt();
+            Bought = reader.ReadBoolean();
         }
     }
 }

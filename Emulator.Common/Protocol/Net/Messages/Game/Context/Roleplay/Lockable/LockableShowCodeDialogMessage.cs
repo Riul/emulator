@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 {
     public class LockableShowCodeDialogMessage : NetworkMessage
     {
-        public const uint Id = 5740;
-
-        public bool changeOrUse;
-        public sbyte codeSize;
+        public const uint ID = 5740;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool ChangeOrUse { get; set; }
+        public sbyte CodeSize { get; set; }
 
 
         public LockableShowCodeDialogMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 
         public LockableShowCodeDialogMessage(bool changeOrUse, sbyte codeSize)
         {
-            this.changeOrUse = changeOrUse;
-            this.codeSize = codeSize;
+            ChangeOrUse = changeOrUse;
+            CodeSize = codeSize;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(changeOrUse);
-            writer.WriteSByte(codeSize);
+            writer.WriteBoolean(ChangeOrUse);
+            writer.WriteSByte(CodeSize);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            changeOrUse = reader.ReadBoolean();
-            codeSize = reader.ReadSByte();
-            if (codeSize < 0)
-                throw new Exception("Forbidden value on codeSize = " + codeSize + ", it doesn't respect the following condition : codeSize < 0");
+            ChangeOrUse = reader.ReadBoolean();
+            CodeSize = reader.ReadSByte();
         }
     }
 }

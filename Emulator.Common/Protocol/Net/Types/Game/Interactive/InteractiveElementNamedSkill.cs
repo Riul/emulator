@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 {
     public class InteractiveElementNamedSkill : InteractiveElementSkill
     {
-        public const short Id = 220;
-
-        public int nameId;
+        public const short ID = 220;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int NameId { get; set; }
 
 
         public InteractiveElementNamedSkill()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
         }
 
         public InteractiveElementNamedSkill(int skillId, int skillInstanceUid, int nameId)
-            : base(skillId, skillInstanceUid)
+                : base(skillId, skillInstanceUid)
         {
-            this.nameId = nameId;
+            NameId = nameId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(nameId);
+            writer.WriteInt(NameId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            nameId = reader.ReadInt();
-            if (nameId < 0)
-                throw new Exception("Forbidden value on nameId = " + nameId + ", it doesn't respect the following condition : nameId < 0");
+            NameId = reader.ReadInt();
         }
     }
 }

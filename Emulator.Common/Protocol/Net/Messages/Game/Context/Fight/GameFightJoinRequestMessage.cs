@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightJoinRequestMessage : NetworkMessage
     {
-        public const uint Id = 701;
-
-        public int fightId;
-        public int fighterId;
+        public const uint ID = 701;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FighterId { get; set; }
+        public int FightId { get; set; }
 
 
         public GameFightJoinRequestMessage()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightJoinRequestMessage(int fighterId, int fightId)
         {
-            this.fighterId = fighterId;
-            this.fightId = fightId;
+            FighterId = fighterId;
+            FightId = fightId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fighterId);
-            writer.WriteInt(fightId);
+            writer.WriteInt(FighterId);
+            writer.WriteInt(FightId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fighterId = reader.ReadInt();
-            fightId = reader.ReadInt();
+            FighterId = reader.ReadInt();
+            FightId = reader.ReadInt();
         }
     }
 }

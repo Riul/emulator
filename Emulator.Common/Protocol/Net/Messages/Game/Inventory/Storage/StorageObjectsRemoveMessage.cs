@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
 {
     public class StorageObjectsRemoveMessage : NetworkMessage
     {
-        public const uint Id = 6035;
-
-        public int[] objectUIDList;
+        public const uint ID = 6035;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] ObjectUIDList { get; set; }
 
 
         public StorageObjectsRemoveMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
 
         public StorageObjectsRemoveMessage(int[] objectUIDList)
         {
-            this.objectUIDList = objectUIDList;
+            ObjectUIDList = objectUIDList;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objectUIDList.Length);
-            foreach (var entry in objectUIDList)
+            writer.WriteUShort((ushort) ObjectUIDList.Length);
+            foreach (var entry in ObjectUIDList)
             {
                 writer.WriteInt(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Storage
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objectUIDList = new int[limit];
+            ObjectUIDList = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectUIDList[i] = reader.ReadInt();
+                ObjectUIDList[i] = reader.ReadInt();
             }
         }
     }

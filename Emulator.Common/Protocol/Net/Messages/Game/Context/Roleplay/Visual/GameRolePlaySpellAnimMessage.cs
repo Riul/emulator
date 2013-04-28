@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Visual
 {
     public class GameRolePlaySpellAnimMessage : NetworkMessage
     {
-        public const uint Id = 6114;
-
-        public int casterId;
-        public short spellId;
-        public sbyte spellLevel;
-        public short targetCellId;
+        public const uint ID = 6114;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CasterId { get; set; }
+        public short TargetCellId { get; set; }
+        public short SpellId { get; set; }
+        public sbyte SpellLevel { get; set; }
 
 
         public GameRolePlaySpellAnimMessage()
@@ -42,33 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Visual
 
         public GameRolePlaySpellAnimMessage(int casterId, short targetCellId, short spellId, sbyte spellLevel)
         {
-            this.casterId = casterId;
-            this.targetCellId = targetCellId;
-            this.spellId = spellId;
-            this.spellLevel = spellLevel;
+            CasterId = casterId;
+            TargetCellId = targetCellId;
+            SpellId = spellId;
+            SpellLevel = spellLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(casterId);
-            writer.WriteShort(targetCellId);
-            writer.WriteShort(spellId);
-            writer.WriteSByte(spellLevel);
+            writer.WriteInt(CasterId);
+            writer.WriteShort(TargetCellId);
+            writer.WriteShort(SpellId);
+            writer.WriteSByte(SpellLevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            casterId = reader.ReadInt();
-            targetCellId = reader.ReadShort();
-            if (targetCellId < 0 || targetCellId > 559)
-                throw new Exception("Forbidden value on targetCellId = " + targetCellId + ", it doesn't respect the following condition : targetCellId < 0 || targetCellId > 559");
-            spellId = reader.ReadShort();
-            if (spellId < 0)
-                throw new Exception("Forbidden value on spellId = " + spellId + ", it doesn't respect the following condition : spellId < 0");
-            spellLevel = reader.ReadSByte();
-            if (spellLevel < 1 || spellLevel > 6)
-                throw new Exception("Forbidden value on spellLevel = " + spellLevel + ", it doesn't respect the following condition : spellLevel < 1 || spellLevel > 6");
+            CasterId = reader.ReadInt();
+            TargetCellId = reader.ReadShort();
+            SpellId = reader.ReadShort();
+            SpellLevel = reader.ReadSByte();
         }
     }
 }

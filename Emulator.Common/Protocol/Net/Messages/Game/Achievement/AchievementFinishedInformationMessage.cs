@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 {
     public class AchievementFinishedInformationMessage : AchievementFinishedMessage
     {
-        public const uint Id = 6381;
-
-        public string name;
-        public int playerId;
+        public const uint ID = 6381;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
+        public int PlayerId { get; set; }
 
 
         public AchievementFinishedInformationMessage()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         }
 
         public AchievementFinishedInformationMessage(short id, short finishedlevel, string name, int playerId)
-            : base(id, finishedlevel)
+                : base(id, finishedlevel)
         {
-            this.name = name;
-            this.playerId = playerId;
+            Name = name;
+            PlayerId = playerId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(name);
-            writer.WriteInt(playerId);
+            writer.WriteUTF(Name);
+            writer.WriteInt(PlayerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            name = reader.ReadUTF();
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
+            Name = reader.ReadUTF();
+            PlayerId = reader.ReadInt();
         }
     }
 }

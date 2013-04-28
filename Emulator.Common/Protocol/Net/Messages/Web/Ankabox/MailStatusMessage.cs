@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
 {
     public class MailStatusMessage : NetworkMessage
     {
-        public const uint Id = 6275;
-
-        public short total;
-        public short unread;
+        public const uint ID = 6275;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Unread { get; set; }
+        public short Total { get; set; }
 
 
         public MailStatusMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Ankabox
 
         public MailStatusMessage(short unread, short total)
         {
-            this.unread = unread;
-            this.total = total;
+            Unread = unread;
+            Total = total;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(unread);
-            writer.WriteShort(total);
+            writer.WriteShort(Unread);
+            writer.WriteShort(Total);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            unread = reader.ReadShort();
-            if (unread < 0)
-                throw new Exception("Forbidden value on unread = " + unread + ", it doesn't respect the following condition : unread < 0");
-            total = reader.ReadShort();
-            if (total < 0)
-                throw new Exception("Forbidden value on total = " + total + ", it doesn't respect the following condition : total < 0");
+            Unread = reader.ReadShort();
+            Total = reader.ReadShort();
         }
     }
 }

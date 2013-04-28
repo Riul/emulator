@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 {
     public class StatedMapUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5716;
-
-        public StatedElement[] statedElements;
+        public const uint ID = 5716;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public StatedElement[] StatedElements { get; set; }
 
 
         public StatedMapUpdateMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 
         public StatedMapUpdateMessage(StatedElement[] statedElements)
         {
-            this.statedElements = statedElements;
+            StatedElements = statedElements;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) statedElements.Length);
-            foreach (var entry in statedElements)
+            writer.WriteUShort((ushort) StatedElements.Length);
+            foreach (var entry in StatedElements)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            statedElements = new StatedElement[limit];
+            StatedElements = new StatedElement[limit];
             for (int i = 0; i < limit; i++)
             {
-                statedElements[i] = new StatedElement();
-                statedElements[i].Deserialize(reader);
+                StatedElements[i] = new StatedElement();
+                StatedElements[i].Deserialize(reader);
             }
         }
     }

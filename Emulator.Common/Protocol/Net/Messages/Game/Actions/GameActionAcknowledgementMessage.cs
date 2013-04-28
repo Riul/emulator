@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
 {
     public class GameActionAcknowledgementMessage : NetworkMessage
     {
-        public const uint Id = 957;
-
-        public sbyte actionId;
-        public bool valid;
+        public const uint ID = 957;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Valid { get; set; }
+        public sbyte ActionId { get; set; }
 
 
         public GameActionAcknowledgementMessage()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
 
         public GameActionAcknowledgementMessage(bool valid, sbyte actionId)
         {
-            this.valid = valid;
-            this.actionId = actionId;
+            Valid = valid;
+            ActionId = actionId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(valid);
-            writer.WriteSByte(actionId);
+            writer.WriteBoolean(Valid);
+            writer.WriteSByte(ActionId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            valid = reader.ReadBoolean();
-            actionId = reader.ReadSByte();
+            Valid = reader.ReadBoolean();
+            ActionId = reader.ReadSByte();
         }
     }
 }

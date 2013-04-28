@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameContextReadyMessage : NetworkMessage
     {
-        public const uint Id = 6071;
-
-        public int mapId;
+        public const uint ID = 6071;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MapId { get; set; }
 
 
         public GameContextReadyMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameContextReadyMessage(int mapId)
         {
-            this.mapId = mapId;
+            MapId = mapId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(mapId);
+            writer.WriteInt(MapId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mapId = reader.ReadInt();
-            if (mapId < 0)
-                throw new Exception("Forbidden value on mapId = " + mapId + ", it doesn't respect the following condition : mapId < 0");
+            MapId = reader.ReadInt();
         }
     }
 }

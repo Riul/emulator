@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
@@ -25,18 +26,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class GameRolePlayTaxCollectorInformations : GameRolePlayActorInformations
     {
-        public const short Id = 148;
-
-        public short firstNameId;
-        public GuildInformations guildIdentity;
-        public byte guildLevel;
-        public short lastNameId;
-        public int taxCollectorAttack;
+        public const short ID = 148;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short FirstNameId { get; set; }
+        public short LastNameId { get; set; }
+        public GuildInformations GuildIdentity { get; set; }
+        public byte GuildLevel { get; set; }
+        public int TaxCollectorAttack { get; set; }
 
 
         public GameRolePlayTaxCollectorInformations()
@@ -44,41 +45,35 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         }
 
         public GameRolePlayTaxCollectorInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, short firstNameId, short lastNameId, GuildInformations guildIdentity, byte guildLevel, int taxCollectorAttack)
-            : base(contextualId, look, disposition)
+                : base(contextualId, look, disposition)
         {
-            this.firstNameId = firstNameId;
-            this.lastNameId = lastNameId;
-            this.guildIdentity = guildIdentity;
-            this.guildLevel = guildLevel;
-            this.taxCollectorAttack = taxCollectorAttack;
+            FirstNameId = firstNameId;
+            LastNameId = lastNameId;
+            GuildIdentity = guildIdentity;
+            GuildLevel = guildLevel;
+            TaxCollectorAttack = taxCollectorAttack;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(firstNameId);
-            writer.WriteShort(lastNameId);
-            guildIdentity.Serialize(writer);
-            writer.WriteByte(guildLevel);
-            writer.WriteInt(taxCollectorAttack);
+            writer.WriteShort(FirstNameId);
+            writer.WriteShort(LastNameId);
+            GuildIdentity.Serialize(writer);
+            writer.WriteByte(GuildLevel);
+            writer.WriteInt(TaxCollectorAttack);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            firstNameId = reader.ReadShort();
-            if (firstNameId < 0)
-                throw new Exception("Forbidden value on firstNameId = " + firstNameId + ", it doesn't respect the following condition : firstNameId < 0");
-            lastNameId = reader.ReadShort();
-            if (lastNameId < 0)
-                throw new Exception("Forbidden value on lastNameId = " + lastNameId + ", it doesn't respect the following condition : lastNameId < 0");
-            guildIdentity = new GuildInformations();
-            guildIdentity.Deserialize(reader);
-            guildLevel = reader.ReadByte();
-            if (guildLevel < 0 || guildLevel > 255)
-                throw new Exception("Forbidden value on guildLevel = " + guildLevel + ", it doesn't respect the following condition : guildLevel < 0 || guildLevel > 255");
-            taxCollectorAttack = reader.ReadInt();
+            FirstNameId = reader.ReadShort();
+            LastNameId = reader.ReadShort();
+            GuildIdentity = new GuildInformations();
+            GuildIdentity.Deserialize(reader);
+            GuildLevel = reader.ReadByte();
+            TaxCollectorAttack = reader.ReadInt();
         }
     }
 }

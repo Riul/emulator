@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Delay
 {
     public class GameRolePlayDelayedActionMessage : NetworkMessage
     {
-        public const uint Id = 6153;
-
-        public int delayDuration;
-        public sbyte delayTypeId;
-        public int delayedCharacterId;
+        public const uint ID = 6153;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int DelayedCharacterId { get; set; }
+        public sbyte DelayTypeId { get; set; }
+        public int DelayDuration { get; set; }
 
 
         public GameRolePlayDelayedActionMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Delay
 
         public GameRolePlayDelayedActionMessage(int delayedCharacterId, sbyte delayTypeId, int delayDuration)
         {
-            this.delayedCharacterId = delayedCharacterId;
-            this.delayTypeId = delayTypeId;
-            this.delayDuration = delayDuration;
+            DelayedCharacterId = delayedCharacterId;
+            DelayTypeId = delayTypeId;
+            DelayDuration = delayDuration;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(delayedCharacterId);
-            writer.WriteSByte(delayTypeId);
-            writer.WriteInt(delayDuration);
+            writer.WriteInt(DelayedCharacterId);
+            writer.WriteSByte(DelayTypeId);
+            writer.WriteInt(DelayDuration);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            delayedCharacterId = reader.ReadInt();
-            delayTypeId = reader.ReadSByte();
-            if (delayTypeId < 0)
-                throw new Exception("Forbidden value on delayTypeId = " + delayTypeId + ", it doesn't respect the following condition : delayTypeId < 0");
-            delayDuration = reader.ReadInt();
-            if (delayDuration < 0)
-                throw new Exception("Forbidden value on delayDuration = " + delayDuration + ", it doesn't respect the following condition : delayDuration < 0");
+            DelayedCharacterId = reader.ReadInt();
+            DelayTypeId = reader.ReadSByte();
+            DelayDuration = reader.ReadInt();
         }
     }
 }

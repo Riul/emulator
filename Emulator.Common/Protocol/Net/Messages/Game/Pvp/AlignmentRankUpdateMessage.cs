@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 {
     public class AlignmentRankUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6058;
-
-        public sbyte alignmentRank;
-        public bool verbose;
+        public const uint ID = 6058;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte AlignmentRank { get; set; }
+        public bool Verbose { get; set; }
 
 
         public AlignmentRankUpdateMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 
         public AlignmentRankUpdateMessage(sbyte alignmentRank, bool verbose)
         {
-            this.alignmentRank = alignmentRank;
-            this.verbose = verbose;
+            AlignmentRank = alignmentRank;
+            Verbose = verbose;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(alignmentRank);
-            writer.WriteBoolean(verbose);
+            writer.WriteSByte(AlignmentRank);
+            writer.WriteBoolean(Verbose);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            alignmentRank = reader.ReadSByte();
-            if (alignmentRank < 0)
-                throw new Exception("Forbidden value on alignmentRank = " + alignmentRank + ", it doesn't respect the following condition : alignmentRank < 0");
-            verbose = reader.ReadBoolean();
+            AlignmentRank = reader.ReadSByte();
+            Verbose = reader.ReadBoolean();
         }
     }
 }

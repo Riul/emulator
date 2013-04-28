@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,30 +14,30 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 {
     public class PaddockInformationsForSell
     {
-        public const short Id = 222;
-
-        public string guildOwner;
-        public sbyte nbMount;
-        public sbyte nbObject;
-        public int price;
-        public short subAreaId;
-        public short worldX;
-        public short worldY;
+        public const short ID = 222;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string GuildOwner { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public short SubAreaId { get; set; }
+        public sbyte NbMount { get; set; }
+        public sbyte NbObject { get; set; }
+        public int Price { get; set; }
 
 
         public PaddockInformationsForSell()
@@ -45,44 +46,36 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 
         public PaddockInformationsForSell(string guildOwner, short worldX, short worldY, short subAreaId, sbyte nbMount, sbyte nbObject, int price)
         {
-            this.guildOwner = guildOwner;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.subAreaId = subAreaId;
-            this.nbMount = nbMount;
-            this.nbObject = nbObject;
-            this.price = price;
+            GuildOwner = guildOwner;
+            WorldX = worldX;
+            WorldY = worldY;
+            SubAreaId = subAreaId;
+            NbMount = nbMount;
+            NbObject = nbObject;
+            Price = price;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(guildOwner);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteShort(subAreaId);
-            writer.WriteSByte(nbMount);
-            writer.WriteSByte(nbObject);
-            writer.WriteInt(price);
+            writer.WriteUTF(GuildOwner);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteShort(SubAreaId);
+            writer.WriteSByte(NbMount);
+            writer.WriteSByte(NbObject);
+            writer.WriteInt(Price);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            guildOwner = reader.ReadUTF();
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
-            nbMount = reader.ReadSByte();
-            nbObject = reader.ReadSByte();
-            price = reader.ReadInt();
-            if (price < 0)
-                throw new Exception("Forbidden value on price = " + price + ", it doesn't respect the following condition : price < 0");
+            GuildOwner = reader.ReadUTF();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            SubAreaId = reader.ReadShort();
+            NbMount = reader.ReadSByte();
+            NbObject = reader.ReadSByte();
+            Price = reader.ReadInt();
         }
     }
 }

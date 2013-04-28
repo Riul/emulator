@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 {
     public class ChallengeDungeonStackedBonusMessage : NetworkMessage
     {
-        public const uint Id = 6151;
-        public int dropBonus;
-
-        public int dungeonId;
-        public int xpBonus;
+        public const uint ID = 6151;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int DungeonId { get; set; }
+        public int XpBonus { get; set; }
+        public int DropBonus { get; set; }
 
 
         public ChallengeDungeonStackedBonusMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 
         public ChallengeDungeonStackedBonusMessage(int dungeonId, int xpBonus, int dropBonus)
         {
-            this.dungeonId = dungeonId;
-            this.xpBonus = xpBonus;
-            this.dropBonus = dropBonus;
+            DungeonId = dungeonId;
+            XpBonus = xpBonus;
+            DropBonus = dropBonus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(dungeonId);
-            writer.WriteInt(xpBonus);
-            writer.WriteInt(dropBonus);
+            writer.WriteInt(DungeonId);
+            writer.WriteInt(XpBonus);
+            writer.WriteInt(DropBonus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            dungeonId = reader.ReadInt();
-            if (dungeonId < 0)
-                throw new Exception("Forbidden value on dungeonId = " + dungeonId + ", it doesn't respect the following condition : dungeonId < 0");
-            xpBonus = reader.ReadInt();
-            if (xpBonus < 0)
-                throw new Exception("Forbidden value on xpBonus = " + xpBonus + ", it doesn't respect the following condition : xpBonus < 0");
-            dropBonus = reader.ReadInt();
-            if (dropBonus < 0)
-                throw new Exception("Forbidden value on dropBonus = " + dropBonus + ", it doesn't respect the following condition : dropBonus < 0");
+            DungeonId = reader.ReadInt();
+            XpBonus = reader.ReadInt();
+            DropBonus = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class AlternativeMonstersInGroupLightInformations
     {
-        public const short Id = 394;
-
-        public MonsterInGroupLightInformations[] monsters;
-        public int playerCount;
+        public const short ID = 394;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PlayerCount { get; set; }
+        public MonsterInGroupLightInformations[] Monsters { get; set; }
 
 
         public AlternativeMonstersInGroupLightInformations()
@@ -39,16 +41,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public AlternativeMonstersInGroupLightInformations(int playerCount, MonsterInGroupLightInformations[] monsters)
         {
-            this.playerCount = playerCount;
-            this.monsters = monsters;
+            PlayerCount = playerCount;
+            Monsters = monsters;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(playerCount);
-            writer.WriteUShort((ushort) monsters.Length);
-            foreach (var entry in monsters)
+            writer.WriteInt(PlayerCount);
+            writer.WriteUShort((ushort) Monsters.Length);
+            foreach (var entry in Monsters)
             {
                 entry.Serialize(writer);
             }
@@ -56,13 +58,13 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            playerCount = reader.ReadInt();
+            PlayerCount = reader.ReadInt();
             var limit = reader.ReadUShort();
-            monsters = new MonsterInGroupLightInformations[limit];
+            Monsters = new MonsterInGroupLightInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                monsters[i] = new MonsterInGroupLightInformations();
-                monsters[i].Deserialize(reader);
+                Monsters[i] = new MonsterInGroupLightInformations();
+                Monsters[i].Deserialize(reader);
             }
         }
     }

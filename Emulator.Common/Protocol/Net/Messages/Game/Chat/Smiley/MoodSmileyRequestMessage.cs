@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 {
     public class MoodSmileyRequestMessage : NetworkMessage
     {
-        public const uint Id = 6192;
-
-        public sbyte smileyId;
+        public const uint ID = 6192;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte SmileyId { get; set; }
 
 
         public MoodSmileyRequestMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 
         public MoodSmileyRequestMessage(sbyte smileyId)
         {
-            this.smileyId = smileyId;
+            SmileyId = smileyId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(smileyId);
+            writer.WriteSByte(SmileyId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            smileyId = reader.ReadSByte();
+            SmileyId = reader.ReadSByte();
         }
     }
 }

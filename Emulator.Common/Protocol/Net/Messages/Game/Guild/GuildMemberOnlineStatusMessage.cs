@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildMemberOnlineStatusMessage : NetworkMessage
     {
-        public const uint Id = 6061;
-
-        public int memberId;
-        public bool online;
+        public const uint ID = 6061;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MemberId { get; set; }
+        public bool Online { get; set; }
 
 
         public GuildMemberOnlineStatusMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildMemberOnlineStatusMessage(int memberId, bool online)
         {
-            this.memberId = memberId;
-            this.online = online;
+            MemberId = memberId;
+            Online = online;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(memberId);
-            writer.WriteBoolean(online);
+            writer.WriteInt(MemberId);
+            writer.WriteBoolean(Online);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            memberId = reader.ReadInt();
-            if (memberId < 0)
-                throw new Exception("Forbidden value on memberId = " + memberId + ", it doesn't respect the following condition : memberId < 0");
-            online = reader.ReadBoolean();
+            MemberId = reader.ReadInt();
+            Online = reader.ReadBoolean();
         }
     }
 }

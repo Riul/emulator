@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightExchangePositionsMessage : AbstractGameActionMessage
     {
-        public const uint Id = 5527;
-
-        public short casterCellId;
-        public short targetCellId;
-        public int targetId;
+        public const uint ID = 5527;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public short CasterCellId { get; set; }
+        public short TargetCellId { get; set; }
 
 
         public GameActionFightExchangePositionsMessage()
@@ -40,32 +41,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightExchangePositionsMessage(short actionId, int sourceId, int targetId, short casterCellId, short targetCellId)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.casterCellId = casterCellId;
-            this.targetCellId = targetCellId;
+            TargetId = targetId;
+            CasterCellId = casterCellId;
+            TargetCellId = targetCellId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteShort(casterCellId);
-            writer.WriteShort(targetCellId);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(CasterCellId);
+            writer.WriteShort(TargetCellId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            casterCellId = reader.ReadShort();
-            if (casterCellId < -1 || casterCellId > 559)
-                throw new Exception("Forbidden value on casterCellId = " + casterCellId + ", it doesn't respect the following condition : casterCellId < -1 || casterCellId > 559");
-            targetCellId = reader.ReadShort();
-            if (targetCellId < -1 || targetCellId > 559)
-                throw new Exception("Forbidden value on targetCellId = " + targetCellId + ", it doesn't respect the following condition : targetCellId < -1 || targetCellId > 559");
+            TargetId = reader.ReadInt();
+            CasterCellId = reader.ReadShort();
+            TargetCellId = reader.ReadShort();
         }
     }
 }

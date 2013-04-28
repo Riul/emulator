@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 {
     public class MoodSmileyResultMessage : NetworkMessage
     {
-        public const uint Id = 6196;
-
-        public sbyte resultCode;
-        public sbyte smileyId;
+        public const uint ID = 6196;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte ResultCode { get; set; }
+        public sbyte SmileyId { get; set; }
 
 
         public MoodSmileyResultMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 
         public MoodSmileyResultMessage(sbyte resultCode, sbyte smileyId)
         {
-            this.resultCode = resultCode;
-            this.smileyId = smileyId;
+            ResultCode = resultCode;
+            SmileyId = smileyId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(resultCode);
-            writer.WriteSByte(smileyId);
+            writer.WriteSByte(ResultCode);
+            writer.WriteSByte(SmileyId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            resultCode = reader.ReadSByte();
-            if (resultCode < 0)
-                throw new Exception("Forbidden value on resultCode = " + resultCode + ", it doesn't respect the following condition : resultCode < 0");
-            smileyId = reader.ReadSByte();
+            ResultCode = reader.ReadSByte();
+            SmileyId = reader.ReadSByte();
         }
     }
 }

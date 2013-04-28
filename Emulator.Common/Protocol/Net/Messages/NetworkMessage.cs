@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -14,6 +15,7 @@
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
 // Created on 26/04/2013 at 16:45
+
 #endregion
 
 using Emulator.Common.IO;
@@ -41,30 +43,40 @@ namespace Emulator.Common.Protocol.Net.Messages
             writer.Clear();
 
             int messageLenghtType = ComputeTypeLen(data.Length);
-            short header = ComputeStaticHeader((int)MessageId, messageLenghtType);
+            short header = ComputeStaticHeader((int) MessageId, messageLenghtType);
 
             writer.WriteShort(header);
 
             switch (messageLenghtType)
             {
                 case 1:
-                    writer.WriteByte((byte)data.Length);
+                    writer.WriteByte((byte) data.Length);
                     break;
                 case 2:
-                    writer.WriteShort((short)data.Length);
+                    writer.WriteShort((short) data.Length);
                     break;
                 case 3:
-                    writer.WriteByte((byte)(data.Length >> 16 & 255));
-                    writer.WriteShort((short)(data.Length & 65535));
+                    writer.WriteByte((byte) (data.Length >> 16 & 255));
+                    writer.WriteShort((short) (data.Length & 65535));
                     break;
             }
 
             writer.WriteBytes(data);
         }
 
+        public static byte[] BuildPacket(uint id, byte[] data)
+        {
+            UnknowMessage message = new UnknowMessage(id);
+            using (BigEndianWriter writer = new BigEndianWriter(data))
+            {
+                message.BuildPacket(writer);
+                return writer.Data;
+            }
+        }
+
         private static short ComputeStaticHeader(int packetId, int messageLenghtType)
         {
-            return (short)((packetId << 2) | messageLenghtType);
+            return (short) ((packetId << 2) | messageLenghtType);
         }
 
         private static short ComputeTypeLen(int messageLenght)

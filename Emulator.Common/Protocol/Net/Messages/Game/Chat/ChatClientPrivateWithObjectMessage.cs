@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 {
     public class ChatClientPrivateWithObjectMessage : ChatClientPrivateMessage
     {
-        public const uint Id = 852;
-
-        public ObjectItem[] objects;
+        public const uint ID = 852;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ObjectItem[] Objects { get; set; }
 
 
         public ChatClientPrivateWithObjectMessage()
@@ -38,17 +40,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         }
 
         public ChatClientPrivateWithObjectMessage(string content, string receiver, ObjectItem[] objects)
-            : base(content, receiver)
+                : base(content, receiver)
         {
-            this.objects = objects;
+            Objects = objects;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) objects.Length);
-            foreach (var entry in objects)
+            writer.WriteUShort((ushort) Objects.Length);
+            foreach (var entry in Objects)
             {
                 entry.Serialize(writer);
             }
@@ -58,11 +60,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            objects = new ObjectItem[limit];
+            Objects = new ObjectItem[limit];
             for (int i = 0; i < limit; i++)
             {
-                objects[i] = new ObjectItem();
-                objects[i].Deserialize(reader);
+                Objects[i] = new ObjectItem();
+                Objects[i].Deserialize(reader);
             }
         }
     }

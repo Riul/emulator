@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
 {
     public class DungeonKeyRingUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6296;
-
-        public bool available;
-        public short dungeonId;
+        public const uint ID = 6296;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short DungeonId { get; set; }
+        public bool Available { get; set; }
 
 
         public DungeonKeyRingUpdateMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Dungeon
 
         public DungeonKeyRingUpdateMessage(short dungeonId, bool available)
         {
-            this.dungeonId = dungeonId;
-            this.available = available;
+            DungeonId = dungeonId;
+            Available = available;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(dungeonId);
-            writer.WriteBoolean(available);
+            writer.WriteShort(DungeonId);
+            writer.WriteBoolean(Available);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            dungeonId = reader.ReadShort();
-            if (dungeonId < 0)
-                throw new Exception("Forbidden value on dungeonId = " + dungeonId + ", it doesn't respect the following condition : dungeonId < 0");
-            available = reader.ReadBoolean();
+            DungeonId = reader.ReadShort();
+            Available = reader.ReadBoolean();
         }
     }
 }

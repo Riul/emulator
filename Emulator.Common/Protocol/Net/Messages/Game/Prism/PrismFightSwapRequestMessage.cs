@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismFightSwapRequestMessage : NetworkMessage
     {
-        public const uint Id = 5901;
-
-        public int targetId;
+        public const uint ID = 5901;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
 
 
         public PrismFightSwapRequestMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismFightSwapRequestMessage(int targetId)
         {
-            this.targetId = targetId;
+            TargetId = targetId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(targetId);
+            writer.WriteInt(TargetId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            targetId = reader.ReadInt();
-            if (targetId < 0)
-                throw new Exception("Forbidden value on targetId = " + targetId + ", it doesn't respect the following condition : targetId < 0");
+            TargetId = reader.ReadInt();
         }
     }
 }

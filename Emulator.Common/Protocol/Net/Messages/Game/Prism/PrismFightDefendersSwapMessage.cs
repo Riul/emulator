@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismFightDefendersSwapMessage : NetworkMessage
     {
-        public const uint Id = 5902;
-
-        public double fightId;
-        public int fighterId1;
-        public int fighterId2;
+        public const uint ID = 5902;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public int FighterId1 { get; set; }
+        public int FighterId2 { get; set; }
 
 
         public PrismFightDefendersSwapMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismFightDefendersSwapMessage(double fightId, int fighterId1, int fighterId2)
         {
-            this.fightId = fightId;
-            this.fighterId1 = fighterId1;
-            this.fighterId2 = fighterId2;
+            FightId = fightId;
+            FighterId1 = fighterId1;
+            FighterId2 = fighterId2;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            writer.WriteInt(fighterId1);
-            writer.WriteInt(fighterId2);
+            writer.WriteDouble(FightId);
+            writer.WriteInt(FighterId1);
+            writer.WriteInt(FighterId2);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
-            fighterId1 = reader.ReadInt();
-            if (fighterId1 < 0)
-                throw new Exception("Forbidden value on fighterId1 = " + fighterId1 + ", it doesn't respect the following condition : fighterId1 < 0");
-            fighterId2 = reader.ReadInt();
-            if (fighterId2 < 0)
-                throw new Exception("Forbidden value on fighterId2 = " + fighterId2 + ", it doesn't respect the following condition : fighterId2 < 0");
+            FightId = reader.ReadDouble();
+            FighterId1 = reader.ReadInt();
+            FighterId2 = reader.ReadInt();
         }
     }
 }

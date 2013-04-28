@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,30 +14,30 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInformationsGeneralMessage : NetworkMessage
     {
-        public const uint Id = 5557;
-
-        public bool abandonnedPaddock;
-        public int creationDate;
-        public bool enabled;
-        public double expLevelFloor;
-        public double expNextLevelFloor;
-        public double experience;
-        public byte level;
+        public const uint ID = 5557;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Enabled { get; set; }
+        public bool AbandonnedPaddock { get; set; }
+        public byte Level { get; set; }
+        public double ExpLevelFloor { get; set; }
+        public double Experience { get; set; }
+        public double ExpNextLevelFloor { get; set; }
+        public int CreationDate { get; set; }
 
 
         public GuildInformationsGeneralMessage()
@@ -45,49 +46,39 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInformationsGeneralMessage(bool enabled, bool abandonnedPaddock, byte level, double expLevelFloor, double experience, double expNextLevelFloor, int creationDate)
         {
-            this.enabled = enabled;
-            this.abandonnedPaddock = abandonnedPaddock;
-            this.level = level;
-            this.expLevelFloor = expLevelFloor;
-            this.experience = experience;
-            this.expNextLevelFloor = expNextLevelFloor;
-            this.creationDate = creationDate;
+            Enabled = enabled;
+            AbandonnedPaddock = abandonnedPaddock;
+            Level = level;
+            ExpLevelFloor = expLevelFloor;
+            Experience = experience;
+            ExpNextLevelFloor = expNextLevelFloor;
+            CreationDate = creationDate;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, enabled);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, abandonnedPaddock);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, Enabled);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, AbandonnedPaddock);
             writer.WriteByte(flag1);
-            writer.WriteByte(level);
-            writer.WriteDouble(expLevelFloor);
-            writer.WriteDouble(experience);
-            writer.WriteDouble(expNextLevelFloor);
-            writer.WriteInt(creationDate);
+            writer.WriteByte(Level);
+            writer.WriteDouble(ExpLevelFloor);
+            writer.WriteDouble(Experience);
+            writer.WriteDouble(ExpNextLevelFloor);
+            writer.WriteInt(CreationDate);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            enabled = BooleanByteWrapper.GetFlag(flag1, 0);
-            abandonnedPaddock = BooleanByteWrapper.GetFlag(flag1, 1);
-            level = reader.ReadByte();
-            if (level < 0 || level > 255)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0 || level > 255");
-            expLevelFloor = reader.ReadDouble();
-            if (expLevelFloor < 0)
-                throw new Exception("Forbidden value on expLevelFloor = " + expLevelFloor + ", it doesn't respect the following condition : expLevelFloor < 0");
-            experience = reader.ReadDouble();
-            if (experience < 0)
-                throw new Exception("Forbidden value on experience = " + experience + ", it doesn't respect the following condition : experience < 0");
-            expNextLevelFloor = reader.ReadDouble();
-            if (expNextLevelFloor < 0)
-                throw new Exception("Forbidden value on expNextLevelFloor = " + expNextLevelFloor + ", it doesn't respect the following condition : expNextLevelFloor < 0");
-            creationDate = reader.ReadInt();
-            if (creationDate < 0)
-                throw new Exception("Forbidden value on creationDate = " + creationDate + ", it doesn't respect the following condition : creationDate < 0");
+            Enabled = BooleanByteWrapper.GetFlag(flag1, 0);
+            AbandonnedPaddock = BooleanByteWrapper.GetFlag(flag1, 1);
+            Level = reader.ReadByte();
+            ExpLevelFloor = reader.ReadDouble();
+            Experience = reader.ReadDouble();
+            ExpNextLevelFloor = reader.ReadDouble();
+            CreationDate = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -14,6 +15,7 @@
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
 // Created on 26/04/2013 at 16:46
+
 #endregion
 
 using System;
@@ -42,16 +44,16 @@ namespace Emulator.Common.Protocol.Net.Types
             if (initialized) return;
             types = new Dictionary<int, Type>();
 
-            Assembly assembly = Assembly.GetAssembly(typeof(ProtocolTypeManager));
+            Assembly assembly = Assembly.GetAssembly(typeof (ProtocolTypeManager));
 
             foreach (var type in assembly.GetTypes())
             {
                 if (type.Namespace != null && type.Namespace.Contains("Oktopus.Dofus.Net.Types"))
                 {
-                    FieldInfo fieldId = type.GetField("Id");
+                    FieldInfo fieldId = type.GetField("ID");
                     if (fieldId != null)
                     {
-                        short id = (short)fieldId.GetValue(type);
+                        short id = (short) fieldId.GetValue(type);
                         if (types.ContainsKey(id))
                         {
                             throw new AmbiguousMatchException(string.Format("The message with id {0} is already registered.", id));

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ObjectsDeletedMessage : NetworkMessage
     {
-        public const uint Id = 6034;
-
-        public int[] objectUID;
+        public const uint ID = 6034;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] ObjectUID { get; set; }
 
 
         public ObjectsDeletedMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ObjectsDeletedMessage(int[] objectUID)
         {
-            this.objectUID = objectUID;
+            ObjectUID = objectUID;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objectUID.Length);
-            foreach (var entry in objectUID)
+            writer.WriteUShort((ushort) ObjectUID.Length);
+            foreach (var entry in ObjectUID)
             {
                 writer.WriteInt(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objectUID = new int[limit];
+            ObjectUID = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectUID[i] = reader.ReadInt();
+                ObjectUID[i] = reader.ReadInt();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeBidHouseBuyMessage : NetworkMessage
     {
-        public const uint Id = 5804;
-
-        public int price;
-        public int qty;
-        public int uid;
+        public const uint ID = 5804;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Uid { get; set; }
+        public int Qty { get; set; }
+        public int Price { get; set; }
 
 
         public ExchangeBidHouseBuyMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeBidHouseBuyMessage(int uid, int qty, int price)
         {
-            this.uid = uid;
-            this.qty = qty;
-            this.price = price;
+            Uid = uid;
+            Qty = qty;
+            Price = price;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(uid);
-            writer.WriteInt(qty);
-            writer.WriteInt(price);
+            writer.WriteInt(Uid);
+            writer.WriteInt(Qty);
+            writer.WriteInt(Price);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadInt();
-            if (uid < 0)
-                throw new Exception("Forbidden value on uid = " + uid + ", it doesn't respect the following condition : uid < 0");
-            qty = reader.ReadInt();
-            if (qty < 0)
-                throw new Exception("Forbidden value on qty = " + qty + ", it doesn't respect the following condition : qty < 0");
-            price = reader.ReadInt();
-            if (price < 0)
-                throw new Exception("Forbidden value on price = " + price + ", it doesn't respect the following condition : price < 0");
+            Uid = reader.ReadInt();
+            Qty = reader.ReadInt();
+            Price = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 {
     public class NpcDialogCreationMessage : NetworkMessage
     {
-        public const uint Id = 5618;
-
-        public int mapId;
-        public int npcId;
+        public const uint ID = 5618;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MapId { get; set; }
+        public int NpcId { get; set; }
 
 
         public NpcDialogCreationMessage()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public NpcDialogCreationMessage(int mapId, int npcId)
         {
-            this.mapId = mapId;
-            this.npcId = npcId;
+            MapId = mapId;
+            NpcId = npcId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(mapId);
-            writer.WriteInt(npcId);
+            writer.WriteInt(MapId);
+            writer.WriteInt(NpcId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mapId = reader.ReadInt();
-            npcId = reader.ReadInt();
+            MapId = reader.ReadInt();
+            NpcId = reader.ReadInt();
         }
     }
 }

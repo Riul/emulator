@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightResultFighterListEntry : FightResultListEntry
     {
-        public const short Id = 189;
-
-        public bool alive;
-        public int id;
+        public const short ID = 189;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
+        public bool Alive { get; set; }
 
 
         public FightResultFighterListEntry()
@@ -38,25 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public FightResultFighterListEntry(short outcome, FightLoot rewards, int id, bool alive)
-            : base(outcome, rewards)
+                : base(outcome, rewards)
         {
-            this.id = id;
-            this.alive = alive;
+            Id = id;
+            Alive = alive;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(id);
-            writer.WriteBoolean(alive);
+            writer.WriteInt(Id);
+            writer.WriteBoolean(Alive);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            id = reader.ReadInt();
-            alive = reader.ReadBoolean();
+            Id = reader.ReadInt();
+            Alive = reader.ReadBoolean();
         }
     }
 }

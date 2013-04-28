@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 {
     public class ShortcutBarAddRequestMessage : NetworkMessage
     {
-        public const uint Id = 6225;
-
-        public sbyte barType;
-        public Types.Game.Shortcut.Shortcut shortcut;
+        public const uint ID = 6225;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte BarType { get; set; }
+        public Types.Game.Shortcut.Shortcut Shortcut { get; set; }
 
 
         public ShortcutBarAddRequestMessage()
@@ -40,25 +41,23 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Shortcut
 
         public ShortcutBarAddRequestMessage(sbyte barType, Types.Game.Shortcut.Shortcut shortcut)
         {
-            this.barType = barType;
-            this.shortcut = shortcut;
+            BarType = barType;
+            Shortcut = shortcut;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(barType);
-            writer.WriteShort(shortcut.TypeId);
-            shortcut.Serialize(writer);
+            writer.WriteSByte(BarType);
+            writer.WriteShort(Shortcut.TypeId);
+            Shortcut.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            barType = reader.ReadSByte();
-            if (barType < 0)
-                throw new Exception("Forbidden value on barType = " + barType + ", it doesn't respect the following condition : barType < 0");
-            shortcut = Types.ProtocolTypeManager.GetInstance<Types.Game.Shortcut.Shortcut>(reader.ReadShort());
-            shortcut.Deserialize(reader);
+            BarType = reader.ReadSByte();
+            Shortcut = Types.ProtocolTypeManager.GetInstance<Types.Game.Shortcut.Shortcut>(reader.ReadShort());
+            Shortcut.Deserialize(reader);
         }
     }
 }

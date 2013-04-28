@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,29 +14,29 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Report
 {
     public class ChatMessageReportMessage : NetworkMessage
     {
-        public const uint Id = 821;
-
-        public sbyte channel;
-        public string content;
-        public string fingerprint;
-        public sbyte reason;
-        public string senderName;
-        public int timestamp;
+        public const uint ID = 821;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string SenderName { get; set; }
+        public string Content { get; set; }
+        public int Timestamp { get; set; }
+        public sbyte Channel { get; set; }
+        public string Fingerprint { get; set; }
+        public sbyte Reason { get; set; }
 
 
         public ChatMessageReportMessage()
@@ -44,39 +45,33 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Report
 
         public ChatMessageReportMessage(string senderName, string content, int timestamp, sbyte channel, string fingerprint, sbyte reason)
         {
-            this.senderName = senderName;
-            this.content = content;
-            this.timestamp = timestamp;
-            this.channel = channel;
-            this.fingerprint = fingerprint;
-            this.reason = reason;
+            SenderName = senderName;
+            Content = content;
+            Timestamp = timestamp;
+            Channel = channel;
+            Fingerprint = fingerprint;
+            Reason = reason;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(senderName);
-            writer.WriteUTF(content);
-            writer.WriteInt(timestamp);
-            writer.WriteSByte(channel);
-            writer.WriteUTF(fingerprint);
-            writer.WriteSByte(reason);
+            writer.WriteUTF(SenderName);
+            writer.WriteUTF(Content);
+            writer.WriteInt(Timestamp);
+            writer.WriteSByte(Channel);
+            writer.WriteUTF(Fingerprint);
+            writer.WriteSByte(Reason);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            senderName = reader.ReadUTF();
-            content = reader.ReadUTF();
-            timestamp = reader.ReadInt();
-            if (timestamp < 0)
-                throw new Exception("Forbidden value on timestamp = " + timestamp + ", it doesn't respect the following condition : timestamp < 0");
-            channel = reader.ReadSByte();
-            if (channel < 0)
-                throw new Exception("Forbidden value on channel = " + channel + ", it doesn't respect the following condition : channel < 0");
-            fingerprint = reader.ReadUTF();
-            reason = reader.ReadSByte();
-            if (reason < 0)
-                throw new Exception("Forbidden value on reason = " + reason + ", it doesn't respect the following condition : reason < 0");
+            SenderName = reader.ReadUTF();
+            Content = reader.ReadUTF();
+            Timestamp = reader.ReadInt();
+            Channel = reader.ReadSByte();
+            Fingerprint = reader.ReadUTF();
+            Reason = reader.ReadSByte();
         }
     }
 }

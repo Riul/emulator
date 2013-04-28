@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class InventoryContentMessage : NetworkMessage
     {
-        public const uint Id = 3016;
-
-        public int kamas;
-        public ObjectItem[] objects;
+        public const uint ID = 3016;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ObjectItem[] Objects { get; set; }
+        public int Kamas { get; set; }
 
 
         public InventoryContentMessage()
@@ -41,33 +42,31 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public InventoryContentMessage(ObjectItem[] objects, int kamas)
         {
-            this.objects = objects;
-            this.kamas = kamas;
+            Objects = objects;
+            Kamas = kamas;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objects.Length);
-            foreach (var entry in objects)
+            writer.WriteUShort((ushort) Objects.Length);
+            foreach (var entry in Objects)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteInt(kamas);
+            writer.WriteInt(Kamas);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objects = new ObjectItem[limit];
+            Objects = new ObjectItem[limit];
             for (int i = 0; i < limit; i++)
             {
-                objects[i] = new ObjectItem();
-                objects[i].Deserialize(reader);
+                Objects[i] = new ObjectItem();
+                Objects[i].Deserialize(reader);
             }
-            kamas = reader.ReadInt();
-            if (kamas < 0)
-                throw new Exception("Forbidden value on kamas = " + kamas + ", it doesn't respect the following condition : kamas < 0");
+            Kamas = reader.ReadInt();
         }
     }
 }

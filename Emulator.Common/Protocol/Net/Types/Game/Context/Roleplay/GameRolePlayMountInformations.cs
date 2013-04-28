@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayMountInformations : GameRolePlayNamedActorInformations
     {
-        public const short Id = 180;
-
-        public byte level;
-        public string ownerName;
+        public const short ID = 180;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string OwnerName { get; set; }
+        public byte Level { get; set; }
 
 
         public GameRolePlayMountInformations()
@@ -40,27 +41,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayMountInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, string name, string ownerName, byte level)
-            : base(contextualId, look, disposition, name)
+                : base(contextualId, look, disposition, name)
         {
-            this.ownerName = ownerName;
-            this.level = level;
+            OwnerName = ownerName;
+            Level = level;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(ownerName);
-            writer.WriteByte(level);
+            writer.WriteUTF(OwnerName);
+            writer.WriteByte(Level);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            ownerName = reader.ReadUTF();
-            level = reader.ReadByte();
-            if (level < 0 || level > 255)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0 || level > 255");
+            OwnerName = reader.ReadUTF();
+            Level = reader.ReadByte();
         }
     }
 }

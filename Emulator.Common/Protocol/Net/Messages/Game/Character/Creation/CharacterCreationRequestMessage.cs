@@ -1,4 +1,5 @@
-﻿#region License
+#region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,66 +14,69 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System.Collections.Generic;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 {
     public class CharacterCreationRequestMessage : NetworkMessage
     {
-        public const uint Id = 160;
-
-        public int breed = 0;
-        public List<int> colors;
-        public int cosmeticId = 0;
-        public string name = "";
-        public bool sex = false;
+        public const uint ID = 160;
 
         public override uint MessageId
         {
-            get { return 160; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
+        public sbyte Breed { get; set; }
+        public bool Sex { get; set; }
+        public int[] Colors { get; set; }
+        public int CosmeticId { get; set; }
+
 
         public CharacterCreationRequestMessage()
         {
-            colors = new List<int>();
         }
 
-        public CharacterCreationRequestMessage(string name, int breed, bool sex, List<int> colors, int cosmeticId)
+        public CharacterCreationRequestMessage(string name, sbyte breed, bool sex, int[] colors, int cosmeticId)
         {
-            this.name = name;
-            this.breed = breed;
-            this.sex = sex;
-            this.colors = colors;
-            this.cosmeticId = cosmeticId;
+            Name = name;
+            Breed = breed;
+            Sex = sex;
+            Colors = colors;
+            CosmeticId = cosmeticId;
         }
+
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(name);
-            writer.WriteByte((byte)breed);
-            writer.WriteBoolean(sex);
-            foreach (var color in colors)
+            writer.WriteUTF(Name);
+            writer.WriteSByte(Breed);
+            writer.WriteBoolean(Sex);
+            writer.WriteUShort((ushort) Colors.Length);
+            foreach (var entry in Colors)
             {
-                writer.WriteInt(color);
+                writer.WriteInt(entry);
             }
-            writer.WriteInt(cosmeticId);
+            writer.WriteInt(CosmeticId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            name = reader.ReadUTF();
-            breed = reader.ReadByte();
-            sex = reader.ReadBoolean();
-            colors = new List<int>();
-            for (int i = 0; i < 5; i++)
+            Name = reader.ReadUTF();
+            Breed = reader.ReadSByte();
+            Sex = reader.ReadBoolean();
+            var limit = reader.ReadUShort();
+            Colors = new int[limit];
+            for (int i = 0; i < limit; i++)
             {
-                colors.Add(reader.ReadInt());
+                Colors[i] = reader.ReadInt();
             }
-            cosmeticId = reader.ReadInt();
+            CosmeticId = reader.ReadInt();
         }
     }
 }

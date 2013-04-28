@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameMapMovementRequestMessage : NetworkMessage
     {
-        public const uint Id = 950;
-
-        public short[] keyMovements;
-        public int mapId;
+        public const uint ID = 950;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] KeyMovements { get; set; }
+        public int MapId { get; set; }
 
 
         public GameMapMovementRequestMessage()
@@ -40,32 +41,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameMapMovementRequestMessage(short[] keyMovements, int mapId)
         {
-            this.keyMovements = keyMovements;
-            this.mapId = mapId;
+            KeyMovements = keyMovements;
+            MapId = mapId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) keyMovements.Length);
-            foreach (var entry in keyMovements)
+            writer.WriteUShort((ushort) KeyMovements.Length);
+            foreach (var entry in KeyMovements)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteInt(mapId);
+            writer.WriteInt(MapId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            keyMovements = new short[limit];
+            KeyMovements = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                keyMovements[i] = reader.ReadShort();
+                KeyMovements[i] = reader.ReadShort();
             }
-            mapId = reader.ReadInt();
-            if (mapId < 0)
-                throw new Exception("Forbidden value on mapId = " + mapId + ", it doesn't respect the following condition : mapId < 0");
+            MapId = reader.ReadInt();
         }
     }
 }

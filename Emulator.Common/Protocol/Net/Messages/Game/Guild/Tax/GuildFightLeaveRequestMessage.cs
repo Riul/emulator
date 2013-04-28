@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 {
     public class GuildFightLeaveRequestMessage : NetworkMessage
     {
-        public const uint Id = 5715;
-
-        public int characterId;
-        public int taxCollectorId;
+        public const uint ID = 5715;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TaxCollectorId { get; set; }
+        public int CharacterId { get; set; }
 
 
         public GuildFightLeaveRequestMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public GuildFightLeaveRequestMessage(int taxCollectorId, int characterId)
         {
-            this.taxCollectorId = taxCollectorId;
-            this.characterId = characterId;
+            TaxCollectorId = taxCollectorId;
+            CharacterId = characterId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(taxCollectorId);
-            writer.WriteInt(characterId);
+            writer.WriteInt(TaxCollectorId);
+            writer.WriteInt(CharacterId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            taxCollectorId = reader.ReadInt();
-            characterId = reader.ReadInt();
-            if (characterId < 0)
-                throw new Exception("Forbidden value on characterId = " + characterId + ", it doesn't respect the following condition : characterId < 0");
+            TaxCollectorId = reader.ReadInt();
+            CharacterId = reader.ReadInt();
         }
     }
 }

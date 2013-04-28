@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameMapMovementMessage : NetworkMessage
     {
-        public const uint Id = 951;
-
-        public int actorId;
-        public short[] keyMovements;
+        public const uint ID = 951;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] KeyMovements { get; set; }
+        public int ActorId { get; set; }
 
 
         public GameMapMovementMessage()
@@ -39,30 +41,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameMapMovementMessage(short[] keyMovements, int actorId)
         {
-            this.keyMovements = keyMovements;
-            this.actorId = actorId;
+            KeyMovements = keyMovements;
+            ActorId = actorId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) keyMovements.Length);
-            foreach (var entry in keyMovements)
+            writer.WriteUShort((ushort) KeyMovements.Length);
+            foreach (var entry in KeyMovements)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteInt(actorId);
+            writer.WriteInt(ActorId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            keyMovements = new short[limit];
+            KeyMovements = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                keyMovements[i] = reader.ReadShort();
+                KeyMovements[i] = reader.ReadShort();
             }
-            actorId = reader.ReadInt();
+            ActorId = reader.ReadInt();
         }
     }
 }

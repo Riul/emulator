@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightMarkCellsMessage : AbstractGameActionMessage
     {
-        public const uint Id = 5540;
-
-        public GameActionMark mark;
+        public const uint ID = 5540;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameActionMark Mark { get; set; }
 
 
         public GameActionFightMarkCellsMessage()
@@ -38,23 +40,23 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightMarkCellsMessage(short actionId, int sourceId, GameActionMark mark)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.mark = mark;
+            Mark = mark;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            mark.Serialize(writer);
+            Mark.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            mark = new GameActionMark();
-            mark.Deserialize(reader);
+            Mark = new GameActionMark();
+            Mark.Deserialize(reader);
         }
     }
 }

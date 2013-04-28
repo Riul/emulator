@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
 {
     public class ActorAlignmentInformations
     {
-        public const short Id = 201;
-        public sbyte alignmentGrade;
-
-        public sbyte alignmentSide;
-        public sbyte alignmentValue;
-        public int characterPower;
-        public ushort dishonor;
+        public const short ID = 201;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte AlignmentSide { get; set; }
+        public sbyte AlignmentValue { get; set; }
+        public sbyte AlignmentGrade { get; set; }
+        public ushort Dishonor { get; set; }
+        public int CharacterPower { get; set; }
 
 
         public ActorAlignmentInformations()
@@ -43,38 +44,30 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
 
         public ActorAlignmentInformations(sbyte alignmentSide, sbyte alignmentValue, sbyte alignmentGrade, ushort dishonor, int characterPower)
         {
-            this.alignmentSide = alignmentSide;
-            this.alignmentValue = alignmentValue;
-            this.alignmentGrade = alignmentGrade;
-            this.dishonor = dishonor;
-            this.characterPower = characterPower;
+            AlignmentSide = alignmentSide;
+            AlignmentValue = alignmentValue;
+            AlignmentGrade = alignmentGrade;
+            Dishonor = dishonor;
+            CharacterPower = characterPower;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(alignmentSide);
-            writer.WriteSByte(alignmentValue);
-            writer.WriteSByte(alignmentGrade);
-            writer.WriteUShort(dishonor);
-            writer.WriteInt(characterPower);
+            writer.WriteSByte(AlignmentSide);
+            writer.WriteSByte(AlignmentValue);
+            writer.WriteSByte(AlignmentGrade);
+            writer.WriteUShort(Dishonor);
+            writer.WriteInt(CharacterPower);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            alignmentSide = reader.ReadSByte();
-            alignmentValue = reader.ReadSByte();
-            if (alignmentValue < 0)
-                throw new Exception("Forbidden value on alignmentValue = " + alignmentValue + ", it doesn't respect the following condition : alignmentValue < 0");
-            alignmentGrade = reader.ReadSByte();
-            if (alignmentGrade < 0)
-                throw new Exception("Forbidden value on alignmentGrade = " + alignmentGrade + ", it doesn't respect the following condition : alignmentGrade < 0");
-            dishonor = reader.ReadUShort();
-            if (dishonor < 0 || dishonor > 500)
-                throw new Exception("Forbidden value on dishonor = " + dishonor + ", it doesn't respect the following condition : dishonor < 0 || dishonor > 500");
-            characterPower = reader.ReadInt();
-            if (characterPower < 0)
-                throw new Exception("Forbidden value on characterPower = " + characterPower + ", it doesn't respect the following condition : characterPower < 0");
+            AlignmentSide = reader.ReadSByte();
+            AlignmentValue = reader.ReadSByte();
+            AlignmentGrade = reader.ReadSByte();
+            Dishonor = reader.ReadUShort();
+            CharacterPower = reader.ReadInt();
         }
     }
 }

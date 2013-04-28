@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,43 +25,47 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 {
     public class TaxCollectorMovementMessage : NetworkMessage
     {
-        public const uint Id = 5633;
-
-        public TaxCollectorBasicInformations basicInfos;
-        public bool hireOrFire;
-        public string playerName;
+        public const uint ID = 5633;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool HireOrFire { get; set; }
+        public TaxCollectorBasicInformations BasicInfos { get; set; }
+        public int PlayerId { get; set; }
+        public string PlayerName { get; set; }
 
 
         public TaxCollectorMovementMessage()
         {
         }
 
-        public TaxCollectorMovementMessage(bool hireOrFire, TaxCollectorBasicInformations basicInfos, string playerName)
+        public TaxCollectorMovementMessage(bool hireOrFire, TaxCollectorBasicInformations basicInfos, int playerId, string playerName)
         {
-            this.hireOrFire = hireOrFire;
-            this.basicInfos = basicInfos;
-            this.playerName = playerName;
+            HireOrFire = hireOrFire;
+            BasicInfos = basicInfos;
+            PlayerId = playerId;
+            PlayerName = playerName;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(hireOrFire);
-            basicInfos.Serialize(writer);
-            writer.WriteUTF(playerName);
+            writer.WriteBoolean(HireOrFire);
+            BasicInfos.Serialize(writer);
+            writer.WriteInt(PlayerId);
+            writer.WriteUTF(PlayerName);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            hireOrFire = reader.ReadBoolean();
-            basicInfos = new TaxCollectorBasicInformations();
-            basicInfos.Deserialize(reader);
-            playerName = reader.ReadUTF();
+            HireOrFire = reader.ReadBoolean();
+            BasicInfos = new TaxCollectorBasicInformations();
+            BasicInfos.Deserialize(reader);
+            PlayerId = reader.ReadInt();
+            PlayerName = reader.ReadUTF();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 {
     public class AchievementFinishedMessage : NetworkMessage
     {
-        public const uint Id = 6208;
-
-        public short finishedlevel;
-        public short id;
+        public const uint ID = 6208;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Id { get; set; }
+        public short Finishedlevel { get; set; }
 
 
         public AchievementFinishedMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 
         public AchievementFinishedMessage(short id, short finishedlevel)
         {
-            this.id = id;
-            this.finishedlevel = finishedlevel;
+            Id = id;
+            Finishedlevel = finishedlevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(id);
-            writer.WriteShort(finishedlevel);
+            writer.WriteShort(Id);
+            writer.WriteShort(Finishedlevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadShort();
-            if (id < 0)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0");
-            finishedlevel = reader.ReadShort();
-            if (finishedlevel < 0 || finishedlevel > 200)
-                throw new Exception("Forbidden value on finishedlevel = " + finishedlevel + ", it doesn't respect the following condition : finishedlevel < 0 || finishedlevel > 200");
+            Id = reader.ReadShort();
+            Finishedlevel = reader.ReadShort();
         }
     }
 }

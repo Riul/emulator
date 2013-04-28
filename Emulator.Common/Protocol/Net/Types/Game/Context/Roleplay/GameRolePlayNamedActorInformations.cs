@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayNamedActorInformations : GameRolePlayActorInformations
     {
-        public const short Id = 154;
-
-        public string name;
+        public const short ID = 154;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
 
 
         public GameRolePlayNamedActorInformations()
@@ -38,22 +40,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayNamedActorInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, string name)
-            : base(contextualId, look, disposition)
+                : base(contextualId, look, disposition)
         {
-            this.name = name;
+            Name = name;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(name);
+            writer.WriteUTF(Name);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            name = reader.ReadUTF();
+            Name = reader.ReadUTF();
         }
     }
 }

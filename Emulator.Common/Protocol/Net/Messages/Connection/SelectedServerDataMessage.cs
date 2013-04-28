@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class SelectedServerDataMessage : NetworkMessage
     {
-        public const uint Id = 42;
-
-        public string address;
-        public bool canCreateNewCharacter;
-        public ushort port;
-        public short serverId;
-        public string ticket;
+        public const uint ID = 42;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ServerId { get; set; }
+        public string Address { get; set; }
+        public ushort Port { get; set; }
+        public bool CanCreateNewCharacter { get; set; }
+        public string Ticket { get; set; }
 
 
         public SelectedServerDataMessage()
@@ -43,32 +44,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 
         public SelectedServerDataMessage(short serverId, string address, ushort port, bool canCreateNewCharacter, string ticket)
         {
-            this.serverId = serverId;
-            this.address = address;
-            this.port = port;
-            this.canCreateNewCharacter = canCreateNewCharacter;
-            this.ticket = ticket;
+            ServerId = serverId;
+            Address = address;
+            Port = port;
+            CanCreateNewCharacter = canCreateNewCharacter;
+            Ticket = ticket;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(serverId);
-            writer.WriteUTF(address);
-            writer.WriteUShort(port);
-            writer.WriteBoolean(canCreateNewCharacter);
-            writer.WriteUTF(ticket);
+            writer.WriteShort(ServerId);
+            writer.WriteUTF(Address);
+            writer.WriteUShort(Port);
+            writer.WriteBoolean(CanCreateNewCharacter);
+            writer.WriteUTF(Ticket);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            serverId = reader.ReadShort();
-            address = reader.ReadUTF();
-            port = reader.ReadUShort();
-            if (port < 0 || port > 65535)
-                throw new Exception("Forbidden value on port = " + port + ", it doesn't respect the following condition : port < 0 || port > 65535");
-            canCreateNewCharacter = reader.ReadBoolean();
-            ticket = reader.ReadUTF();
+            ServerId = reader.ReadShort();
+            Address = reader.ReadUTF();
+            Port = reader.ReadUShort();
+            CanCreateNewCharacter = reader.ReadBoolean();
+            Ticket = reader.ReadUTF();
         }
     }
 }

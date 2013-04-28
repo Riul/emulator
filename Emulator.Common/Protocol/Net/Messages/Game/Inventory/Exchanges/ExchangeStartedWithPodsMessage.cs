@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,29 +14,29 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeStartedWithPodsMessage : ExchangeStartedMessage
     {
-        public const uint Id = 6129;
-
-        public int firstCharacterCurrentWeight;
-        public int firstCharacterId;
-        public int firstCharacterMaxWeight;
-        public int secondCharacterCurrentWeight;
-        public int secondCharacterId;
-        public int secondCharacterMaxWeight;
+        public const uint ID = 6129;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FirstCharacterId { get; set; }
+        public int FirstCharacterCurrentWeight { get; set; }
+        public int FirstCharacterMaxWeight { get; set; }
+        public int SecondCharacterId { get; set; }
+        public int SecondCharacterCurrentWeight { get; set; }
+        public int SecondCharacterMaxWeight { get; set; }
 
 
         public ExchangeStartedWithPodsMessage()
@@ -43,45 +44,37 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangeStartedWithPodsMessage(sbyte exchangeType, int firstCharacterId, int firstCharacterCurrentWeight, int firstCharacterMaxWeight, int secondCharacterId, int secondCharacterCurrentWeight, int secondCharacterMaxWeight)
-            : base(exchangeType)
+                : base(exchangeType)
         {
-            this.firstCharacterId = firstCharacterId;
-            this.firstCharacterCurrentWeight = firstCharacterCurrentWeight;
-            this.firstCharacterMaxWeight = firstCharacterMaxWeight;
-            this.secondCharacterId = secondCharacterId;
-            this.secondCharacterCurrentWeight = secondCharacterCurrentWeight;
-            this.secondCharacterMaxWeight = secondCharacterMaxWeight;
+            FirstCharacterId = firstCharacterId;
+            FirstCharacterCurrentWeight = firstCharacterCurrentWeight;
+            FirstCharacterMaxWeight = firstCharacterMaxWeight;
+            SecondCharacterId = secondCharacterId;
+            SecondCharacterCurrentWeight = secondCharacterCurrentWeight;
+            SecondCharacterMaxWeight = secondCharacterMaxWeight;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(firstCharacterId);
-            writer.WriteInt(firstCharacterCurrentWeight);
-            writer.WriteInt(firstCharacterMaxWeight);
-            writer.WriteInt(secondCharacterId);
-            writer.WriteInt(secondCharacterCurrentWeight);
-            writer.WriteInt(secondCharacterMaxWeight);
+            writer.WriteInt(FirstCharacterId);
+            writer.WriteInt(FirstCharacterCurrentWeight);
+            writer.WriteInt(FirstCharacterMaxWeight);
+            writer.WriteInt(SecondCharacterId);
+            writer.WriteInt(SecondCharacterCurrentWeight);
+            writer.WriteInt(SecondCharacterMaxWeight);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            firstCharacterId = reader.ReadInt();
-            firstCharacterCurrentWeight = reader.ReadInt();
-            if (firstCharacterCurrentWeight < 0)
-                throw new Exception("Forbidden value on firstCharacterCurrentWeight = " + firstCharacterCurrentWeight + ", it doesn't respect the following condition : firstCharacterCurrentWeight < 0");
-            firstCharacterMaxWeight = reader.ReadInt();
-            if (firstCharacterMaxWeight < 0)
-                throw new Exception("Forbidden value on firstCharacterMaxWeight = " + firstCharacterMaxWeight + ", it doesn't respect the following condition : firstCharacterMaxWeight < 0");
-            secondCharacterId = reader.ReadInt();
-            secondCharacterCurrentWeight = reader.ReadInt();
-            if (secondCharacterCurrentWeight < 0)
-                throw new Exception("Forbidden value on secondCharacterCurrentWeight = " + secondCharacterCurrentWeight + ", it doesn't respect the following condition : secondCharacterCurrentWeight < 0");
-            secondCharacterMaxWeight = reader.ReadInt();
-            if (secondCharacterMaxWeight < 0)
-                throw new Exception("Forbidden value on secondCharacterMaxWeight = " + secondCharacterMaxWeight + ", it doesn't respect the following condition : secondCharacterMaxWeight < 0");
+            FirstCharacterId = reader.ReadInt();
+            FirstCharacterCurrentWeight = reader.ReadInt();
+            FirstCharacterMaxWeight = reader.ReadInt();
+            SecondCharacterId = reader.ReadInt();
+            SecondCharacterCurrentWeight = reader.ReadInt();
+            SecondCharacterMaxWeight = reader.ReadInt();
         }
     }
 }

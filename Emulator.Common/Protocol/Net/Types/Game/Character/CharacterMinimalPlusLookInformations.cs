@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
 {
     public class CharacterMinimalPlusLookInformations : CharacterMinimalInformations
     {
-        public const short Id = 163;
-
-        public EntityLook entityLook;
+        public const short ID = 163;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public EntityLook EntityLook { get; set; }
 
 
         public CharacterMinimalPlusLookInformations()
@@ -38,23 +40,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
         }
 
         public CharacterMinimalPlusLookInformations(int id, byte level, string name, EntityLook entityLook)
-            : base(id, level, name)
+                : base(id, level, name)
         {
-            this.entityLook = entityLook;
+            EntityLook = entityLook;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            entityLook.Serialize(writer);
+            EntityLook.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            entityLook = new EntityLook();
-            entityLook.Deserialize(reader);
+            EntityLook = new EntityLook();
+            EntityLook.Deserialize(reader);
         }
     }
 }

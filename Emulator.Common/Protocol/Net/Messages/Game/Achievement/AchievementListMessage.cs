@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 {
     public class AchievementListMessage : NetworkMessage
     {
-        public const uint Id = 6205;
-
-        public short[] finishedAchievementsIds;
-        public AchievementRewardable[] rewardableAchievements;
+        public const uint ID = 6205;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] FinishedAchievementsIds { get; set; }
+        public AchievementRewardable[] RewardableAchievements { get; set; }
 
 
         public AchievementListMessage()
@@ -40,20 +42,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 
         public AchievementListMessage(short[] finishedAchievementsIds, AchievementRewardable[] rewardableAchievements)
         {
-            this.finishedAchievementsIds = finishedAchievementsIds;
-            this.rewardableAchievements = rewardableAchievements;
+            FinishedAchievementsIds = finishedAchievementsIds;
+            RewardableAchievements = rewardableAchievements;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) finishedAchievementsIds.Length);
-            foreach (var entry in finishedAchievementsIds)
+            writer.WriteUShort((ushort) FinishedAchievementsIds.Length);
+            foreach (var entry in FinishedAchievementsIds)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) rewardableAchievements.Length);
-            foreach (var entry in rewardableAchievements)
+            writer.WriteUShort((ushort) RewardableAchievements.Length);
+            foreach (var entry in RewardableAchievements)
             {
                 entry.Serialize(writer);
             }
@@ -62,17 +64,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            finishedAchievementsIds = new short[limit];
+            FinishedAchievementsIds = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                finishedAchievementsIds[i] = reader.ReadShort();
+                FinishedAchievementsIds[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            rewardableAchievements = new AchievementRewardable[limit];
+            RewardableAchievements = new AchievementRewardable[limit];
             for (int i = 0; i < limit; i++)
             {
-                rewardableAchievements[i] = new AchievementRewardable();
-                rewardableAchievements[i].Deserialize(reader);
+                RewardableAchievements[i] = new AchievementRewardable();
+                RewardableAchievements[i].Deserialize(reader);
             }
         }
     }

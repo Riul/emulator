@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 {
     public class ChatServerCopyMessage : ChatAbstractServerMessage
     {
-        public const uint Id = 882;
-
-        public int receiverId;
-        public string receiverName;
+        public const uint ID = 882;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ReceiverId { get; set; }
+        public string ReceiverName { get; set; }
 
 
         public ChatServerCopyMessage()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         }
 
         public ChatServerCopyMessage(sbyte channel, string content, int timestamp, string fingerprint, int receiverId, string receiverName)
-            : base(channel, content, timestamp, fingerprint)
+                : base(channel, content, timestamp, fingerprint)
         {
-            this.receiverId = receiverId;
-            this.receiverName = receiverName;
+            ReceiverId = receiverId;
+            ReceiverName = receiverName;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(receiverId);
-            writer.WriteUTF(receiverName);
+            writer.WriteInt(ReceiverId);
+            writer.WriteUTF(ReceiverName);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            receiverId = reader.ReadInt();
-            if (receiverId < 0)
-                throw new Exception("Forbidden value on receiverId = " + receiverId + ", it doesn't respect the following condition : receiverId < 0");
-            receiverName = reader.ReadUTF();
+            ReceiverId = reader.ReadInt();
+            ReceiverName = reader.ReadUTF();
         }
     }
 }

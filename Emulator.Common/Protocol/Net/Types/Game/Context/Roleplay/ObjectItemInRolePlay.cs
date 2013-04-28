@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class ObjectItemInRolePlay
     {
-        public const short Id = 198;
-
-        public short cellId;
-        public short objectGID;
+        public const short ID = 198;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short CellId { get; set; }
+        public short ObjectGID { get; set; }
 
 
         public ObjectItemInRolePlay()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public ObjectItemInRolePlay(short cellId, short objectGID)
         {
-            this.cellId = cellId;
-            this.objectGID = objectGID;
+            CellId = cellId;
+            ObjectGID = objectGID;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(cellId);
-            writer.WriteShort(objectGID);
+            writer.WriteShort(CellId);
+            writer.WriteShort(ObjectGID);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            cellId = reader.ReadShort();
-            if (cellId < 0 || cellId > 559)
-                throw new Exception("Forbidden value on cellId = " + cellId + ", it doesn't respect the following condition : cellId < 0 || cellId > 559");
-            objectGID = reader.ReadShort();
-            if (objectGID < 0)
-                throw new Exception("Forbidden value on objectGID = " + objectGID + ", it doesn't respect the following condition : objectGID < 0");
+            CellId = reader.ReadShort();
+            ObjectGID = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,71 +25,71 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class IdentificationMessage : NetworkMessage
     {
-        public const uint Id = 4;
-
-        public bool autoconnect;
-        public byte[] credentials;
-        public string lang;
-        public short serverId;
-        public bool useCertificate;
-        public bool useLoginToken;
-        public VersionExtended version;
+        public const uint ID = 4;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Autoconnect { get; set; }
+        public bool UseCertificate { get; set; }
+        public bool UseLoginToken { get; set; }
+        public VersionExtended Version { get; set; }
+        public string Lang { get; set; }
+        public sbyte[] Credentials { get; set; }
+        public short ServerId { get; set; }
 
 
         public IdentificationMessage()
         {
         }
 
-        public IdentificationMessage(bool autoconnect, bool useCertificate, bool useLoginToken, VersionExtended version, string lang, byte[] credentials, short serverId)
+        public IdentificationMessage(bool autoconnect, bool useCertificate, bool useLoginToken, VersionExtended version, string lang, sbyte[] credentials, short serverId)
         {
-            this.autoconnect = autoconnect;
-            this.useCertificate = useCertificate;
-            this.useLoginToken = useLoginToken;
-            this.version = version;
-            this.lang = lang;
-            this.credentials = credentials;
-            this.serverId = serverId;
+            Autoconnect = autoconnect;
+            UseCertificate = useCertificate;
+            UseLoginToken = useLoginToken;
+            Version = version;
+            Lang = lang;
+            Credentials = credentials;
+            ServerId = serverId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, autoconnect);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, useCertificate);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 2, useLoginToken);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, Autoconnect);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, UseCertificate);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 2, UseLoginToken);
             writer.WriteByte(flag1);
-            version.Serialize(writer);
-            writer.WriteUTF(lang);
-            writer.WriteUShort((ushort) credentials.Length);
-            foreach (var entry in credentials)
+            Version.Serialize(writer);
+            writer.WriteUTF(Lang);
+            writer.WriteUShort((ushort) Credentials.Length);
+            foreach (var entry in Credentials)
             {
-                writer.WriteByte(entry);
+                writer.WriteSByte(entry);
             }
-            writer.WriteShort(serverId);
+            writer.WriteShort(ServerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            autoconnect = BooleanByteWrapper.GetFlag(flag1, 0);
-            useCertificate = BooleanByteWrapper.GetFlag(flag1, 1);
-            useLoginToken = BooleanByteWrapper.GetFlag(flag1, 2);
-            version = new VersionExtended();
-            version.Deserialize(reader);
-            lang = reader.ReadUTF();
+            Autoconnect = BooleanByteWrapper.GetFlag(flag1, 0);
+            UseCertificate = BooleanByteWrapper.GetFlag(flag1, 1);
+            UseLoginToken = BooleanByteWrapper.GetFlag(flag1, 2);
+            Version = new VersionExtended();
+            Version.Deserialize(reader);
+            Lang = reader.ReadUTF();
             var limit = reader.ReadUShort();
-            credentials = new byte[limit];
+            Credentials = new sbyte[limit];
             for (int i = 0; i < limit; i++)
             {
-                credentials[i] = reader.ReadByte();
+                Credentials[i] = reader.ReadSByte();
             }
-            serverId = reader.ReadShort();
+            ServerId = reader.ReadShort();
         }
     }
 }

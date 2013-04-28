@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,50 +24,58 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class BasicWhoIsMessage : NetworkMessage
     {
-        public const uint Id = 180;
-
-        public string accountNickname;
-        public short areaId;
-        public string characterName;
-        public sbyte position;
-        public bool self;
+        public const uint ID = 180;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Self { get; set; }
+        public sbyte Position { get; set; }
+        public string AccountNickname { get; set; }
+        public int AccountId { get; set; }
+        public string PlayerName { get; set; }
+        public int PlayerId { get; set; }
+        public short AreaId { get; set; }
 
 
         public BasicWhoIsMessage()
         {
         }
 
-        public BasicWhoIsMessage(bool self, sbyte position, string accountNickname, string characterName, short areaId)
+        public BasicWhoIsMessage(bool self, sbyte position, string accountNickname, int accountId, string playerName, int playerId, short areaId)
         {
-            this.self = self;
-            this.position = position;
-            this.accountNickname = accountNickname;
-            this.characterName = characterName;
-            this.areaId = areaId;
+            Self = self;
+            Position = position;
+            AccountNickname = accountNickname;
+            AccountId = accountId;
+            PlayerName = playerName;
+            PlayerId = playerId;
+            AreaId = areaId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(self);
-            writer.WriteSByte(position);
-            writer.WriteUTF(accountNickname);
-            writer.WriteUTF(characterName);
-            writer.WriteShort(areaId);
+            writer.WriteBoolean(Self);
+            writer.WriteSByte(Position);
+            writer.WriteUTF(AccountNickname);
+            writer.WriteInt(AccountId);
+            writer.WriteUTF(PlayerName);
+            writer.WriteInt(PlayerId);
+            writer.WriteShort(AreaId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            self = reader.ReadBoolean();
-            position = reader.ReadSByte();
-            accountNickname = reader.ReadUTF();
-            characterName = reader.ReadUTF();
-            areaId = reader.ReadShort();
+            Self = reader.ReadBoolean();
+            Position = reader.ReadSByte();
+            AccountNickname = reader.ReadUTF();
+            AccountId = reader.ReadInt();
+            PlayerName = reader.ReadUTF();
+            PlayerId = reader.ReadInt();
+            AreaId = reader.ReadShort();
         }
     }
 }

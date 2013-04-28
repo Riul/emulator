@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
 {
     public class CharacterToRelookInformation : AbstractCharacterInformation
     {
-        public const short Id = 399;
-
-        public int cosmeticId;
+        public const short ID = 399;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CosmeticId { get; set; }
 
 
         public CharacterToRelookInformation()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Choice
         }
 
         public CharacterToRelookInformation(int id, int cosmeticId)
-            : base(id)
+                : base(id)
         {
-            this.cosmeticId = cosmeticId;
+            CosmeticId = cosmeticId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(cosmeticId);
+            writer.WriteInt(CosmeticId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            cosmeticId = reader.ReadInt();
-            if (cosmeticId < 0)
-                throw new Exception("Forbidden value on cosmeticId = " + cosmeticId + ", it doesn't respect the following condition : cosmeticId < 0");
+            CosmeticId = reader.ReadInt();
         }
     }
 }

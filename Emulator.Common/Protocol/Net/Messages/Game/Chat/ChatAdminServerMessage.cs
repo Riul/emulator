@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,11 +24,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 {
     public class ChatAdminServerMessage : ChatServerMessage
     {
-        public const uint Id = 6135;
+        public const uint ID = 6135;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
 
@@ -35,7 +37,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         }
 
         public ChatAdminServerMessage(sbyte channel, string content, int timestamp, string fingerprint, int senderId, string senderName, int senderAccountId)
-            : base(channel, content, timestamp, fingerprint, senderId, senderName, senderAccountId)
+                : base(channel, content, timestamp, fingerprint, senderId, senderName, senderAccountId)
         {
         }
 

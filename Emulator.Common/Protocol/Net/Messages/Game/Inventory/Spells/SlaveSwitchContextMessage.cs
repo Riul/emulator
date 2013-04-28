@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -24,17 +26,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
 {
     public class SlaveSwitchContextMessage : NetworkMessage
     {
-        public const uint Id = 6214;
-
-        public int slaveId;
-        public SpellItem[] slaveSpells;
-        public CharacterCharacteristicsInformations slaveStats;
-        public int summonerId;
+        public const uint ID = 6214;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SummonerId { get; set; }
+        public int SlaveId { get; set; }
+        public SpellItem[] SlaveSpells { get; set; }
+        public CharacterCharacteristicsInformations SlaveStats { get; set; }
 
 
         public SlaveSwitchContextMessage()
@@ -43,38 +45,38 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
 
         public SlaveSwitchContextMessage(int summonerId, int slaveId, SpellItem[] slaveSpells, CharacterCharacteristicsInformations slaveStats)
         {
-            this.summonerId = summonerId;
-            this.slaveId = slaveId;
-            this.slaveSpells = slaveSpells;
-            this.slaveStats = slaveStats;
+            SummonerId = summonerId;
+            SlaveId = slaveId;
+            SlaveSpells = slaveSpells;
+            SlaveStats = slaveStats;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(summonerId);
-            writer.WriteInt(slaveId);
-            writer.WriteUShort((ushort) slaveSpells.Length);
-            foreach (var entry in slaveSpells)
+            writer.WriteInt(SummonerId);
+            writer.WriteInt(SlaveId);
+            writer.WriteUShort((ushort) SlaveSpells.Length);
+            foreach (var entry in SlaveSpells)
             {
                 entry.Serialize(writer);
             }
-            slaveStats.Serialize(writer);
+            SlaveStats.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            summonerId = reader.ReadInt();
-            slaveId = reader.ReadInt();
+            SummonerId = reader.ReadInt();
+            SlaveId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            slaveSpells = new SpellItem[limit];
+            SlaveSpells = new SpellItem[limit];
             for (int i = 0; i < limit; i++)
             {
-                slaveSpells[i] = new SpellItem();
-                slaveSpells[i].Deserialize(reader);
+                SlaveSpells[i] = new SpellItem();
+                SlaveSpells[i].Deserialize(reader);
             }
-            slaveStats = new CharacterCharacteristicsInformations();
-            slaveStats.Deserialize(reader);
+            SlaveStats = new CharacterCharacteristicsInformations();
+            SlaveStats.Deserialize(reader);
         }
     }
 }

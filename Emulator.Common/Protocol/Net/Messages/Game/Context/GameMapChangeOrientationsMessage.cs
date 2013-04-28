@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameMapChangeOrientationsMessage : NetworkMessage
     {
-        public const uint Id = 6155;
-
-        public ActorOrientation[] orientations;
+        public const uint ID = 6155;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ActorOrientation[] Orientations { get; set; }
 
 
         public GameMapChangeOrientationsMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameMapChangeOrientationsMessage(ActorOrientation[] orientations)
         {
-            this.orientations = orientations;
+            Orientations = orientations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) orientations.Length);
-            foreach (var entry in orientations)
+            writer.WriteUShort((ushort) Orientations.Length);
+            foreach (var entry in Orientations)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            orientations = new ActorOrientation[limit];
+            Orientations = new ActorOrientation[limit];
             for (int i = 0; i < limit; i++)
             {
-                orientations[i] = new ActorOrientation();
-                orientations[i].Deserialize(reader);
+                Orientations[i] = new ActorOrientation();
+                Orientations[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobListedUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6016;
-
-        public bool addedOrDeleted;
-        public sbyte jobId;
+        public const uint ID = 6016;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool AddedOrDeleted { get; set; }
+        public sbyte JobId { get; set; }
 
 
         public JobListedUpdateMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobListedUpdateMessage(bool addedOrDeleted, sbyte jobId)
         {
-            this.addedOrDeleted = addedOrDeleted;
-            this.jobId = jobId;
+            AddedOrDeleted = addedOrDeleted;
+            JobId = jobId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(addedOrDeleted);
-            writer.WriteSByte(jobId);
+            writer.WriteBoolean(AddedOrDeleted);
+            writer.WriteSByte(JobId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            addedOrDeleted = reader.ReadBoolean();
-            jobId = reader.ReadSByte();
-            if (jobId < 0)
-                throw new Exception("Forbidden value on jobId = " + jobId + ", it doesn't respect the following condition : jobId < 0");
+            AddedOrDeleted = reader.ReadBoolean();
+            JobId = reader.ReadSByte();
         }
     }
 }

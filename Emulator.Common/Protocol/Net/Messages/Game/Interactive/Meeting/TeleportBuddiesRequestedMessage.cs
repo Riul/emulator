@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 {
     public class TeleportBuddiesRequestedMessage : NetworkMessage
     {
-        public const uint Id = 6302;
-
-        public short dungeonId;
-        public int[] invalidBuddiesIds;
-        public int inviterId;
+        public const uint ID = 6302;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short DungeonId { get; set; }
+        public int InviterId { get; set; }
+        public int[] InvalidBuddiesIds { get; set; }
 
 
         public TeleportBuddiesRequestedMessage()
@@ -41,18 +42,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 
         public TeleportBuddiesRequestedMessage(short dungeonId, int inviterId, int[] invalidBuddiesIds)
         {
-            this.dungeonId = dungeonId;
-            this.inviterId = inviterId;
-            this.invalidBuddiesIds = invalidBuddiesIds;
+            DungeonId = dungeonId;
+            InviterId = inviterId;
+            InvalidBuddiesIds = invalidBuddiesIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(dungeonId);
-            writer.WriteInt(inviterId);
-            writer.WriteUShort((ushort) invalidBuddiesIds.Length);
-            foreach (var entry in invalidBuddiesIds)
+            writer.WriteShort(DungeonId);
+            writer.WriteInt(InviterId);
+            writer.WriteUShort((ushort) InvalidBuddiesIds.Length);
+            foreach (var entry in InvalidBuddiesIds)
             {
                 writer.WriteInt(entry);
             }
@@ -60,17 +61,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Meeting
 
         public override void Deserialize(BigEndianReader reader)
         {
-            dungeonId = reader.ReadShort();
-            if (dungeonId < 0)
-                throw new Exception("Forbidden value on dungeonId = " + dungeonId + ", it doesn't respect the following condition : dungeonId < 0");
-            inviterId = reader.ReadInt();
-            if (inviterId < 0)
-                throw new Exception("Forbidden value on inviterId = " + inviterId + ", it doesn't respect the following condition : inviterId < 0");
+            DungeonId = reader.ReadShort();
+            InviterId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            invalidBuddiesIds = new int[limit];
+            InvalidBuddiesIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                invalidBuddiesIds[i] = reader.ReadInt();
+                InvalidBuddiesIds[i] = reader.ReadInt();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 {
     public class UpdateLifePointsMessage : NetworkMessage
     {
-        public const uint Id = 5658;
-
-        public int lifePoints;
-        public int maxLifePoints;
+        public const uint ID = 5658;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int LifePoints { get; set; }
+        public int MaxLifePoints { get; set; }
 
 
         public UpdateLifePointsMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public UpdateLifePointsMessage(int lifePoints, int maxLifePoints)
         {
-            this.lifePoints = lifePoints;
-            this.maxLifePoints = maxLifePoints;
+            LifePoints = lifePoints;
+            MaxLifePoints = maxLifePoints;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(lifePoints);
-            writer.WriteInt(maxLifePoints);
+            writer.WriteInt(LifePoints);
+            writer.WriteInt(MaxLifePoints);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            lifePoints = reader.ReadInt();
-            if (lifePoints < 0)
-                throw new Exception("Forbidden value on lifePoints = " + lifePoints + ", it doesn't respect the following condition : lifePoints < 0");
-            maxLifePoints = reader.ReadInt();
-            if (maxLifePoints < 0)
-                throw new Exception("Forbidden value on maxLifePoints = " + maxLifePoints + ", it doesn't respect the following condition : maxLifePoints < 0");
+            LifePoints = reader.ReadInt();
+            MaxLifePoints = reader.ReadInt();
         }
     }
 }

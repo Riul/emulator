@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ObjectFeedMessage : NetworkMessage
     {
-        public const uint Id = 6290;
-
-        public short foodQuantity;
-        public int foodUID;
-        public int objectUID;
+        public const uint ID = 6290;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ObjectUID { get; set; }
+        public int FoodUID { get; set; }
+        public short FoodQuantity { get; set; }
 
 
         public ObjectFeedMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ObjectFeedMessage(int objectUID, int foodUID, short foodQuantity)
         {
-            this.objectUID = objectUID;
-            this.foodUID = foodUID;
-            this.foodQuantity = foodQuantity;
+            ObjectUID = objectUID;
+            FoodUID = foodUID;
+            FoodQuantity = foodQuantity;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(objectUID);
-            writer.WriteInt(foodUID);
-            writer.WriteShort(foodQuantity);
+            writer.WriteInt(ObjectUID);
+            writer.WriteInt(FoodUID);
+            writer.WriteShort(FoodQuantity);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            objectUID = reader.ReadInt();
-            if (objectUID < 0)
-                throw new Exception("Forbidden value on objectUID = " + objectUID + ", it doesn't respect the following condition : objectUID < 0");
-            foodUID = reader.ReadInt();
-            if (foodUID < 0)
-                throw new Exception("Forbidden value on foodUID = " + foodUID + ", it doesn't respect the following condition : foodUID < 0");
-            foodQuantity = reader.ReadShort();
-            if (foodQuantity < 0)
-                throw new Exception("Forbidden value on foodQuantity = " + foodQuantity + ", it doesn't respect the following condition : foodQuantity < 0");
+            ObjectUID = reader.ReadInt();
+            FoodUID = reader.ReadInt();
+            FoodQuantity = reader.ReadShort();
         }
     }
 }

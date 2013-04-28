@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class MonsterInGroupInformations : MonsterInGroupLightInformations
     {
-        public const short Id = 144;
-
-        public EntityLook look;
+        public const short ID = 144;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public EntityLook Look { get; set; }
 
 
         public MonsterInGroupInformations()
@@ -38,23 +40,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public MonsterInGroupInformations(int creatureGenericId, sbyte grade, EntityLook look)
-            : base(creatureGenericId, grade)
+                : base(creatureGenericId, grade)
         {
-            this.look = look;
+            Look = look;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            look.Serialize(writer);
+            Look.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            look = new EntityLook();
-            look.Deserialize(reader);
+            Look = new EntityLook();
+            Look.Deserialize(reader);
         }
     }
 }

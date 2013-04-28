@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismFightDefenderAddMessage : NetworkMessage
     {
-        public const uint Id = 5895;
-
-        public double fightId;
-        public CharacterMinimalPlusLookAndGradeInformations fighterMovementInformations;
-        public bool inMain;
+        public const uint ID = 5895;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public CharacterMinimalPlusLookAndGradeInformations FighterMovementInformations { get; set; }
+        public bool InMain { get; set; }
 
 
         public PrismFightDefenderAddMessage()
@@ -41,25 +43,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismFightDefenderAddMessage(double fightId, CharacterMinimalPlusLookAndGradeInformations fighterMovementInformations, bool inMain)
         {
-            this.fightId = fightId;
-            this.fighterMovementInformations = fighterMovementInformations;
-            this.inMain = inMain;
+            FightId = fightId;
+            FighterMovementInformations = fighterMovementInformations;
+            InMain = inMain;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            fighterMovementInformations.Serialize(writer);
-            writer.WriteBoolean(inMain);
+            writer.WriteDouble(FightId);
+            FighterMovementInformations.Serialize(writer);
+            writer.WriteBoolean(InMain);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
-            fighterMovementInformations = new CharacterMinimalPlusLookAndGradeInformations();
-            fighterMovementInformations.Deserialize(reader);
-            inMain = reader.ReadBoolean();
+            FightId = reader.ReadDouble();
+            FighterMovementInformations = new CharacterMinimalPlusLookAndGradeInformations();
+            FighterMovementInformations.Deserialize(reader);
+            InMain = reader.ReadBoolean();
         }
     }
 }

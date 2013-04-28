@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
 {
     public class SetCharacterRestrictionsMessage : NetworkMessage
     {
-        public const uint Id = 170;
-
-        public ActorRestrictionsInformations restrictions;
+        public const uint ID = 170;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ActorRestrictionsInformations Restrictions { get; set; }
 
 
         public SetCharacterRestrictionsMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Initialization
 
         public SetCharacterRestrictionsMessage(ActorRestrictionsInformations restrictions)
         {
-            this.restrictions = restrictions;
+            Restrictions = restrictions;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            restrictions.Serialize(writer);
+            Restrictions.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            restrictions = new ActorRestrictionsInformations();
-            restrictions.Deserialize(reader);
+            Restrictions = new ActorRestrictionsInformations();
+            Restrictions.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobCrafterDirectorySettingsMessage : NetworkMessage
     {
-        public const uint Id = 5652;
-
-        public JobCrafterDirectorySettings[] craftersSettings;
+        public const uint ID = 5652;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobCrafterDirectorySettings[] CraftersSettings { get; set; }
 
 
         public JobCrafterDirectorySettingsMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobCrafterDirectorySettingsMessage(JobCrafterDirectorySettings[] craftersSettings)
         {
-            this.craftersSettings = craftersSettings;
+            CraftersSettings = craftersSettings;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) craftersSettings.Length);
-            foreach (var entry in craftersSettings)
+            writer.WriteUShort((ushort) CraftersSettings.Length);
+            foreach (var entry in CraftersSettings)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            craftersSettings = new JobCrafterDirectorySettings[limit];
+            CraftersSettings = new JobCrafterDirectorySettings[limit];
             for (int i = 0; i < limit; i++)
             {
-                craftersSettings[i] = new JobCrafterDirectorySettings();
-                craftersSettings[i].Deserialize(reader);
+                CraftersSettings[i] = new JobCrafterDirectorySettings();
+                CraftersSettings[i].Deserialize(reader);
             }
         }
     }

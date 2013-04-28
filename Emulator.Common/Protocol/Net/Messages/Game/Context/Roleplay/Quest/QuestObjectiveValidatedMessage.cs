@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 {
     public class QuestObjectiveValidatedMessage : NetworkMessage
     {
-        public const uint Id = 6098;
-
-        public ushort objectiveId;
-        public ushort questId;
+        public const uint ID = 6098;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ushort QuestId { get; set; }
+        public ushort ObjectiveId { get; set; }
 
 
         public QuestObjectiveValidatedMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 
         public QuestObjectiveValidatedMessage(ushort questId, ushort objectiveId)
         {
-            this.questId = questId;
-            this.objectiveId = objectiveId;
+            QuestId = questId;
+            ObjectiveId = objectiveId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort(questId);
-            writer.WriteUShort(objectiveId);
+            writer.WriteUShort(QuestId);
+            writer.WriteUShort(ObjectiveId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            questId = reader.ReadUShort();
-            if (questId < 0 || questId > 65535)
-                throw new Exception("Forbidden value on questId = " + questId + ", it doesn't respect the following condition : questId < 0 || questId > 65535");
-            objectiveId = reader.ReadUShort();
-            if (objectiveId < 0 || objectiveId > 65535)
-                throw new Exception("Forbidden value on objectiveId = " + objectiveId + ", it doesn't respect the following condition : objectiveId < 0 || objectiveId > 65535");
+            QuestId = reader.ReadUShort();
+            ObjectiveId = reader.ReadUShort();
         }
     }
 }

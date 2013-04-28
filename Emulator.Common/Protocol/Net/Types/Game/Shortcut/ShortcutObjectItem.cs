@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 {
     public class ShortcutObjectItem : ShortcutObject
     {
-        public const short Id = 371;
-
-        public int itemGID;
-        public int itemUID;
+        public const short ID = 371;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ItemUID { get; set; }
+        public int ItemGID { get; set; }
 
 
         public ShortcutObjectItem()
@@ -38,25 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
         }
 
         public ShortcutObjectItem(int slot, int itemUID, int itemGID)
-            : base(slot)
+                : base(slot)
         {
-            this.itemUID = itemUID;
-            this.itemGID = itemGID;
+            ItemUID = itemUID;
+            ItemGID = itemGID;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(itemUID);
-            writer.WriteInt(itemGID);
+            writer.WriteInt(ItemUID);
+            writer.WriteInt(ItemGID);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            itemUID = reader.ReadInt();
-            itemGID = reader.ReadInt();
+            ItemUID = reader.ReadInt();
+            ItemGID = reader.ReadInt();
         }
     }
 }

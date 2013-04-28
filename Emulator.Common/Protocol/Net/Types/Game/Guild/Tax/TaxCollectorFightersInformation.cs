@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
 {
     public class TaxCollectorFightersInformation
     {
-        public const short Id = 169;
-
-        public CharacterMinimalPlusLookInformations[] allyCharactersInformations;
-        public int collectorId;
-        public CharacterMinimalPlusLookInformations[] enemyCharactersInformations;
+        public const short ID = 169;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CollectorId { get; set; }
+        public CharacterMinimalPlusLookInformations[] AllyCharactersInformations { get; set; }
+        public CharacterMinimalPlusLookInformations[] EnemyCharactersInformations { get; set; }
 
 
         public TaxCollectorFightersInformation()
@@ -41,22 +43,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
 
         public TaxCollectorFightersInformation(int collectorId, CharacterMinimalPlusLookInformations[] allyCharactersInformations, CharacterMinimalPlusLookInformations[] enemyCharactersInformations)
         {
-            this.collectorId = collectorId;
-            this.allyCharactersInformations = allyCharactersInformations;
-            this.enemyCharactersInformations = enemyCharactersInformations;
+            CollectorId = collectorId;
+            AllyCharactersInformations = allyCharactersInformations;
+            EnemyCharactersInformations = enemyCharactersInformations;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(collectorId);
-            writer.WriteUShort((ushort) allyCharactersInformations.Length);
-            foreach (var entry in allyCharactersInformations)
+            writer.WriteInt(CollectorId);
+            writer.WriteUShort((ushort) AllyCharactersInformations.Length);
+            foreach (var entry in AllyCharactersInformations)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) enemyCharactersInformations.Length);
-            foreach (var entry in enemyCharactersInformations)
+            writer.WriteUShort((ushort) EnemyCharactersInformations.Length);
+            foreach (var entry in EnemyCharactersInformations)
             {
                 entry.Serialize(writer);
             }
@@ -64,20 +66,20 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            collectorId = reader.ReadInt();
+            CollectorId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            allyCharactersInformations = new CharacterMinimalPlusLookInformations[limit];
+            AllyCharactersInformations = new CharacterMinimalPlusLookInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                allyCharactersInformations[i] = new CharacterMinimalPlusLookInformations();
-                allyCharactersInformations[i].Deserialize(reader);
+                AllyCharactersInformations[i] = new CharacterMinimalPlusLookInformations();
+                AllyCharactersInformations[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            enemyCharactersInformations = new CharacterMinimalPlusLookInformations[limit];
+            EnemyCharactersInformations = new CharacterMinimalPlusLookInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                enemyCharactersInformations[i] = new CharacterMinimalPlusLookInformations();
-                enemyCharactersInformations[i].Deserialize(reader);
+                EnemyCharactersInformations[i] = new CharacterMinimalPlusLookInformations();
+                EnemyCharactersInformations[i].Deserialize(reader);
             }
         }
     }

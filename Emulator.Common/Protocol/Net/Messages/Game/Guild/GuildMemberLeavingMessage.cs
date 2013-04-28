@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildMemberLeavingMessage : NetworkMessage
     {
-        public const uint Id = 5923;
-
-        public bool kicked;
-        public int memberId;
+        public const uint ID = 5923;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Kicked { get; set; }
+        public int MemberId { get; set; }
 
 
         public GuildMemberLeavingMessage()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildMemberLeavingMessage(bool kicked, int memberId)
         {
-            this.kicked = kicked;
-            this.memberId = memberId;
+            Kicked = kicked;
+            MemberId = memberId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(kicked);
-            writer.WriteInt(memberId);
+            writer.WriteBoolean(Kicked);
+            writer.WriteInt(MemberId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            kicked = reader.ReadBoolean();
-            memberId = reader.ReadInt();
+            Kicked = reader.ReadBoolean();
+            MemberId = reader.ReadInt();
         }
     }
 }

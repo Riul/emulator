@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 {
     public class AchievementDetailsRequestMessage : NetworkMessage
     {
-        public const uint Id = 6380;
-
-        public short achievementId;
+        public const uint ID = 6380;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short AchievementId { get; set; }
 
 
         public AchievementDetailsRequestMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Achievement
 
         public AchievementDetailsRequestMessage(short achievementId)
         {
-            this.achievementId = achievementId;
+            AchievementId = achievementId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(achievementId);
+            writer.WriteShort(AchievementId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            achievementId = reader.ReadShort();
-            if (achievementId < 0)
-                throw new Exception("Forbidden value on achievementId = " + achievementId + ", it doesn't respect the following condition : achievementId < 0");
+            AchievementId = reader.ReadShort();
         }
     }
 }

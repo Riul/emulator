@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyRestrictedMessage : AbstractPartyMessage
     {
-        public const uint Id = 6175;
-
-        public bool restricted;
+        public const uint ID = 6175;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Restricted { get; set; }
 
 
         public PartyRestrictedMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyRestrictedMessage(int partyId, bool restricted)
-            : base(partyId)
+                : base(partyId)
         {
-            this.restricted = restricted;
+            Restricted = restricted;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteBoolean(restricted);
+            writer.WriteBoolean(Restricted);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            restricted = reader.ReadBoolean();
+            Restricted = reader.ReadBoolean();
         }
     }
 }

@@ -23,14 +23,14 @@ namespace Emulator.Common.Network.Sync.Messages
 {
     public class SyncIdentificationMessage : NetworkMessage
     {
-        public const uint Id = 2504;
+        public const uint ID = 2504;
 
         public int ServerId { get; set; }
         public string Password { get; set; }
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
         public SyncIdentificationMessage()

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,55 +14,51 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 {
     public class QuestObjectiveInformationsWithCompletion : QuestObjectiveInformations
     {
-        public const short Id = 386;
-
-        public short curCompletion;
-        public short maxCompletion;
+        public const short ID = 386;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short CurCompletion { get; set; }
+        public short MaxCompletion { get; set; }
 
 
         public QuestObjectiveInformationsWithCompletion()
         {
         }
 
-        public QuestObjectiveInformationsWithCompletion(short objectiveId, bool objectiveStatus, short curCompletion, short maxCompletion)
-            : base(objectiveId, objectiveStatus)
+        public QuestObjectiveInformationsWithCompletion(short objectiveId, bool objectiveStatus, string[] dialogParams, short curCompletion, short maxCompletion)
+                : base(objectiveId, objectiveStatus, dialogParams)
         {
-            this.curCompletion = curCompletion;
-            this.maxCompletion = maxCompletion;
+            CurCompletion = curCompletion;
+            MaxCompletion = maxCompletion;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(curCompletion);
-            writer.WriteShort(maxCompletion);
+            writer.WriteShort(CurCompletion);
+            writer.WriteShort(MaxCompletion);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            curCompletion = reader.ReadShort();
-            if (curCompletion < 0)
-                throw new Exception("Forbidden value on curCompletion = " + curCompletion + ", it doesn't respect the following condition : curCompletion < 0");
-            maxCompletion = reader.ReadShort();
-            if (maxCompletion < 0)
-                throw new Exception("Forbidden value on maxCompletion = " + maxCompletion + ", it doesn't respect the following condition : maxCompletion < 0");
+            CurCompletion = reader.ReadShort();
+            MaxCompletion = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class GameFightTaxCollectorInformations : GameFightAIInformations
     {
-        public const short Id = 48;
-
-        public short firstNameId;
-        public short lastNameId;
-        public short level;
+        public const short ID = 48;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short FirstNameId { get; set; }
+        public short LastNameId { get; set; }
+        public short Level { get; set; }
 
 
         public GameFightTaxCollectorInformations()
@@ -41,34 +42,28 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public GameFightTaxCollectorInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, short firstNameId, short lastNameId, short level)
-            : base(contextualId, look, disposition, teamId, alive, stats)
+                : base(contextualId, look, disposition, teamId, alive, stats)
         {
-            this.firstNameId = firstNameId;
-            this.lastNameId = lastNameId;
-            this.level = level;
+            FirstNameId = firstNameId;
+            LastNameId = lastNameId;
+            Level = level;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(firstNameId);
-            writer.WriteShort(lastNameId);
-            writer.WriteShort(level);
+            writer.WriteShort(FirstNameId);
+            writer.WriteShort(LastNameId);
+            writer.WriteShort(Level);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            firstNameId = reader.ReadShort();
-            if (firstNameId < 0)
-                throw new Exception("Forbidden value on firstNameId = " + firstNameId + ", it doesn't respect the following condition : firstNameId < 0");
-            lastNameId = reader.ReadShort();
-            if (lastNameId < 0)
-                throw new Exception("Forbidden value on lastNameId = " + lastNameId + ", it doesn't respect the following condition : lastNameId < 0");
-            level = reader.ReadShort();
-            if (level < 0)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0");
+            FirstNameId = reader.ReadShort();
+            LastNameId = reader.ReadShort();
+            Level = reader.ReadShort();
         }
     }
 }

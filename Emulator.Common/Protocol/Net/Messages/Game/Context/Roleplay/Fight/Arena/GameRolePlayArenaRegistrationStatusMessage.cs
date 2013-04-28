@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Arena
 {
     public class GameRolePlayArenaRegistrationStatusMessage : NetworkMessage
     {
-        public const uint Id = 6284;
-        public int battleMode;
-
-        public bool registered;
-        public sbyte step;
+        public const uint ID = 6284;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Registered { get; set; }
+        public sbyte Step { get; set; }
+        public int BattleMode { get; set; }
 
 
         public GameRolePlayArenaRegistrationStatusMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
 
         public GameRolePlayArenaRegistrationStatusMessage(bool registered, sbyte step, int battleMode)
         {
-            this.registered = registered;
-            this.step = step;
-            this.battleMode = battleMode;
+            Registered = registered;
+            Step = step;
+            BattleMode = battleMode;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(registered);
-            writer.WriteSByte(step);
-            writer.WriteInt(battleMode);
+            writer.WriteBoolean(Registered);
+            writer.WriteSByte(Step);
+            writer.WriteInt(BattleMode);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            registered = reader.ReadBoolean();
-            step = reader.ReadSByte();
-            if (step < 0)
-                throw new Exception("Forbidden value on step = " + step + ", it doesn't respect the following condition : step < 0");
-            battleMode = reader.ReadInt();
-            if (battleMode < 0)
-                throw new Exception("Forbidden value on battleMode = " + battleMode + ", it doesn't respect the following condition : battleMode < 0");
+            Registered = reader.ReadBoolean();
+            Step = reader.ReadSByte();
+            BattleMode = reader.ReadInt();
         }
     }
 }

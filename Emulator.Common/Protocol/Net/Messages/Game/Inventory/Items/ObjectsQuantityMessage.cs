@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ObjectsQuantityMessage : NetworkMessage
     {
-        public const uint Id = 6206;
-
-        public ObjectItemQuantity[] objectsUIDAndQty;
+        public const uint ID = 6206;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ObjectItemQuantity[] ObjectsUIDAndQty { get; set; }
 
 
         public ObjectsQuantityMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ObjectsQuantityMessage(ObjectItemQuantity[] objectsUIDAndQty)
         {
-            this.objectsUIDAndQty = objectsUIDAndQty;
+            ObjectsUIDAndQty = objectsUIDAndQty;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objectsUIDAndQty.Length);
-            foreach (var entry in objectsUIDAndQty)
+            writer.WriteUShort((ushort) ObjectsUIDAndQty.Length);
+            foreach (var entry in ObjectsUIDAndQty)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objectsUIDAndQty = new ObjectItemQuantity[limit];
+            ObjectsUIDAndQty = new ObjectItemQuantity[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectsUIDAndQty[i] = new ObjectItemQuantity();
-                objectsUIDAndQty[i].Deserialize(reader);
+                ObjectsUIDAndQty[i] = new ObjectItemQuantity();
+                ObjectsUIDAndQty[i].Deserialize(reader);
             }
         }
     }

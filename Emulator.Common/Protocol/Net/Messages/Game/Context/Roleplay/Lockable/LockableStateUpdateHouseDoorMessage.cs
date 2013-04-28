@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
 {
     public class LockableStateUpdateHouseDoorMessage : LockableStateUpdateAbstractMessage
     {
-        public const uint Id = 5668;
-
-        public int houseId;
+        public const uint ID = 5668;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int HouseId { get; set; }
 
 
         public LockableStateUpdateHouseDoorMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Lockable
         }
 
         public LockableStateUpdateHouseDoorMessage(bool locked, int houseId)
-            : base(locked)
+                : base(locked)
         {
-            this.houseId = houseId;
+            HouseId = houseId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(houseId);
+            writer.WriteInt(HouseId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            houseId = reader.ReadInt();
+            HouseId = reader.ReadInt();
         }
     }
 }

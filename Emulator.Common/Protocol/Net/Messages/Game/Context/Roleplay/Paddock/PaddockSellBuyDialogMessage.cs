@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 {
     public class PaddockSellBuyDialogMessage : NetworkMessage
     {
-        public const uint Id = 6018;
-
-        public bool bsell;
-        public int ownerId;
-        public int price;
+        public const uint ID = 6018;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Bsell { get; set; }
+        public int OwnerId { get; set; }
+        public int Price { get; set; }
 
 
         public PaddockSellBuyDialogMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 
         public PaddockSellBuyDialogMessage(bool bsell, int ownerId, int price)
         {
-            this.bsell = bsell;
-            this.ownerId = ownerId;
-            this.price = price;
+            Bsell = bsell;
+            OwnerId = ownerId;
+            Price = price;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(bsell);
-            writer.WriteInt(ownerId);
-            writer.WriteInt(price);
+            writer.WriteBoolean(Bsell);
+            writer.WriteInt(OwnerId);
+            writer.WriteInt(Price);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            bsell = reader.ReadBoolean();
-            ownerId = reader.ReadInt();
-            if (ownerId < 0)
-                throw new Exception("Forbidden value on ownerId = " + ownerId + ", it doesn't respect the following condition : ownerId < 0");
-            price = reader.ReadInt();
-            if (price < 0)
-                throw new Exception("Forbidden value on price = " + price + ", it doesn't respect the following condition : price < 0");
+            Bsell = reader.ReadBoolean();
+            OwnerId = reader.ReadInt();
+            Price = reader.ReadInt();
         }
     }
 }

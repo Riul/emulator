@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyPledgeLoyaltyRequestMessage : AbstractPartyMessage
     {
-        public const uint Id = 6269;
-
-        public bool loyal;
+        public const uint ID = 6269;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Loyal { get; set; }
 
 
         public PartyPledgeLoyaltyRequestMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyPledgeLoyaltyRequestMessage(int partyId, bool loyal)
-            : base(partyId)
+                : base(partyId)
         {
-            this.loyal = loyal;
+            Loyal = loyal;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteBoolean(loyal);
+            writer.WriteBoolean(Loyal);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            loyal = reader.ReadBoolean();
+            Loyal = reader.ReadBoolean();
         }
     }
 }

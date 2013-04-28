@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,54 +14,59 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightExternalInformations
     {
-        public const short Id = 117;
-
-        public int fightId;
-        public bool fightSpectatorLocked;
-        public int fightStart;
-        public FightTeamLightInformations[] fightTeams;
-        public FightOptionsInformations[] fightTeamsOptions;
+        public const short ID = 117;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
+        public sbyte FightType { get; set; }
+        public int FightStart { get; set; }
+        public bool FightSpectatorLocked { get; set; }
+        public FightTeamLightInformations[] FightTeams { get; set; }
+        public FightOptionsInformations[] FightTeamsOptions { get; set; }
 
 
         public FightExternalInformations()
         {
         }
 
-        public FightExternalInformations(int fightId, int fightStart, bool fightSpectatorLocked, FightTeamLightInformations[] fightTeams, FightOptionsInformations[] fightTeamsOptions)
+        public FightExternalInformations(int fightId, sbyte fightType, int fightStart, bool fightSpectatorLocked, FightTeamLightInformations[] fightTeams, FightOptionsInformations[] fightTeamsOptions)
         {
-            this.fightId = fightId;
-            this.fightStart = fightStart;
-            this.fightSpectatorLocked = fightSpectatorLocked;
-            this.fightTeams = fightTeams;
-            this.fightTeamsOptions = fightTeamsOptions;
+            FightId = fightId;
+            FightType = fightType;
+            FightStart = fightStart;
+            FightSpectatorLocked = fightSpectatorLocked;
+            FightTeams = fightTeams;
+            FightTeamsOptions = fightTeamsOptions;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
-            writer.WriteInt(fightStart);
-            writer.WriteBoolean(fightSpectatorLocked);
-            foreach (var entry in fightTeams)
+            writer.WriteInt(FightId);
+            writer.WriteSByte(FightType);
+            writer.WriteInt(FightStart);
+            writer.WriteBoolean(FightSpectatorLocked);
+            writer.WriteUShort((ushort) FightTeams.Length);
+            foreach (var entry in FightTeams)
             {
                 entry.Serialize(writer);
             }
-            foreach (var entry in fightTeamsOptions)
+            writer.WriteUShort((ushort) FightTeamsOptions.Length);
+            foreach (var entry in FightTeamsOptions)
             {
                 entry.Serialize(writer);
             }
@@ -68,22 +74,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
-            fightStart = reader.ReadInt();
-            if (fightStart < 0)
-                throw new Exception("Forbidden value on fightStart = " + fightStart + ", it doesn't respect the following condition : fightStart < 0");
-            fightSpectatorLocked = reader.ReadBoolean();
-            fightTeams = new FightTeamLightInformations[2];
-            for (int i = 0; i < 2; i++)
+            FightId = reader.ReadInt();
+            FightType = reader.ReadSByte();
+            FightStart = reader.ReadInt();
+            FightSpectatorLocked = reader.ReadBoolean();
+            var limit = reader.ReadUShort();
+            FightTeams = new FightTeamLightInformations[limit];
+            for (int i = 0; i < limit; i++)
             {
-                fightTeams[i] = new FightTeamLightInformations();
-                fightTeams[i].Deserialize(reader);
+                FightTeams[i] = new FightTeamLightInformations();
+                FightTeams[i].Deserialize(reader);
             }
-            fightTeamsOptions = new FightOptionsInformations[2];
-            for (int i = 0; i < 2; i++)
+            limit = reader.ReadUShort();
+            FightTeamsOptions = new FightOptionsInformations[limit];
+            for (int i = 0; i < limit; i++)
             {
-                fightTeamsOptions[i] = new FightOptionsInformations();
-                fightTeamsOptions[i].Deserialize(reader);
+                FightTeamsOptions[i] = new FightOptionsInformations();
+                FightTeamsOptions[i].Deserialize(reader);
             }
         }
     }

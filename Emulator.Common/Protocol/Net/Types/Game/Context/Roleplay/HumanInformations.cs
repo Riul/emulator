@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class HumanInformations
     {
-        public const short Id = 157;
-        public HumanOption[] options;
-
-        public ActorRestrictionsInformations restrictions;
-        public bool sex;
+        public const short ID = 157;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ActorRestrictionsInformations Restrictions { get; set; }
+        public bool Sex { get; set; }
+        public HumanOption[] Options { get; set; }
 
 
         public HumanInformations()
@@ -41,18 +43,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public HumanInformations(ActorRestrictionsInformations restrictions, bool sex, HumanOption[] options)
         {
-            this.restrictions = restrictions;
-            this.sex = sex;
-            this.options = options;
+            Restrictions = restrictions;
+            Sex = sex;
+            Options = options;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            restrictions.Serialize(writer);
-            writer.WriteBoolean(sex);
-            writer.WriteUShort((ushort) options.Length);
-            foreach (var entry in options)
+            Restrictions.Serialize(writer);
+            writer.WriteBoolean(Sex);
+            writer.WriteUShort((ushort) Options.Length);
+            foreach (var entry in Options)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -61,15 +63,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            restrictions = new ActorRestrictionsInformations();
-            restrictions.Deserialize(reader);
-            sex = reader.ReadBoolean();
+            Restrictions = new ActorRestrictionsInformations();
+            Restrictions.Deserialize(reader);
+            Sex = reader.ReadBoolean();
             var limit = reader.ReadUShort();
-            options = new HumanOption[limit];
+            Options = new HumanOption[limit];
             for (int i = 0; i < limit; i++)
             {
-                options[i] = Types.ProtocolTypeManager.GetInstance<HumanOption>(reader.ReadShort());
-                options[i].Deserialize(reader);
+                Options[i] = Types.ProtocolTypeManager.GetInstance<HumanOption>(reader.ReadShort());
+                Options[i].Deserialize(reader);
             }
         }
     }

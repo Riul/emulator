@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ObjectFoundWhileRecoltingMessage : NetworkMessage
     {
-        public const uint Id = 6017;
-
-        public int genericId;
-        public int quantity;
-        public int ressourceGenericId;
+        public const uint ID = 6017;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int GenericId { get; set; }
+        public int Quantity { get; set; }
+        public int RessourceGenericId { get; set; }
 
 
         public ObjectFoundWhileRecoltingMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ObjectFoundWhileRecoltingMessage(int genericId, int quantity, int ressourceGenericId)
         {
-            this.genericId = genericId;
-            this.quantity = quantity;
-            this.ressourceGenericId = ressourceGenericId;
+            GenericId = genericId;
+            Quantity = quantity;
+            RessourceGenericId = ressourceGenericId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(genericId);
-            writer.WriteInt(quantity);
-            writer.WriteInt(ressourceGenericId);
+            writer.WriteInt(GenericId);
+            writer.WriteInt(Quantity);
+            writer.WriteInt(RessourceGenericId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            genericId = reader.ReadInt();
-            if (genericId < 0)
-                throw new Exception("Forbidden value on genericId = " + genericId + ", it doesn't respect the following condition : genericId < 0");
-            quantity = reader.ReadInt();
-            if (quantity < 0)
-                throw new Exception("Forbidden value on quantity = " + quantity + ", it doesn't respect the following condition : quantity < 0");
-            ressourceGenericId = reader.ReadInt();
-            if (ressourceGenericId < 0)
-                throw new Exception("Forbidden value on ressourceGenericId = " + ressourceGenericId + ", it doesn't respect the following condition : ressourceGenericId < 0");
+            GenericId = reader.ReadInt();
+            Quantity = reader.ReadInt();
+            RessourceGenericId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 {
     public class InventoryPresetItemUpdateRequestMessage : NetworkMessage
     {
-        public const uint Id = 6210;
-
-        public int objUid;
-        public byte position;
-        public sbyte presetId;
+        public const uint ID = 6210;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PresetId { get; set; }
+        public byte Position { get; set; }
+        public int ObjUid { get; set; }
 
 
         public InventoryPresetItemUpdateRequestMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 
         public InventoryPresetItemUpdateRequestMessage(sbyte presetId, byte position, int objUid)
         {
-            this.presetId = presetId;
-            this.position = position;
-            this.objUid = objUid;
+            PresetId = presetId;
+            Position = position;
+            ObjUid = objUid;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(presetId);
-            writer.WriteByte(position);
-            writer.WriteInt(objUid);
+            writer.WriteSByte(PresetId);
+            writer.WriteByte(Position);
+            writer.WriteInt(ObjUid);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            presetId = reader.ReadSByte();
-            if (presetId < 0)
-                throw new Exception("Forbidden value on presetId = " + presetId + ", it doesn't respect the following condition : presetId < 0");
-            position = reader.ReadByte();
-            if (position < 0 || position > 255)
-                throw new Exception("Forbidden value on position = " + position + ", it doesn't respect the following condition : position < 0 || position > 255");
-            objUid = reader.ReadInt();
-            if (objUid < 0)
-                throw new Exception("Forbidden value on objUid = " + objUid + ", it doesn't respect the following condition : objUid < 0");
+            PresetId = reader.ReadSByte();
+            Position = reader.ReadByte();
+            ObjUid = reader.ReadInt();
         }
     }
 }

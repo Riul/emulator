@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobMultiCraftAvailableSkillsMessage : JobAllowMultiCraftRequestMessage
     {
-        public const uint Id = 5747;
-
-        public int playerId;
-        public short[] skills;
+        public const uint ID = 5747;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PlayerId { get; set; }
+        public short[] Skills { get; set; }
 
 
         public JobMultiCraftAvailableSkillsMessage()
@@ -39,19 +40,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         }
 
         public JobMultiCraftAvailableSkillsMessage(bool enabled, int playerId, short[] skills)
-            : base(enabled)
+                : base(enabled)
         {
-            this.playerId = playerId;
-            this.skills = skills;
+            PlayerId = playerId;
+            Skills = skills;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(playerId);
-            writer.WriteUShort((ushort) skills.Length);
-            foreach (var entry in skills)
+            writer.WriteInt(PlayerId);
+            writer.WriteUShort((ushort) Skills.Length);
+            foreach (var entry in Skills)
             {
                 writer.WriteShort(entry);
             }
@@ -60,14 +61,12 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
+            PlayerId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            skills = new short[limit];
+            Skills = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                skills[i] = reader.ReadShort();
+                Skills[i] = reader.ReadShort();
             }
         }
     }

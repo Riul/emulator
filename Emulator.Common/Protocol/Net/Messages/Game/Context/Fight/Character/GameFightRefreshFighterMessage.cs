@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Character
 {
     public class GameFightRefreshFighterMessage : NetworkMessage
     {
-        public const uint Id = 6309;
-
-        public GameContextActorInformations informations;
+        public const uint ID = 6309;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameContextActorInformations Informations { get; set; }
 
 
         public GameFightRefreshFighterMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Character
 
         public GameFightRefreshFighterMessage(GameContextActorInformations informations)
         {
-            this.informations = informations;
+            Informations = informations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(informations.TypeId);
-            informations.Serialize(writer);
+            writer.WriteShort(Informations.TypeId);
+            Informations.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            informations = Types.ProtocolTypeManager.GetInstance<GameContextActorInformations>(reader.ReadShort());
-            informations.Deserialize(reader);
+            Informations = Types.ProtocolTypeManager.GetInstance<GameContextActorInformations>(reader.ReadShort());
+            Informations.Deserialize(reader);
         }
     }
 }

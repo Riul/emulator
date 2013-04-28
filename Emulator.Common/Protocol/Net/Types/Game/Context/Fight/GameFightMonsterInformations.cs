@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class GameFightMonsterInformations : GameFightAIInformations
     {
-        public const short Id = 29;
-
-        public short creatureGenericId;
-        public sbyte creatureGrade;
+        public const short ID = 29;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short CreatureGenericId { get; set; }
+        public sbyte CreatureGrade { get; set; }
 
 
         public GameFightMonsterInformations()
@@ -40,29 +41,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public GameFightMonsterInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, short creatureGenericId, sbyte creatureGrade)
-            : base(contextualId, look, disposition, teamId, alive, stats)
+                : base(contextualId, look, disposition, teamId, alive, stats)
         {
-            this.creatureGenericId = creatureGenericId;
-            this.creatureGrade = creatureGrade;
+            CreatureGenericId = creatureGenericId;
+            CreatureGrade = creatureGrade;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(creatureGenericId);
-            writer.WriteSByte(creatureGrade);
+            writer.WriteShort(CreatureGenericId);
+            writer.WriteSByte(CreatureGrade);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            creatureGenericId = reader.ReadShort();
-            if (creatureGenericId < 0)
-                throw new Exception("Forbidden value on creatureGenericId = " + creatureGenericId + ", it doesn't respect the following condition : creatureGenericId < 0");
-            creatureGrade = reader.ReadSByte();
-            if (creatureGrade < 0)
-                throw new Exception("Forbidden value on creatureGrade = " + creatureGrade + ", it doesn't respect the following condition : creatureGrade < 0");
+            CreatureGenericId = reader.ReadShort();
+            CreatureGrade = reader.ReadSByte();
         }
     }
 }

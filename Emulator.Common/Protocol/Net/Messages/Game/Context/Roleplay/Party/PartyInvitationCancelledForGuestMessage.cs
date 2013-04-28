@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyInvitationCancelledForGuestMessage : AbstractPartyMessage
     {
-        public const uint Id = 6256;
-
-        public int cancelerId;
+        public const uint ID = 6256;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CancelerId { get; set; }
 
 
         public PartyInvitationCancelledForGuestMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyInvitationCancelledForGuestMessage(int partyId, int cancelerId)
-            : base(partyId)
+                : base(partyId)
         {
-            this.cancelerId = cancelerId;
+            CancelerId = cancelerId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(cancelerId);
+            writer.WriteInt(CancelerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            cancelerId = reader.ReadInt();
-            if (cancelerId < 0)
-                throw new Exception("Forbidden value on cancelerId = " + cancelerId + ", it doesn't respect the following condition : cancelerId < 0");
+            CancelerId = reader.ReadInt();
         }
     }
 }

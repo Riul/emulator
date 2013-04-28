@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyUpdateMessage : AbstractPartyEventMessage
     {
-        public const uint Id = 5575;
-
-        public PartyMemberInformations memberInformations;
+        public const uint ID = 5575;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public PartyMemberInformations MemberInformations { get; set; }
 
 
         public PartyUpdateMessage()
@@ -38,24 +40,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyUpdateMessage(int partyId, PartyMemberInformations memberInformations)
-            : base(partyId)
+                : base(partyId)
         {
-            this.memberInformations = memberInformations;
+            MemberInformations = memberInformations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(memberInformations.TypeId);
-            memberInformations.Serialize(writer);
+            writer.WriteShort(MemberInformations.TypeId);
+            MemberInformations.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            memberInformations = Types.ProtocolTypeManager.GetInstance<PartyMemberInformations>(reader.ReadShort());
-            memberInformations.Deserialize(reader);
+            MemberInformations = Types.ProtocolTypeManager.GetInstance<PartyMemberInformations>(reader.ReadShort());
+            MemberInformations.Deserialize(reader);
         }
     }
 }

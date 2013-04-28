@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightHumanReadyStateMessage : NetworkMessage
     {
-        public const uint Id = 740;
-
-        public int characterId;
-        public bool isReady;
+        public const uint ID = 740;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CharacterId { get; set; }
+        public bool IsReady { get; set; }
 
 
         public GameFightHumanReadyStateMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightHumanReadyStateMessage(int characterId, bool isReady)
         {
-            this.characterId = characterId;
-            this.isReady = isReady;
+            CharacterId = characterId;
+            IsReady = isReady;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(characterId);
-            writer.WriteBoolean(isReady);
+            writer.WriteInt(CharacterId);
+            writer.WriteBoolean(IsReady);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            characterId = reader.ReadInt();
-            if (characterId < 0)
-                throw new Exception("Forbidden value on characterId = " + characterId + ", it doesn't respect the following condition : characterId < 0");
-            isReady = reader.ReadBoolean();
+            CharacterId = reader.ReadInt();
+            IsReady = reader.ReadBoolean();
         }
     }
 }

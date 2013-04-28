@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
 {
     public class ChatClientPrivateMessage : ChatAbstractClientMessage
     {
-        public const uint Id = 851;
-
-        public string receiver;
+        public const uint ID = 851;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Receiver { get; set; }
 
 
         public ChatClientPrivateMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat
         }
 
         public ChatClientPrivateMessage(string content, string receiver)
-            : base(content)
+                : base(content)
         {
-            this.receiver = receiver;
+            Receiver = receiver;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(receiver);
+            writer.WriteUTF(Receiver);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            receiver = reader.ReadUTF();
+            Receiver = reader.ReadUTF();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
 {
     public class ActorExtendedAlignmentInformations : ActorAlignmentInformations
     {
-        public const short Id = 202;
-
-        public ushort honor;
-        public ushort honorGradeFloor;
-        public ushort honorNextGradeFloor;
-        public bool pvpEnabled;
+        public const short ID = 202;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ushort Honor { get; set; }
+        public ushort HonorGradeFloor { get; set; }
+        public ushort HonorNextGradeFloor { get; set; }
+        public bool PvpEnabled { get; set; }
 
 
         public ActorExtendedAlignmentInformations()
@@ -41,37 +42,31 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Alignment
         }
 
         public ActorExtendedAlignmentInformations(sbyte alignmentSide, sbyte alignmentValue, sbyte alignmentGrade, ushort dishonor, int characterPower, ushort honor, ushort honorGradeFloor, ushort honorNextGradeFloor, bool pvpEnabled)
-            : base(alignmentSide, alignmentValue, alignmentGrade, dishonor, characterPower)
+                : base(alignmentSide, alignmentValue, alignmentGrade, dishonor, characterPower)
         {
-            this.honor = honor;
-            this.honorGradeFloor = honorGradeFloor;
-            this.honorNextGradeFloor = honorNextGradeFloor;
-            this.pvpEnabled = pvpEnabled;
+            Honor = honor;
+            HonorGradeFloor = honorGradeFloor;
+            HonorNextGradeFloor = honorNextGradeFloor;
+            PvpEnabled = pvpEnabled;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort(honor);
-            writer.WriteUShort(honorGradeFloor);
-            writer.WriteUShort(honorNextGradeFloor);
-            writer.WriteBoolean(pvpEnabled);
+            writer.WriteUShort(Honor);
+            writer.WriteUShort(HonorGradeFloor);
+            writer.WriteUShort(HonorNextGradeFloor);
+            writer.WriteBoolean(PvpEnabled);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            honor = reader.ReadUShort();
-            if (honor < 0 || honor > 20000)
-                throw new Exception("Forbidden value on honor = " + honor + ", it doesn't respect the following condition : honor < 0 || honor > 20000");
-            honorGradeFloor = reader.ReadUShort();
-            if (honorGradeFloor < 0 || honorGradeFloor > 20000)
-                throw new Exception("Forbidden value on honorGradeFloor = " + honorGradeFloor + ", it doesn't respect the following condition : honorGradeFloor < 0 || honorGradeFloor > 20000");
-            honorNextGradeFloor = reader.ReadUShort();
-            if (honorNextGradeFloor < 0 || honorNextGradeFloor > 20000)
-                throw new Exception("Forbidden value on honorNextGradeFloor = " + honorNextGradeFloor + ", it doesn't respect the following condition : honorNextGradeFloor < 0 || honorNextGradeFloor > 20000");
-            pvpEnabled = reader.ReadBoolean();
+            Honor = reader.ReadUShort();
+            HonorGradeFloor = reader.ReadUShort();
+            HonorNextGradeFloor = reader.ReadUShort();
+            PvpEnabled = reader.ReadBoolean();
         }
     }
 }

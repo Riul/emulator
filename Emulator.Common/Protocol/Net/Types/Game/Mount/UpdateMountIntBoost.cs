@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
 {
     public class UpdateMountIntBoost : UpdateMountBoost
     {
-        public const short Id = 357;
-
-        public int value;
+        public const short ID = 357;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Value { get; set; }
 
 
         public UpdateMountIntBoost()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
         }
 
         public UpdateMountIntBoost(sbyte type, int value)
-            : base(type)
+                : base(type)
         {
-            this.value = value;
+            Value = value;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(value);
+            writer.WriteInt(Value);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            value = reader.ReadInt();
+            Value = reader.ReadInt();
         }
     }
 }

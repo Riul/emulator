@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class MountEmoteIconUsedOkMessage : NetworkMessage
     {
-        public const uint Id = 5978;
-
-        public int mountId;
-        public sbyte reactionType;
+        public const uint ID = 5978;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MountId { get; set; }
+        public sbyte ReactionType { get; set; }
 
 
         public MountEmoteIconUsedOkMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public MountEmoteIconUsedOkMessage(int mountId, sbyte reactionType)
         {
-            this.mountId = mountId;
-            this.reactionType = reactionType;
+            MountId = mountId;
+            ReactionType = reactionType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(mountId);
-            writer.WriteSByte(reactionType);
+            writer.WriteInt(MountId);
+            writer.WriteSByte(ReactionType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mountId = reader.ReadInt();
-            reactionType = reader.ReadSByte();
-            if (reactionType < 0)
-                throw new Exception("Forbidden value on reactionType = " + reactionType + ", it doesn't respect the following condition : reactionType < 0");
+            MountId = reader.ReadInt();
+            ReactionType = reader.ReadSByte();
         }
     }
 }

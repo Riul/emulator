@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Fight
 {
     public class ProtectedEntityWaitingForHelpInfo
     {
-        public const short Id = 186;
-        public sbyte nbPositionForDefensors;
-
-        public int timeLeftBeforeFight;
-        public int waitTimeForPlacement;
+        public const short ID = 186;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TimeLeftBeforeFight { get; set; }
+        public int WaitTimeForPlacement { get; set; }
+        public sbyte NbPositionForDefensors { get; set; }
 
 
         public ProtectedEntityWaitingForHelpInfo()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Fight
 
         public ProtectedEntityWaitingForHelpInfo(int timeLeftBeforeFight, int waitTimeForPlacement, sbyte nbPositionForDefensors)
         {
-            this.timeLeftBeforeFight = timeLeftBeforeFight;
-            this.waitTimeForPlacement = waitTimeForPlacement;
-            this.nbPositionForDefensors = nbPositionForDefensors;
+            TimeLeftBeforeFight = timeLeftBeforeFight;
+            WaitTimeForPlacement = waitTimeForPlacement;
+            NbPositionForDefensors = nbPositionForDefensors;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(timeLeftBeforeFight);
-            writer.WriteInt(waitTimeForPlacement);
-            writer.WriteSByte(nbPositionForDefensors);
+            writer.WriteInt(TimeLeftBeforeFight);
+            writer.WriteInt(WaitTimeForPlacement);
+            writer.WriteSByte(NbPositionForDefensors);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            timeLeftBeforeFight = reader.ReadInt();
-            waitTimeForPlacement = reader.ReadInt();
-            nbPositionForDefensors = reader.ReadSByte();
-            if (nbPositionForDefensors < 0)
-                throw new Exception("Forbidden value on nbPositionForDefensors = " + nbPositionForDefensors + ", it doesn't respect the following condition : nbPositionForDefensors < 0");
+            TimeLeftBeforeFight = reader.ReadInt();
+            WaitTimeForPlacement = reader.ReadInt();
+            NbPositionForDefensors = reader.ReadSByte();
         }
     }
 }

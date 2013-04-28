@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class LivingObjectChangeSkinRequestMessage : NetworkMessage
     {
-        public const uint Id = 5725;
-
-        public byte livingPosition;
-        public int livingUID;
-        public int skinId;
+        public const uint ID = 5725;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int LivingUID { get; set; }
+        public byte LivingPosition { get; set; }
+        public int SkinId { get; set; }
 
 
         public LivingObjectChangeSkinRequestMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public LivingObjectChangeSkinRequestMessage(int livingUID, byte livingPosition, int skinId)
         {
-            this.livingUID = livingUID;
-            this.livingPosition = livingPosition;
-            this.skinId = skinId;
+            LivingUID = livingUID;
+            LivingPosition = livingPosition;
+            SkinId = skinId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(livingUID);
-            writer.WriteByte(livingPosition);
-            writer.WriteInt(skinId);
+            writer.WriteInt(LivingUID);
+            writer.WriteByte(LivingPosition);
+            writer.WriteInt(SkinId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            livingUID = reader.ReadInt();
-            if (livingUID < 0)
-                throw new Exception("Forbidden value on livingUID = " + livingUID + ", it doesn't respect the following condition : livingUID < 0");
-            livingPosition = reader.ReadByte();
-            if (livingPosition < 0 || livingPosition > 255)
-                throw new Exception("Forbidden value on livingPosition = " + livingPosition + ", it doesn't respect the following condition : livingPosition < 0 || livingPosition > 255");
-            skinId = reader.ReadInt();
-            if (skinId < 0)
-                throw new Exception("Forbidden value on skinId = " + skinId + ", it doesn't respect the following condition : skinId < 0");
+            LivingUID = reader.ReadInt();
+            LivingPosition = reader.ReadByte();
+            SkinId = reader.ReadInt();
         }
     }
 }

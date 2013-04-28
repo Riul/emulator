@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class EntityMovementInformations
     {
-        public const short Id = 63;
-
-        public int id;
-        public sbyte[] steps;
+        public const short ID = 63;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
+        public sbyte[] Steps { get; set; }
 
 
         public EntityMovementInformations()
@@ -39,16 +41,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public EntityMovementInformations(int id, sbyte[] steps)
         {
-            this.id = id;
-            this.steps = steps;
+            Id = id;
+            Steps = steps;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
-            writer.WriteUShort((ushort) steps.Length);
-            foreach (var entry in steps)
+            writer.WriteInt(Id);
+            writer.WriteUShort((ushort) Steps.Length);
+            foreach (var entry in Steps)
             {
                 writer.WriteSByte(entry);
             }
@@ -56,12 +58,12 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
+            Id = reader.ReadInt();
             var limit = reader.ReadUShort();
-            steps = new sbyte[limit];
+            Steps = new sbyte[limit];
             for (int i = 0; i < limit; i++)
             {
-                steps[i] = reader.ReadSByte();
+                Steps[i] = reader.ReadSByte();
             }
         }
     }

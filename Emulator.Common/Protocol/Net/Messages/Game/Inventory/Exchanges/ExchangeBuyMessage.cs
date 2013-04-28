@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeBuyMessage : NetworkMessage
     {
-        public const uint Id = 5774;
-
-        public int objectToBuyId;
-        public int quantity;
+        public const uint ID = 5774;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ObjectToBuyId { get; set; }
+        public int Quantity { get; set; }
 
 
         public ExchangeBuyMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeBuyMessage(int objectToBuyId, int quantity)
         {
-            this.objectToBuyId = objectToBuyId;
-            this.quantity = quantity;
+            ObjectToBuyId = objectToBuyId;
+            Quantity = quantity;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(objectToBuyId);
-            writer.WriteInt(quantity);
+            writer.WriteInt(ObjectToBuyId);
+            writer.WriteInt(Quantity);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            objectToBuyId = reader.ReadInt();
-            if (objectToBuyId < 0)
-                throw new Exception("Forbidden value on objectToBuyId = " + objectToBuyId + ", it doesn't respect the following condition : objectToBuyId < 0");
-            quantity = reader.ReadInt();
-            if (quantity < 0)
-                throw new Exception("Forbidden value on quantity = " + quantity + ", it doesn't respect the following condition : quantity < 0");
+            ObjectToBuyId = reader.ReadInt();
+            Quantity = reader.ReadInt();
         }
     }
 }

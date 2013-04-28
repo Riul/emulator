@@ -23,11 +23,11 @@ namespace Emulator.Common.Network.Sync.Messages
 {
     public class HelloSyncMessage : NetworkMessage
     {
-        public const uint Id = 2501;
+        public const uint ID = 2501;
         
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
         public override void Serialize(BigEndianWriter writer)

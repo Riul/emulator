@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildHouseRemoveMessage : NetworkMessage
     {
-        public const uint Id = 6180;
-
-        public int houseId;
+        public const uint ID = 6180;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int HouseId { get; set; }
 
 
         public GuildHouseRemoveMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildHouseRemoveMessage(int houseId)
         {
-            this.houseId = houseId;
+            HouseId = houseId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(houseId);
+            writer.WriteInt(HouseId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            houseId = reader.ReadInt();
-            if (houseId < 0)
-                throw new Exception("Forbidden value on houseId = " + houseId + ", it doesn't respect the following condition : houseId < 0");
+            HouseId = reader.ReadInt();
         }
     }
 }

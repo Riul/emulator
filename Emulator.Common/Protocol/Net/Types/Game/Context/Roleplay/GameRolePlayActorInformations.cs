@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,11 +25,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayActorInformations : GameContextActorInformations
     {
-        public const short Id = 141;
+        public const short ID = 141;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
 
@@ -36,7 +38,7 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayActorInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition)
-            : base(contextualId, look, disposition)
+                : base(contextualId, look, disposition)
         {
         }
 

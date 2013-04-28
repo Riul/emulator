@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class GameDataPaddockObjectListAddMessage : NetworkMessage
     {
-        public const uint Id = 5992;
-
-        public PaddockItem[] paddockItemDescription;
+        public const uint ID = 5992;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public PaddockItem[] PaddockItemDescription { get; set; }
 
 
         public GameDataPaddockObjectListAddMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public GameDataPaddockObjectListAddMessage(PaddockItem[] paddockItemDescription)
         {
-            this.paddockItemDescription = paddockItemDescription;
+            PaddockItemDescription = paddockItemDescription;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) paddockItemDescription.Length);
-            foreach (var entry in paddockItemDescription)
+            writer.WriteUShort((ushort) PaddockItemDescription.Length);
+            foreach (var entry in PaddockItemDescription)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            paddockItemDescription = new PaddockItem[limit];
+            PaddockItemDescription = new PaddockItem[limit];
             for (int i = 0; i < limit; i++)
             {
-                paddockItemDescription[i] = new PaddockItem();
-                paddockItemDescription[i].Deserialize(reader);
+                PaddockItemDescription[i] = new PaddockItem();
+                PaddockItemDescription[i].Deserialize(reader);
             }
         }
     }

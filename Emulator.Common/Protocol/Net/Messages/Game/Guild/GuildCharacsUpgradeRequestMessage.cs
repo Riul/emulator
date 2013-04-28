@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildCharacsUpgradeRequestMessage : NetworkMessage
     {
-        public const uint Id = 5706;
-
-        public sbyte charaTypeTarget;
+        public const uint ID = 5706;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte CharaTypeTarget { get; set; }
 
 
         public GuildCharacsUpgradeRequestMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildCharacsUpgradeRequestMessage(sbyte charaTypeTarget)
         {
-            this.charaTypeTarget = charaTypeTarget;
+            CharaTypeTarget = charaTypeTarget;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(charaTypeTarget);
+            writer.WriteSByte(CharaTypeTarget);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            charaTypeTarget = reader.ReadSByte();
-            if (charaTypeTarget < 0)
-                throw new Exception("Forbidden value on charaTypeTarget = " + charaTypeTarget + ", it doesn't respect the following condition : charaTypeTarget < 0");
+            CharaTypeTarget = reader.ReadSByte();
         }
     }
 }

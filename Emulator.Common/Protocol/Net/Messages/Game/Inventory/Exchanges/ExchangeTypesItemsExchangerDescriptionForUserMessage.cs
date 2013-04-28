@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeTypesItemsExchangerDescriptionForUserMessage : NetworkMessage
     {
-        public const uint Id = 5752;
-
-        public BidExchangerObjectInfo[] itemTypeDescriptions;
+        public const uint ID = 5752;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public BidExchangerObjectInfo[] ItemTypeDescriptions { get; set; }
 
 
         public ExchangeTypesItemsExchangerDescriptionForUserMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeTypesItemsExchangerDescriptionForUserMessage(BidExchangerObjectInfo[] itemTypeDescriptions)
         {
-            this.itemTypeDescriptions = itemTypeDescriptions;
+            ItemTypeDescriptions = itemTypeDescriptions;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) itemTypeDescriptions.Length);
-            foreach (var entry in itemTypeDescriptions)
+            writer.WriteUShort((ushort) ItemTypeDescriptions.Length);
+            foreach (var entry in ItemTypeDescriptions)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            itemTypeDescriptions = new BidExchangerObjectInfo[limit];
+            ItemTypeDescriptions = new BidExchangerObjectInfo[limit];
             for (int i = 0; i < limit; i++)
             {
-                itemTypeDescriptions[i] = new BidExchangerObjectInfo();
-                itemTypeDescriptions[i].Deserialize(reader);
+                ItemTypeDescriptions[i] = new BidExchangerObjectInfo();
+                ItemTypeDescriptions[i].Deserialize(reader);
             }
         }
     }

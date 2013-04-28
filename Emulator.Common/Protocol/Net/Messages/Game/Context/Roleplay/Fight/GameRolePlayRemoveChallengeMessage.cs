@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 {
     public class GameRolePlayRemoveChallengeMessage : NetworkMessage
     {
-        public const uint Id = 300;
-
-        public int fightId;
+        public const uint ID = 300;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
 
 
         public GameRolePlayRemoveChallengeMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 
         public GameRolePlayRemoveChallengeMessage(int fightId)
         {
-            this.fightId = fightId;
+            FightId = fightId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
+            writer.WriteInt(FightId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
+            FightId = reader.ReadInt();
         }
     }
 }

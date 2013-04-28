@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 {
     public class CharactersListMessage : NetworkMessage
     {
-        public const uint Id = 151;
-
-        public CharacterBaseInformations[] characters;
-        public bool hasStartupActions;
+        public const uint ID = 151;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool HasStartupActions { get; set; }
+        public CharacterBaseInformations[] Characters { get; set; }
 
 
         public CharactersListMessage()
@@ -40,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public CharactersListMessage(bool hasStartupActions, CharacterBaseInformations[] characters)
         {
-            this.hasStartupActions = hasStartupActions;
-            this.characters = characters;
+            HasStartupActions = hasStartupActions;
+            Characters = characters;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(hasStartupActions);
-            writer.WriteUShort((ushort) characters.Length);
-            foreach (var entry in characters)
+            writer.WriteBoolean(HasStartupActions);
+            writer.WriteUShort((ushort) Characters.Length);
+            foreach (var entry in Characters)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -58,13 +60,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public override void Deserialize(BigEndianReader reader)
         {
-            hasStartupActions = reader.ReadBoolean();
+            HasStartupActions = reader.ReadBoolean();
             var limit = reader.ReadUShort();
-            characters = new CharacterBaseInformations[limit];
+            Characters = new CharacterBaseInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                characters[i] = Types.ProtocolTypeManager.GetInstance<CharacterBaseInformations>(reader.ReadShort());
-                characters[i].Deserialize(reader);
+                Characters[i] = Types.ProtocolTypeManager.GetInstance<CharacterBaseInformations>(reader.ReadShort());
+                Characters[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayMutantInformations : GameRolePlayHumanoidInformations
     {
-        public const short Id = 3;
-
-        public int monsterId;
-        public sbyte powerLevel;
+        public const short ID = 3;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MonsterId { get; set; }
+        public sbyte PowerLevel { get; set; }
 
 
         public GameRolePlayMutantInformations()
@@ -39,25 +41,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayMutantInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, string name, HumanInformations humanoidInfo, int accountId, int monsterId, sbyte powerLevel)
-            : base(contextualId, look, disposition, name, humanoidInfo, accountId)
+                : base(contextualId, look, disposition, name, humanoidInfo, accountId)
         {
-            this.monsterId = monsterId;
-            this.powerLevel = powerLevel;
+            MonsterId = monsterId;
+            PowerLevel = powerLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(monsterId);
-            writer.WriteSByte(powerLevel);
+            writer.WriteInt(MonsterId);
+            writer.WriteSByte(PowerLevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            monsterId = reader.ReadInt();
-            powerLevel = reader.ReadSByte();
+            MonsterId = reader.ReadInt();
+            PowerLevel = reader.ReadSByte();
         }
     }
 }

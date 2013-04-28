@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
 {
     public class Preset
     {
-        public const short Id = 355;
-
-        public bool mount;
-        public PresetItem[] objects;
-        public sbyte presetId;
-        public sbyte symbolId;
+        public const short ID = 355;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PresetId { get; set; }
+        public sbyte SymbolId { get; set; }
+        public bool Mount { get; set; }
+        public PresetItem[] Objects { get; set; }
 
 
         public Preset()
@@ -42,20 +43,20 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
 
         public Preset(sbyte presetId, sbyte symbolId, bool mount, PresetItem[] objects)
         {
-            this.presetId = presetId;
-            this.symbolId = symbolId;
-            this.mount = mount;
-            this.objects = objects;
+            PresetId = presetId;
+            SymbolId = symbolId;
+            Mount = mount;
+            Objects = objects;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(presetId);
-            writer.WriteSByte(symbolId);
-            writer.WriteBoolean(mount);
-            writer.WriteUShort((ushort) objects.Length);
-            foreach (var entry in objects)
+            writer.WriteSByte(PresetId);
+            writer.WriteSByte(SymbolId);
+            writer.WriteBoolean(Mount);
+            writer.WriteUShort((ushort) Objects.Length);
+            foreach (var entry in Objects)
             {
                 entry.Serialize(writer);
             }
@@ -63,19 +64,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            presetId = reader.ReadSByte();
-            if (presetId < 0)
-                throw new Exception("Forbidden value on presetId = " + presetId + ", it doesn't respect the following condition : presetId < 0");
-            symbolId = reader.ReadSByte();
-            if (symbolId < 0)
-                throw new Exception("Forbidden value on symbolId = " + symbolId + ", it doesn't respect the following condition : symbolId < 0");
-            mount = reader.ReadBoolean();
+            PresetId = reader.ReadSByte();
+            SymbolId = reader.ReadSByte();
+            Mount = reader.ReadBoolean();
             var limit = reader.ReadUShort();
-            objects = new PresetItem[limit];
+            Objects = new PresetItem[limit];
             for (int i = 0; i < limit; i++)
             {
-                objects[i] = new PresetItem();
-                objects[i].Deserialize(reader);
+                Objects[i] = new PresetItem();
+                Objects[i].Deserialize(reader);
             }
         }
     }

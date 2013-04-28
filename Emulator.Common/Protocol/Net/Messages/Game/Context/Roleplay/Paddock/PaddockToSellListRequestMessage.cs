@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 {
     public class PaddockToSellListRequestMessage : NetworkMessage
     {
-        public const uint Id = 6141;
-
-        public short pageIndex;
+        public const uint ID = 6141;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short PageIndex { get; set; }
 
 
         public PaddockToSellListRequestMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Paddock
 
         public PaddockToSellListRequestMessage(short pageIndex)
         {
-            this.pageIndex = pageIndex;
+            PageIndex = pageIndex;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(pageIndex);
+            writer.WriteShort(PageIndex);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            pageIndex = reader.ReadShort();
-            if (pageIndex < 0)
-                throw new Exception("Forbidden value on pageIndex = " + pageIndex + ", it doesn't respect the following condition : pageIndex < 0");
+            PageIndex = reader.ReadShort();
         }
     }
 }

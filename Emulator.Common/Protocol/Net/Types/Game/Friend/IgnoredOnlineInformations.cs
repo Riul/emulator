@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,57 +14,59 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Friend
 {
     public class IgnoredOnlineInformations : IgnoredInformations
     {
-        public const short Id = 105;
-
-        public sbyte breed;
-        public string playerName;
-        public bool sex;
+        public const short ID = 105;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PlayerId { get; set; }
+        public string PlayerName { get; set; }
+        public sbyte Breed { get; set; }
+        public bool Sex { get; set; }
 
 
         public IgnoredOnlineInformations()
         {
         }
 
-        public IgnoredOnlineInformations(int accountId, string accountName, string playerName, sbyte breed, bool sex)
-            : base(accountId, accountName)
+        public IgnoredOnlineInformations(int accountId, string accountName, int playerId, string playerName, sbyte breed, bool sex)
+                : base(accountId, accountName)
         {
-            this.playerName = playerName;
-            this.breed = breed;
-            this.sex = sex;
+            PlayerId = playerId;
+            PlayerName = playerName;
+            Breed = breed;
+            Sex = sex;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(playerName);
-            writer.WriteSByte(breed);
-            writer.WriteBoolean(sex);
+            writer.WriteInt(PlayerId);
+            writer.WriteUTF(PlayerName);
+            writer.WriteSByte(Breed);
+            writer.WriteBoolean(Sex);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            playerName = reader.ReadUTF();
-            breed = reader.ReadSByte();
-            if (breed < (byte) Enums.PlayableBreedEnum.Feca || breed > (byte) Enums.PlayableBreedEnum.Steamer)
-                throw new Exception("Forbidden value on breed = " + breed + ", it doesn't respect the following condition : breed < (byte)Enums.PlayableBreedEnum.Feca || breed > (byte)Enums.PlayableBreedEnum.Steamer");
-            sex = reader.ReadBoolean();
+            PlayerId = reader.ReadInt();
+            PlayerName = reader.ReadUTF();
+            Breed = reader.ReadSByte();
+            Sex = reader.ReadBoolean();
         }
     }
 }

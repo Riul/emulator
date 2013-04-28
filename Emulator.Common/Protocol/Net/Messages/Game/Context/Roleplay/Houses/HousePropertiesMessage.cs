@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 {
     public class HousePropertiesMessage : NetworkMessage
     {
-        public const uint Id = 5734;
-
-        public HouseInformations properties;
+        public const uint ID = 5734;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public HouseInformations Properties { get; set; }
 
 
         public HousePropertiesMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public HousePropertiesMessage(HouseInformations properties)
         {
-            this.properties = properties;
+            Properties = properties;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(properties.TypeId);
-            properties.Serialize(writer);
+            writer.WriteShort(Properties.TypeId);
+            Properties.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            properties = Types.ProtocolTypeManager.GetInstance<HouseInformations>(reader.ReadShort());
-            properties.Deserialize(reader);
+            Properties = Types.ProtocolTypeManager.GetInstance<HouseInformations>(reader.ReadShort());
+            Properties.Deserialize(reader);
         }
     }
 }

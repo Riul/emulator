@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 {
     public class GameRolePlayPlayerFightFriendlyAnsweredMessage : NetworkMessage
     {
-        public const uint Id = 5733;
-        public bool accept;
-
-        public int fightId;
-        public int sourceId;
-        public int targetId;
+        public const uint ID = 5733;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
+        public int SourceId { get; set; }
+        public int TargetId { get; set; }
+        public bool Accept { get; set; }
 
 
         public GameRolePlayPlayerFightFriendlyAnsweredMessage()
@@ -42,31 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 
         public GameRolePlayPlayerFightFriendlyAnsweredMessage(int fightId, int sourceId, int targetId, bool accept)
         {
-            this.fightId = fightId;
-            this.sourceId = sourceId;
-            this.targetId = targetId;
-            this.accept = accept;
+            FightId = fightId;
+            SourceId = sourceId;
+            TargetId = targetId;
+            Accept = accept;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
-            writer.WriteInt(sourceId);
-            writer.WriteInt(targetId);
-            writer.WriteBoolean(accept);
+            writer.WriteInt(FightId);
+            writer.WriteInt(SourceId);
+            writer.WriteInt(TargetId);
+            writer.WriteBoolean(Accept);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
-            sourceId = reader.ReadInt();
-            if (sourceId < 0)
-                throw new Exception("Forbidden value on sourceId = " + sourceId + ", it doesn't respect the following condition : sourceId < 0");
-            targetId = reader.ReadInt();
-            if (targetId < 0)
-                throw new Exception("Forbidden value on targetId = " + targetId + ", it doesn't respect the following condition : targetId < 0");
-            accept = reader.ReadBoolean();
+            FightId = reader.ReadInt();
+            SourceId = reader.ReadInt();
+            TargetId = reader.ReadInt();
+            Accept = reader.ReadBoolean();
         }
     }
 }

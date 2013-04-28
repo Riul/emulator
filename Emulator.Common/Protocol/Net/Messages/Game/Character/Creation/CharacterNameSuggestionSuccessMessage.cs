@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 {
     public class CharacterNameSuggestionSuccessMessage : NetworkMessage
     {
-        public const uint Id = 5544;
-
-        public string suggestion;
+        public const uint ID = 5544;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Suggestion { get; set; }
 
 
         public CharacterNameSuggestionSuccessMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 
         public CharacterNameSuggestionSuccessMessage(string suggestion)
         {
-            this.suggestion = suggestion;
+            Suggestion = suggestion;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(suggestion);
+            writer.WriteUTF(Suggestion);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            suggestion = reader.ReadUTF();
+            Suggestion = reader.ReadUTF();
         }
     }
 }

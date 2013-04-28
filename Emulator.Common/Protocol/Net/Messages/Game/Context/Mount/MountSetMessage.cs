@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class MountSetMessage : NetworkMessage
     {
-        public const uint Id = 5968;
-
-        public MountClientData mountData;
+        public const uint ID = 5968;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public MountClientData MountData { get; set; }
 
 
         public MountSetMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public MountSetMessage(MountClientData mountData)
         {
-            this.mountData = mountData;
+            MountData = mountData;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            mountData.Serialize(writer);
+            MountData.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mountData = new MountClientData();
-            mountData.Deserialize(reader);
+            MountData = new MountClientData();
+            MountData.Deserialize(reader);
         }
     }
 }

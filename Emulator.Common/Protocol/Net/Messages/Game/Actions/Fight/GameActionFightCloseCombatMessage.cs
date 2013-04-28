@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightCloseCombatMessage : AbstractGameActionFightTargetedAbilityMessage
     {
-        public const uint Id = 6116;
-
-        public int weaponGenericId;
+        public const uint ID = 6116;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int WeaponGenericId { get; set; }
 
 
         public GameActionFightCloseCombatMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightCloseCombatMessage(short actionId, int sourceId, int targetId, short destinationCellId, sbyte critical, bool silentCast, int weaponGenericId)
-            : base(actionId, sourceId, targetId, destinationCellId, critical, silentCast)
+                : base(actionId, sourceId, targetId, destinationCellId, critical, silentCast)
         {
-            this.weaponGenericId = weaponGenericId;
+            WeaponGenericId = weaponGenericId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(weaponGenericId);
+            writer.WriteInt(WeaponGenericId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            weaponGenericId = reader.ReadInt();
-            if (weaponGenericId < 0)
-                throw new Exception("Forbidden value on weaponGenericId = " + weaponGenericId + ", it doesn't respect the following condition : weaponGenericId < 0");
+            WeaponGenericId = reader.ReadInt();
         }
     }
 }

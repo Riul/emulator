@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 {
     public class CharacterSelectedSuccessMessage : NetworkMessage
     {
-        public const uint Id = 153;
-
-        public CharacterBaseInformations infos;
+        public const uint ID = 153;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public CharacterBaseInformations Infos { get; set; }
 
 
         public CharacterSelectedSuccessMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public CharacterSelectedSuccessMessage(CharacterBaseInformations infos)
         {
-            this.infos = infos;
+            Infos = infos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            infos.Serialize(writer);
+            Infos.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            infos = new CharacterBaseInformations();
-            infos.Deserialize(reader);
+            Infos = new CharacterBaseInformations();
+            Infos.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 {
     public class QuestObjectiveValidationMessage : NetworkMessage
     {
-        public const uint Id = 6085;
-
-        public short objectiveId;
-        public short questId;
+        public const uint ID = 6085;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short QuestId { get; set; }
+        public short ObjectiveId { get; set; }
 
 
         public QuestObjectiveValidationMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Quest
 
         public QuestObjectiveValidationMessage(short questId, short objectiveId)
         {
-            this.questId = questId;
-            this.objectiveId = objectiveId;
+            QuestId = questId;
+            ObjectiveId = objectiveId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(questId);
-            writer.WriteShort(objectiveId);
+            writer.WriteShort(QuestId);
+            writer.WriteShort(ObjectiveId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            questId = reader.ReadShort();
-            if (questId < 0)
-                throw new Exception("Forbidden value on questId = " + questId + ", it doesn't respect the following condition : questId < 0");
-            objectiveId = reader.ReadShort();
-            if (objectiveId < 0)
-                throw new Exception("Forbidden value on objectiveId = " + objectiveId + ", it doesn't respect the following condition : objectiveId < 0");
+            QuestId = reader.ReadShort();
+            ObjectiveId = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,33 +14,33 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInfosUpgradeMessage : NetworkMessage
     {
-        public const uint Id = 5636;
-        public short boostPoints;
-
-        public sbyte maxTaxCollectorsCount;
-        public short[] spellId;
-        public sbyte[] spellLevel;
-        public short taxCollectorDamagesBonuses;
-        public short taxCollectorLifePoints;
-        public short taxCollectorPods;
-        public short taxCollectorProspecting;
-        public short taxCollectorWisdom;
-        public sbyte taxCollectorsCount;
+        public const uint ID = 5636;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte MaxTaxCollectorsCount { get; set; }
+        public sbyte TaxCollectorsCount { get; set; }
+        public short TaxCollectorLifePoints { get; set; }
+        public short TaxCollectorDamagesBonuses { get; set; }
+        public short TaxCollectorPods { get; set; }
+        public short TaxCollectorProspecting { get; set; }
+        public short TaxCollectorWisdom { get; set; }
+        public short BoostPoints { get; set; }
+        public short[] SpellId { get; set; }
+        public sbyte[] SpellLevel { get; set; }
 
 
         public GuildInfosUpgradeMessage()
@@ -48,36 +49,36 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInfosUpgradeMessage(sbyte maxTaxCollectorsCount, sbyte taxCollectorsCount, short taxCollectorLifePoints, short taxCollectorDamagesBonuses, short taxCollectorPods, short taxCollectorProspecting, short taxCollectorWisdom, short boostPoints, short[] spellId, sbyte[] spellLevel)
         {
-            this.maxTaxCollectorsCount = maxTaxCollectorsCount;
-            this.taxCollectorsCount = taxCollectorsCount;
-            this.taxCollectorLifePoints = taxCollectorLifePoints;
-            this.taxCollectorDamagesBonuses = taxCollectorDamagesBonuses;
-            this.taxCollectorPods = taxCollectorPods;
-            this.taxCollectorProspecting = taxCollectorProspecting;
-            this.taxCollectorWisdom = taxCollectorWisdom;
-            this.boostPoints = boostPoints;
-            this.spellId = spellId;
-            this.spellLevel = spellLevel;
+            MaxTaxCollectorsCount = maxTaxCollectorsCount;
+            TaxCollectorsCount = taxCollectorsCount;
+            TaxCollectorLifePoints = taxCollectorLifePoints;
+            TaxCollectorDamagesBonuses = taxCollectorDamagesBonuses;
+            TaxCollectorPods = taxCollectorPods;
+            TaxCollectorProspecting = taxCollectorProspecting;
+            TaxCollectorWisdom = taxCollectorWisdom;
+            BoostPoints = boostPoints;
+            SpellId = spellId;
+            SpellLevel = spellLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(maxTaxCollectorsCount);
-            writer.WriteSByte(taxCollectorsCount);
-            writer.WriteShort(taxCollectorLifePoints);
-            writer.WriteShort(taxCollectorDamagesBonuses);
-            writer.WriteShort(taxCollectorPods);
-            writer.WriteShort(taxCollectorProspecting);
-            writer.WriteShort(taxCollectorWisdom);
-            writer.WriteShort(boostPoints);
-            writer.WriteUShort((ushort) spellId.Length);
-            foreach (var entry in spellId)
+            writer.WriteSByte(MaxTaxCollectorsCount);
+            writer.WriteSByte(TaxCollectorsCount);
+            writer.WriteShort(TaxCollectorLifePoints);
+            writer.WriteShort(TaxCollectorDamagesBonuses);
+            writer.WriteShort(TaxCollectorPods);
+            writer.WriteShort(TaxCollectorProspecting);
+            writer.WriteShort(TaxCollectorWisdom);
+            writer.WriteShort(BoostPoints);
+            writer.WriteUShort((ushort) SpellId.Length);
+            foreach (var entry in SpellId)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) spellLevel.Length);
-            foreach (var entry in spellLevel)
+            writer.WriteUShort((ushort) SpellLevel.Length);
+            foreach (var entry in SpellLevel)
             {
                 writer.WriteSByte(entry);
             }
@@ -85,41 +86,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public override void Deserialize(BigEndianReader reader)
         {
-            maxTaxCollectorsCount = reader.ReadSByte();
-            if (maxTaxCollectorsCount < 0)
-                throw new Exception("Forbidden value on maxTaxCollectorsCount = " + maxTaxCollectorsCount + ", it doesn't respect the following condition : maxTaxCollectorsCount < 0");
-            taxCollectorsCount = reader.ReadSByte();
-            if (taxCollectorsCount < 0)
-                throw new Exception("Forbidden value on taxCollectorsCount = " + taxCollectorsCount + ", it doesn't respect the following condition : taxCollectorsCount < 0");
-            taxCollectorLifePoints = reader.ReadShort();
-            if (taxCollectorLifePoints < 0)
-                throw new Exception("Forbidden value on taxCollectorLifePoints = " + taxCollectorLifePoints + ", it doesn't respect the following condition : taxCollectorLifePoints < 0");
-            taxCollectorDamagesBonuses = reader.ReadShort();
-            if (taxCollectorDamagesBonuses < 0)
-                throw new Exception("Forbidden value on taxCollectorDamagesBonuses = " + taxCollectorDamagesBonuses + ", it doesn't respect the following condition : taxCollectorDamagesBonuses < 0");
-            taxCollectorPods = reader.ReadShort();
-            if (taxCollectorPods < 0)
-                throw new Exception("Forbidden value on taxCollectorPods = " + taxCollectorPods + ", it doesn't respect the following condition : taxCollectorPods < 0");
-            taxCollectorProspecting = reader.ReadShort();
-            if (taxCollectorProspecting < 0)
-                throw new Exception("Forbidden value on taxCollectorProspecting = " + taxCollectorProspecting + ", it doesn't respect the following condition : taxCollectorProspecting < 0");
-            taxCollectorWisdom = reader.ReadShort();
-            if (taxCollectorWisdom < 0)
-                throw new Exception("Forbidden value on taxCollectorWisdom = " + taxCollectorWisdom + ", it doesn't respect the following condition : taxCollectorWisdom < 0");
-            boostPoints = reader.ReadShort();
-            if (boostPoints < 0)
-                throw new Exception("Forbidden value on boostPoints = " + boostPoints + ", it doesn't respect the following condition : boostPoints < 0");
+            MaxTaxCollectorsCount = reader.ReadSByte();
+            TaxCollectorsCount = reader.ReadSByte();
+            TaxCollectorLifePoints = reader.ReadShort();
+            TaxCollectorDamagesBonuses = reader.ReadShort();
+            TaxCollectorPods = reader.ReadShort();
+            TaxCollectorProspecting = reader.ReadShort();
+            TaxCollectorWisdom = reader.ReadShort();
+            BoostPoints = reader.ReadShort();
             var limit = reader.ReadUShort();
-            spellId = new short[limit];
+            SpellId = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                spellId[i] = reader.ReadShort();
+                SpellId[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            spellLevel = new sbyte[limit];
+            SpellLevel = new sbyte[limit];
             for (int i = 0; i < limit; i++)
             {
-                spellLevel[i] = reader.ReadSByte();
+                SpellLevel[i] = reader.ReadSByte();
             }
         }
     }

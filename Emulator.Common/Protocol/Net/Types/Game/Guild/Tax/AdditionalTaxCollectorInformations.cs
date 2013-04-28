@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
 {
     public class AdditionalTaxCollectorInformations
     {
-        public const short Id = 165;
-
-        public string collectorCallerName;
-        public int date;
+        public const short ID = 165;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string CollectorCallerName { get; set; }
+        public int Date { get; set; }
 
 
         public AdditionalTaxCollectorInformations()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild.Tax
 
         public AdditionalTaxCollectorInformations(string collectorCallerName, int date)
         {
-            this.collectorCallerName = collectorCallerName;
-            this.date = date;
+            CollectorCallerName = collectorCallerName;
+            Date = date;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(collectorCallerName);
-            writer.WriteInt(date);
+            writer.WriteUTF(CollectorCallerName);
+            writer.WriteInt(Date);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            collectorCallerName = reader.ReadUTF();
-            date = reader.ReadInt();
-            if (date < 0)
-                throw new Exception("Forbidden value on date = " + date + ", it doesn't respect the following condition : date < 0");
+            CollectorCallerName = reader.ReadUTF();
+            Date = reader.ReadInt();
         }
     }
 }

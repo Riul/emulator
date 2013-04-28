@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeOnHumanVendorRequestMessage : NetworkMessage
     {
-        public const uint Id = 5772;
-
-        public int humanVendorCell;
-        public int humanVendorId;
+        public const uint ID = 5772;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int HumanVendorId { get; set; }
+        public int HumanVendorCell { get; set; }
 
 
         public ExchangeOnHumanVendorRequestMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeOnHumanVendorRequestMessage(int humanVendorId, int humanVendorCell)
         {
-            this.humanVendorId = humanVendorId;
-            this.humanVendorCell = humanVendorCell;
+            HumanVendorId = humanVendorId;
+            HumanVendorCell = humanVendorCell;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(humanVendorId);
-            writer.WriteInt(humanVendorCell);
+            writer.WriteInt(HumanVendorId);
+            writer.WriteInt(HumanVendorCell);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            humanVendorId = reader.ReadInt();
-            if (humanVendorId < 0)
-                throw new Exception("Forbidden value on humanVendorId = " + humanVendorId + ", it doesn't respect the following condition : humanVendorId < 0");
-            humanVendorCell = reader.ReadInt();
-            if (humanVendorCell < 0)
-                throw new Exception("Forbidden value on humanVendorCell = " + humanVendorCell + ", it doesn't respect the following condition : humanVendorCell < 0");
+            HumanVendorId = reader.ReadInt();
+            HumanVendorCell = reader.ReadInt();
         }
     }
 }

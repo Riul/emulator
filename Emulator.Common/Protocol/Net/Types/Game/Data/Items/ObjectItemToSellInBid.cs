@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects;
 
@@ -24,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class ObjectItemToSellInBid : ObjectItemToSell
     {
-        public const short Id = 164;
-
-        public short unsoldDelay;
+        public const short ID = 164;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short UnsoldDelay { get; set; }
 
 
         public ObjectItemToSellInBid()
@@ -39,24 +40,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         }
 
         public ObjectItemToSellInBid(short objectGID, short powerRate, bool overMax, ObjectEffect[] effects, int objectUID, int quantity, int objectPrice, short unsoldDelay)
-            : base(objectGID, powerRate, overMax, effects, objectUID, quantity, objectPrice)
+                : base(objectGID, powerRate, overMax, effects, objectUID, quantity, objectPrice)
         {
-            this.unsoldDelay = unsoldDelay;
+            UnsoldDelay = unsoldDelay;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(unsoldDelay);
+            writer.WriteShort(UnsoldDelay);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            unsoldDelay = reader.ReadShort();
-            if (unsoldDelay < 0)
-                throw new Exception("Forbidden value on unsoldDelay = " + unsoldDelay + ", it doesn't respect the following condition : unsoldDelay < 0");
+            UnsoldDelay = reader.ReadShort();
         }
     }
 }

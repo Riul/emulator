@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildHouseUpdateInformationMessage : NetworkMessage
     {
-        public const uint Id = 6181;
-
-        public HouseInformationsForGuild housesInformations;
+        public const uint ID = 6181;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public HouseInformationsForGuild HousesInformations { get; set; }
 
 
         public GuildHouseUpdateInformationMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildHouseUpdateInformationMessage(HouseInformationsForGuild housesInformations)
         {
-            this.housesInformations = housesInformations;
+            HousesInformations = housesInformations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            housesInformations.Serialize(writer);
+            HousesInformations.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            housesInformations = new HouseInformationsForGuild();
-            housesInformations.Deserialize(reader);
+            HousesInformations = new HouseInformationsForGuild();
+            HousesInformations.Deserialize(reader);
         }
     }
 }

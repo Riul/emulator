@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightModifyEffectsDurationMessage : AbstractGameActionMessage
     {
-        public const uint Id = 6304;
-
-        public short delta;
-        public int targetId;
+        public const uint ID = 6304;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public short Delta { get; set; }
 
 
         public GameActionFightModifyEffectsDurationMessage()
@@ -38,25 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightModifyEffectsDurationMessage(short actionId, int sourceId, int targetId, short delta)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.delta = delta;
+            TargetId = targetId;
+            Delta = delta;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteShort(delta);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(Delta);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            delta = reader.ReadShort();
+            TargetId = reader.ReadInt();
+            Delta = reader.ReadShort();
         }
     }
 }

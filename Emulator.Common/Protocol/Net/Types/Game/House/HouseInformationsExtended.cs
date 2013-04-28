@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
 {
     public class HouseInformationsExtended : HouseInformations
     {
-        public const short Id = 112;
-
-        public GuildInformations guildInfo;
+        public const short ID = 112;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GuildInformations GuildInfo { get; set; }
 
 
         public HouseInformationsExtended()
@@ -38,23 +40,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.House
         }
 
         public HouseInformationsExtended(bool isOnSale, bool isSaleLocked, int houseId, int[] doorsOnMap, string ownerName, short modelId, GuildInformations guildInfo)
-            : base(isOnSale, isSaleLocked, houseId, doorsOnMap, ownerName, modelId)
+                : base(isOnSale, isSaleLocked, houseId, doorsOnMap, ownerName, modelId)
         {
-            this.guildInfo = guildInfo;
+            GuildInfo = guildInfo;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            guildInfo.Serialize(writer);
+            GuildInfo.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            guildInfo = new GuildInformations();
-            guildInfo.Deserialize(reader);
+            GuildInfo = new GuildInformations();
+            GuildInfo.Deserialize(reader);
         }
     }
 }

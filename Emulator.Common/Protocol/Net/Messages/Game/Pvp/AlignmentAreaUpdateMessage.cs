@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 {
     public class AlignmentAreaUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6060;
-
-        public short areaId;
-        public sbyte side;
+        public const uint ID = 6060;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short AreaId { get; set; }
+        public sbyte Side { get; set; }
 
 
         public AlignmentAreaUpdateMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 
         public AlignmentAreaUpdateMessage(short areaId, sbyte side)
         {
-            this.areaId = areaId;
-            this.side = side;
+            AreaId = areaId;
+            Side = side;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(areaId);
-            writer.WriteSByte(side);
+            writer.WriteShort(AreaId);
+            writer.WriteSByte(Side);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            areaId = reader.ReadShort();
-            if (areaId < 0)
-                throw new Exception("Forbidden value on areaId = " + areaId + ", it doesn't respect the following condition : areaId < 0");
-            side = reader.ReadSByte();
+            AreaId = reader.ReadShort();
+            Side = reader.ReadSByte();
         }
     }
 }

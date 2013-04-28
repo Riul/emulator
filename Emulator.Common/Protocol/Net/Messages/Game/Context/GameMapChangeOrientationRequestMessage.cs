@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameMapChangeOrientationRequestMessage : NetworkMessage
     {
-        public const uint Id = 945;
-
-        public sbyte direction;
+        public const uint ID = 945;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Direction { get; set; }
 
 
         public GameMapChangeOrientationRequestMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameMapChangeOrientationRequestMessage(sbyte direction)
         {
-            this.direction = direction;
+            Direction = direction;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(direction);
+            writer.WriteSByte(Direction);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            direction = reader.ReadSByte();
-            if (direction < 0)
-                throw new Exception("Forbidden value on direction = " + direction + ", it doesn't respect the following condition : direction < 0");
+            Direction = reader.ReadSByte();
         }
     }
 }

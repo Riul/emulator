@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class InventoryWeightMessage : NetworkMessage
     {
-        public const uint Id = 3009;
-
-        public int weight;
-        public int weightMax;
+        public const uint ID = 3009;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Weight { get; set; }
+        public int WeightMax { get; set; }
 
 
         public InventoryWeightMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public InventoryWeightMessage(int weight, int weightMax)
         {
-            this.weight = weight;
-            this.weightMax = weightMax;
+            Weight = weight;
+            WeightMax = weightMax;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(weight);
-            writer.WriteInt(weightMax);
+            writer.WriteInt(Weight);
+            writer.WriteInt(WeightMax);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            weight = reader.ReadInt();
-            if (weight < 0)
-                throw new Exception("Forbidden value on weight = " + weight + ", it doesn't respect the following condition : weight < 0");
-            weightMax = reader.ReadInt();
-            if (weightMax < 0)
-                throw new Exception("Forbidden value on weightMax = " + weightMax + ", it doesn't respect the following condition : weightMax < 0");
+            Weight = reader.ReadInt();
+            WeightMax = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 {
     public class PartsListMessage : NetworkMessage
     {
-        public const uint Id = 1502;
-
-        public ContentPart[] parts;
+        public const uint ID = 1502;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ContentPart[] Parts { get; set; }
 
 
         public PartsListMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 
         public PartsListMessage(ContentPart[] parts)
         {
-            this.parts = parts;
+            Parts = parts;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) parts.Length);
-            foreach (var entry in parts)
+            writer.WriteUShort((ushort) Parts.Length);
+            foreach (var entry in Parts)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            parts = new ContentPart[limit];
+            Parts = new ContentPart[limit];
             for (int i = 0; i < limit; i++)
             {
-                parts[i] = new ContentPart();
-                parts[i].Deserialize(reader);
+                Parts[i] = new ContentPart();
+                Parts[i].Deserialize(reader);
             }
         }
     }

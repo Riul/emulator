@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,30 +14,30 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Prism
 {
     public class PrismSubAreaInformation
     {
-        public const short Id = 142;
-
-        public sbyte alignment;
-        public bool isFightable;
-        public bool isInFight;
-        public int mapId;
-        public short subAreaId;
-        public short worldX;
-        public short worldY;
+        public const short ID = 142;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public int MapId { get; set; }
+        public short SubAreaId { get; set; }
+        public sbyte Alignment { get; set; }
+        public bool IsInFight { get; set; }
+        public bool IsFightable { get; set; }
 
 
         public PrismSubAreaInformation()
@@ -45,44 +46,36 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
 
         public PrismSubAreaInformation(short worldX, short worldY, int mapId, short subAreaId, sbyte alignment, bool isInFight, bool isFightable)
         {
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.mapId = mapId;
-            this.subAreaId = subAreaId;
-            this.alignment = alignment;
-            this.isInFight = isInFight;
-            this.isFightable = isFightable;
+            WorldX = worldX;
+            WorldY = worldY;
+            MapId = mapId;
+            SubAreaId = subAreaId;
+            Alignment = alignment;
+            IsInFight = isInFight;
+            IsFightable = isFightable;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteInt(mapId);
-            writer.WriteShort(subAreaId);
-            writer.WriteSByte(alignment);
-            writer.WriteBoolean(isInFight);
-            writer.WriteBoolean(isFightable);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteInt(MapId);
+            writer.WriteShort(SubAreaId);
+            writer.WriteSByte(Alignment);
+            writer.WriteBoolean(IsInFight);
+            writer.WriteBoolean(IsFightable);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            mapId = reader.ReadInt();
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
-            alignment = reader.ReadSByte();
-            if (alignment < 0)
-                throw new Exception("Forbidden value on alignment = " + alignment + ", it doesn't respect the following condition : alignment < 0");
-            isInFight = reader.ReadBoolean();
-            isFightable = reader.ReadBoolean();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            MapId = reader.ReadInt();
+            SubAreaId = reader.ReadShort();
+            Alignment = reader.ReadSByte();
+            IsInFight = reader.ReadBoolean();
+            IsFightable = reader.ReadBoolean();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyMemberEjectedMessage : PartyMemberRemoveMessage
     {
-        public const uint Id = 6252;
-
-        public int kickerId;
+        public const uint ID = 6252;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int KickerId { get; set; }
 
 
         public PartyMemberEjectedMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyMemberEjectedMessage(int partyId, int leavingPlayerId, int kickerId)
-            : base(partyId, leavingPlayerId)
+                : base(partyId, leavingPlayerId)
         {
-            this.kickerId = kickerId;
+            KickerId = kickerId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(kickerId);
+            writer.WriteInt(KickerId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            kickerId = reader.ReadInt();
-            if (kickerId < 0)
-                throw new Exception("Forbidden value on kickerId = " + kickerId + ", it doesn't respect the following condition : kickerId < 0");
+            KickerId = reader.ReadInt();
         }
     }
 }

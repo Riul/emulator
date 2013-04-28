@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 {
     public class AchievementObjective
     {
-        public const short Id = 404;
-
-        public int id;
-        public short maxValue;
+        public const short ID = 404;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
+        public short MaxValue { get; set; }
 
 
         public AchievementObjective()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 
         public AchievementObjective(int id, short maxValue)
         {
-            this.id = id;
-            this.maxValue = maxValue;
+            Id = id;
+            MaxValue = maxValue;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
-            writer.WriteShort(maxValue);
+            writer.WriteInt(Id);
+            writer.WriteShort(MaxValue);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
-            if (id < 0)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0");
-            maxValue = reader.ReadShort();
-            if (maxValue < 0)
-                throw new Exception("Forbidden value on maxValue = " + maxValue + ", it doesn't respect the following condition : maxValue < 0");
+            Id = reader.ReadInt();
+            MaxValue = reader.ReadShort();
         }
     }
 }

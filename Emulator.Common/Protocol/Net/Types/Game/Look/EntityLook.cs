@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,67 +14,64 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Look
 {
     public class EntityLook
     {
-        public const short Id = 55;
-
-        public short bonesId;
-        public int[] indexedColors;
-        public short[] scales;
-        public short[] skins;
-        public SubEntity[] subentities;
+        public const short ID = 55;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short BonesId { get; set; }
+        public short[] Skins { get; set; }
+        public int[] IndexedColors { get; set; }
+        public short[] Scales { get; set; }
+        public SubEntity[] Subentities { get; set; }
+
 
         public EntityLook()
         {
-            skins = new short[0];
-            indexedColors = new int[0];
-            scales = new short[0];
-            subentities = new SubEntity[0];
         }
 
         public EntityLook(short bonesId, short[] skins, int[] indexedColors, short[] scales, SubEntity[] subentities)
         {
-            this.bonesId = bonesId;
-            this.skins = skins;
-            this.indexedColors = indexedColors;
-            this.scales = scales;
-            this.subentities = subentities;
+            BonesId = bonesId;
+            Skins = skins;
+            IndexedColors = indexedColors;
+            Scales = scales;
+            Subentities = subentities;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(bonesId);
-            writer.WriteUShort((ushort) skins.Length);
-            foreach (var entry in skins)
+            writer.WriteShort(BonesId);
+            writer.WriteUShort((ushort) Skins.Length);
+            foreach (var entry in Skins)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) indexedColors.Length);
-            foreach (var entry in indexedColors)
+            writer.WriteUShort((ushort) IndexedColors.Length);
+            foreach (var entry in IndexedColors)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) scales.Length);
-            foreach (var entry in scales)
+            writer.WriteUShort((ushort) Scales.Length);
+            foreach (var entry in Scales)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) subentities.Length);
-            foreach (var entry in subentities)
+            writer.WriteUShort((ushort) Subentities.Length);
+            foreach (var entry in Subentities)
             {
                 entry.Serialize(writer);
             }
@@ -81,33 +79,31 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Look
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            bonesId = reader.ReadShort();
-            if (bonesId < 0)
-                throw new Exception("Forbidden value on bonesId = " + bonesId + ", it doesn't respect the following condition : bonesId < 0");
+            BonesId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            skins = new short[limit];
+            Skins = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                skins[i] = reader.ReadShort();
+                Skins[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            indexedColors = new int[limit];
+            IndexedColors = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                indexedColors[i] = reader.ReadInt();
+                IndexedColors[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            scales = new short[limit];
+            Scales = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                scales[i] = reader.ReadShort();
+                Scales[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            subentities = new SubEntity[limit];
+            Subentities = new SubEntity[limit];
             for (int i = 0; i < limit; i++)
             {
-                subentities[i] = new SubEntity();
-                subentities[i].Deserialize(reader);
+                Subentities[i] = new SubEntity();
+                Subentities[i].Deserialize(reader);
             }
         }
     }

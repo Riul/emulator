@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Friend
 {
     public class FriendInformations : AbstractContactInformations
     {
-        public const short Id = 78;
-
-        public int achievementPoints;
-        public int lastConnection;
-        public sbyte playerState;
+        public const short ID = 78;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PlayerState { get; set; }
+        public int LastConnection { get; set; }
+        public int AchievementPoints { get; set; }
 
 
         public FriendInformations()
@@ -40,32 +41,28 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
         }
 
         public FriendInformations(int accountId, string accountName, sbyte playerState, int lastConnection, int achievementPoints)
-            : base(accountId, accountName)
+                : base(accountId, accountName)
         {
-            this.playerState = playerState;
-            this.lastConnection = lastConnection;
-            this.achievementPoints = achievementPoints;
+            PlayerState = playerState;
+            LastConnection = lastConnection;
+            AchievementPoints = achievementPoints;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(playerState);
-            writer.WriteInt(lastConnection);
-            writer.WriteInt(achievementPoints);
+            writer.WriteSByte(PlayerState);
+            writer.WriteInt(LastConnection);
+            writer.WriteInt(AchievementPoints);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            playerState = reader.ReadSByte();
-            if (playerState < 0)
-                throw new Exception("Forbidden value on playerState = " + playerState + ", it doesn't respect the following condition : playerState < 0");
-            lastConnection = reader.ReadInt();
-            if (lastConnection < 0)
-                throw new Exception("Forbidden value on lastConnection = " + lastConnection + ", it doesn't respect the following condition : lastConnection < 0");
-            achievementPoints = reader.ReadInt();
+            PlayerState = reader.ReadSByte();
+            LastConnection = reader.ReadInt();
+            AchievementPoints = reader.ReadInt();
         }
     }
 }

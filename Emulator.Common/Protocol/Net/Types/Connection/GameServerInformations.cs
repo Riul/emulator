@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,29 +14,29 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
-namespace Emulator.Common.Protocol.Net.Types.Connection
+namespace Emulator.Common.Protocol.Net.Types
 {
     public class GameServerInformations
     {
-        public const short Id = 25;
-
-        public sbyte charactersCount;
-        public sbyte completion;
-        public double date;
-        public ushort id;
-        public bool isSelectable;
-        public sbyte status;
+        public const short ID = 25;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ushort Id { get; set; }
+        public sbyte Status { get; set; }
+        public sbyte Completion { get; set; }
+        public bool IsSelectable { get; set; }
+        public sbyte CharactersCount { get; set; }
+        public double Date { get; set; }
 
 
         public GameServerInformations()
@@ -44,41 +45,33 @@ namespace Emulator.Common.Protocol.Net.Types.Connection
 
         public GameServerInformations(ushort id, sbyte status, sbyte completion, bool isSelectable, sbyte charactersCount, double date)
         {
-            this.id = id;
-            this.status = status;
-            this.completion = completion;
-            this.isSelectable = isSelectable;
-            this.charactersCount = charactersCount;
-            this.date = date;
+            Id = id;
+            Status = status;
+            Completion = completion;
+            IsSelectable = isSelectable;
+            CharactersCount = charactersCount;
+            Date = date;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort(id);
-            writer.WriteSByte(status);
-            writer.WriteSByte(completion);
-            writer.WriteBoolean(isSelectable);
-            writer.WriteSByte(charactersCount);
-            writer.WriteDouble(date);
+            writer.WriteUShort(Id);
+            writer.WriteSByte(Status);
+            writer.WriteSByte(Completion);
+            writer.WriteBoolean(IsSelectable);
+            writer.WriteSByte(CharactersCount);
+            writer.WriteDouble(Date);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadUShort();
-            if (id < 0 || id > 65535)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0 || id > 65535");
-            status = reader.ReadSByte();
-            if (status < 0)
-                throw new Exception("Forbidden value on status = " + status + ", it doesn't respect the following condition : status < 0");
-            completion = reader.ReadSByte();
-            if (completion < 0)
-                throw new Exception("Forbidden value on completion = " + completion + ", it doesn't respect the following condition : completion < 0");
-            isSelectable = reader.ReadBoolean();
-            charactersCount = reader.ReadSByte();
-            if (charactersCount < 0)
-                throw new Exception("Forbidden value on charactersCount = " + charactersCount + ", it doesn't respect the following condition : charactersCount < 0");
-            date = reader.ReadDouble();
+            Id = reader.ReadUShort();
+            Status = reader.ReadSByte();
+            Completion = reader.ReadSByte();
+            IsSelectable = reader.ReadBoolean();
+            CharactersCount = reader.ReadSByte();
+            Date = reader.ReadDouble();
         }
     }
 }

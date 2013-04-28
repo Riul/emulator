@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -24,14 +26,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class GameFightMonsterWithAlignmentInformations : GameFightMonsterInformations
     {
-        public const short Id = 203;
-
-        public ActorAlignmentInformations alignmentInfos;
+        public const short ID = 203;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ActorAlignmentInformations AlignmentInfos { get; set; }
 
 
         public GameFightMonsterWithAlignmentInformations()
@@ -39,23 +41,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public GameFightMonsterWithAlignmentInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, short creatureGenericId, sbyte creatureGrade, ActorAlignmentInformations alignmentInfos)
-            : base(contextualId, look, disposition, teamId, alive, stats, creatureGenericId, creatureGrade)
+                : base(contextualId, look, disposition, teamId, alive, stats, creatureGenericId, creatureGrade)
         {
-            this.alignmentInfos = alignmentInfos;
+            AlignmentInfos = alignmentInfos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            alignmentInfos.Serialize(writer);
+            AlignmentInfos.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            alignmentInfos = new ActorAlignmentInformations();
-            alignmentInfos.Deserialize(reader);
+            AlignmentInfos = new ActorAlignmentInformations();
+            AlignmentInfos.Deserialize(reader);
         }
     }
 }

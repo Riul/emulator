@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 {
     public class PaddockPrivateInformations : PaddockAbandonnedInformations
     {
-        public const short Id = 131;
-
-        public GuildInformations guildInfo;
+        public const short ID = 131;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GuildInformations GuildInfo { get; set; }
 
 
         public PaddockPrivateInformations()
@@ -38,23 +40,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
         }
 
         public PaddockPrivateInformations(short maxOutdoorMount, short maxItems, int price, bool locked, int guildId, GuildInformations guildInfo)
-            : base(maxOutdoorMount, maxItems, price, locked, guildId)
+                : base(maxOutdoorMount, maxItems, price, locked, guildId)
         {
-            this.guildInfo = guildInfo;
+            GuildInfo = guildInfo;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            guildInfo.Serialize(writer);
+            GuildInfo.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            guildInfo = new GuildInformations();
-            guildInfo.Deserialize(reader);
+            GuildInfo = new GuildInformations();
+            GuildInfo.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Purchasable
 {
     public class PurchasableDialogMessage : NetworkMessage
     {
-        public const uint Id = 5739;
-
-        public bool buyOrSell;
-        public int price;
-        public int purchasableId;
+        public const uint ID = 5739;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool BuyOrSell { get; set; }
+        public int PurchasableId { get; set; }
+        public int Price { get; set; }
 
 
         public PurchasableDialogMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Purchasabl
 
         public PurchasableDialogMessage(bool buyOrSell, int purchasableId, int price)
         {
-            this.buyOrSell = buyOrSell;
-            this.purchasableId = purchasableId;
-            this.price = price;
+            BuyOrSell = buyOrSell;
+            PurchasableId = purchasableId;
+            Price = price;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(buyOrSell);
-            writer.WriteInt(purchasableId);
-            writer.WriteInt(price);
+            writer.WriteBoolean(BuyOrSell);
+            writer.WriteInt(PurchasableId);
+            writer.WriteInt(Price);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            buyOrSell = reader.ReadBoolean();
-            purchasableId = reader.ReadInt();
-            if (purchasableId < 0)
-                throw new Exception("Forbidden value on purchasableId = " + purchasableId + ", it doesn't respect the following condition : purchasableId < 0");
-            price = reader.ReadInt();
-            if (price < 0)
-                throw new Exception("Forbidden value on price = " + price + ", it doesn't respect the following condition : price < 0");
+            BuyOrSell = reader.ReadBoolean();
+            PurchasableId = reader.ReadInt();
+            Price = reader.ReadInt();
         }
     }
 }

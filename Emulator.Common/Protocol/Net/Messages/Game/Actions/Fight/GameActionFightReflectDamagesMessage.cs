@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,53 +14,47 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightReflectDamagesMessage : AbstractGameActionMessage
     {
-        public const uint Id = 5530;
-
-        public int amount;
-        public int targetId;
+        public const uint ID = 5530;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
 
 
         public GameActionFightReflectDamagesMessage()
         {
         }
 
-        public GameActionFightReflectDamagesMessage(short actionId, int sourceId, int targetId, int amount)
-            : base(actionId, sourceId)
+        public GameActionFightReflectDamagesMessage(short actionId, int sourceId, int targetId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.amount = amount;
+            TargetId = targetId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteInt(amount);
+            writer.WriteInt(TargetId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            amount = reader.ReadInt();
-            if (amount < 0)
-                throw new Exception("Forbidden value on amount = " + amount + ", it doesn't respect the following condition : amount < 0");
+            TargetId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangePlayerMultiCraftRequestMessage : ExchangeRequestMessage
     {
-        public const uint Id = 5784;
-
-        public int skillId;
-        public int target;
+        public const uint ID = 5784;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Target { get; set; }
+        public int SkillId { get; set; }
 
 
         public ExchangePlayerMultiCraftRequestMessage()
@@ -39,29 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangePlayerMultiCraftRequestMessage(sbyte exchangeType, int target, int skillId)
-            : base(exchangeType)
+                : base(exchangeType)
         {
-            this.target = target;
-            this.skillId = skillId;
+            Target = target;
+            SkillId = skillId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(target);
-            writer.WriteInt(skillId);
+            writer.WriteInt(Target);
+            writer.WriteInt(SkillId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            target = reader.ReadInt();
-            if (target < 0)
-                throw new Exception("Forbidden value on target = " + target + ", it doesn't respect the following condition : target < 0");
-            skillId = reader.ReadInt();
-            if (skillId < 0)
-                throw new Exception("Forbidden value on skillId = " + skillId + ", it doesn't respect the following condition : skillId < 0");
+            Target = reader.ReadInt();
+            SkillId = reader.ReadInt();
         }
     }
 }

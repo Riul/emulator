@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightTeamInformations : AbstractFightTeamInformations
     {
-        public const short Id = 33;
-
-        public FightTeamMemberInformations[] teamMembers;
+        public const short ID = 33;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public FightTeamMemberInformations[] TeamMembers { get; set; }
 
 
         public FightTeamInformations()
@@ -37,17 +39,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         }
 
         public FightTeamInformations(sbyte teamId, int leaderId, sbyte teamSide, sbyte teamTypeId, FightTeamMemberInformations[] teamMembers)
-            : base(teamId, leaderId, teamSide, teamTypeId)
+                : base(teamId, leaderId, teamSide, teamTypeId)
         {
-            this.teamMembers = teamMembers;
+            TeamMembers = teamMembers;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) teamMembers.Length);
-            foreach (var entry in teamMembers)
+            writer.WriteUShort((ushort) TeamMembers.Length);
+            foreach (var entry in TeamMembers)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -58,11 +60,11 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            teamMembers = new FightTeamMemberInformations[limit];
+            TeamMembers = new FightTeamMemberInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                teamMembers[i] = Types.ProtocolTypeManager.GetInstance<FightTeamMemberInformations>(reader.ReadShort());
-                teamMembers[i].Deserialize(reader);
+                TeamMembers[i] = Types.ProtocolTypeManager.GetInstance<FightTeamMemberInformations>(reader.ReadShort());
+                TeamMembers[i].Deserialize(reader);
             }
         }
     }

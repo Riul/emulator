@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Updater
 {
     public class ContentPart
     {
-        public const short Id = 350;
-
-        public string id;
-        public sbyte state;
+        public const short ID = 350;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Id { get; set; }
+        public sbyte State { get; set; }
 
 
         public ContentPart()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Updater
 
         public ContentPart(string id, sbyte state)
         {
-            this.id = id;
-            this.state = state;
+            Id = id;
+            State = state;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(id);
-            writer.WriteSByte(state);
+            writer.WriteUTF(Id);
+            writer.WriteSByte(State);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadUTF();
-            state = reader.ReadSByte();
-            if (state < 0)
-                throw new Exception("Forbidden value on state = " + state + ", it doesn't respect the following condition : state < 0");
+            Id = reader.ReadUTF();
+            State = reader.ReadSByte();
         }
     }
 }

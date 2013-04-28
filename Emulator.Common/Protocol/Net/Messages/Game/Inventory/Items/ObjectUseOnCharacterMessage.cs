@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ObjectUseOnCharacterMessage : ObjectUseMessage
     {
-        public const uint Id = 3003;
-
-        public int characterId;
+        public const uint ID = 3003;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CharacterId { get; set; }
 
 
         public ObjectUseOnCharacterMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         }
 
         public ObjectUseOnCharacterMessage(int objectUID, int characterId)
-            : base(objectUID)
+                : base(objectUID)
         {
-            this.characterId = characterId;
+            CharacterId = characterId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(characterId);
+            writer.WriteInt(CharacterId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            characterId = reader.ReadInt();
-            if (characterId < 0)
-                throw new Exception("Forbidden value on characterId = " + characterId + ", it doesn't respect the following condition : characterId < 0");
+            CharacterId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class HumanOptionOrnament : HumanOption
     {
-        public const short Id = 411;
-
-        public short ornamentId;
+        public const short ID = 411;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short OrnamentId { get; set; }
 
 
         public HumanOptionOrnament()
@@ -39,22 +40,20 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public HumanOptionOrnament(short ornamentId)
         {
-            this.ornamentId = ornamentId;
+            OrnamentId = ornamentId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(ornamentId);
+            writer.WriteShort(OrnamentId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            ornamentId = reader.ReadShort();
-            if (ornamentId < 0)
-                throw new Exception("Forbidden value on ornamentId = " + ornamentId + ", it doesn't respect the following condition : ornamentId < 0");
+            OrnamentId = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 {
     public class InteractiveElementSkill
     {
-        public const short Id = 219;
-
-        public int skillId;
-        public int skillInstanceUid;
+        public const short ID = 219;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SkillId { get; set; }
+        public int SkillInstanceUid { get; set; }
 
 
         public InteractiveElementSkill()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive
 
         public InteractiveElementSkill(int skillId, int skillInstanceUid)
         {
-            this.skillId = skillId;
-            this.skillInstanceUid = skillInstanceUid;
+            SkillId = skillId;
+            SkillInstanceUid = skillInstanceUid;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(skillId);
-            writer.WriteInt(skillInstanceUid);
+            writer.WriteInt(SkillId);
+            writer.WriteInt(SkillInstanceUid);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            skillId = reader.ReadInt();
-            if (skillId < 0)
-                throw new Exception("Forbidden value on skillId = " + skillId + ", it doesn't respect the following condition : skillId < 0");
-            skillInstanceUid = reader.ReadInt();
-            if (skillInstanceUid < 0)
-                throw new Exception("Forbidden value on skillInstanceUid = " + skillInstanceUid + ", it doesn't respect the following condition : skillInstanceUid < 0");
+            SkillId = reader.ReadInt();
+            SkillInstanceUid = reader.ReadInt();
         }
     }
 }

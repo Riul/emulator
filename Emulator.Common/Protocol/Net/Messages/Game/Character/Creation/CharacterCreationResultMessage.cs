@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 {
     public class CharacterCreationResultMessage : NetworkMessage
     {
-        public const uint Id = 161;
-
-        public sbyte result;
+        public const uint ID = 161;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Result { get; set; }
 
 
         public CharacterCreationResultMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Creation
 
         public CharacterCreationResultMessage(sbyte result)
         {
-            this.result = result;
+            Result = result;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(result);
+            writer.WriteSByte(Result);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            result = reader.ReadSByte();
-            if (result < 0)
-                throw new Exception("Forbidden value on result = " + result + ", it doesn't respect the following condition : result < 0");
+            Result = reader.ReadSByte();
         }
     }
 }

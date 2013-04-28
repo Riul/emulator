@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 {
     public class ChatSmileyMessage : NetworkMessage
     {
-        public const uint Id = 801;
-        public int accountId;
-
-        public int entityId;
-        public sbyte smileyId;
+        public const uint ID = 801;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int EntityId { get; set; }
+        public sbyte SmileyId { get; set; }
+        public int AccountId { get; set; }
 
 
         public ChatSmileyMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Chat.Smiley
 
         public ChatSmileyMessage(int entityId, sbyte smileyId, int accountId)
         {
-            this.entityId = entityId;
-            this.smileyId = smileyId;
-            this.accountId = accountId;
+            EntityId = entityId;
+            SmileyId = smileyId;
+            AccountId = accountId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(entityId);
-            writer.WriteSByte(smileyId);
-            writer.WriteInt(accountId);
+            writer.WriteInt(EntityId);
+            writer.WriteSByte(SmileyId);
+            writer.WriteInt(AccountId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            entityId = reader.ReadInt();
-            smileyId = reader.ReadSByte();
-            if (smileyId < 0)
-                throw new Exception("Forbidden value on smileyId = " + smileyId + ", it doesn't respect the following condition : smileyId < 0");
-            accountId = reader.ReadInt();
-            if (accountId < 0)
-                throw new Exception("Forbidden value on accountId = " + accountId + ", it doesn't respect the following condition : accountId < 0");
+            EntityId = reader.ReadInt();
+            SmileyId = reader.ReadSByte();
+            AccountId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
 {
     public class StartupActionsListMessage : NetworkMessage
     {
-        public const uint Id = 1301;
-
-        public StartupActionAddObject[] actions;
+        public const uint ID = 1301;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public StartupActionAddObject[] Actions { get; set; }
 
 
         public StartupActionsListMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
 
         public StartupActionsListMessage(StartupActionAddObject[] actions)
         {
-            this.actions = actions;
+            Actions = actions;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) actions.Length);
-            foreach (var entry in actions)
+            writer.WriteUShort((ushort) Actions.Length);
+            foreach (var entry in Actions)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            actions = new StartupActionAddObject[limit];
+            Actions = new StartupActionAddObject[limit];
             for (int i = 0; i < limit; i++)
             {
-                actions[i] = new StartupActionAddObject();
-                actions[i].Deserialize(reader);
+                Actions[i] = new StartupActionAddObject();
+                Actions[i].Deserialize(reader);
             }
         }
     }

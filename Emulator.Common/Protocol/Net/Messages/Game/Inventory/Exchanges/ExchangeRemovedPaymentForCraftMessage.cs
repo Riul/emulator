@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeRemovedPaymentForCraftMessage : NetworkMessage
     {
-        public const uint Id = 6031;
-
-        public int objectUID;
-        public bool onlySuccess;
+        public const uint ID = 6031;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool OnlySuccess { get; set; }
+        public int ObjectUID { get; set; }
 
 
         public ExchangeRemovedPaymentForCraftMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeRemovedPaymentForCraftMessage(bool onlySuccess, int objectUID)
         {
-            this.onlySuccess = onlySuccess;
-            this.objectUID = objectUID;
+            OnlySuccess = onlySuccess;
+            ObjectUID = objectUID;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(onlySuccess);
-            writer.WriteInt(objectUID);
+            writer.WriteBoolean(OnlySuccess);
+            writer.WriteInt(ObjectUID);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            onlySuccess = reader.ReadBoolean();
-            objectUID = reader.ReadInt();
-            if (objectUID < 0)
-                throw new Exception("Forbidden value on objectUID = " + objectUID + ", it doesn't respect the following condition : objectUID < 0");
+            OnlySuccess = reader.ReadBoolean();
+            ObjectUID = reader.ReadInt();
         }
     }
 }

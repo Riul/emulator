@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 {
     public class CharacterExperienceGainMessage : NetworkMessage
     {
-        public const uint Id = 6321;
-
-        public double experienceCharacter;
-        public double experienceGuild;
-        public double experienceIncarnation;
-        public double experienceMount;
+        public const uint ID = 6321;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double ExperienceCharacter { get; set; }
+        public double ExperienceMount { get; set; }
+        public double ExperienceGuild { get; set; }
+        public double ExperienceIncarnation { get; set; }
 
 
         public CharacterExperienceGainMessage()
@@ -42,35 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public CharacterExperienceGainMessage(double experienceCharacter, double experienceMount, double experienceGuild, double experienceIncarnation)
         {
-            this.experienceCharacter = experienceCharacter;
-            this.experienceMount = experienceMount;
-            this.experienceGuild = experienceGuild;
-            this.experienceIncarnation = experienceIncarnation;
+            ExperienceCharacter = experienceCharacter;
+            ExperienceMount = experienceMount;
+            ExperienceGuild = experienceGuild;
+            ExperienceIncarnation = experienceIncarnation;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(experienceCharacter);
-            writer.WriteDouble(experienceMount);
-            writer.WriteDouble(experienceGuild);
-            writer.WriteDouble(experienceIncarnation);
+            writer.WriteDouble(ExperienceCharacter);
+            writer.WriteDouble(ExperienceMount);
+            writer.WriteDouble(ExperienceGuild);
+            writer.WriteDouble(ExperienceIncarnation);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            experienceCharacter = reader.ReadDouble();
-            if (experienceCharacter < 0)
-                throw new Exception("Forbidden value on experienceCharacter = " + experienceCharacter + ", it doesn't respect the following condition : experienceCharacter < 0");
-            experienceMount = reader.ReadDouble();
-            if (experienceMount < 0)
-                throw new Exception("Forbidden value on experienceMount = " + experienceMount + ", it doesn't respect the following condition : experienceMount < 0");
-            experienceGuild = reader.ReadDouble();
-            if (experienceGuild < 0)
-                throw new Exception("Forbidden value on experienceGuild = " + experienceGuild + ", it doesn't respect the following condition : experienceGuild < 0");
-            experienceIncarnation = reader.ReadDouble();
-            if (experienceIncarnation < 0)
-                throw new Exception("Forbidden value on experienceIncarnation = " + experienceIncarnation + ", it doesn't respect the following condition : experienceIncarnation < 0");
+            ExperienceCharacter = reader.ReadDouble();
+            ExperienceMount = reader.ReadDouble();
+            ExperienceGuild = reader.ReadDouble();
+            ExperienceIncarnation = reader.ReadDouble();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 {
     public class AchievementRewardable
     {
-        public const short Id = 412;
-
-        public short finishedlevel;
-        public short id;
+        public const short ID = 412;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Id { get; set; }
+        public short Finishedlevel { get; set; }
 
 
         public AchievementRewardable()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Achievement
 
         public AchievementRewardable(short id, short finishedlevel)
         {
-            this.id = id;
-            this.finishedlevel = finishedlevel;
+            Id = id;
+            Finishedlevel = finishedlevel;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(id);
-            writer.WriteShort(finishedlevel);
+            writer.WriteShort(Id);
+            writer.WriteShort(Finishedlevel);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadShort();
-            if (id < 0)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0");
-            finishedlevel = reader.ReadShort();
-            if (finishedlevel < 0 || finishedlevel > 200)
-                throw new Exception("Forbidden value on finishedlevel = " + finishedlevel + ", it doesn't respect the following condition : finishedlevel < 0 || finishedlevel > 200");
+            Id = reader.ReadShort();
+            Finishedlevel = reader.ReadShort();
         }
     }
 }

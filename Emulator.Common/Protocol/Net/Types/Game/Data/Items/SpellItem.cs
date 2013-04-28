@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class SpellItem : Item
     {
-        public const short Id = 49;
-
-        public byte position;
-        public int spellId;
-        public sbyte spellLevel;
+        public const short ID = 49;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte Position { get; set; }
+        public int SpellId { get; set; }
+        public sbyte SpellLevel { get; set; }
 
 
         public SpellItem()
@@ -41,30 +42,26 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public SpellItem(byte position, int spellId, sbyte spellLevel)
         {
-            this.position = position;
-            this.spellId = spellId;
-            this.spellLevel = spellLevel;
+            Position = position;
+            SpellId = spellId;
+            SpellLevel = spellLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteByte(position);
-            writer.WriteInt(spellId);
-            writer.WriteSByte(spellLevel);
+            writer.WriteByte(Position);
+            writer.WriteInt(SpellId);
+            writer.WriteSByte(SpellLevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            position = reader.ReadByte();
-            if (position < 63 || position > 255)
-                throw new Exception("Forbidden value on position = " + position + ", it doesn't respect the following condition : position < 63 || position > 255");
-            spellId = reader.ReadInt();
-            spellLevel = reader.ReadSByte();
-            if (spellLevel < 1 || spellLevel > 6)
-                throw new Exception("Forbidden value on spellLevel = " + spellLevel + ", it doesn't respect the following condition : spellLevel < 1 || spellLevel > 6");
+            Position = reader.ReadByte();
+            SpellId = reader.ReadInt();
+            SpellLevel = reader.ReadSByte();
         }
     }
 }

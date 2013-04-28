@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeIsReadyMessage : NetworkMessage
     {
-        public const uint Id = 5509;
-
-        public int id;
-        public bool ready;
+        public const uint ID = 5509;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
+        public bool Ready { get; set; }
 
 
         public ExchangeIsReadyMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeIsReadyMessage(int id, bool ready)
         {
-            this.id = id;
-            this.ready = ready;
+            Id = id;
+            Ready = ready;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
-            writer.WriteBoolean(ready);
+            writer.WriteInt(Id);
+            writer.WriteBoolean(Ready);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
-            if (id < 0)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0");
-            ready = reader.ReadBoolean();
+            Id = reader.ReadInt();
+            Ready = reader.ReadBoolean();
         }
     }
 }

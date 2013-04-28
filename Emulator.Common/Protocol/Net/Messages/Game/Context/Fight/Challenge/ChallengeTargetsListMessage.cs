@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 {
     public class ChallengeTargetsListMessage : NetworkMessage
     {
-        public const uint Id = 5613;
-
-        public short[] targetCells;
-        public int[] targetIds;
+        public const uint ID = 5613;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] TargetIds { get; set; }
+        public short[] TargetCells { get; set; }
 
 
         public ChallengeTargetsListMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
 
         public ChallengeTargetsListMessage(int[] targetIds, short[] targetCells)
         {
-            this.targetIds = targetIds;
-            this.targetCells = targetCells;
+            TargetIds = targetIds;
+            TargetCells = targetCells;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) targetIds.Length);
-            foreach (var entry in targetIds)
+            writer.WriteUShort((ushort) TargetIds.Length);
+            foreach (var entry in TargetIds)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) targetCells.Length);
-            foreach (var entry in targetCells)
+            writer.WriteUShort((ushort) TargetCells.Length);
+            foreach (var entry in TargetCells)
             {
                 writer.WriteShort(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight.Challenge
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            targetIds = new int[limit];
+            TargetIds = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                targetIds[i] = reader.ReadInt();
+                TargetIds[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            targetCells = new short[limit];
+            TargetCells = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                targetCells[i] = reader.ReadShort();
+                TargetCells[i] = reader.ReadShort();
             }
         }
     }

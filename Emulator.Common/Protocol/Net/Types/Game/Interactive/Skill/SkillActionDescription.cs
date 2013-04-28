@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
 {
     public class SkillActionDescription
     {
-        public const short Id = 102;
-
-        public short skillId;
+        public const short ID = 102;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short SkillId { get; set; }
 
 
         public SkillActionDescription()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
 
         public SkillActionDescription(short skillId)
         {
-            this.skillId = skillId;
+            SkillId = skillId;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(skillId);
+            writer.WriteShort(SkillId);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            skillId = reader.ReadShort();
-            if (skillId < 0)
-                throw new Exception("Forbidden value on skillId = " + skillId + ", it doesn't respect the following condition : skillId < 0");
+            SkillId = reader.ReadShort();
         }
     }
 }

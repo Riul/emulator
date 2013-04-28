@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 {
     public class ObjectGroundRemovedMultipleMessage : NetworkMessage
     {
-        public const uint Id = 5944;
-
-        public short[] cells;
+        public const uint ID = 5944;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Cells { get; set; }
 
 
         public ObjectGroundRemovedMultipleMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 
         public ObjectGroundRemovedMultipleMessage(short[] cells)
         {
-            this.cells = cells;
+            Cells = cells;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) cells.Length);
-            foreach (var entry in cells)
+            writer.WriteUShort((ushort) Cells.Length);
+            foreach (var entry in Cells)
             {
                 writer.WriteShort(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            cells = new short[limit];
+            Cells = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                cells[i] = reader.ReadShort();
+                Cells[i] = reader.ReadShort();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas
 {
     public class AtlasPointInformationsMessage : NetworkMessage
     {
-        public const uint Id = 5956;
-
-        public AtlasPointsInformations type;
+        public const uint ID = 5956;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public AtlasPointsInformations Type { get; set; }
 
 
         public AtlasPointInformationsMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas
 
         public AtlasPointInformationsMessage(AtlasPointsInformations type)
         {
-            this.type = type;
+            Type = type;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            type.Serialize(writer);
+            Type.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            type = new AtlasPointsInformations();
-            type.Deserialize(reader);
+            Type = new AtlasPointsInformations();
+            Type.Deserialize(reader);
         }
     }
 }

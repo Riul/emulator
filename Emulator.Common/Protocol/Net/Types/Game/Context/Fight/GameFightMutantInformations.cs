@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,50 +14,49 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
+using Emulator.Common.Protocol.Net.Types.Game.Character.Status;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class GameFightMutantInformations : GameFightFighterNamedInformations
     {
-        public const short Id = 50;
-
-        public sbyte powerLevel;
+        public const short ID = 50;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PowerLevel { get; set; }
 
 
         public GameFightMutantInformations()
         {
         }
 
-        public GameFightMutantInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, string name, sbyte powerLevel)
-            : base(contextualId, look, disposition, teamId, alive, stats, name)
+        public GameFightMutantInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, string name, PlayerStatus status, sbyte powerLevel)
+                : base(contextualId, look, disposition, teamId, alive, stats, name, status)
         {
-            this.powerLevel = powerLevel;
+            PowerLevel = powerLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(powerLevel);
+            writer.WriteSByte(PowerLevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            powerLevel = reader.ReadSByte();
-            if (powerLevel < 0)
-                throw new Exception("Forbidden value on powerLevel = " + powerLevel + ", it doesn't respect the following condition : powerLevel < 0");
+            PowerLevel = reader.ReadSByte();
         }
     }
 }

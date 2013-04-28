@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
 {
     public class StartupActionsObjetAttributionMessage : NetworkMessage
     {
-        public const uint Id = 1303;
-
-        public int actionId;
-        public int characterId;
+        public const uint ID = 1303;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ActionId { get; set; }
+        public int CharacterId { get; set; }
 
 
         public StartupActionsObjetAttributionMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Startup
 
         public StartupActionsObjetAttributionMessage(int actionId, int characterId)
         {
-            this.actionId = actionId;
-            this.characterId = characterId;
+            ActionId = actionId;
+            CharacterId = characterId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(actionId);
-            writer.WriteInt(characterId);
+            writer.WriteInt(ActionId);
+            writer.WriteInt(CharacterId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            actionId = reader.ReadInt();
-            if (actionId < 0)
-                throw new Exception("Forbidden value on actionId = " + actionId + ", it doesn't respect the following condition : actionId < 0");
-            characterId = reader.ReadInt();
-            if (characterId < 0)
-                throw new Exception("Forbidden value on characterId = " + characterId + ", it doesn't respect the following condition : characterId < 0");
+            ActionId = reader.ReadInt();
+            CharacterId = reader.ReadInt();
         }
     }
 }

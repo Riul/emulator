@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 {
     public class QuestActiveDetailedInformations : QuestActiveInformations
     {
-        public const short Id = 382;
-
-        public QuestObjectiveInformations[] objectives;
-        public short stepId;
+        public const short ID = 382;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short StepId { get; set; }
+        public QuestObjectiveInformations[] Objectives { get; set; }
 
 
         public QuestActiveDetailedInformations()
@@ -39,19 +40,19 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         }
 
         public QuestActiveDetailedInformations(short questId, short stepId, QuestObjectiveInformations[] objectives)
-            : base(questId)
+                : base(questId)
         {
-            this.stepId = stepId;
-            this.objectives = objectives;
+            StepId = stepId;
+            Objectives = objectives;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(stepId);
-            writer.WriteUShort((ushort) objectives.Length);
-            foreach (var entry in objectives)
+            writer.WriteShort(StepId);
+            writer.WriteUShort((ushort) Objectives.Length);
+            foreach (var entry in Objectives)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -61,15 +62,13 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            stepId = reader.ReadShort();
-            if (stepId < 0)
-                throw new Exception("Forbidden value on stepId = " + stepId + ", it doesn't respect the following condition : stepId < 0");
+            StepId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            objectives = new QuestObjectiveInformations[limit];
+            Objectives = new QuestObjectiveInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectives[i] = Types.ProtocolTypeManager.GetInstance<QuestObjectiveInformations>(reader.ReadShort());
-                objectives[i].Deserialize(reader);
+                Objectives[i] = Types.ProtocolTypeManager.GetInstance<QuestObjectiveInformations>(reader.ReadShort());
+                Objectives[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobLevelUpMessage : NetworkMessage
     {
-        public const uint Id = 5656;
-
-        public JobDescription jobsDescription;
-        public sbyte newLevel;
+        public const uint ID = 5656;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte NewLevel { get; set; }
+        public JobDescription JobsDescription { get; set; }
 
 
         public JobLevelUpMessage()
@@ -41,24 +42,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobLevelUpMessage(sbyte newLevel, JobDescription jobsDescription)
         {
-            this.newLevel = newLevel;
-            this.jobsDescription = jobsDescription;
+            NewLevel = newLevel;
+            JobsDescription = jobsDescription;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(newLevel);
-            jobsDescription.Serialize(writer);
+            writer.WriteSByte(NewLevel);
+            JobsDescription.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            newLevel = reader.ReadSByte();
-            if (newLevel < 0)
-                throw new Exception("Forbidden value on newLevel = " + newLevel + ", it doesn't respect the following condition : newLevel < 0");
-            jobsDescription = new JobDescription();
-            jobsDescription.Deserialize(reader);
+            NewLevel = reader.ReadSByte();
+            JobsDescription = new JobDescription();
+            JobsDescription.Deserialize(reader);
         }
     }
 }

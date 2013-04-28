@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeItemObjectAddAsPaymentMessage : NetworkMessage
     {
-        public const uint Id = 5766;
-
-        public bool bAdd;
-        public int objectToMoveId;
-        public sbyte paymentType;
-        public int quantity;
+        public const uint ID = 5766;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PaymentType { get; set; }
+        public bool BAdd { get; set; }
+        public int ObjectToMoveId { get; set; }
+        public int Quantity { get; set; }
 
 
         public ExchangeItemObjectAddAsPaymentMessage()
@@ -42,31 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeItemObjectAddAsPaymentMessage(sbyte paymentType, bool bAdd, int objectToMoveId, int quantity)
         {
-            this.paymentType = paymentType;
-            this.bAdd = bAdd;
-            this.objectToMoveId = objectToMoveId;
-            this.quantity = quantity;
+            PaymentType = paymentType;
+            BAdd = bAdd;
+            ObjectToMoveId = objectToMoveId;
+            Quantity = quantity;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(paymentType);
-            writer.WriteBoolean(bAdd);
-            writer.WriteInt(objectToMoveId);
-            writer.WriteInt(quantity);
+            writer.WriteSByte(PaymentType);
+            writer.WriteBoolean(BAdd);
+            writer.WriteInt(ObjectToMoveId);
+            writer.WriteInt(Quantity);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            paymentType = reader.ReadSByte();
-            bAdd = reader.ReadBoolean();
-            objectToMoveId = reader.ReadInt();
-            if (objectToMoveId < 0)
-                throw new Exception("Forbidden value on objectToMoveId = " + objectToMoveId + ", it doesn't respect the following condition : objectToMoveId < 0");
-            quantity = reader.ReadInt();
-            if (quantity < 0)
-                throw new Exception("Forbidden value on quantity = " + quantity + ", it doesn't respect the following condition : quantity < 0");
+            PaymentType = reader.ReadSByte();
+            BAdd = reader.ReadBoolean();
+            ObjectToMoveId = reader.ReadInt();
+            Quantity = reader.ReadInt();
         }
     }
 }

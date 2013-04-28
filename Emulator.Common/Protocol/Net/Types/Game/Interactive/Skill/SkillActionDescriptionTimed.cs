@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
 {
     public class SkillActionDescriptionTimed : SkillActionDescription
     {
-        public const short Id = 103;
-
-        public byte time;
+        public const short ID = 103;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte Time { get; set; }
 
 
         public SkillActionDescriptionTimed()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill
         }
 
         public SkillActionDescriptionTimed(short skillId, byte time)
-            : base(skillId)
+                : base(skillId)
         {
-            this.time = time;
+            Time = time;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteByte(time);
+            writer.WriteByte(Time);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            time = reader.ReadByte();
-            if (time < 0 || time > 255)
-                throw new Exception("Forbidden value on time = " + time + ", it doesn't respect the following condition : time < 0 || time > 255");
+            Time = reader.ReadByte();
         }
     }
 }

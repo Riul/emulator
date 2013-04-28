@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 {
     public class KrosmasterInventoryMessage : NetworkMessage
     {
-        public const uint Id = 6350;
-
-        public KrosmasterFigure[] figures;
+        public const uint ID = 6350;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public KrosmasterFigure[] Figures { get; set; }
 
 
         public KrosmasterInventoryMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public KrosmasterInventoryMessage(KrosmasterFigure[] figures)
         {
-            this.figures = figures;
+            Figures = figures;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) figures.Length);
-            foreach (var entry in figures)
+            writer.WriteUShort((ushort) Figures.Length);
+            foreach (var entry in Figures)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            figures = new KrosmasterFigure[limit];
+            Figures = new KrosmasterFigure[limit];
             for (int i = 0; i < limit; i++)
             {
-                figures[i] = new KrosmasterFigure();
-                figures[i].Deserialize(reader);
+                Figures[i] = new KrosmasterFigure();
+                Figures[i].Deserialize(reader);
             }
         }
     }

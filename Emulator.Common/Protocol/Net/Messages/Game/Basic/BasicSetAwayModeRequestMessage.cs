@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 {
     public class BasicSetAwayModeRequestMessage : NetworkMessage
     {
-        public const uint Id = 5665;
-
-        public bool enable;
-        public bool invisible;
+        public const uint ID = 5665;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Enable { get; set; }
+        public bool Invisible { get; set; }
 
 
         public BasicSetAwayModeRequestMessage()
@@ -39,24 +41,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Basic
 
         public BasicSetAwayModeRequestMessage(bool enable, bool invisible)
         {
-            this.enable = enable;
-            this.invisible = invisible;
+            Enable = enable;
+            Invisible = invisible;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, enable);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, invisible);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, Enable);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, Invisible);
             writer.WriteByte(flag1);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            enable = BooleanByteWrapper.GetFlag(flag1, 0);
-            invisible = BooleanByteWrapper.GetFlag(flag1, 1);
+            Enable = BooleanByteWrapper.GetFlag(flag1, 0);
+            Invisible = BooleanByteWrapper.GetFlag(flag1, 1);
         }
     }
 }

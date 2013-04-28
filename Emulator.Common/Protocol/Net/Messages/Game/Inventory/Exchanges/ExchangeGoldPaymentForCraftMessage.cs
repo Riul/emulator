@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeGoldPaymentForCraftMessage : NetworkMessage
     {
-        public const uint Id = 5833;
-
-        public int goldSum;
-        public bool onlySuccess;
+        public const uint ID = 5833;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool OnlySuccess { get; set; }
+        public int GoldSum { get; set; }
 
 
         public ExchangeGoldPaymentForCraftMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeGoldPaymentForCraftMessage(bool onlySuccess, int goldSum)
         {
-            this.onlySuccess = onlySuccess;
-            this.goldSum = goldSum;
+            OnlySuccess = onlySuccess;
+            GoldSum = goldSum;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(onlySuccess);
-            writer.WriteInt(goldSum);
+            writer.WriteBoolean(OnlySuccess);
+            writer.WriteInt(GoldSum);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            onlySuccess = reader.ReadBoolean();
-            goldSum = reader.ReadInt();
-            if (goldSum < 0)
-                throw new Exception("Forbidden value on goldSum = " + goldSum + ", it doesn't respect the following condition : goldSum < 0");
+            OnlySuccess = reader.ReadBoolean();
+            GoldSum = reader.ReadInt();
         }
     }
 }

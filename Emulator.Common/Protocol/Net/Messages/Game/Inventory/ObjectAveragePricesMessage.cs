@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory
 {
     public class ObjectAveragePricesMessage : NetworkMessage
     {
-        public const uint Id = 6335;
-
-        public int[] avgPrices;
-        public short[] ids;
+        public const uint ID = 6335;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Ids { get; set; }
+        public int[] AvgPrices { get; set; }
 
 
         public ObjectAveragePricesMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory
 
         public ObjectAveragePricesMessage(short[] ids, int[] avgPrices)
         {
-            this.ids = ids;
-            this.avgPrices = avgPrices;
+            Ids = ids;
+            AvgPrices = avgPrices;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) ids.Length);
-            foreach (var entry in ids)
+            writer.WriteUShort((ushort) Ids.Length);
+            foreach (var entry in Ids)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) avgPrices.Length);
-            foreach (var entry in avgPrices)
+            writer.WriteUShort((ushort) AvgPrices.Length);
+            foreach (var entry in AvgPrices)
             {
                 writer.WriteInt(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            ids = new short[limit];
+            Ids = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                ids[i] = reader.ReadShort();
+                Ids[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            avgPrices = new int[limit];
+            AvgPrices = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                avgPrices[i] = reader.ReadInt();
+                AvgPrices[i] = reader.ReadInt();
             }
         }
     }

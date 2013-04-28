@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,18 +25,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayGroupMonsterInformations : GameRolePlayActorInformations
     {
-        public const short Id = 160;
-
-        public short ageBonus;
-        public sbyte alignmentSide;
-        public bool keyRingBonus;
-        public sbyte lootShare;
-        public GroupMonsterStaticInformations staticInfos;
+        public const short ID = 160;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GroupMonsterStaticInformations StaticInfos { get; set; }
+        public short AgeBonus { get; set; }
+        public sbyte LootShare { get; set; }
+        public sbyte AlignmentSide { get; set; }
+        public bool KeyRingBonus { get; set; }
 
 
         public GameRolePlayGroupMonsterInformations()
@@ -43,40 +44,36 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayGroupMonsterInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, GroupMonsterStaticInformations staticInfos, short ageBonus, sbyte lootShare, sbyte alignmentSide, bool keyRingBonus)
-            : base(contextualId, look, disposition)
+                : base(contextualId, look, disposition)
         {
-            this.staticInfos = staticInfos;
-            this.ageBonus = ageBonus;
-            this.lootShare = lootShare;
-            this.alignmentSide = alignmentSide;
-            this.keyRingBonus = keyRingBonus;
+            StaticInfos = staticInfos;
+            AgeBonus = ageBonus;
+            LootShare = lootShare;
+            AlignmentSide = alignmentSide;
+            KeyRingBonus = keyRingBonus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(staticInfos.TypeId);
-            staticInfos.Serialize(writer);
-            writer.WriteShort(ageBonus);
-            writer.WriteSByte(lootShare);
-            writer.WriteSByte(alignmentSide);
-            writer.WriteBoolean(keyRingBonus);
+            writer.WriteShort(StaticInfos.TypeId);
+            StaticInfos.Serialize(writer);
+            writer.WriteShort(AgeBonus);
+            writer.WriteSByte(LootShare);
+            writer.WriteSByte(AlignmentSide);
+            writer.WriteBoolean(KeyRingBonus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            staticInfos = Types.ProtocolTypeManager.GetInstance<GroupMonsterStaticInformations>(reader.ReadShort());
-            staticInfos.Deserialize(reader);
-            ageBonus = reader.ReadShort();
-            if (ageBonus < -1 || ageBonus > 1000)
-                throw new Exception("Forbidden value on ageBonus = " + ageBonus + ", it doesn't respect the following condition : ageBonus < -1 || ageBonus > 1000");
-            lootShare = reader.ReadSByte();
-            if (lootShare < -1 || lootShare > 8)
-                throw new Exception("Forbidden value on lootShare = " + lootShare + ", it doesn't respect the following condition : lootShare < -1 || lootShare > 8");
-            alignmentSide = reader.ReadSByte();
-            keyRingBonus = reader.ReadBoolean();
+            StaticInfos = Types.ProtocolTypeManager.GetInstance<GroupMonsterStaticInformations>(reader.ReadShort());
+            StaticInfos.Deserialize(reader);
+            AgeBonus = reader.ReadShort();
+            LootShare = reader.ReadSByte();
+            AlignmentSide = reader.ReadSByte();
+            KeyRingBonus = reader.ReadBoolean();
         }
     }
 }

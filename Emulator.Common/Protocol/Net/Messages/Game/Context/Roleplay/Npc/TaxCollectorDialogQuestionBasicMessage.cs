@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 {
     public class TaxCollectorDialogQuestionBasicMessage : NetworkMessage
     {
-        public const uint Id = 5619;
-
-        public BasicGuildInformations guildInfo;
+        public const uint ID = 5619;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public BasicGuildInformations GuildInfo { get; set; }
 
 
         public TaxCollectorDialogQuestionBasicMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public TaxCollectorDialogQuestionBasicMessage(BasicGuildInformations guildInfo)
         {
-            this.guildInfo = guildInfo;
+            GuildInfo = guildInfo;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            guildInfo.Serialize(writer);
+            GuildInfo.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            guildInfo = new BasicGuildInformations();
-            guildInfo.Deserialize(reader);
+            GuildInfo = new BasicGuildInformations();
+            GuildInfo.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class MapCoordinatesAndId : MapCoordinates
     {
-        public const short Id = 392;
-
-        public int mapId;
+        public const short ID = 392;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MapId { get; set; }
 
 
         public MapCoordinatesAndId()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         }
 
         public MapCoordinatesAndId(short worldX, short worldY, int mapId)
-            : base(worldX, worldY)
+                : base(worldX, worldY)
         {
-            this.mapId = mapId;
+            MapId = mapId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(mapId);
+            writer.WriteInt(MapId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            mapId = reader.ReadInt();
+            MapId = reader.ReadInt();
         }
     }
 }

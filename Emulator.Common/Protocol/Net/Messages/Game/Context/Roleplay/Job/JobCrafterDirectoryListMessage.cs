@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobCrafterDirectoryListMessage : NetworkMessage
     {
-        public const uint Id = 6046;
-
-        public JobCrafterDirectoryListEntry[] listEntries;
+        public const uint ID = 6046;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobCrafterDirectoryListEntry[] ListEntries { get; set; }
 
 
         public JobCrafterDirectoryListMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobCrafterDirectoryListMessage(JobCrafterDirectoryListEntry[] listEntries)
         {
-            this.listEntries = listEntries;
+            ListEntries = listEntries;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) listEntries.Length);
-            foreach (var entry in listEntries)
+            writer.WriteUShort((ushort) ListEntries.Length);
+            foreach (var entry in ListEntries)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            listEntries = new JobCrafterDirectoryListEntry[limit];
+            ListEntries = new JobCrafterDirectoryListEntry[limit];
             for (int i = 0; i < limit; i++)
             {
-                listEntries[i] = new JobCrafterDirectoryListEntry();
-                listEntries[i].Deserialize(reader);
+                ListEntries[i] = new JobCrafterDirectoryListEntry();
+                ListEntries[i].Deserialize(reader);
             }
         }
     }

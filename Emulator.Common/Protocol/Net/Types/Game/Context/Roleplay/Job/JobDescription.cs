@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Interactive.Skill;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
 {
     public class JobDescription
     {
-        public const short Id = 101;
-
-        public sbyte jobId;
-        public SkillActionDescription[] skills;
+        public const short ID = 101;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte JobId { get; set; }
+        public SkillActionDescription[] Skills { get; set; }
 
 
         public JobDescription()
@@ -41,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
 
         public JobDescription(sbyte jobId, SkillActionDescription[] skills)
         {
-            this.jobId = jobId;
-            this.skills = skills;
+            JobId = jobId;
+            Skills = skills;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(jobId);
-            writer.WriteUShort((ushort) skills.Length);
-            foreach (var entry in skills)
+            writer.WriteSByte(JobId);
+            writer.WriteUShort((ushort) Skills.Length);
+            foreach (var entry in Skills)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -59,15 +60,13 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Job
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            jobId = reader.ReadSByte();
-            if (jobId < 0)
-                throw new Exception("Forbidden value on jobId = " + jobId + ", it doesn't respect the following condition : jobId < 0");
+            JobId = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            skills = new SkillActionDescription[limit];
+            Skills = new SkillActionDescription[limit];
             for (int i = 0; i < limit; i++)
             {
-                skills[i] = Types.ProtocolTypeManager.GetInstance<SkillActionDescription>(reader.ReadShort());
-                skills[i].Deserialize(reader);
+                Skills[i] = Types.ProtocolTypeManager.GetInstance<SkillActionDescription>(reader.ReadShort());
+                Skills[i].Deserialize(reader);
             }
         }
     }

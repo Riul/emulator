@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 {
     public class TaxCollectorMovementRemoveMessage : NetworkMessage
     {
-        public const uint Id = 5915;
-
-        public int collectorId;
+        public const uint ID = 5915;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CollectorId { get; set; }
 
 
         public TaxCollectorMovementRemoveMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public TaxCollectorMovementRemoveMessage(int collectorId)
         {
-            this.collectorId = collectorId;
+            CollectorId = collectorId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(collectorId);
+            writer.WriteInt(CollectorId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            collectorId = reader.ReadInt();
+            CollectorId = reader.ReadInt();
         }
     }
 }

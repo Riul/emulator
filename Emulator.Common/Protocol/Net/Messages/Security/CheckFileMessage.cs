@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Security
 {
     public class CheckFileMessage : NetworkMessage
     {
-        public const uint Id = 6156;
-
-        public string filenameHash;
-        public sbyte type;
-        public string value;
+        public const uint ID = 6156;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string FilenameHash { get; set; }
+        public sbyte Type { get; set; }
+        public string Value { get; set; }
 
 
         public CheckFileMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Security
 
         public CheckFileMessage(string filenameHash, sbyte type, string value)
         {
-            this.filenameHash = filenameHash;
-            this.type = type;
-            this.value = value;
+            FilenameHash = filenameHash;
+            Type = type;
+            Value = value;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(filenameHash);
-            writer.WriteSByte(type);
-            writer.WriteUTF(value);
+            writer.WriteUTF(FilenameHash);
+            writer.WriteSByte(Type);
+            writer.WriteUTF(Value);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            filenameHash = reader.ReadUTF();
-            type = reader.ReadSByte();
-            if (type < 0)
-                throw new Exception("Forbidden value on type = " + type + ", it doesn't respect the following condition : type < 0");
-            value = reader.ReadUTF();
+            FilenameHash = reader.ReadUTF();
+            Type = reader.ReadSByte();
+            Value = reader.ReadUTF();
         }
     }
 }

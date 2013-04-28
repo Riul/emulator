@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightTurnStartSlaveMessage : GameFightTurnStartMessage
     {
-        public const uint Id = 6213;
-
-        public int idSummoner;
+        public const uint ID = 6213;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int IdSummoner { get; set; }
 
 
         public GameFightTurnStartSlaveMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         }
 
         public GameFightTurnStartSlaveMessage(int id, int waitTime, int idSummoner)
-            : base(id, waitTime)
+                : base(id, waitTime)
         {
-            this.idSummoner = idSummoner;
+            IdSummoner = idSummoner;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(idSummoner);
+            writer.WriteInt(IdSummoner);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            idSummoner = reader.ReadInt();
+            IdSummoner = reader.ReadInt();
         }
     }
 }

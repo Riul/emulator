@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeStartOkHumanVendorMessage : NetworkMessage
     {
-        public const uint Id = 5767;
-
-        public ObjectItemToSellInHumanVendorShop[] objectsInfos;
-        public int sellerId;
+        public const uint ID = 5767;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SellerId { get; set; }
+        public ObjectItemToSellInHumanVendorShop[] ObjectsInfos { get; set; }
 
 
         public ExchangeStartOkHumanVendorMessage()
@@ -41,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeStartOkHumanVendorMessage(int sellerId, ObjectItemToSellInHumanVendorShop[] objectsInfos)
         {
-            this.sellerId = sellerId;
-            this.objectsInfos = objectsInfos;
+            SellerId = sellerId;
+            ObjectsInfos = objectsInfos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(sellerId);
-            writer.WriteUShort((ushort) objectsInfos.Length);
-            foreach (var entry in objectsInfos)
+            writer.WriteInt(SellerId);
+            writer.WriteUShort((ushort) ObjectsInfos.Length);
+            foreach (var entry in ObjectsInfos)
             {
                 entry.Serialize(writer);
             }
@@ -58,15 +59,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public override void Deserialize(BigEndianReader reader)
         {
-            sellerId = reader.ReadInt();
-            if (sellerId < 0)
-                throw new Exception("Forbidden value on sellerId = " + sellerId + ", it doesn't respect the following condition : sellerId < 0");
+            SellerId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            objectsInfos = new ObjectItemToSellInHumanVendorShop[limit];
+            ObjectsInfos = new ObjectItemToSellInHumanVendorShop[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectsInfos[i] = new ObjectItemToSellInHumanVendorShop();
-                objectsInfos[i].Deserialize(reader);
+                ObjectsInfos[i] = new ObjectItemToSellInHumanVendorShop();
+                ObjectsInfos[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightDispellEffectMessage : GameActionFightDispellMessage
     {
-        public const uint Id = 6113;
-
-        public int boostUID;
+        public const uint ID = 6113;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int BoostUID { get; set; }
 
 
         public GameActionFightDispellEffectMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightDispellEffectMessage(short actionId, int sourceId, int targetId, int boostUID)
-            : base(actionId, sourceId, targetId)
+                : base(actionId, sourceId, targetId)
         {
-            this.boostUID = boostUID;
+            BoostUID = boostUID;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(boostUID);
+            writer.WriteInt(BoostUID);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            boostUID = reader.ReadInt();
-            if (boostUID < 0)
-                throw new Exception("Forbidden value on boostUID = " + boostUID + ", it doesn't respect the following condition : boostUID < 0");
+            BoostUID = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,60 +14,59 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Character.Alignment;
+using Emulator.Common.Protocol.Net.Types.Game.Character.Status;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class GameFightCharacterInformations : GameFightFighterNamedInformations
     {
-        public const short Id = 46;
-
-        public ActorAlignmentInformations alignmentInfos;
-        public sbyte breed;
-        public short level;
+        public const short ID = 46;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Level { get; set; }
+        public ActorAlignmentInformations AlignmentInfos { get; set; }
+        public sbyte Breed { get; set; }
 
 
         public GameFightCharacterInformations()
         {
         }
 
-        public GameFightCharacterInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, string name, short level, ActorAlignmentInformations alignmentInfos, sbyte breed)
-            : base(contextualId, look, disposition, teamId, alive, stats, name)
+        public GameFightCharacterInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, sbyte teamId, bool alive, GameFightMinimalStats stats, string name, PlayerStatus status, short level, ActorAlignmentInformations alignmentInfos, sbyte breed)
+                : base(contextualId, look, disposition, teamId, alive, stats, name, status)
         {
-            this.level = level;
-            this.alignmentInfos = alignmentInfos;
-            this.breed = breed;
+            Level = level;
+            AlignmentInfos = alignmentInfos;
+            Breed = breed;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(level);
-            alignmentInfos.Serialize(writer);
-            writer.WriteSByte(breed);
+            writer.WriteShort(Level);
+            AlignmentInfos.Serialize(writer);
+            writer.WriteSByte(Breed);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            level = reader.ReadShort();
-            if (level < 0)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 0");
-            alignmentInfos = new ActorAlignmentInformations();
-            alignmentInfos.Deserialize(reader);
-            breed = reader.ReadSByte();
+            Level = reader.ReadShort();
+            AlignmentInfos = new ActorAlignmentInformations();
+            AlignmentInfos.Deserialize(reader);
+            Breed = reader.ReadSByte();
         }
     }
 }

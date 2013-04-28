@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInvitedMessage : NetworkMessage
     {
-        public const uint Id = 5552;
-        public BasicGuildInformations guildInfo;
-
-        public int recruterId;
-        public string recruterName;
+        public const uint ID = 5552;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int RecruterId { get; set; }
+        public string RecruterName { get; set; }
+        public BasicGuildInformations GuildInfo { get; set; }
 
 
         public GuildInvitedMessage()
@@ -42,27 +43,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInvitedMessage(int recruterId, string recruterName, BasicGuildInformations guildInfo)
         {
-            this.recruterId = recruterId;
-            this.recruterName = recruterName;
-            this.guildInfo = guildInfo;
+            RecruterId = recruterId;
+            RecruterName = recruterName;
+            GuildInfo = guildInfo;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(recruterId);
-            writer.WriteUTF(recruterName);
-            guildInfo.Serialize(writer);
+            writer.WriteInt(RecruterId);
+            writer.WriteUTF(RecruterName);
+            GuildInfo.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            recruterId = reader.ReadInt();
-            if (recruterId < 0)
-                throw new Exception("Forbidden value on recruterId = " + recruterId + ", it doesn't respect the following condition : recruterId < 0");
-            recruterName = reader.ReadUTF();
-            guildInfo = new BasicGuildInformations();
-            guildInfo.Deserialize(reader);
+            RecruterId = reader.ReadInt();
+            RecruterName = reader.ReadUTF();
+            GuildInfo = new BasicGuildInformations();
+            GuildInfo.Deserialize(reader);
         }
     }
 }

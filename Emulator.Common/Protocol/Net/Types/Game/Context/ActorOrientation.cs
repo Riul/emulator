@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class ActorOrientation
     {
-        public const short Id = 353;
-
-        public sbyte direction;
-        public int id;
+        public const short ID = 353;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
+        public sbyte Direction { get; set; }
 
 
         public ActorOrientation()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 
         public ActorOrientation(int id, sbyte direction)
         {
-            this.id = id;
-            this.direction = direction;
+            Id = id;
+            Direction = direction;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
-            writer.WriteSByte(direction);
+            writer.WriteInt(Id);
+            writer.WriteSByte(Direction);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
-            direction = reader.ReadSByte();
-            if (direction < 0)
-                throw new Exception("Forbidden value on direction = " + direction + ", it doesn't respect the following condition : direction < 0");
+            Id = reader.ReadInt();
+            Direction = reader.ReadSByte();
         }
     }
 }

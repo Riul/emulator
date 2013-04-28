@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
@@ -25,22 +26,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
 {
     public class FriendSpouseInformations
     {
-        public const short Id = 77;
-        public sbyte alignmentSide;
-
-        public sbyte breed;
-        public BasicGuildInformations guildInfo;
-        public sbyte sex;
-        public int spouseAccountId;
-        public EntityLook spouseEntityLook;
-        public int spouseId;
-        public byte spouseLevel;
-        public string spouseName;
+        public const short ID = 77;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SpouseAccountId { get; set; }
+        public int SpouseId { get; set; }
+        public string SpouseName { get; set; }
+        public byte SpouseLevel { get; set; }
+        public sbyte Breed { get; set; }
+        public sbyte Sex { get; set; }
+        public EntityLook SpouseEntityLook { get; set; }
+        public BasicGuildInformations GuildInfo { get; set; }
+        public sbyte AlignmentSide { get; set; }
 
 
         public FriendSpouseInformations()
@@ -49,50 +50,44 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Friend
 
         public FriendSpouseInformations(int spouseAccountId, int spouseId, string spouseName, byte spouseLevel, sbyte breed, sbyte sex, EntityLook spouseEntityLook, BasicGuildInformations guildInfo, sbyte alignmentSide)
         {
-            this.spouseAccountId = spouseAccountId;
-            this.spouseId = spouseId;
-            this.spouseName = spouseName;
-            this.spouseLevel = spouseLevel;
-            this.breed = breed;
-            this.sex = sex;
-            this.spouseEntityLook = spouseEntityLook;
-            this.guildInfo = guildInfo;
-            this.alignmentSide = alignmentSide;
+            SpouseAccountId = spouseAccountId;
+            SpouseId = spouseId;
+            SpouseName = spouseName;
+            SpouseLevel = spouseLevel;
+            Breed = breed;
+            Sex = sex;
+            SpouseEntityLook = spouseEntityLook;
+            GuildInfo = guildInfo;
+            AlignmentSide = alignmentSide;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(spouseAccountId);
-            writer.WriteInt(spouseId);
-            writer.WriteUTF(spouseName);
-            writer.WriteByte(spouseLevel);
-            writer.WriteSByte(breed);
-            writer.WriteSByte(sex);
-            spouseEntityLook.Serialize(writer);
-            guildInfo.Serialize(writer);
-            writer.WriteSByte(alignmentSide);
+            writer.WriteInt(SpouseAccountId);
+            writer.WriteInt(SpouseId);
+            writer.WriteUTF(SpouseName);
+            writer.WriteByte(SpouseLevel);
+            writer.WriteSByte(Breed);
+            writer.WriteSByte(Sex);
+            SpouseEntityLook.Serialize(writer);
+            GuildInfo.Serialize(writer);
+            writer.WriteSByte(AlignmentSide);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            spouseAccountId = reader.ReadInt();
-            if (spouseAccountId < 0)
-                throw new Exception("Forbidden value on spouseAccountId = " + spouseAccountId + ", it doesn't respect the following condition : spouseAccountId < 0");
-            spouseId = reader.ReadInt();
-            if (spouseId < 0)
-                throw new Exception("Forbidden value on spouseId = " + spouseId + ", it doesn't respect the following condition : spouseId < 0");
-            spouseName = reader.ReadUTF();
-            spouseLevel = reader.ReadByte();
-            if (spouseLevel < 1 || spouseLevel > 200)
-                throw new Exception("Forbidden value on spouseLevel = " + spouseLevel + ", it doesn't respect the following condition : spouseLevel < 1 || spouseLevel > 200");
-            breed = reader.ReadSByte();
-            sex = reader.ReadSByte();
-            spouseEntityLook = new EntityLook();
-            spouseEntityLook.Deserialize(reader);
-            guildInfo = new BasicGuildInformations();
-            guildInfo.Deserialize(reader);
-            alignmentSide = reader.ReadSByte();
+            SpouseAccountId = reader.ReadInt();
+            SpouseId = reader.ReadInt();
+            SpouseName = reader.ReadUTF();
+            SpouseLevel = reader.ReadByte();
+            Breed = reader.ReadSByte();
+            Sex = reader.ReadSByte();
+            SpouseEntityLook = new EntityLook();
+            SpouseEntityLook.Deserialize(reader);
+            GuildInfo = new BasicGuildInformations();
+            GuildInfo.Deserialize(reader);
+            AlignmentSide = reader.ReadSByte();
         }
     }
 }

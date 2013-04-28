@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
 {
     public class AbstractGameActionWithAckMessage : AbstractGameActionMessage
     {
-        public const uint Id = 1001;
-
-        public short waitAckId;
+        public const uint ID = 1001;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short WaitAckId { get; set; }
 
 
         public AbstractGameActionWithAckMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions
         }
 
         public AbstractGameActionWithAckMessage(short actionId, int sourceId, short waitAckId)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.waitAckId = waitAckId;
+            WaitAckId = waitAckId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(waitAckId);
+            writer.WriteShort(WaitAckId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            waitAckId = reader.ReadShort();
+            WaitAckId = reader.ReadShort();
         }
     }
 }

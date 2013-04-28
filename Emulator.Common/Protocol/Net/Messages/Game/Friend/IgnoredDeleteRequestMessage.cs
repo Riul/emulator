@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,38 +24,38 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class IgnoredDeleteRequestMessage : NetworkMessage
     {
-        public const uint Id = 5680;
-
-        public string name;
-        public bool session;
+        public const uint ID = 5680;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int AccountId { get; set; }
+        public bool Session { get; set; }
 
 
         public IgnoredDeleteRequestMessage()
         {
         }
 
-        public IgnoredDeleteRequestMessage(string name, bool session)
+        public IgnoredDeleteRequestMessage(int accountId, bool session)
         {
-            this.name = name;
-            this.session = session;
+            AccountId = accountId;
+            Session = session;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(name);
-            writer.WriteBoolean(session);
+            writer.WriteInt(AccountId);
+            writer.WriteBoolean(Session);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            name = reader.ReadUTF();
-            session = reader.ReadBoolean();
+            AccountId = reader.ReadInt();
+            Session = reader.ReadBoolean();
         }
     }
 }

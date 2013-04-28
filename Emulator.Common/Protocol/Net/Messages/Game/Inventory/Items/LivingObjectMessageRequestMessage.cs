@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class LivingObjectMessageRequestMessage : NetworkMessage
     {
-        public const uint Id = 6066;
-        public uint livingObject;
-
-        public short msgId;
-        public string[] parameters;
+        public const uint ID = 6066;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short MsgId { get; set; }
+        public string[] Parameters { get; set; }
+        public uint LivingObject { get; set; }
 
 
         public LivingObjectMessageRequestMessage()
@@ -41,37 +42,33 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public LivingObjectMessageRequestMessage(short msgId, string[] parameters, uint livingObject)
         {
-            this.msgId = msgId;
-            this.parameters = parameters;
-            this.livingObject = livingObject;
+            MsgId = msgId;
+            Parameters = parameters;
+            LivingObject = livingObject;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(msgId);
-            writer.WriteUShort((ushort) parameters.Length);
-            foreach (var entry in parameters)
+            writer.WriteShort(MsgId);
+            writer.WriteUShort((ushort) Parameters.Length);
+            foreach (var entry in Parameters)
             {
                 writer.WriteUTF(entry);
             }
-            writer.WriteUInt(livingObject);
+            writer.WriteUInt(LivingObject);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            msgId = reader.ReadShort();
-            if (msgId < 0)
-                throw new Exception("Forbidden value on msgId = " + msgId + ", it doesn't respect the following condition : msgId < 0");
+            MsgId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            parameters = new string[limit];
+            Parameters = new string[limit];
             for (int i = 0; i < limit; i++)
             {
-                parameters[i] = reader.ReadUTF();
+                Parameters[i] = reader.ReadUTF();
             }
-            livingObject = reader.ReadUInt();
-            if (livingObject < 0 || livingObject > 4294967295)
-                throw new Exception("Forbidden value on livingObject = " + livingObject + ", it doesn't respect the following condition : livingObject < 0 || livingObject > 4294967295");
+            LivingObject = reader.ReadUInt();
         }
     }
 }

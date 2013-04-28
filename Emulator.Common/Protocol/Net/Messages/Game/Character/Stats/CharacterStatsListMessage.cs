@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 {
     public class CharacterStatsListMessage : NetworkMessage
     {
-        public const uint Id = 500;
-
-        public CharacterCharacteristicsInformations stats;
+        public const uint ID = 500;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public CharacterCharacteristicsInformations Stats { get; set; }
 
 
         public CharacterStatsListMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 
         public CharacterStatsListMessage(CharacterCharacteristicsInformations stats)
         {
-            this.stats = stats;
+            Stats = stats;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            stats.Serialize(writer);
+            Stats.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            stats = new CharacterCharacteristicsInformations();
-            stats.Deserialize(reader);
+            Stats = new CharacterCharacteristicsInformations();
+            Stats.Deserialize(reader);
         }
     }
 }

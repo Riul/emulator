@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,90 +14,72 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
+using Emulator.Common.Protocol.Net.Types.Game.Context.Fight;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 {
     public class MapRunningFightDetailsMessage : NetworkMessage
     {
-        public const uint Id = 5751;
-        public bool[] alives;
-
-        public int fightId;
-        public short[] levels;
-        public string[] names;
-        public sbyte teamSwap;
+        public const uint ID = 5751;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
+        public GameFightFighterLightInformations[] Attackers { get; set; }
+        public GameFightFighterLightInformations[] Defenders { get; set; }
 
 
         public MapRunningFightDetailsMessage()
         {
         }
 
-        public MapRunningFightDetailsMessage(int fightId, string[] names, short[] levels, sbyte teamSwap, bool[] alives)
+        public MapRunningFightDetailsMessage(int fightId, GameFightFighterLightInformations[] attackers, GameFightFighterLightInformations[] defenders)
         {
-            this.fightId = fightId;
-            this.names = names;
-            this.levels = levels;
-            this.teamSwap = teamSwap;
-            this.alives = alives;
+            FightId = fightId;
+            Attackers = attackers;
+            Defenders = defenders;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
-            writer.WriteUShort((ushort) names.Length);
-            foreach (var entry in names)
+            writer.WriteInt(FightId);
+            writer.WriteUShort((ushort) Attackers.Length);
+            foreach (var entry in Attackers)
             {
-                writer.WriteUTF(entry);
+                entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) levels.Length);
-            foreach (var entry in levels)
+            writer.WriteUShort((ushort) Defenders.Length);
+            foreach (var entry in Defenders)
             {
-                writer.WriteShort(entry);
-            }
-            writer.WriteSByte(teamSwap);
-            writer.WriteUShort((ushort) alives.Length);
-            foreach (var entry in alives)
-            {
-                writer.WriteBoolean(entry);
+                entry.Serialize(writer);
             }
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
+            FightId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            names = new string[limit];
+            Attackers = new GameFightFighterLightInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                names[i] = reader.ReadUTF();
+                Attackers[i] = new GameFightFighterLightInformations();
+                Attackers[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            levels = new short[limit];
+            Defenders = new GameFightFighterLightInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                levels[i] = reader.ReadShort();
-            }
-            teamSwap = reader.ReadSByte();
-            if (teamSwap < 0)
-                throw new Exception("Forbidden value on teamSwap = " + teamSwap + ", it doesn't respect the following condition : teamSwap < 0");
-            limit = reader.ReadUShort();
-            alives = new bool[limit];
-            for (int i = 0; i < limit; i++)
-            {
-                alives[i] = reader.ReadBoolean();
+                Defenders[i] = new GameFightFighterLightInformations();
+                Defenders[i].Deserialize(reader);
             }
         }
     }

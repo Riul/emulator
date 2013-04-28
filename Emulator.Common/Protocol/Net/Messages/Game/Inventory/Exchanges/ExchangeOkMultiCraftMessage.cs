@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeOkMultiCraftMessage : NetworkMessage
     {
-        public const uint Id = 5768;
-
-        public int initiatorId;
-        public int otherId;
-        public sbyte role;
+        public const uint ID = 5768;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int InitiatorId { get; set; }
+        public int OtherId { get; set; }
+        public sbyte Role { get; set; }
 
 
         public ExchangeOkMultiCraftMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeOkMultiCraftMessage(int initiatorId, int otherId, sbyte role)
         {
-            this.initiatorId = initiatorId;
-            this.otherId = otherId;
-            this.role = role;
+            InitiatorId = initiatorId;
+            OtherId = otherId;
+            Role = role;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(initiatorId);
-            writer.WriteInt(otherId);
-            writer.WriteSByte(role);
+            writer.WriteInt(InitiatorId);
+            writer.WriteInt(OtherId);
+            writer.WriteSByte(Role);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            initiatorId = reader.ReadInt();
-            if (initiatorId < 0)
-                throw new Exception("Forbidden value on initiatorId = " + initiatorId + ", it doesn't respect the following condition : initiatorId < 0");
-            otherId = reader.ReadInt();
-            if (otherId < 0)
-                throw new Exception("Forbidden value on otherId = " + otherId + ", it doesn't respect the following condition : otherId < 0");
-            role = reader.ReadSByte();
+            InitiatorId = reader.ReadInt();
+            OtherId = reader.ReadInt();
+            Role = reader.ReadSByte();
         }
     }
 }

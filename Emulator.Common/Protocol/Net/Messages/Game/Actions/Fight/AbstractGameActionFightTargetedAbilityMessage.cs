@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class AbstractGameActionFightTargetedAbilityMessage : AbstractGameActionMessage
     {
-        public const uint Id = 6118;
-
-        public sbyte critical;
-        public short destinationCellId;
-        public bool silentCast;
-        public int targetId;
+        public const uint ID = 6118;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public short DestinationCellId { get; set; }
+        public sbyte Critical { get; set; }
+        public bool SilentCast { get; set; }
 
 
         public AbstractGameActionFightTargetedAbilityMessage()
@@ -41,35 +42,31 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public AbstractGameActionFightTargetedAbilityMessage(short actionId, int sourceId, int targetId, short destinationCellId, sbyte critical, bool silentCast)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.destinationCellId = destinationCellId;
-            this.critical = critical;
-            this.silentCast = silentCast;
+            TargetId = targetId;
+            DestinationCellId = destinationCellId;
+            Critical = critical;
+            SilentCast = silentCast;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteShort(destinationCellId);
-            writer.WriteSByte(critical);
-            writer.WriteBoolean(silentCast);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(DestinationCellId);
+            writer.WriteSByte(Critical);
+            writer.WriteBoolean(SilentCast);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            destinationCellId = reader.ReadShort();
-            if (destinationCellId < -1 || destinationCellId > 559)
-                throw new Exception("Forbidden value on destinationCellId = " + destinationCellId + ", it doesn't respect the following condition : destinationCellId < -1 || destinationCellId > 559");
-            critical = reader.ReadSByte();
-            if (critical < 0)
-                throw new Exception("Forbidden value on critical = " + critical + ", it doesn't respect the following condition : critical < 0");
-            silentCast = reader.ReadBoolean();
+            TargetId = reader.ReadInt();
+            DestinationCellId = reader.ReadShort();
+            Critical = reader.ReadSByte();
+            SilentCast = reader.ReadBoolean();
         }
     }
 }

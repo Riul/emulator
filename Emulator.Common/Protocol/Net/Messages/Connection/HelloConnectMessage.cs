@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,46 +24,46 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
 {
     public class HelloConnectMessage : NetworkMessage
     {
-        public const uint Id = 3;
-
-        public byte[] key;
-        public string salt;
+        public const uint ID = 3;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Salt { get; set; }
+        public sbyte[] Key { get; set; }
 
 
         public HelloConnectMessage()
         {
         }
 
-        public HelloConnectMessage(string salt, byte[] key)
+        public HelloConnectMessage(string salt, sbyte[] key)
         {
-            this.salt = salt;
-            this.key = key;
+            Salt = salt;
+            Key = key;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(salt);
-            writer.WriteUShort((ushort) key.Length);
-            foreach (var entry in key)
+            writer.WriteUTF(Salt);
+            writer.WriteUShort((ushort) Key.Length);
+            foreach (var entry in Key)
             {
-                writer.WriteByte(entry);
+                writer.WriteSByte(entry);
             }
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            salt = reader.ReadUTF();
+            Salt = reader.ReadUTF();
             var limit = reader.ReadUShort();
-            key = new byte[limit];
+            Key = new sbyte[limit];
             for (int i = 0; i < limit; i++)
             {
-                key[i] = reader.ReadByte();
+                Key[i] = reader.ReadSByte();
             }
         }
     }

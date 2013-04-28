@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Queues
 {
     public class LoginQueueStatusMessage : NetworkMessage
     {
-        public const uint Id = 10;
-
-        public ushort position;
-        public ushort total;
+        public const uint ID = 10;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ushort Position { get; set; }
+        public ushort Total { get; set; }
 
 
         public LoginQueueStatusMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Queues
 
         public LoginQueueStatusMessage(ushort position, ushort total)
         {
-            this.position = position;
-            this.total = total;
+            Position = position;
+            Total = total;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort(position);
-            writer.WriteUShort(total);
+            writer.WriteUShort(Position);
+            writer.WriteUShort(Total);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            position = reader.ReadUShort();
-            if (position < 0 || position > 65535)
-                throw new Exception("Forbidden value on position = " + position + ", it doesn't respect the following condition : position < 0 || position > 65535");
-            total = reader.ReadUShort();
-            if (total < 0 || total > 65535)
-                throw new Exception("Forbidden value on total = " + total + ", it doesn't respect the following condition : total < 0 || total > 65535");
+            Position = reader.ReadUShort();
+            Total = reader.ReadUShort();
         }
     }
 }

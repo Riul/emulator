@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class GoldItem : Item
     {
-        public const short Id = 123;
-
-        public int sum;
+        public const short ID = 123;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Sum { get; set; }
 
 
         public GoldItem()
@@ -39,22 +40,20 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 
         public GoldItem(int sum)
         {
-            this.sum = sum;
+            Sum = sum;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(sum);
+            writer.WriteInt(Sum);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            sum = reader.ReadInt();
-            if (sum < 0)
-                throw new Exception("Forbidden value on sum = " + sum + ", it doesn't respect the following condition : sum < 0");
+            Sum = reader.ReadInt();
         }
     }
 }

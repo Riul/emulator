@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 {
     public class ShortcutSmiley : Shortcut
     {
-        public const short Id = 388;
-
-        public sbyte smileyId;
+        public const short ID = 388;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte SmileyId { get; set; }
 
 
         public ShortcutSmiley()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
         }
 
         public ShortcutSmiley(int slot, sbyte smileyId)
-            : base(slot)
+                : base(slot)
         {
-            this.smileyId = smileyId;
+            SmileyId = smileyId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(smileyId);
+            writer.WriteSByte(SmileyId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            smileyId = reader.ReadSByte();
-            if (smileyId < 0)
-                throw new Exception("Forbidden value on smileyId = " + smileyId + ", it doesn't respect the following condition : smileyId < 0");
+            SmileyId = reader.ReadSByte();
         }
     }
 }

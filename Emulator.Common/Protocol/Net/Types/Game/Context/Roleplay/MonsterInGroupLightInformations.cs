@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class MonsterInGroupLightInformations
     {
-        public const short Id = 395;
-
-        public int creatureGenericId;
-        public sbyte grade;
+        public const short ID = 395;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CreatureGenericId { get; set; }
+        public sbyte Grade { get; set; }
 
 
         public MonsterInGroupLightInformations()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public MonsterInGroupLightInformations(int creatureGenericId, sbyte grade)
         {
-            this.creatureGenericId = creatureGenericId;
-            this.grade = grade;
+            CreatureGenericId = creatureGenericId;
+            Grade = grade;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(creatureGenericId);
-            writer.WriteSByte(grade);
+            writer.WriteInt(CreatureGenericId);
+            writer.WriteSByte(Grade);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            creatureGenericId = reader.ReadInt();
-            grade = reader.ReadSByte();
-            if (grade < 0)
-                throw new Exception("Forbidden value on grade = " + grade + ", it doesn't respect the following condition : grade < 0");
+            CreatureGenericId = reader.ReadInt();
+            Grade = reader.ReadSByte();
         }
     }
 }

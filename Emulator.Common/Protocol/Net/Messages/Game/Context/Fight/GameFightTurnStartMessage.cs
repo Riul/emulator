@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightTurnStartMessage : NetworkMessage
     {
-        public const uint Id = 714;
-
-        public int id;
-        public int waitTime;
+        public const uint ID = 714;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
+        public int WaitTime { get; set; }
 
 
         public GameFightTurnStartMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightTurnStartMessage(int id, int waitTime)
         {
-            this.id = id;
-            this.waitTime = waitTime;
+            Id = id;
+            WaitTime = waitTime;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
-            writer.WriteInt(waitTime);
+            writer.WriteInt(Id);
+            writer.WriteInt(WaitTime);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
-            waitTime = reader.ReadInt();
-            if (waitTime < 0)
-                throw new Exception("Forbidden value on waitTime = " + waitTime + ", it doesn't respect the following condition : waitTime < 0");
+            Id = reader.ReadInt();
+            WaitTime = reader.ReadInt();
         }
     }
 }

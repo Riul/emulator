@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 {
     public class InventoryPresetItemUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6168;
-
-        public sbyte presetId;
-        public PresetItem presetItem;
+        public const uint ID = 6168;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PresetId { get; set; }
+        public PresetItem PresetItem { get; set; }
 
 
         public InventoryPresetItemUpdateMessage()
@@ -41,24 +42,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Preset
 
         public InventoryPresetItemUpdateMessage(sbyte presetId, PresetItem presetItem)
         {
-            this.presetId = presetId;
-            this.presetItem = presetItem;
+            PresetId = presetId;
+            PresetItem = presetItem;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(presetId);
-            presetItem.Serialize(writer);
+            writer.WriteSByte(PresetId);
+            PresetItem.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            presetId = reader.ReadSByte();
-            if (presetId < 0)
-                throw new Exception("Forbidden value on presetId = " + presetId + ", it doesn't respect the following condition : presetId < 0");
-            presetItem = new PresetItem();
-            presetItem.Deserialize(reader);
+            PresetId = reader.ReadSByte();
+            PresetItem = new PresetItem();
+            PresetItem.Deserialize(reader);
         }
     }
 }

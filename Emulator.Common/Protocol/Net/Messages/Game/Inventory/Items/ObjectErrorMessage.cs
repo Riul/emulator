@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ObjectErrorMessage : NetworkMessage
     {
-        public const uint Id = 3004;
-
-        public sbyte reason;
+        public const uint ID = 3004;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Reason { get; set; }
 
 
         public ObjectErrorMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 
         public ObjectErrorMessage(sbyte reason)
         {
-            this.reason = reason;
+            Reason = reason;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(reason);
+            writer.WriteSByte(Reason);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            reason = reader.ReadSByte();
+            Reason = reader.ReadSByte();
         }
     }
 }

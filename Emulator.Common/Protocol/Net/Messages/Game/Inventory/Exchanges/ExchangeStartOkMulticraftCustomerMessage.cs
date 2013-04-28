@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeStartOkMulticraftCustomerMessage : NetworkMessage
     {
-        public const uint Id = 5817;
-        public sbyte crafterJobLevel;
-
-        public sbyte maxCase;
-        public int skillId;
+        public const uint ID = 5817;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte MaxCase { get; set; }
+        public int SkillId { get; set; }
+        public sbyte CrafterJobLevel { get; set; }
 
 
         public ExchangeStartOkMulticraftCustomerMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeStartOkMulticraftCustomerMessage(sbyte maxCase, int skillId, sbyte crafterJobLevel)
         {
-            this.maxCase = maxCase;
-            this.skillId = skillId;
-            this.crafterJobLevel = crafterJobLevel;
+            MaxCase = maxCase;
+            SkillId = skillId;
+            CrafterJobLevel = crafterJobLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(maxCase);
-            writer.WriteInt(skillId);
-            writer.WriteSByte(crafterJobLevel);
+            writer.WriteSByte(MaxCase);
+            writer.WriteInt(SkillId);
+            writer.WriteSByte(CrafterJobLevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            maxCase = reader.ReadSByte();
-            if (maxCase < 0)
-                throw new Exception("Forbidden value on maxCase = " + maxCase + ", it doesn't respect the following condition : maxCase < 0");
-            skillId = reader.ReadInt();
-            if (skillId < 0)
-                throw new Exception("Forbidden value on skillId = " + skillId + ", it doesn't respect the following condition : skillId < 0");
-            crafterJobLevel = reader.ReadSByte();
-            if (crafterJobLevel < 0)
-                throw new Exception("Forbidden value on crafterJobLevel = " + crafterJobLevel + ", it doesn't respect the following condition : crafterJobLevel < 0");
+            MaxCase = reader.ReadSByte();
+            SkillId = reader.ReadInt();
+            CrafterJobLevel = reader.ReadSByte();
         }
     }
 }

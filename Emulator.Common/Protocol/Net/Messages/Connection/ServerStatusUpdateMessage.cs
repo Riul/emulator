@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,45 +14,45 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
-using Emulator.Common.Protocol.Net.Types.Connection;
 
-namespace Emulator.Common.Protocol.Net.Messages.Connection
+namespace Emulator.Common.Protocol.Net.Messages
 {
     public class ServerStatusUpdateMessage : NetworkMessage
     {
-        public const uint Id = 50;
-
-        public GameServerInformations server;
+        public const uint ID = 50;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public Types.GameServerInformations Server { get; set; }
 
 
         public ServerStatusUpdateMessage()
         {
         }
 
-        public ServerStatusUpdateMessage(GameServerInformations server)
+        public ServerStatusUpdateMessage(Types.GameServerInformations server)
         {
-            this.server = server;
+            Server = server;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            server.Serialize(writer);
+            Server.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            server = new GameServerInformations();
-            server.Deserialize(reader);
+            Server = new Types.GameServerInformations();
+            Server.Deserialize(reader);
         }
     }
 }

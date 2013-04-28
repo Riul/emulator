@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class FightEntityDispositionInformations : EntityDispositionInformations
     {
-        public const short Id = 217;
-
-        public int carryingCharacterId;
+        public const short ID = 217;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CarryingCharacterId { get; set; }
 
 
         public FightEntityDispositionInformations()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         }
 
         public FightEntityDispositionInformations(short cellId, sbyte direction, int carryingCharacterId)
-            : base(cellId, direction)
+                : base(cellId, direction)
         {
-            this.carryingCharacterId = carryingCharacterId;
+            CarryingCharacterId = carryingCharacterId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(carryingCharacterId);
+            writer.WriteInt(CarryingCharacterId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            carryingCharacterId = reader.ReadInt();
+            CarryingCharacterId = reader.ReadInt();
         }
     }
 }

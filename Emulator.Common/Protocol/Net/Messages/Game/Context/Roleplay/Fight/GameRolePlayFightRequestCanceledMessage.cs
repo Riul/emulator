@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 {
     public class GameRolePlayFightRequestCanceledMessage : NetworkMessage
     {
-        public const uint Id = 5822;
-
-        public int fightId;
-        public int sourceId;
-        public int targetId;
+        public const uint ID = 5822;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
+        public int SourceId { get; set; }
+        public int TargetId { get; set; }
 
 
         public GameRolePlayFightRequestCanceledMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight
 
         public GameRolePlayFightRequestCanceledMessage(int fightId, int sourceId, int targetId)
         {
-            this.fightId = fightId;
-            this.sourceId = sourceId;
-            this.targetId = targetId;
+            FightId = fightId;
+            SourceId = sourceId;
+            TargetId = targetId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
-            writer.WriteInt(sourceId);
-            writer.WriteInt(targetId);
+            writer.WriteInt(FightId);
+            writer.WriteInt(SourceId);
+            writer.WriteInt(TargetId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
-            sourceId = reader.ReadInt();
-            if (sourceId < 0)
-                throw new Exception("Forbidden value on sourceId = " + sourceId + ", it doesn't respect the following condition : sourceId < 0");
-            targetId = reader.ReadInt();
+            FightId = reader.ReadInt();
+            SourceId = reader.ReadInt();
+            TargetId = reader.ReadInt();
         }
     }
 }

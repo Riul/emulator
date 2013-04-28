@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 {
     public class AlignmentSubAreasListMessage : NetworkMessage
     {
-        public const uint Id = 6059;
-
-        public short[] angelsSubAreas;
-        public short[] evilsSubAreas;
+        public const uint ID = 6059;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] AngelsSubAreas { get; set; }
+        public short[] EvilsSubAreas { get; set; }
 
 
         public AlignmentSubAreasListMessage()
@@ -39,20 +41,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
 
         public AlignmentSubAreasListMessage(short[] angelsSubAreas, short[] evilsSubAreas)
         {
-            this.angelsSubAreas = angelsSubAreas;
-            this.evilsSubAreas = evilsSubAreas;
+            AngelsSubAreas = angelsSubAreas;
+            EvilsSubAreas = evilsSubAreas;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) angelsSubAreas.Length);
-            foreach (var entry in angelsSubAreas)
+            writer.WriteUShort((ushort) AngelsSubAreas.Length);
+            foreach (var entry in AngelsSubAreas)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) evilsSubAreas.Length);
-            foreach (var entry in evilsSubAreas)
+            writer.WriteUShort((ushort) EvilsSubAreas.Length);
+            foreach (var entry in EvilsSubAreas)
             {
                 writer.WriteShort(entry);
             }
@@ -61,16 +63,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Pvp
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            angelsSubAreas = new short[limit];
+            AngelsSubAreas = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                angelsSubAreas[i] = reader.ReadShort();
+                AngelsSubAreas[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            evilsSubAreas = new short[limit];
+            EvilsSubAreas = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                evilsSubAreas[i] = reader.ReadShort();
+                EvilsSubAreas[i] = reader.ReadShort();
             }
         }
     }

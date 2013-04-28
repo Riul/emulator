@@ -23,14 +23,14 @@ namespace Emulator.Common.Network.Sync.Messages
 {
     public class ClientTicketMessage : NetworkMessage
     {
-        public const uint Id = 2500;
+        public const uint ID = 2500;
 
         public string Ticket { get; set; }
         public int AccountId { get; set; }
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
         public ClientTicketMessage()

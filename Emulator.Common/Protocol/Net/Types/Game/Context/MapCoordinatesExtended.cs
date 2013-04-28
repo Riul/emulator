@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context
 {
     public class MapCoordinatesExtended : MapCoordinatesAndId
     {
-        public const short Id = 176;
-
-        public short subAreaId;
+        public const short ID = 176;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short SubAreaId { get; set; }
 
 
         public MapCoordinatesExtended()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context
         }
 
         public MapCoordinatesExtended(short worldX, short worldY, int mapId, short subAreaId)
-            : base(worldX, worldY, mapId)
+                : base(worldX, worldY, mapId)
         {
-            this.subAreaId = subAreaId;
+            SubAreaId = subAreaId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(subAreaId);
+            writer.WriteShort(SubAreaId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
+            SubAreaId = reader.ReadShort();
         }
     }
 }

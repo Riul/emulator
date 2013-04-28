@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Prism
 {
     public class AlignmentBonusInformations
     {
-        public const short Id = 135;
-
-        public double grademult;
-        public int pctbonus;
+        public const short ID = 135;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Pctbonus { get; set; }
+        public double Grademult { get; set; }
 
 
         public AlignmentBonusInformations()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Prism
 
         public AlignmentBonusInformations(int pctbonus, double grademult)
         {
-            this.pctbonus = pctbonus;
-            this.grademult = grademult;
+            Pctbonus = pctbonus;
+            Grademult = grademult;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(pctbonus);
-            writer.WriteDouble(grademult);
+            writer.WriteInt(Pctbonus);
+            writer.WriteDouble(Grademult);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            pctbonus = reader.ReadInt();
-            if (pctbonus < 0)
-                throw new Exception("Forbidden value on pctbonus = " + pctbonus + ", it doesn't respect the following condition : pctbonus < 0");
-            grademult = reader.ReadDouble();
+            Pctbonus = reader.ReadInt();
+            Grademult = reader.ReadDouble();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Arena
 {
     public class GameRolePlayArenaFightPropositionMessage : NetworkMessage
     {
-        public const uint Id = 6276;
-
-        public int[] alliesId;
-        public short duration;
-        public int fightId;
+        public const uint ID = 6276;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
+        public int[] AlliesId { get; set; }
+        public short Duration { get; set; }
 
 
         public GameRolePlayArenaFightPropositionMessage()
@@ -41,37 +42,33 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
 
         public GameRolePlayArenaFightPropositionMessage(int fightId, int[] alliesId, short duration)
         {
-            this.fightId = fightId;
-            this.alliesId = alliesId;
-            this.duration = duration;
+            FightId = fightId;
+            AlliesId = alliesId;
+            Duration = duration;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
-            writer.WriteUShort((ushort) alliesId.Length);
-            foreach (var entry in alliesId)
+            writer.WriteInt(FightId);
+            writer.WriteUShort((ushort) AlliesId.Length);
+            foreach (var entry in AlliesId)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteShort(duration);
+            writer.WriteShort(Duration);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
+            FightId = reader.ReadInt();
             var limit = reader.ReadUShort();
-            alliesId = new int[limit];
+            AlliesId = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                alliesId[i] = reader.ReadInt();
+                AlliesId[i] = reader.ReadInt();
             }
-            duration = reader.ReadShort();
-            if (duration < 0)
-                throw new Exception("Forbidden value on duration = " + duration + ", it doesn't respect the following condition : duration < 0");
+            Duration = reader.ReadShort();
         }
     }
 }

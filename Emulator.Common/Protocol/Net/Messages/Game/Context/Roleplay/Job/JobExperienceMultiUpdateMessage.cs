@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobExperienceMultiUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5809;
-
-        public JobExperience[] experiencesUpdate;
+        public const uint ID = 5809;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobExperience[] ExperiencesUpdate { get; set; }
 
 
         public JobExperienceMultiUpdateMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobExperienceMultiUpdateMessage(JobExperience[] experiencesUpdate)
         {
-            this.experiencesUpdate = experiencesUpdate;
+            ExperiencesUpdate = experiencesUpdate;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) experiencesUpdate.Length);
-            foreach (var entry in experiencesUpdate)
+            writer.WriteUShort((ushort) ExperiencesUpdate.Length);
+            foreach (var entry in ExperiencesUpdate)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            experiencesUpdate = new JobExperience[limit];
+            ExperiencesUpdate = new JobExperience[limit];
             for (int i = 0; i < limit; i++)
             {
-                experiencesUpdate[i] = new JobExperience();
-                experiencesUpdate[i].Deserialize(reader);
+                ExperiencesUpdate[i] = new JobExperience();
+                ExperiencesUpdate[i].Deserialize(reader);
             }
         }
     }

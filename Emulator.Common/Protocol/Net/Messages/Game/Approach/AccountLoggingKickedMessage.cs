@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 {
     public class AccountLoggingKickedMessage : NetworkMessage
     {
-        public const uint Id = 6029;
-
-        public int days;
-        public int hours;
-        public int minutes;
+        public const uint ID = 6029;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Days { get; set; }
+        public int Hours { get; set; }
+        public int Minutes { get; set; }
 
 
         public AccountLoggingKickedMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 
         public AccountLoggingKickedMessage(int days, int hours, int minutes)
         {
-            this.days = days;
-            this.hours = hours;
-            this.minutes = minutes;
+            Days = days;
+            Hours = hours;
+            Minutes = minutes;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(days);
-            writer.WriteInt(hours);
-            writer.WriteInt(minutes);
+            writer.WriteInt(Days);
+            writer.WriteInt(Hours);
+            writer.WriteInt(Minutes);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            days = reader.ReadInt();
-            if (days < 0)
-                throw new Exception("Forbidden value on days = " + days + ", it doesn't respect the following condition : days < 0");
-            hours = reader.ReadInt();
-            if (hours < 0)
-                throw new Exception("Forbidden value on hours = " + hours + ", it doesn't respect the following condition : hours < 0");
-            minutes = reader.ReadInt();
-            if (minutes < 0)
-                throw new Exception("Forbidden value on minutes = " + minutes + ", it doesn't respect the following condition : minutes < 0");
+            Days = reader.ReadInt();
+            Hours = reader.ReadInt();
+            Minutes = reader.ReadInt();
         }
     }
 }

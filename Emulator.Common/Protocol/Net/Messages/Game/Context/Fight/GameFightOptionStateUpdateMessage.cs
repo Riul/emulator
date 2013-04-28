@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightOptionStateUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5927;
-
-        public short fightId;
-        public sbyte option;
-        public bool state;
-        public sbyte teamId;
+        public const uint ID = 5927;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short FightId { get; set; }
+        public sbyte TeamId { get; set; }
+        public sbyte Option { get; set; }
+        public bool State { get; set; }
 
 
         public GameFightOptionStateUpdateMessage()
@@ -42,33 +43,27 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightOptionStateUpdateMessage(short fightId, sbyte teamId, sbyte option, bool state)
         {
-            this.fightId = fightId;
-            this.teamId = teamId;
-            this.option = option;
-            this.state = state;
+            FightId = fightId;
+            TeamId = teamId;
+            Option = option;
+            State = state;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(fightId);
-            writer.WriteSByte(teamId);
-            writer.WriteSByte(option);
-            writer.WriteBoolean(state);
+            writer.WriteShort(FightId);
+            writer.WriteSByte(TeamId);
+            writer.WriteSByte(Option);
+            writer.WriteBoolean(State);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadShort();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
-            teamId = reader.ReadSByte();
-            if (teamId < 0)
-                throw new Exception("Forbidden value on teamId = " + teamId + ", it doesn't respect the following condition : teamId < 0");
-            option = reader.ReadSByte();
-            if (option < 0)
-                throw new Exception("Forbidden value on option = " + option + ", it doesn't respect the following condition : option < 0");
-            state = reader.ReadBoolean();
+            FightId = reader.ReadShort();
+            TeamId = reader.ReadSByte();
+            Option = reader.ReadSByte();
+            State = reader.ReadBoolean();
         }
     }
 }

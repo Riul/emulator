@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 {
     public class EmotePlayMessage : EmotePlayAbstractMessage
     {
-        public const uint Id = 5683;
-
-        public int accountId;
-        public int actorId;
+        public const uint ID = 5683;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ActorId { get; set; }
+        public int AccountId { get; set; }
 
 
         public EmotePlayMessage()
@@ -38,25 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         }
 
         public EmotePlayMessage(sbyte emoteId, double emoteStartTime, int actorId, int accountId)
-            : base(emoteId, emoteStartTime)
+                : base(emoteId, emoteStartTime)
         {
-            this.actorId = actorId;
-            this.accountId = accountId;
+            ActorId = actorId;
+            AccountId = accountId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(actorId);
-            writer.WriteInt(accountId);
+            writer.WriteInt(ActorId);
+            writer.WriteInt(AccountId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            actorId = reader.ReadInt();
-            accountId = reader.ReadInt();
+            ActorId = reader.ReadInt();
+            AccountId = reader.ReadInt();
         }
     }
 }

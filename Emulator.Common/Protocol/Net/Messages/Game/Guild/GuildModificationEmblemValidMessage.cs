@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildModificationEmblemValidMessage : NetworkMessage
     {
-        public const uint Id = 6328;
-
-        public GuildEmblem guildEmblem;
+        public const uint ID = 6328;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GuildEmblem GuildEmblem { get; set; }
 
 
         public GuildModificationEmblemValidMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildModificationEmblemValidMessage(GuildEmblem guildEmblem)
         {
-            this.guildEmblem = guildEmblem;
+            GuildEmblem = guildEmblem;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            guildEmblem.Serialize(writer);
+            GuildEmblem.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            guildEmblem = new GuildEmblem();
-            guildEmblem.Deserialize(reader);
+            GuildEmblem = new GuildEmblem();
+            GuildEmblem.Deserialize(reader);
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -25,14 +27,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightResumeWithSlavesMessage : GameFightResumeMessage
     {
-        public const uint Id = 6215;
-
-        public GameFightResumeSlaveInfo[] slavesInfo;
+        public const uint ID = 6215;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameFightResumeSlaveInfo[] SlavesInfo { get; set; }
 
 
         public GameFightResumeWithSlavesMessage()
@@ -40,17 +42,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         }
 
         public GameFightResumeWithSlavesMessage(FightDispellableEffectExtendedInformations[] effects, GameActionMark[] marks, short gameTurn, GameFightSpellCooldown[] spellCooldowns, sbyte summonCount, sbyte bombCount, GameFightResumeSlaveInfo[] slavesInfo)
-            : base(effects, marks, gameTurn, spellCooldowns, summonCount, bombCount)
+                : base(effects, marks, gameTurn, spellCooldowns, summonCount, bombCount)
         {
-            this.slavesInfo = slavesInfo;
+            SlavesInfo = slavesInfo;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) slavesInfo.Length);
-            foreach (var entry in slavesInfo)
+            writer.WriteUShort((ushort) SlavesInfo.Length);
+            foreach (var entry in SlavesInfo)
             {
                 entry.Serialize(writer);
             }
@@ -60,11 +62,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            slavesInfo = new GameFightResumeSlaveInfo[limit];
+            SlavesInfo = new GameFightResumeSlaveInfo[limit];
             for (int i = 0; i < limit; i++)
             {
-                slavesInfo[i] = new GameFightResumeSlaveInfo();
-                slavesInfo[i].Deserialize(reader);
+                SlavesInfo[i] = new GameFightResumeSlaveInfo();
+                SlavesInfo[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Paddock;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildInformationsPaddocksMessage : NetworkMessage
     {
-        public const uint Id = 5959;
-
-        public sbyte nbPaddockMax;
-        public PaddockContentInformations[] paddocksInformations;
+        public const uint ID = 5959;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte NbPaddockMax { get; set; }
+        public PaddockContentInformations[] PaddocksInformations { get; set; }
 
 
         public GuildInformationsPaddocksMessage()
@@ -41,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildInformationsPaddocksMessage(sbyte nbPaddockMax, PaddockContentInformations[] paddocksInformations)
         {
-            this.nbPaddockMax = nbPaddockMax;
-            this.paddocksInformations = paddocksInformations;
+            NbPaddockMax = nbPaddockMax;
+            PaddocksInformations = paddocksInformations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(nbPaddockMax);
-            writer.WriteUShort((ushort) paddocksInformations.Length);
-            foreach (var entry in paddocksInformations)
+            writer.WriteSByte(NbPaddockMax);
+            writer.WriteUShort((ushort) PaddocksInformations.Length);
+            foreach (var entry in PaddocksInformations)
             {
                 entry.Serialize(writer);
             }
@@ -58,15 +59,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public override void Deserialize(BigEndianReader reader)
         {
-            nbPaddockMax = reader.ReadSByte();
-            if (nbPaddockMax < 0)
-                throw new Exception("Forbidden value on nbPaddockMax = " + nbPaddockMax + ", it doesn't respect the following condition : nbPaddockMax < 0");
+            NbPaddockMax = reader.ReadSByte();
             var limit = reader.ReadUShort();
-            paddocksInformations = new PaddockContentInformations[limit];
+            PaddocksInformations = new PaddockContentInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                paddocksInformations[i] = new PaddockContentInformations();
-                paddocksInformations[i].Deserialize(reader);
+                PaddocksInformations[i] = new PaddockContentInformations();
+                PaddocksInformations[i].Deserialize(reader);
             }
         }
     }

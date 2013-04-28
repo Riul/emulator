@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Actions.Fight;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Action.Fight
 {
     public class FightDispellableEffectExtendedInformations
     {
-        public const short Id = 208;
-
-        public short actionId;
-        public AbstractFightDispellableEffect effect;
-        public int sourceId;
+        public const short ID = 208;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ActionId { get; set; }
+        public int SourceId { get; set; }
+        public AbstractFightDispellableEffect Effect { get; set; }
 
 
         public FightDispellableEffectExtendedInformations()
@@ -42,28 +43,26 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Action.Fight
 
         public FightDispellableEffectExtendedInformations(short actionId, int sourceId, AbstractFightDispellableEffect effect)
         {
-            this.actionId = actionId;
-            this.sourceId = sourceId;
-            this.effect = effect;
+            ActionId = actionId;
+            SourceId = sourceId;
+            Effect = effect;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(actionId);
-            writer.WriteInt(sourceId);
-            writer.WriteShort(effect.TypeId);
-            effect.Serialize(writer);
+            writer.WriteShort(ActionId);
+            writer.WriteInt(SourceId);
+            writer.WriteShort(Effect.TypeId);
+            Effect.Serialize(writer);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            actionId = reader.ReadShort();
-            if (actionId < 0)
-                throw new Exception("Forbidden value on actionId = " + actionId + ", it doesn't respect the following condition : actionId < 0");
-            sourceId = reader.ReadInt();
-            effect = Types.ProtocolTypeManager.GetInstance<AbstractFightDispellableEffect>(reader.ReadShort());
-            effect.Deserialize(reader);
+            ActionId = reader.ReadShort();
+            SourceId = reader.ReadInt();
+            Effect = Types.ProtocolTypeManager.GetInstance<AbstractFightDispellableEffect>(reader.ReadShort());
+            Effect.Deserialize(reader);
         }
     }
 }

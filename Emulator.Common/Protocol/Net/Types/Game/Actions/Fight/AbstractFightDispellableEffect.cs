@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,29 +14,29 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 {
     public class AbstractFightDispellableEffect
     {
-        public const short Id = 206;
-
-        public sbyte dispelable;
-        public int parentBoostUid;
-        public short spellId;
-        public int targetId;
-        public short turnDuration;
-        public int uid;
+        public const short ID = 206;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Uid { get; set; }
+        public int TargetId { get; set; }
+        public short TurnDuration { get; set; }
+        public sbyte Dispelable { get; set; }
+        public short SpellId { get; set; }
+        public int ParentBoostUid { get; set; }
 
 
         public AbstractFightDispellableEffect()
@@ -44,41 +45,33 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 
         public AbstractFightDispellableEffect(int uid, int targetId, short turnDuration, sbyte dispelable, short spellId, int parentBoostUid)
         {
-            this.uid = uid;
-            this.targetId = targetId;
-            this.turnDuration = turnDuration;
-            this.dispelable = dispelable;
-            this.spellId = spellId;
-            this.parentBoostUid = parentBoostUid;
+            Uid = uid;
+            TargetId = targetId;
+            TurnDuration = turnDuration;
+            Dispelable = dispelable;
+            SpellId = spellId;
+            ParentBoostUid = parentBoostUid;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(uid);
-            writer.WriteInt(targetId);
-            writer.WriteShort(turnDuration);
-            writer.WriteSByte(dispelable);
-            writer.WriteShort(spellId);
-            writer.WriteInt(parentBoostUid);
+            writer.WriteInt(Uid);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(TurnDuration);
+            writer.WriteSByte(Dispelable);
+            writer.WriteShort(SpellId);
+            writer.WriteInt(ParentBoostUid);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadInt();
-            if (uid < 0)
-                throw new Exception("Forbidden value on uid = " + uid + ", it doesn't respect the following condition : uid < 0");
-            targetId = reader.ReadInt();
-            turnDuration = reader.ReadShort();
-            dispelable = reader.ReadSByte();
-            if (dispelable < 0)
-                throw new Exception("Forbidden value on dispelable = " + dispelable + ", it doesn't respect the following condition : dispelable < 0");
-            spellId = reader.ReadShort();
-            if (spellId < 0)
-                throw new Exception("Forbidden value on spellId = " + spellId + ", it doesn't respect the following condition : spellId < 0");
-            parentBoostUid = reader.ReadInt();
-            if (parentBoostUid < 0)
-                throw new Exception("Forbidden value on parentBoostUid = " + parentBoostUid + ", it doesn't respect the following condition : parentBoostUid < 0");
+            Uid = reader.ReadInt();
+            TargetId = reader.ReadInt();
+            TurnDuration = reader.ReadShort();
+            Dispelable = reader.ReadSByte();
+            SpellId = reader.ReadShort();
+            ParentBoostUid = reader.ReadInt();
         }
     }
 }

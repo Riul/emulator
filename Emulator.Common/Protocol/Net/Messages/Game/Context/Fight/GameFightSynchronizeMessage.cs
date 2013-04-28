@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightSynchronizeMessage : NetworkMessage
     {
-        public const uint Id = 5921;
-
-        public GameFightFighterInformations[] fighters;
+        public const uint ID = 5921;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameFightFighterInformations[] Fighters { get; set; }
 
 
         public GameFightSynchronizeMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightSynchronizeMessage(GameFightFighterInformations[] fighters)
         {
-            this.fighters = fighters;
+            Fighters = fighters;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) fighters.Length);
-            foreach (var entry in fighters)
+            writer.WriteUShort((ushort) Fighters.Length);
+            foreach (var entry in Fighters)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -56,11 +58,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            fighters = new GameFightFighterInformations[limit];
+            Fighters = new GameFightFighterInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                fighters[i] = Types.ProtocolTypeManager.GetInstance<GameFightFighterInformations>(reader.ReadShort());
-                fighters[i].Deserialize(reader);
+                Fighters[i] = Types.ProtocolTypeManager.GetInstance<GameFightFighterInformations>(reader.ReadShort());
+                Fighters[i].Deserialize(reader);
             }
         }
     }

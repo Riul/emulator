@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffectCreature : ObjectEffect
     {
-        public const short Id = 71;
-
-        public short monsterFamilyId;
+        public const short ID = 71;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short MonsterFamilyId { get; set; }
 
 
         public ObjectEffectCreature()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         }
 
         public ObjectEffectCreature(short actionId, short monsterFamilyId)
-            : base(actionId)
+                : base(actionId)
         {
-            this.monsterFamilyId = monsterFamilyId;
+            MonsterFamilyId = monsterFamilyId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(monsterFamilyId);
+            writer.WriteShort(MonsterFamilyId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            monsterFamilyId = reader.ReadShort();
-            if (monsterFamilyId < 0)
-                throw new Exception("Forbidden value on monsterFamilyId = " + monsterFamilyId + ", it doesn't respect the following condition : monsterFamilyId < 0");
+            MonsterFamilyId = reader.ReadShort();
         }
     }
 }

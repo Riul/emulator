@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,29 +14,29 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightJoinMessage : NetworkMessage
     {
-        public const uint Id = 702;
-
-        public bool canBeCancelled;
-        public bool canSayReady;
-        public sbyte fightType;
-        public bool isFightStarted;
-        public bool isSpectator;
-        public int timeMaxBeforeFightStart;
+        public const uint ID = 702;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool CanBeCancelled { get; set; }
+        public bool CanSayReady { get; set; }
+        public bool IsSpectator { get; set; }
+        public bool IsFightStarted { get; set; }
+        public int TimeMaxBeforeFightStart { get; set; }
+        public sbyte FightType { get; set; }
 
 
         public GameFightJoinMessage()
@@ -44,40 +45,36 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightJoinMessage(bool canBeCancelled, bool canSayReady, bool isSpectator, bool isFightStarted, int timeMaxBeforeFightStart, sbyte fightType)
         {
-            this.canBeCancelled = canBeCancelled;
-            this.canSayReady = canSayReady;
-            this.isSpectator = isSpectator;
-            this.isFightStarted = isFightStarted;
-            this.timeMaxBeforeFightStart = timeMaxBeforeFightStart;
-            this.fightType = fightType;
+            CanBeCancelled = canBeCancelled;
+            CanSayReady = canSayReady;
+            IsSpectator = isSpectator;
+            IsFightStarted = isFightStarted;
+            TimeMaxBeforeFightStart = timeMaxBeforeFightStart;
+            FightType = fightType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             byte flag1 = 0;
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, canBeCancelled);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, canSayReady);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 2, isSpectator);
-            flag1 = BooleanByteWrapper.SetFlag(flag1, 3, isFightStarted);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 0, CanBeCancelled);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 1, CanSayReady);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 2, IsSpectator);
+            flag1 = BooleanByteWrapper.SetFlag(flag1, 3, IsFightStarted);
             writer.WriteByte(flag1);
-            writer.WriteInt(timeMaxBeforeFightStart);
-            writer.WriteSByte(fightType);
+            writer.WriteInt(TimeMaxBeforeFightStart);
+            writer.WriteSByte(FightType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             byte flag1 = reader.ReadByte();
-            canBeCancelled = BooleanByteWrapper.GetFlag(flag1, 0);
-            canSayReady = BooleanByteWrapper.GetFlag(flag1, 1);
-            isSpectator = BooleanByteWrapper.GetFlag(flag1, 2);
-            isFightStarted = BooleanByteWrapper.GetFlag(flag1, 3);
-            timeMaxBeforeFightStart = reader.ReadInt();
-            if (timeMaxBeforeFightStart < 0)
-                throw new Exception("Forbidden value on timeMaxBeforeFightStart = " + timeMaxBeforeFightStart + ", it doesn't respect the following condition : timeMaxBeforeFightStart < 0");
-            fightType = reader.ReadSByte();
-            if (fightType < 0)
-                throw new Exception("Forbidden value on fightType = " + fightType + ", it doesn't respect the following condition : fightType < 0");
+            CanBeCancelled = BooleanByteWrapper.GetFlag(flag1, 0);
+            CanSayReady = BooleanByteWrapper.GetFlag(flag1, 1);
+            IsSpectator = BooleanByteWrapper.GetFlag(flag1, 2);
+            IsFightStarted = BooleanByteWrapper.GetFlag(flag1, 3);
+            TimeMaxBeforeFightStart = reader.ReadInt();
+            FightType = reader.ReadSByte();
         }
     }
 }

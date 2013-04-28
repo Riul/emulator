@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 {
     public class KrosmasterTransferRequestMessage : NetworkMessage
     {
-        public const uint Id = 6349;
-
-        public string uid;
+        public const uint ID = 6349;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Uid { get; set; }
 
 
         public KrosmasterTransferRequestMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Web.Krosmaster
 
         public KrosmasterTransferRequestMessage(string uid)
         {
-            this.uid = uid;
+            Uid = uid;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(uid);
+            writer.WriteUTF(Uid);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadUTF();
+            Uid = reader.ReadUTF();
         }
     }
 }

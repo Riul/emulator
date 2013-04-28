@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 {
     public class HouseToSellFilterMessage : NetworkMessage
     {
-        public const uint Id = 6137;
-
-        public int areaId;
-        public sbyte atLeastNbChest;
-        public sbyte atLeastNbRoom;
-        public int maxPrice;
-        public short skillRequested;
+        public const uint ID = 6137;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int AreaId { get; set; }
+        public sbyte AtLeastNbRoom { get; set; }
+        public sbyte AtLeastNbChest { get; set; }
+        public short SkillRequested { get; set; }
+        public int MaxPrice { get; set; }
 
 
         public HouseToSellFilterMessage()
@@ -43,38 +44,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public HouseToSellFilterMessage(int areaId, sbyte atLeastNbRoom, sbyte atLeastNbChest, short skillRequested, int maxPrice)
         {
-            this.areaId = areaId;
-            this.atLeastNbRoom = atLeastNbRoom;
-            this.atLeastNbChest = atLeastNbChest;
-            this.skillRequested = skillRequested;
-            this.maxPrice = maxPrice;
+            AreaId = areaId;
+            AtLeastNbRoom = atLeastNbRoom;
+            AtLeastNbChest = atLeastNbChest;
+            SkillRequested = skillRequested;
+            MaxPrice = maxPrice;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(areaId);
-            writer.WriteSByte(atLeastNbRoom);
-            writer.WriteSByte(atLeastNbChest);
-            writer.WriteShort(skillRequested);
-            writer.WriteInt(maxPrice);
+            writer.WriteInt(AreaId);
+            writer.WriteSByte(AtLeastNbRoom);
+            writer.WriteSByte(AtLeastNbChest);
+            writer.WriteShort(SkillRequested);
+            writer.WriteInt(MaxPrice);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            areaId = reader.ReadInt();
-            atLeastNbRoom = reader.ReadSByte();
-            if (atLeastNbRoom < 0)
-                throw new Exception("Forbidden value on atLeastNbRoom = " + atLeastNbRoom + ", it doesn't respect the following condition : atLeastNbRoom < 0");
-            atLeastNbChest = reader.ReadSByte();
-            if (atLeastNbChest < 0)
-                throw new Exception("Forbidden value on atLeastNbChest = " + atLeastNbChest + ", it doesn't respect the following condition : atLeastNbChest < 0");
-            skillRequested = reader.ReadShort();
-            if (skillRequested < 0)
-                throw new Exception("Forbidden value on skillRequested = " + skillRequested + ", it doesn't respect the following condition : skillRequested < 0");
-            maxPrice = reader.ReadInt();
-            if (maxPrice < 0)
-                throw new Exception("Forbidden value on maxPrice = " + maxPrice + ", it doesn't respect the following condition : maxPrice < 0");
+            AreaId = reader.ReadInt();
+            AtLeastNbRoom = reader.ReadSByte();
+            AtLeastNbChest = reader.ReadSByte();
+            SkillRequested = reader.ReadShort();
+            MaxPrice = reader.ReadInt();
         }
     }
 }

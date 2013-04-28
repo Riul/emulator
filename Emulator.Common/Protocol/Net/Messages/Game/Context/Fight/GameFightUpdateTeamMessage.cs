@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Fight;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightUpdateTeamMessage : NetworkMessage
     {
-        public const uint Id = 5572;
-
-        public short fightId;
-        public FightTeamInformations team;
+        public const uint ID = 5572;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short FightId { get; set; }
+        public FightTeamInformations Team { get; set; }
 
 
         public GameFightUpdateTeamMessage()
@@ -41,24 +42,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightUpdateTeamMessage(short fightId, FightTeamInformations team)
         {
-            this.fightId = fightId;
-            this.team = team;
+            FightId = fightId;
+            Team = team;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(fightId);
-            team.Serialize(writer);
+            writer.WriteShort(FightId);
+            Team.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadShort();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
-            team = new FightTeamInformations();
-            team.Deserialize(reader);
+            FightId = reader.ReadShort();
+            Team = new FightTeamInformations();
+            Team.Deserialize(reader);
         }
     }
 }

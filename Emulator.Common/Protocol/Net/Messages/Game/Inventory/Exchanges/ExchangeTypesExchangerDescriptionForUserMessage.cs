@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeTypesExchangerDescriptionForUserMessage : NetworkMessage
     {
-        public const uint Id = 5765;
-
-        public int[] typeDescription;
+        public const uint ID = 5765;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] TypeDescription { get; set; }
 
 
         public ExchangeTypesExchangerDescriptionForUserMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeTypesExchangerDescriptionForUserMessage(int[] typeDescription)
         {
-            this.typeDescription = typeDescription;
+            TypeDescription = typeDescription;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) typeDescription.Length);
-            foreach (var entry in typeDescription)
+            writer.WriteUShort((ushort) TypeDescription.Length);
+            foreach (var entry in TypeDescription)
             {
                 writer.WriteInt(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            typeDescription = new int[limit];
+            TypeDescription = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                typeDescription[i] = reader.ReadInt();
+                TypeDescription[i] = reader.ReadInt();
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameMapChangeOrientationMessage : NetworkMessage
     {
-        public const uint Id = 946;
-
-        public ActorOrientation orientation;
+        public const uint ID = 946;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ActorOrientation Orientation { get; set; }
 
 
         public GameMapChangeOrientationMessage()
@@ -39,19 +41,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameMapChangeOrientationMessage(ActorOrientation orientation)
         {
-            this.orientation = orientation;
+            Orientation = orientation;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            orientation.Serialize(writer);
+            Orientation.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            orientation = new ActorOrientation();
-            orientation.Deserialize(reader);
+            Orientation = new ActorOrientation();
+            Orientation.Deserialize(reader);
         }
     }
 }

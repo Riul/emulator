@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -24,16 +26,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobCrafterDirectoryEntryMessage : NetworkMessage
     {
-        public const uint Id = 6044;
-
-        public JobCrafterDirectoryEntryJobInfo[] jobInfoList;
-        public JobCrafterDirectoryEntryPlayerInfo playerInfo;
-        public EntityLook playerLook;
+        public const uint ID = 6044;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobCrafterDirectoryEntryPlayerInfo PlayerInfo { get; set; }
+        public JobCrafterDirectoryEntryJobInfo[] JobInfoList { get; set; }
+        public EntityLook PlayerLook { get; set; }
 
 
         public JobCrafterDirectoryEntryMessage()
@@ -42,36 +44,36 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobCrafterDirectoryEntryMessage(JobCrafterDirectoryEntryPlayerInfo playerInfo, JobCrafterDirectoryEntryJobInfo[] jobInfoList, EntityLook playerLook)
         {
-            this.playerInfo = playerInfo;
-            this.jobInfoList = jobInfoList;
-            this.playerLook = playerLook;
+            PlayerInfo = playerInfo;
+            JobInfoList = jobInfoList;
+            PlayerLook = playerLook;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            playerInfo.Serialize(writer);
-            writer.WriteUShort((ushort) jobInfoList.Length);
-            foreach (var entry in jobInfoList)
+            PlayerInfo.Serialize(writer);
+            writer.WriteUShort((ushort) JobInfoList.Length);
+            foreach (var entry in JobInfoList)
             {
                 entry.Serialize(writer);
             }
-            playerLook.Serialize(writer);
+            PlayerLook.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            playerInfo = new JobCrafterDirectoryEntryPlayerInfo();
-            playerInfo.Deserialize(reader);
+            PlayerInfo = new JobCrafterDirectoryEntryPlayerInfo();
+            PlayerInfo.Deserialize(reader);
             var limit = reader.ReadUShort();
-            jobInfoList = new JobCrafterDirectoryEntryJobInfo[limit];
+            JobInfoList = new JobCrafterDirectoryEntryJobInfo[limit];
             for (int i = 0; i < limit; i++)
             {
-                jobInfoList[i] = new JobCrafterDirectoryEntryJobInfo();
-                jobInfoList[i].Deserialize(reader);
+                JobInfoList[i] = new JobCrafterDirectoryEntryJobInfo();
+                JobInfoList[i].Deserialize(reader);
             }
-            playerLook = new EntityLook();
-            playerLook.Deserialize(reader);
+            PlayerLook = new EntityLook();
+            PlayerLook.Deserialize(reader);
         }
     }
 }

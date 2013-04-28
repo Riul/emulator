@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightPlacementPossiblePositionsMessage : NetworkMessage
     {
-        public const uint Id = 703;
-
-        public short[] positionsForChallengers;
-        public short[] positionsForDefenders;
-        public sbyte teamNumber;
+        public const uint ID = 703;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] PositionsForChallengers { get; set; }
+        public short[] PositionsForDefenders { get; set; }
+        public sbyte TeamNumber { get; set; }
 
 
         public GameFightPlacementPossiblePositionsMessage()
@@ -41,44 +42,42 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightPlacementPossiblePositionsMessage(short[] positionsForChallengers, short[] positionsForDefenders, sbyte teamNumber)
         {
-            this.positionsForChallengers = positionsForChallengers;
-            this.positionsForDefenders = positionsForDefenders;
-            this.teamNumber = teamNumber;
+            PositionsForChallengers = positionsForChallengers;
+            PositionsForDefenders = positionsForDefenders;
+            TeamNumber = teamNumber;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) positionsForChallengers.Length);
-            foreach (var entry in positionsForChallengers)
+            writer.WriteUShort((ushort) PositionsForChallengers.Length);
+            foreach (var entry in PositionsForChallengers)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteUShort((ushort) positionsForDefenders.Length);
-            foreach (var entry in positionsForDefenders)
+            writer.WriteUShort((ushort) PositionsForDefenders.Length);
+            foreach (var entry in PositionsForDefenders)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteSByte(teamNumber);
+            writer.WriteSByte(TeamNumber);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            positionsForChallengers = new short[limit];
+            PositionsForChallengers = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                positionsForChallengers[i] = reader.ReadShort();
+                PositionsForChallengers[i] = reader.ReadShort();
             }
             limit = reader.ReadUShort();
-            positionsForDefenders = new short[limit];
+            PositionsForDefenders = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                positionsForDefenders[i] = reader.ReadShort();
+                PositionsForDefenders[i] = reader.ReadShort();
             }
-            teamNumber = reader.ReadSByte();
-            if (teamNumber < 0)
-                throw new Exception("Forbidden value on teamNumber = " + teamNumber + ", it doesn't respect the following condition : teamNumber < 0");
+            TeamNumber = reader.ReadSByte();
         }
     }
 }

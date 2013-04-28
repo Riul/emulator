@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 {
     public class ObjectGroundRemovedMessage : NetworkMessage
     {
-        public const uint Id = 3014;
-
-        public short cell;
+        public const uint ID = 3014;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Cell { get; set; }
 
 
         public ObjectGroundRemovedMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Objects
 
         public ObjectGroundRemovedMessage(short cell)
         {
-            this.cell = cell;
+            Cell = cell;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(cell);
+            writer.WriteShort(Cell);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            cell = reader.ReadShort();
-            if (cell < 0 || cell > 559)
-                throw new Exception("Forbidden value on cell = " + cell + ", it doesn't respect the following condition : cell < 0 || cell > 559");
+            Cell = reader.ReadShort();
         }
     }
 }

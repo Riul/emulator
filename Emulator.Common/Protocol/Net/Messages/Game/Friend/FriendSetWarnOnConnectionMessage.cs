@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class FriendSetWarnOnConnectionMessage : NetworkMessage
     {
-        public const uint Id = 5602;
-
-        public bool enable;
+        public const uint ID = 5602;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Enable { get; set; }
 
 
         public FriendSetWarnOnConnectionMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public FriendSetWarnOnConnectionMessage(bool enable)
         {
-            this.enable = enable;
+            Enable = enable;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(enable);
+            writer.WriteBoolean(Enable);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            enable = reader.ReadBoolean();
+            Enable = reader.ReadBoolean();
         }
     }
 }

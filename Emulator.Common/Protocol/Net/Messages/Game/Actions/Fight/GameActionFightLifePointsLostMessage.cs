@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightLifePointsLostMessage : AbstractGameActionMessage
     {
-        public const uint Id = 6312;
-
-        public short loss;
-        public short permanentDamages;
-        public int targetId;
+        public const uint ID = 6312;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public short Loss { get; set; }
+        public short PermanentDamages { get; set; }
 
 
         public GameActionFightLifePointsLostMessage()
@@ -40,32 +41,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightLifePointsLostMessage(short actionId, int sourceId, int targetId, short loss, short permanentDamages)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.loss = loss;
-            this.permanentDamages = permanentDamages;
+            TargetId = targetId;
+            Loss = loss;
+            PermanentDamages = permanentDamages;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteShort(loss);
-            writer.WriteShort(permanentDamages);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(Loss);
+            writer.WriteShort(PermanentDamages);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            loss = reader.ReadShort();
-            if (loss < 0)
-                throw new Exception("Forbidden value on loss = " + loss + ", it doesn't respect the following condition : loss < 0");
-            permanentDamages = reader.ReadShort();
-            if (permanentDamages < 0)
-                throw new Exception("Forbidden value on permanentDamages = " + permanentDamages + ", it doesn't respect the following condition : permanentDamages < 0");
+            TargetId = reader.ReadInt();
+            Loss = reader.ReadShort();
+            PermanentDamages = reader.ReadShort();
         }
     }
 }

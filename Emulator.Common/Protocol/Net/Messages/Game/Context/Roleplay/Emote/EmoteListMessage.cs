@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 {
     public class EmoteListMessage : NetworkMessage
     {
-        public const uint Id = 5689;
-
-        public sbyte[] emoteIds;
+        public const uint ID = 5689;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte[] EmoteIds { get; set; }
 
 
         public EmoteListMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 
         public EmoteListMessage(sbyte[] emoteIds)
         {
-            this.emoteIds = emoteIds;
+            EmoteIds = emoteIds;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) emoteIds.Length);
-            foreach (var entry in emoteIds)
+            writer.WriteUShort((ushort) EmoteIds.Length);
+            foreach (var entry in EmoteIds)
             {
                 writer.WriteSByte(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            emoteIds = new sbyte[limit];
+            EmoteIds = new sbyte[limit];
             for (int i = 0; i < limit; i++)
             {
-                emoteIds[i] = reader.ReadSByte();
+                EmoteIds[i] = reader.ReadSByte();
             }
         }
     }

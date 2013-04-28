@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,17 +25,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 {
     public class CharactersListWithModificationsMessage : CharactersListMessage
     {
-        public const uint Id = 6120;
-
-        public CharacterToRecolorInformation[] charactersToRecolor;
-        public CharacterToRelookInformation[] charactersToRelook;
-        public int[] charactersToRename;
-        public int[] unusableCharacters;
+        public const uint ID = 6120;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public CharacterToRecolorInformation[] CharactersToRecolor { get; set; }
+        public int[] CharactersToRename { get; set; }
+        public int[] UnusableCharacters { get; set; }
+        public CharacterToRelookInformation[] CharactersToRelook { get; set; }
 
 
         public CharactersListWithModificationsMessage()
@@ -41,35 +43,35 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         }
 
         public CharactersListWithModificationsMessage(bool hasStartupActions, CharacterBaseInformations[] characters, CharacterToRecolorInformation[] charactersToRecolor, int[] charactersToRename, int[] unusableCharacters, CharacterToRelookInformation[] charactersToRelook)
-            : base(hasStartupActions, characters)
+                : base(hasStartupActions, characters)
         {
-            this.charactersToRecolor = charactersToRecolor;
-            this.charactersToRename = charactersToRename;
-            this.unusableCharacters = unusableCharacters;
-            this.charactersToRelook = charactersToRelook;
+            CharactersToRecolor = charactersToRecolor;
+            CharactersToRename = charactersToRename;
+            UnusableCharacters = unusableCharacters;
+            CharactersToRelook = charactersToRelook;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) charactersToRecolor.Length);
-            foreach (var entry in charactersToRecolor)
+            writer.WriteUShort((ushort) CharactersToRecolor.Length);
+            foreach (var entry in CharactersToRecolor)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) charactersToRename.Length);
-            foreach (var entry in charactersToRename)
+            writer.WriteUShort((ushort) CharactersToRename.Length);
+            foreach (var entry in CharactersToRename)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) unusableCharacters.Length);
-            foreach (var entry in unusableCharacters)
+            writer.WriteUShort((ushort) UnusableCharacters.Length);
+            foreach (var entry in UnusableCharacters)
             {
                 writer.WriteInt(entry);
             }
-            writer.WriteUShort((ushort) charactersToRelook.Length);
-            foreach (var entry in charactersToRelook)
+            writer.WriteUShort((ushort) CharactersToRelook.Length);
+            foreach (var entry in CharactersToRelook)
             {
                 entry.Serialize(writer);
             }
@@ -79,30 +81,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            charactersToRecolor = new CharacterToRecolorInformation[limit];
+            CharactersToRecolor = new CharacterToRecolorInformation[limit];
             for (int i = 0; i < limit; i++)
             {
-                charactersToRecolor[i] = new CharacterToRecolorInformation();
-                charactersToRecolor[i].Deserialize(reader);
+                CharactersToRecolor[i] = new CharacterToRecolorInformation();
+                CharactersToRecolor[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            charactersToRename = new int[limit];
+            CharactersToRename = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                charactersToRename[i] = reader.ReadInt();
+                CharactersToRename[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            unusableCharacters = new int[limit];
+            UnusableCharacters = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                unusableCharacters[i] = reader.ReadInt();
+                UnusableCharacters[i] = reader.ReadInt();
             }
             limit = reader.ReadUShort();
-            charactersToRelook = new CharacterToRelookInformation[limit];
+            CharactersToRelook = new CharacterToRelookInformation[limit];
             for (int i = 0; i < limit; i++)
             {
-                charactersToRelook[i] = new CharacterToRelookInformation();
-                charactersToRelook[i].Deserialize(reader);
+                CharactersToRelook[i] = new CharacterToRelookInformation();
+                CharactersToRelook[i].Deserialize(reader);
             }
         }
     }

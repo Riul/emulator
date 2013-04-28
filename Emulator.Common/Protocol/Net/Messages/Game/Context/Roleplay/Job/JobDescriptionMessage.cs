@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 {
     public class JobDescriptionMessage : NetworkMessage
     {
-        public const uint Id = 5655;
-
-        public JobDescription[] jobsDescription;
+        public const uint ID = 5655;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public JobDescription[] JobsDescription { get; set; }
 
 
         public JobDescriptionMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
 
         public JobDescriptionMessage(JobDescription[] jobsDescription)
         {
-            this.jobsDescription = jobsDescription;
+            JobsDescription = jobsDescription;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) jobsDescription.Length);
-            foreach (var entry in jobsDescription)
+            writer.WriteUShort((ushort) JobsDescription.Length);
+            foreach (var entry in JobsDescription)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Job
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            jobsDescription = new JobDescription[limit];
+            JobsDescription = new JobDescription[limit];
             for (int i = 0; i < limit; i++)
             {
-                jobsDescription[i] = new JobDescription();
-                jobsDescription[i].Deserialize(reader);
+                JobsDescription[i] = new JobDescription();
+                JobsDescription[i].Deserialize(reader);
             }
         }
     }

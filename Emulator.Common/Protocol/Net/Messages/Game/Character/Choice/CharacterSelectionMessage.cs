@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 {
     public class CharacterSelectionMessage : NetworkMessage
     {
-        public const uint Id = 152;
-
-        public int id;
+        public const uint ID = 152;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Id { get; set; }
 
 
         public CharacterSelectionMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 
         public CharacterSelectionMessage(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(id);
+            writer.WriteInt(Id);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            id = reader.ReadInt();
-            if (id < 1 || id > 2147483647)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 1 || id > 2147483647");
+            Id = reader.ReadInt();
         }
     }
 }

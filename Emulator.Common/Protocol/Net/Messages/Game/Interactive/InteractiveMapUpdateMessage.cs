@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 {
     public class InteractiveMapUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5002;
-
-        public InteractiveElement[] interactiveElements;
+        public const uint ID = 5002;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public InteractiveElement[] InteractiveElements { get; set; }
 
 
         public InteractiveMapUpdateMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 
         public InteractiveMapUpdateMessage(InteractiveElement[] interactiveElements)
         {
-            this.interactiveElements = interactiveElements;
+            InteractiveElements = interactiveElements;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) interactiveElements.Length);
-            foreach (var entry in interactiveElements)
+            writer.WriteUShort((ushort) InteractiveElements.Length);
+            foreach (var entry in InteractiveElements)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -56,11 +58,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            interactiveElements = new InteractiveElement[limit];
+            InteractiveElements = new InteractiveElement[limit];
             for (int i = 0; i < limit; i++)
             {
-                interactiveElements[i] = Types.ProtocolTypeManager.GetInstance<InteractiveElement>(reader.ReadShort());
-                interactiveElements[i].Deserialize(reader);
+                InteractiveElements[i] = Types.ProtocolTypeManager.GetInstance<InteractiveElement>(reader.ReadShort());
+                InteractiveElements[i].Deserialize(reader);
             }
         }
     }

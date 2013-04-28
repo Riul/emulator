@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Delay
 {
     public class GameRolePlayDelayedActionFinishedMessage : NetworkMessage
     {
-        public const uint Id = 6150;
-
-        public sbyte delayTypeId;
-        public int delayedCharacterId;
+        public const uint ID = 6150;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int DelayedCharacterId { get; set; }
+        public sbyte DelayTypeId { get; set; }
 
 
         public GameRolePlayDelayedActionFinishedMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Delay
 
         public GameRolePlayDelayedActionFinishedMessage(int delayedCharacterId, sbyte delayTypeId)
         {
-            this.delayedCharacterId = delayedCharacterId;
-            this.delayTypeId = delayTypeId;
+            DelayedCharacterId = delayedCharacterId;
+            DelayTypeId = delayTypeId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(delayedCharacterId);
-            writer.WriteSByte(delayTypeId);
+            writer.WriteInt(DelayedCharacterId);
+            writer.WriteSByte(DelayTypeId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            delayedCharacterId = reader.ReadInt();
-            delayTypeId = reader.ReadSByte();
-            if (delayTypeId < 0)
-                throw new Exception("Forbidden value on delayTypeId = " + delayTypeId + ", it doesn't respect the following condition : delayTypeId < 0");
+            DelayedCharacterId = reader.ReadInt();
+            DelayTypeId = reader.ReadSByte();
         }
     }
 }

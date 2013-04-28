@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class HumanOptionEmote : HumanOption
     {
-        public const short Id = 407;
-
-        public sbyte emoteId;
-        public double emoteStartTime;
+        public const short ID = 407;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte EmoteId { get; set; }
+        public double EmoteStartTime { get; set; }
 
 
         public HumanOptionEmote()
@@ -39,23 +41,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public HumanOptionEmote(sbyte emoteId, double emoteStartTime)
         {
-            this.emoteId = emoteId;
-            this.emoteStartTime = emoteStartTime;
+            EmoteId = emoteId;
+            EmoteStartTime = emoteStartTime;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(emoteId);
-            writer.WriteDouble(emoteStartTime);
+            writer.WriteSByte(EmoteId);
+            writer.WriteDouble(EmoteStartTime);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            emoteId = reader.ReadSByte();
-            emoteStartTime = reader.ReadDouble();
+            EmoteId = reader.ReadSByte();
+            EmoteStartTime = reader.ReadDouble();
         }
     }
 }

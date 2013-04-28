@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
 {
     public class CharacterLevelUpInformationMessage : CharacterLevelUpMessage
     {
-        public const uint Id = 6076;
-
-        public int id;
-        public string name;
+        public const uint ID = 6076;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
+        public int Id { get; set; }
 
 
         public CharacterLevelUpInformationMessage()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Stats
         }
 
         public CharacterLevelUpInformationMessage(byte newLevel, string name, int id)
-            : base(newLevel)
+                : base(newLevel)
         {
-            this.name = name;
-            this.id = id;
+            Name = name;
+            Id = id;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(name);
-            writer.WriteInt(id);
+            writer.WriteUTF(Name);
+            writer.WriteInt(Id);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            name = reader.ReadUTF();
-            id = reader.ReadInt();
-            if (id < 0)
-                throw new Exception("Forbidden value on id = " + id + ", it doesn't respect the following condition : id < 0");
+            Name = reader.ReadUTF();
+            Id = reader.ReadInt();
         }
     }
 }

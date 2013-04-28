@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class FriendsListMessage : NetworkMessage
     {
-        public const uint Id = 4002;
-
-        public FriendInformations[] friendsList;
+        public const uint ID = 4002;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public FriendInformations[] FriendsList { get; set; }
 
 
         public FriendsListMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 
         public FriendsListMessage(FriendInformations[] friendsList)
         {
-            this.friendsList = friendsList;
+            FriendsList = friendsList;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) friendsList.Length);
-            foreach (var entry in friendsList)
+            writer.WriteUShort((ushort) FriendsList.Length);
+            foreach (var entry in FriendsList)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
@@ -56,11 +58,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            friendsList = new FriendInformations[limit];
+            FriendsList = new FriendInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                friendsList[i] = Types.ProtocolTypeManager.GetInstance<FriendInformations>(reader.ReadShort());
-                friendsList[i].Deserialize(reader);
+                FriendsList[i] = Types.ProtocolTypeManager.GetInstance<FriendInformations>(reader.ReadShort());
+                FriendsList[i].Deserialize(reader);
             }
         }
     }

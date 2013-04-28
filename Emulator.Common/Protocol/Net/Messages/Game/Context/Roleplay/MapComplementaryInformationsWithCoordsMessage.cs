@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Fight;
 using Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay;
@@ -27,15 +28,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 {
     public class MapComplementaryInformationsWithCoordsMessage : MapComplementaryInformationsDataMessage
     {
-        public const uint Id = 6268;
-
-        public short worldX;
-        public short worldY;
+        public const uint ID = 6268;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
 
 
         public MapComplementaryInformationsWithCoordsMessage()
@@ -43,29 +44,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         }
 
         public MapComplementaryInformationsWithCoordsMessage(short subAreaId, int mapId, sbyte subareaAlignmentSide, HouseInformations[] houses, GameRolePlayActorInformations[] actors, InteractiveElement[] interactiveElements, StatedElement[] statedElements, MapObstacle[] obstacles, FightCommonInformations[] fights, short worldX, short worldY)
-            : base(subAreaId, mapId, subareaAlignmentSide, houses, actors, interactiveElements, statedElements, obstacles, fights)
+                : base(subAreaId, mapId, subareaAlignmentSide, houses, actors, interactiveElements, statedElements, obstacles, fights)
         {
-            this.worldX = worldX;
-            this.worldY = worldY;
+            WorldX = worldX;
+            WorldY = worldY;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
         }
     }
 }

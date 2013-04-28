@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismBalanceResultMessage : NetworkMessage
     {
-        public const uint Id = 5841;
-
-        public sbyte subAreaBalanceValue;
-        public sbyte totalBalanceValue;
+        public const uint ID = 5841;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte TotalBalanceValue { get; set; }
+        public sbyte SubAreaBalanceValue { get; set; }
 
 
         public PrismBalanceResultMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismBalanceResultMessage(sbyte totalBalanceValue, sbyte subAreaBalanceValue)
         {
-            this.totalBalanceValue = totalBalanceValue;
-            this.subAreaBalanceValue = subAreaBalanceValue;
+            TotalBalanceValue = totalBalanceValue;
+            SubAreaBalanceValue = subAreaBalanceValue;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(totalBalanceValue);
-            writer.WriteSByte(subAreaBalanceValue);
+            writer.WriteSByte(TotalBalanceValue);
+            writer.WriteSByte(SubAreaBalanceValue);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            totalBalanceValue = reader.ReadSByte();
-            if (totalBalanceValue < 0)
-                throw new Exception("Forbidden value on totalBalanceValue = " + totalBalanceValue + ", it doesn't respect the following condition : totalBalanceValue < 0");
-            subAreaBalanceValue = reader.ReadSByte();
-            if (subAreaBalanceValue < 0)
-                throw new Exception("Forbidden value on subAreaBalanceValue = " + subAreaBalanceValue + ", it doesn't respect the following condition : subAreaBalanceValue < 0");
+            TotalBalanceValue = reader.ReadSByte();
+            SubAreaBalanceValue = reader.ReadSByte();
         }
     }
 }

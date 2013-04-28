@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.House;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 {
     public class HouseToSellListMessage : NetworkMessage
     {
-        public const uint Id = 6140;
-        public HouseInformationsForSell[] houseList;
-
-        public short pageIndex;
-        public short totalPage;
+        public const uint ID = 6140;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short PageIndex { get; set; }
+        public short TotalPage { get; set; }
+        public HouseInformationsForSell[] HouseList { get; set; }
 
 
         public HouseToSellListMessage()
@@ -42,18 +43,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public HouseToSellListMessage(short pageIndex, short totalPage, HouseInformationsForSell[] houseList)
         {
-            this.pageIndex = pageIndex;
-            this.totalPage = totalPage;
-            this.houseList = houseList;
+            PageIndex = pageIndex;
+            TotalPage = totalPage;
+            HouseList = houseList;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(pageIndex);
-            writer.WriteShort(totalPage);
-            writer.WriteUShort((ushort) houseList.Length);
-            foreach (var entry in houseList)
+            writer.WriteShort(PageIndex);
+            writer.WriteShort(TotalPage);
+            writer.WriteUShort((ushort) HouseList.Length);
+            foreach (var entry in HouseList)
             {
                 entry.Serialize(writer);
             }
@@ -61,18 +62,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public override void Deserialize(BigEndianReader reader)
         {
-            pageIndex = reader.ReadShort();
-            if (pageIndex < 0)
-                throw new Exception("Forbidden value on pageIndex = " + pageIndex + ", it doesn't respect the following condition : pageIndex < 0");
-            totalPage = reader.ReadShort();
-            if (totalPage < 0)
-                throw new Exception("Forbidden value on totalPage = " + totalPage + ", it doesn't respect the following condition : totalPage < 0");
+            PageIndex = reader.ReadShort();
+            TotalPage = reader.ReadShort();
             var limit = reader.ReadUShort();
-            houseList = new HouseInformationsForSell[limit];
+            HouseList = new HouseInformationsForSell[limit];
             for (int i = 0; i < limit; i++)
             {
-                houseList[i] = new HouseInformationsForSell();
-                houseList[i].Deserialize(reader);
+                HouseList[i] = new HouseInformationsForSell();
+                HouseList[i].Deserialize(reader);
             }
         }
     }

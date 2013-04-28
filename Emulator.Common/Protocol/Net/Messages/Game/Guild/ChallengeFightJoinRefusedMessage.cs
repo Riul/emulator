@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class ChallengeFightJoinRefusedMessage : NetworkMessage
     {
-        public const uint Id = 5908;
-
-        public int playerId;
-        public sbyte reason;
+        public const uint ID = 5908;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int PlayerId { get; set; }
+        public sbyte Reason { get; set; }
 
 
         public ChallengeFightJoinRefusedMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public ChallengeFightJoinRefusedMessage(int playerId, sbyte reason)
         {
-            this.playerId = playerId;
-            this.reason = reason;
+            PlayerId = playerId;
+            Reason = reason;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(playerId);
-            writer.WriteSByte(reason);
+            writer.WriteInt(PlayerId);
+            writer.WriteSByte(Reason);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
-            reason = reader.ReadSByte();
+            PlayerId = reader.ReadInt();
+            Reason = reader.ReadSByte();
         }
     }
 }

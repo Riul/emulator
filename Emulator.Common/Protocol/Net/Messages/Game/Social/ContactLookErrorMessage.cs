@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Social
 {
     public class ContactLookErrorMessage : NetworkMessage
     {
-        public const uint Id = 6045;
-
-        public int requestId;
+        public const uint ID = 6045;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int RequestId { get; set; }
 
 
         public ContactLookErrorMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
 
         public ContactLookErrorMessage(int requestId)
         {
-            this.requestId = requestId;
+            RequestId = requestId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(requestId);
+            writer.WriteInt(RequestId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            requestId = reader.ReadInt();
-            if (requestId < 0)
-                throw new Exception("Forbidden value on requestId = " + requestId + ", it doesn't respect the following condition : requestId < 0");
+            RequestId = reader.ReadInt();
         }
     }
 }

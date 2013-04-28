@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
 {
     public class CharacterSpellModification
     {
-        public const short Id = 215;
-
-        public sbyte modificationType;
-        public short spellId;
-        public CharacterBaseCharacteristic value;
+        public const short ID = 215;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte ModificationType { get; set; }
+        public short SpellId { get; set; }
+        public CharacterBaseCharacteristic Value { get; set; }
 
 
         public CharacterSpellModification()
@@ -41,29 +42,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character.Characteristic
 
         public CharacterSpellModification(sbyte modificationType, short spellId, CharacterBaseCharacteristic value)
         {
-            this.modificationType = modificationType;
-            this.spellId = spellId;
-            this.value = value;
+            ModificationType = modificationType;
+            SpellId = spellId;
+            Value = value;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(modificationType);
-            writer.WriteShort(spellId);
-            value.Serialize(writer);
+            writer.WriteSByte(ModificationType);
+            writer.WriteShort(SpellId);
+            Value.Serialize(writer);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            modificationType = reader.ReadSByte();
-            if (modificationType < 0)
-                throw new Exception("Forbidden value on modificationType = " + modificationType + ", it doesn't respect the following condition : modificationType < 0");
-            spellId = reader.ReadShort();
-            if (spellId < 0)
-                throw new Exception("Forbidden value on spellId = " + spellId + ", it doesn't respect the following condition : spellId < 0");
-            value = new CharacterBaseCharacteristic();
-            value.Deserialize(reader);
+            ModificationType = reader.ReadSByte();
+            SpellId = reader.ReadShort();
+            Value = new CharacterBaseCharacteristic();
+            Value.Deserialize(reader);
         }
     }
 }

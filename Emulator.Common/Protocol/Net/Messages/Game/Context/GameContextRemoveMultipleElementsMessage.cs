@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameContextRemoveMultipleElementsMessage : NetworkMessage
     {
-        public const uint Id = 252;
-
-        public int[] id;
+        public const uint ID = 252;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] Id { get; set; }
 
 
         public GameContextRemoveMultipleElementsMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameContextRemoveMultipleElementsMessage(int[] id)
         {
-            this.id = id;
+            Id = id;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) id.Length);
-            foreach (var entry in id)
+            writer.WriteUShort((ushort) Id.Length);
+            foreach (var entry in Id)
             {
                 writer.WriteInt(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            id = new int[limit];
+            Id = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                id[i] = reader.ReadInt();
+                Id[i] = reader.ReadInt();
             }
         }
     }

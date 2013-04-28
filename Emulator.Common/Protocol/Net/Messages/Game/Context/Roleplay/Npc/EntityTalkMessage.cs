@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 {
     public class EntityTalkMessage : NetworkMessage
     {
-        public const uint Id = 6110;
-
-        public int entityId;
-        public string[] parameters;
-        public short textId;
+        public const uint ID = 6110;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int EntityId { get; set; }
+        public short TextId { get; set; }
+        public string[] Parameters { get; set; }
 
 
         public EntityTalkMessage()
@@ -41,18 +42,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public EntityTalkMessage(int entityId, short textId, string[] parameters)
         {
-            this.entityId = entityId;
-            this.textId = textId;
-            this.parameters = parameters;
+            EntityId = entityId;
+            TextId = textId;
+            Parameters = parameters;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(entityId);
-            writer.WriteShort(textId);
-            writer.WriteUShort((ushort) parameters.Length);
-            foreach (var entry in parameters)
+            writer.WriteInt(EntityId);
+            writer.WriteShort(TextId);
+            writer.WriteUShort((ushort) Parameters.Length);
+            foreach (var entry in Parameters)
             {
                 writer.WriteUTF(entry);
             }
@@ -60,15 +61,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Npc
 
         public override void Deserialize(BigEndianReader reader)
         {
-            entityId = reader.ReadInt();
-            textId = reader.ReadShort();
-            if (textId < 0)
-                throw new Exception("Forbidden value on textId = " + textId + ", it doesn't respect the following condition : textId < 0");
+            EntityId = reader.ReadInt();
+            TextId = reader.ReadShort();
             var limit = reader.ReadUShort();
-            parameters = new string[limit];
+            Parameters = new string[limit];
             for (int i = 0; i < limit; i++)
             {
-                parameters[i] = reader.ReadUTF();
+                Parameters[i] = reader.ReadUTF();
             }
         }
     }

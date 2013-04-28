@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 {
     public class DownloadErrorMessage : NetworkMessage
     {
-        public const uint Id = 1513;
-
-        public sbyte errorId;
-        public string helpUrl;
-        public string message;
+        public const uint ID = 1513;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte ErrorId { get; set; }
+        public string Message { get; set; }
+        public string HelpUrl { get; set; }
 
 
         public DownloadErrorMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Updater.Parts
 
         public DownloadErrorMessage(sbyte errorId, string message, string helpUrl)
         {
-            this.errorId = errorId;
-            this.message = message;
-            this.helpUrl = helpUrl;
+            ErrorId = errorId;
+            Message = message;
+            HelpUrl = helpUrl;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(errorId);
-            writer.WriteUTF(message);
-            writer.WriteUTF(helpUrl);
+            writer.WriteSByte(ErrorId);
+            writer.WriteUTF(Message);
+            writer.WriteUTF(HelpUrl);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            errorId = reader.ReadSByte();
-            if (errorId < 0)
-                throw new Exception("Forbidden value on errorId = " + errorId + ", it doesn't respect the following condition : errorId < 0");
-            message = reader.ReadUTF();
-            helpUrl = reader.ReadUTF();
+            ErrorId = reader.ReadSByte();
+            Message = reader.ReadUTF();
+            HelpUrl = reader.ReadUTF();
         }
     }
 }

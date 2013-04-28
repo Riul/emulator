@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Version
 {
     public class VersionExtended : Version
     {
-        public const short Id = 393;
-
-        public sbyte install;
-        public sbyte technology;
+        public const short ID = 393;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Install { get; set; }
+        public sbyte Technology { get; set; }
 
 
         public VersionExtended()
@@ -39,34 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Version
         }
 
         public VersionExtended(sbyte major, sbyte minor, sbyte release, int revision, sbyte patch, sbyte buildType, sbyte install, sbyte technology)
-            : base(major, minor, release, revision, patch, buildType)
+                : base(major, minor, release, revision, patch, buildType)
         {
-            this.install = install;
-            this.technology = technology;
+            Install = install;
+            Technology = technology;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(install);
-            writer.WriteSByte(technology);
+            writer.WriteSByte(Install);
+            writer.WriteSByte(Technology);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            install = reader.ReadSByte();
-            if (install < 0)
-                throw new Exception("Forbidden value on install = " + install + ", it doesn't respect the following condition : install < 0");
-            technology = reader.ReadSByte();
-            if (technology < 0)
-                throw new Exception("Forbidden value on technology = " + technology + ", it doesn't respect the following condition : technology < 0");
-        }
-
-        public override string ToString()
-        {
-            return major + "." + minor + "." + patch + "." + release + "." + revision;
+            Install = reader.ReadSByte();
+            Technology = reader.ReadSByte();
         }
     }
 }

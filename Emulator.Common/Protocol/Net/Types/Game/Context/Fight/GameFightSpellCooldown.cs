@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class GameFightSpellCooldown
     {
-        public const short Id = 205;
-
-        public sbyte cooldown;
-        public int spellId;
+        public const short ID = 205;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SpellId { get; set; }
+        public sbyte Cooldown { get; set; }
 
 
         public GameFightSpellCooldown()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public GameFightSpellCooldown(int spellId, sbyte cooldown)
         {
-            this.spellId = spellId;
-            this.cooldown = cooldown;
+            SpellId = spellId;
+            Cooldown = cooldown;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(spellId);
-            writer.WriteSByte(cooldown);
+            writer.WriteInt(SpellId);
+            writer.WriteSByte(Cooldown);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            spellId = reader.ReadInt();
-            cooldown = reader.ReadSByte();
-            if (cooldown < 0)
-                throw new Exception("Forbidden value on cooldown = " + cooldown + ", it doesn't respect the following condition : cooldown < 0");
+            SpellId = reader.ReadInt();
+            Cooldown = reader.ReadSByte();
         }
     }
 }

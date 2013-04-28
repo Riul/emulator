@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
 {
     public class PartyMemberGeoPosition
     {
-        public const short Id = 378;
-        public int mapId;
-
-        public int memberId;
-        public short subAreaId;
-        public short worldX;
-        public short worldY;
+        public const short ID = 378;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MemberId { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
+        public int MapId { get; set; }
+        public short SubAreaId { get; set; }
 
 
         public PartyMemberGeoPosition()
@@ -43,38 +44,30 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Party
 
         public PartyMemberGeoPosition(int memberId, short worldX, short worldY, int mapId, short subAreaId)
         {
-            this.memberId = memberId;
-            this.worldX = worldX;
-            this.worldY = worldY;
-            this.mapId = mapId;
-            this.subAreaId = subAreaId;
+            MemberId = memberId;
+            WorldX = worldX;
+            WorldY = worldY;
+            MapId = mapId;
+            SubAreaId = subAreaId;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(memberId);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
-            writer.WriteInt(mapId);
-            writer.WriteShort(subAreaId);
+            writer.WriteInt(MemberId);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
+            writer.WriteInt(MapId);
+            writer.WriteShort(SubAreaId);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            memberId = reader.ReadInt();
-            if (memberId < 0)
-                throw new Exception("Forbidden value on memberId = " + memberId + ", it doesn't respect the following condition : memberId < 0");
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
-            mapId = reader.ReadInt();
-            subAreaId = reader.ReadShort();
-            if (subAreaId < 0)
-                throw new Exception("Forbidden value on subAreaId = " + subAreaId + ", it doesn't respect the following condition : subAreaId < 0");
+            MemberId = reader.ReadInt();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
+            MapId = reader.ReadInt();
+            SubAreaId = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects;
 
@@ -24,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
 {
     public class ObjectItemInformationWithQuantity : ObjectItemMinimalInformation
     {
-        public const short Id = 387;
-
-        public int quantity;
+        public const short ID = 387;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Quantity { get; set; }
 
 
         public ObjectItemInformationWithQuantity()
@@ -39,24 +40,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items
         }
 
         public ObjectItemInformationWithQuantity(short objectGID, short powerRate, bool overMax, ObjectEffect[] effects, int quantity)
-            : base(objectGID, powerRate, overMax, effects)
+                : base(objectGID, powerRate, overMax, effects)
         {
-            this.quantity = quantity;
+            Quantity = quantity;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(quantity);
+            writer.WriteInt(Quantity);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            quantity = reader.ReadInt();
-            if (quantity < 0)
-                throw new Exception("Forbidden value on quantity = " + quantity + ", it doesn't respect the following condition : quantity < 0");
+            Quantity = reader.ReadInt();
         }
     }
 }

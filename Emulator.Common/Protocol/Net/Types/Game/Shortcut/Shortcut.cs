@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 {
     public class Shortcut
     {
-        public const short Id = 369;
-
-        public int slot;
+        public const short ID = 369;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Slot { get; set; }
 
 
         public Shortcut()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 
         public Shortcut(int slot)
         {
-            this.slot = slot;
+            Slot = slot;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(slot);
+            writer.WriteInt(Slot);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            slot = reader.ReadInt();
-            if (slot < 0 || slot > 99)
-                throw new Exception("Forbidden value on slot = " + slot + ", it doesn't respect the following condition : slot < 0 || slot > 99");
+            Slot = reader.ReadInt();
         }
     }
 }

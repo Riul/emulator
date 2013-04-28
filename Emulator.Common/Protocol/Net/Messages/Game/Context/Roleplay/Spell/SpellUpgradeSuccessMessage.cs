@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
 {
     public class SpellUpgradeSuccessMessage : NetworkMessage
     {
-        public const uint Id = 1201;
-
-        public int spellId;
-        public sbyte spellLevel;
+        public const uint ID = 1201;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SpellId { get; set; }
+        public sbyte SpellLevel { get; set; }
 
 
         public SpellUpgradeSuccessMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
 
         public SpellUpgradeSuccessMessage(int spellId, sbyte spellLevel)
         {
-            this.spellId = spellId;
-            this.spellLevel = spellLevel;
+            SpellId = spellId;
+            SpellLevel = spellLevel;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(spellId);
-            writer.WriteSByte(spellLevel);
+            writer.WriteInt(SpellId);
+            writer.WriteSByte(SpellLevel);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            spellId = reader.ReadInt();
-            spellLevel = reader.ReadSByte();
-            if (spellLevel < 1 || spellLevel > 6)
-                throw new Exception("Forbidden value on spellLevel = " + spellLevel + ", it doesn't respect the following condition : spellLevel < 1 || spellLevel > 6");
+            SpellId = reader.ReadInt();
+            SpellLevel = reader.ReadSByte();
         }
     }
 }

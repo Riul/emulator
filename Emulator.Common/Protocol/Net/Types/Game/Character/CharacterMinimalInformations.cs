@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Character
 {
     public class CharacterMinimalInformations : AbstractCharacterInformation
     {
-        public const short Id = 110;
-
-        public byte level;
-        public string name;
+        public const short ID = 110;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte Level { get; set; }
+        public string Name { get; set; }
 
 
         public CharacterMinimalInformations()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Character
         }
 
         public CharacterMinimalInformations(int id, byte level, string name)
-            : base(id)
+                : base(id)
         {
-            this.level = level;
-            this.name = name;
+            Level = level;
+            Name = name;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteByte(level);
-            writer.WriteUTF(name);
+            writer.WriteByte(Level);
+            writer.WriteUTF(Name);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            level = reader.ReadByte();
-            if (level < 1 || level > 200)
-                throw new Exception("Forbidden value on level = " + level + ", it doesn't respect the following condition : level < 1 || level > 200");
-            name = reader.ReadUTF();
+            Level = reader.ReadByte();
+            Name = reader.ReadUTF();
         }
     }
 }

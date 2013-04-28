@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismFightDefendersStateMessage : NetworkMessage
     {
-        public const uint Id = 5899;
-
-        public double fightId;
-        public CharacterMinimalPlusLookAndGradeInformations[] mainFighters;
-        public CharacterMinimalPlusLookAndGradeInformations[] reserveFighters;
+        public const uint ID = 5899;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public CharacterMinimalPlusLookAndGradeInformations[] MainFighters { get; set; }
+        public CharacterMinimalPlusLookAndGradeInformations[] ReserveFighters { get; set; }
 
 
         public PrismFightDefendersStateMessage()
@@ -41,22 +43,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismFightDefendersStateMessage(double fightId, CharacterMinimalPlusLookAndGradeInformations[] mainFighters, CharacterMinimalPlusLookAndGradeInformations[] reserveFighters)
         {
-            this.fightId = fightId;
-            this.mainFighters = mainFighters;
-            this.reserveFighters = reserveFighters;
+            FightId = fightId;
+            MainFighters = mainFighters;
+            ReserveFighters = reserveFighters;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            writer.WriteUShort((ushort) mainFighters.Length);
-            foreach (var entry in mainFighters)
+            writer.WriteDouble(FightId);
+            writer.WriteUShort((ushort) MainFighters.Length);
+            foreach (var entry in MainFighters)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) reserveFighters.Length);
-            foreach (var entry in reserveFighters)
+            writer.WriteUShort((ushort) ReserveFighters.Length);
+            foreach (var entry in ReserveFighters)
             {
                 entry.Serialize(writer);
             }
@@ -64,20 +66,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
+            FightId = reader.ReadDouble();
             var limit = reader.ReadUShort();
-            mainFighters = new CharacterMinimalPlusLookAndGradeInformations[limit];
+            MainFighters = new CharacterMinimalPlusLookAndGradeInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                mainFighters[i] = new CharacterMinimalPlusLookAndGradeInformations();
-                mainFighters[i].Deserialize(reader);
+                MainFighters[i] = new CharacterMinimalPlusLookAndGradeInformations();
+                MainFighters[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            reserveFighters = new CharacterMinimalPlusLookAndGradeInformations[limit];
+            ReserveFighters = new CharacterMinimalPlusLookAndGradeInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                reserveFighters[i] = new CharacterMinimalPlusLookAndGradeInformations();
-                reserveFighters[i].Deserialize(reader);
+                ReserveFighters[i] = new CharacterMinimalPlusLookAndGradeInformations();
+                ReserveFighters[i].Deserialize(reader);
             }
         }
     }

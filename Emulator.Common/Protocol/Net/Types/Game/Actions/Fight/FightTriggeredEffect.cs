@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,17 +24,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 {
     public class FightTriggeredEffect : AbstractFightDispellableEffect
     {
-        public const short Id = 210;
-
-        public int arg1;
-        public int arg2;
-        public int arg3;
-        public short delay;
+        public const short ID = 210;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Arg1 { get; set; }
+        public int Arg2 { get; set; }
+        public int Arg3 { get; set; }
+        public short Delay { get; set; }
 
 
         public FightTriggeredEffect()
@@ -40,31 +42,31 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         }
 
         public FightTriggeredEffect(int uid, int targetId, short turnDuration, sbyte dispelable, short spellId, int parentBoostUid, int arg1, int arg2, int arg3, short delay)
-            : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
+                : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
         {
-            this.arg1 = arg1;
-            this.arg2 = arg2;
-            this.arg3 = arg3;
-            this.delay = delay;
+            Arg1 = arg1;
+            Arg2 = arg2;
+            Arg3 = arg3;
+            Delay = delay;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(arg1);
-            writer.WriteInt(arg2);
-            writer.WriteInt(arg3);
-            writer.WriteShort(delay);
+            writer.WriteInt(Arg1);
+            writer.WriteInt(Arg2);
+            writer.WriteInt(Arg3);
+            writer.WriteShort(Delay);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            arg1 = reader.ReadInt();
-            arg2 = reader.ReadInt();
-            arg3 = reader.ReadInt();
-            delay = reader.ReadShort();
+            Arg1 = reader.ReadInt();
+            Arg2 = reader.ReadInt();
+            Arg3 = reader.ReadInt();
+            Delay = reader.ReadShort();
         }
     }
 }

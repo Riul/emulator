@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 {
     public class EmoteAddMessage : NetworkMessage
     {
-        public const uint Id = 5644;
-
-        public sbyte emoteId;
+        public const uint ID = 5644;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte EmoteId { get; set; }
 
 
         public EmoteAddMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Emote
 
         public EmoteAddMessage(sbyte emoteId)
         {
-            this.emoteId = emoteId;
+            EmoteId = emoteId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(emoteId);
+            writer.WriteSByte(EmoteId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            emoteId = reader.ReadSByte();
-            if (emoteId < 0)
-                throw new Exception("Forbidden value on emoteId = " + emoteId + ", it doesn't respect the following condition : emoteId < 0");
+            EmoteId = reader.ReadSByte();
         }
     }
 }

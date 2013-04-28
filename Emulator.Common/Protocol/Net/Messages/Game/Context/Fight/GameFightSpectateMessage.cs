@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Action.Fight;
 using Emulator.Common.Protocol.Net.Types.Game.Actions.Fight;
@@ -25,16 +26,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightSpectateMessage : NetworkMessage
     {
-        public const uint Id = 6069;
-
-        public FightDispellableEffectExtendedInformations[] effects;
-        public short gameTurn;
-        public GameActionMark[] marks;
+        public const uint ID = 6069;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public FightDispellableEffectExtendedInformations[] Effects { get; set; }
+        public GameActionMark[] Marks { get; set; }
+        public short GameTurn { get; set; }
 
 
         public GameFightSpectateMessage()
@@ -43,46 +44,44 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightSpectateMessage(FightDispellableEffectExtendedInformations[] effects, GameActionMark[] marks, short gameTurn)
         {
-            this.effects = effects;
-            this.marks = marks;
-            this.gameTurn = gameTurn;
+            Effects = effects;
+            Marks = marks;
+            GameTurn = gameTurn;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) effects.Length);
-            foreach (var entry in effects)
+            writer.WriteUShort((ushort) Effects.Length);
+            foreach (var entry in Effects)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) marks.Length);
-            foreach (var entry in marks)
+            writer.WriteUShort((ushort) Marks.Length);
+            foreach (var entry in Marks)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteShort(gameTurn);
+            writer.WriteShort(GameTurn);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            effects = new FightDispellableEffectExtendedInformations[limit];
+            Effects = new FightDispellableEffectExtendedInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                effects[i] = new FightDispellableEffectExtendedInformations();
-                effects[i].Deserialize(reader);
+                Effects[i] = new FightDispellableEffectExtendedInformations();
+                Effects[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            marks = new GameActionMark[limit];
+            Marks = new GameActionMark[limit];
             for (int i = 0; i < limit; i++)
             {
-                marks[i] = new GameActionMark();
-                marks[i].Deserialize(reader);
+                Marks[i] = new GameActionMark();
+                Marks[i].Deserialize(reader);
             }
-            gameTurn = reader.ReadShort();
-            if (gameTurn < 0)
-                throw new Exception("Forbidden value on gameTurn = " + gameTurn + ", it doesn't respect the following condition : gameTurn < 0");
+            GameTurn = reader.ReadShort();
         }
     }
 }

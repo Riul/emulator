@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Data.Items;
 
@@ -24,19 +25,19 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Startup
 {
     public class StartupActionAddObject
     {
-        public const short Id = 52;
-
-        public string descUrl;
-        public ObjectItemInformationWithQuantity[] items;
-        public string pictureUrl;
-        public string text;
-        public string title;
-        public int uid;
+        public const short ID = 52;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Uid { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+        public string DescUrl { get; set; }
+        public string PictureUrl { get; set; }
+        public ObjectItemInformationWithQuantity[] Items { get; set; }
 
 
         public StartupActionAddObject()
@@ -45,24 +46,24 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Startup
 
         public StartupActionAddObject(int uid, string title, string text, string descUrl, string pictureUrl, ObjectItemInformationWithQuantity[] items)
         {
-            this.uid = uid;
-            this.title = title;
-            this.text = text;
-            this.descUrl = descUrl;
-            this.pictureUrl = pictureUrl;
-            this.items = items;
+            Uid = uid;
+            Title = title;
+            Text = text;
+            DescUrl = descUrl;
+            PictureUrl = pictureUrl;
+            Items = items;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(uid);
-            writer.WriteUTF(title);
-            writer.WriteUTF(text);
-            writer.WriteUTF(descUrl);
-            writer.WriteUTF(pictureUrl);
-            writer.WriteUShort((ushort) items.Length);
-            foreach (var entry in items)
+            writer.WriteInt(Uid);
+            writer.WriteUTF(Title);
+            writer.WriteUTF(Text);
+            writer.WriteUTF(DescUrl);
+            writer.WriteUTF(PictureUrl);
+            writer.WriteUShort((ushort) Items.Length);
+            foreach (var entry in Items)
             {
                 entry.Serialize(writer);
             }
@@ -70,19 +71,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Startup
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadInt();
-            if (uid < 0)
-                throw new Exception("Forbidden value on uid = " + uid + ", it doesn't respect the following condition : uid < 0");
-            title = reader.ReadUTF();
-            text = reader.ReadUTF();
-            descUrl = reader.ReadUTF();
-            pictureUrl = reader.ReadUTF();
+            Uid = reader.ReadInt();
+            Title = reader.ReadUTF();
+            Text = reader.ReadUTF();
+            DescUrl = reader.ReadUTF();
+            PictureUrl = reader.ReadUTF();
             var limit = reader.ReadUShort();
-            items = new ObjectItemInformationWithQuantity[limit];
+            Items = new ObjectItemInformationWithQuantity[limit];
             for (int i = 0; i < limit; i++)
             {
-                items[i] = new ObjectItemInformationWithQuantity();
-                items[i].Deserialize(reader);
+                Items[i] = new ObjectItemInformationWithQuantity();
+                Items[i].Deserialize(reader);
             }
         }
     }

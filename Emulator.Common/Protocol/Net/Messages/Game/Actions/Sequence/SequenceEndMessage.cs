@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Sequence
 {
     public class SequenceEndMessage : NetworkMessage
     {
-        public const uint Id = 956;
-
-        public short actionId;
-        public int authorId;
-        public sbyte sequenceType;
+        public const uint ID = 956;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ActionId { get; set; }
+        public int AuthorId { get; set; }
+        public sbyte SequenceType { get; set; }
 
 
         public SequenceEndMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Sequence
 
         public SequenceEndMessage(short actionId, int authorId, sbyte sequenceType)
         {
-            this.actionId = actionId;
-            this.authorId = authorId;
-            this.sequenceType = sequenceType;
+            ActionId = actionId;
+            AuthorId = authorId;
+            SequenceType = sequenceType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(actionId);
-            writer.WriteInt(authorId);
-            writer.WriteSByte(sequenceType);
+            writer.WriteShort(ActionId);
+            writer.WriteInt(AuthorId);
+            writer.WriteSByte(SequenceType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            actionId = reader.ReadShort();
-            if (actionId < 0)
-                throw new Exception("Forbidden value on actionId = " + actionId + ", it doesn't respect the following condition : actionId < 0");
-            authorId = reader.ReadInt();
-            sequenceType = reader.ReadSByte();
+            ActionId = reader.ReadShort();
+            AuthorId = reader.ReadInt();
+            SequenceType = reader.ReadSByte();
         }
     }
 }

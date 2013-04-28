@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightDispellableEffectMessage : AbstractGameActionMessage
     {
-        public const uint Id = 6070;
-
-        public AbstractFightDispellableEffect effect;
+        public const uint ID = 6070;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public AbstractFightDispellableEffect Effect { get; set; }
 
 
         public GameActionFightDispellableEffectMessage()
@@ -38,24 +40,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightDispellableEffectMessage(short actionId, int sourceId, AbstractFightDispellableEffect effect)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.effect = effect;
+            Effect = effect;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(effect.TypeId);
-            effect.Serialize(writer);
+            writer.WriteShort(Effect.TypeId);
+            Effect.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            effect = Types.ProtocolTypeManager.GetInstance<AbstractFightDispellableEffect>(reader.ReadShort());
-            effect.Deserialize(reader);
+            Effect = Types.ProtocolTypeManager.GetInstance<AbstractFightDispellableEffect>(reader.ReadShort());
+            Effect.Deserialize(reader);
         }
     }
 }

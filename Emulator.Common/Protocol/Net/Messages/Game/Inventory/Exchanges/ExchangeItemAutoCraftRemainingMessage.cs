@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeItemAutoCraftRemainingMessage : NetworkMessage
     {
-        public const uint Id = 6015;
-
-        public int count;
+        public const uint ID = 6015;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Count { get; set; }
 
 
         public ExchangeItemAutoCraftRemainingMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeItemAutoCraftRemainingMessage(int count)
         {
-            this.count = count;
+            Count = count;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(count);
+            writer.WriteInt(Count);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            count = reader.ReadInt();
-            if (count < 0)
-                throw new Exception("Forbidden value on count = " + count + ", it doesn't respect the following condition : count < 0");
+            Count = reader.ReadInt();
         }
     }
 }

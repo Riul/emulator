@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 {
     public class AcquaintanceServerListMessage : NetworkMessage
     {
-        public const uint Id = 6142;
-
-        public short[] servers;
+        public const uint ID = 6142;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Servers { get; set; }
 
 
         public AcquaintanceServerListMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
 
         public AcquaintanceServerListMessage(short[] servers)
         {
-            this.servers = servers;
+            Servers = servers;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) servers.Length);
-            foreach (var entry in servers)
+            writer.WriteUShort((ushort) Servers.Length);
+            foreach (var entry in Servers)
             {
                 writer.WriteShort(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection.Search
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            servers = new short[limit];
+            Servers = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                servers[i] = reader.ReadShort();
+                Servers[i] = reader.ReadShort();
             }
         }
     }

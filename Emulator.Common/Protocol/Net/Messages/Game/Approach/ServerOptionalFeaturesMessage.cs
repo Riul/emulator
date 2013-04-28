@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 {
     public class ServerOptionalFeaturesMessage : NetworkMessage
     {
-        public const uint Id = 6305;
-
-        public short[] features;
+        public const uint ID = 6305;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] Features { get; set; }
 
 
         public ServerOptionalFeaturesMessage()
@@ -38,14 +40,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 
         public ServerOptionalFeaturesMessage(short[] features)
         {
-            this.features = features;
+            Features = features;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) features.Length);
-            foreach (var entry in features)
+            writer.WriteUShort((ushort) Features.Length);
+            foreach (var entry in Features)
             {
                 writer.WriteShort(entry);
             }
@@ -54,10 +56,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            features = new short[limit];
+            Features = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                features[i] = reader.ReadShort();
+                Features[i] = reader.ReadShort();
             }
         }
     }

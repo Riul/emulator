@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,19 +25,19 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeBidHouseInListAddedMessage : NetworkMessage
     {
-        public const uint Id = 5949;
-        public ObjectEffect[] effects;
-
-        public int itemUID;
-        public int objGenericId;
-        public bool overMax;
-        public short powerRate;
-        public int[] prices;
+        public const uint ID = 5949;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ItemUID { get; set; }
+        public int ObjGenericId { get; set; }
+        public short PowerRate { get; set; }
+        public bool OverMax { get; set; }
+        public ObjectEffect[] Effects { get; set; }
+        public int[] Prices { get; set; }
 
 
         public ExchangeBidHouseInListAddedMessage()
@@ -44,29 +46,29 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeBidHouseInListAddedMessage(int itemUID, int objGenericId, short powerRate, bool overMax, ObjectEffect[] effects, int[] prices)
         {
-            this.itemUID = itemUID;
-            this.objGenericId = objGenericId;
-            this.powerRate = powerRate;
-            this.overMax = overMax;
-            this.effects = effects;
-            this.prices = prices;
+            ItemUID = itemUID;
+            ObjGenericId = objGenericId;
+            PowerRate = powerRate;
+            OverMax = overMax;
+            Effects = effects;
+            Prices = prices;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(itemUID);
-            writer.WriteInt(objGenericId);
-            writer.WriteShort(powerRate);
-            writer.WriteBoolean(overMax);
-            writer.WriteUShort((ushort) effects.Length);
-            foreach (var entry in effects)
+            writer.WriteInt(ItemUID);
+            writer.WriteInt(ObjGenericId);
+            writer.WriteShort(PowerRate);
+            writer.WriteBoolean(OverMax);
+            writer.WriteUShort((ushort) Effects.Length);
+            foreach (var entry in Effects)
             {
                 writer.WriteShort(entry.TypeId);
                 entry.Serialize(writer);
             }
-            writer.WriteUShort((ushort) prices.Length);
-            foreach (var entry in prices)
+            writer.WriteUShort((ushort) Prices.Length);
+            foreach (var entry in Prices)
             {
                 writer.WriteInt(entry);
             }
@@ -74,22 +76,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public override void Deserialize(BigEndianReader reader)
         {
-            itemUID = reader.ReadInt();
-            objGenericId = reader.ReadInt();
-            powerRate = reader.ReadShort();
-            overMax = reader.ReadBoolean();
+            ItemUID = reader.ReadInt();
+            ObjGenericId = reader.ReadInt();
+            PowerRate = reader.ReadShort();
+            OverMax = reader.ReadBoolean();
             var limit = reader.ReadUShort();
-            effects = new ObjectEffect[limit];
+            Effects = new ObjectEffect[limit];
             for (int i = 0; i < limit; i++)
             {
-                effects[i] = Types.ProtocolTypeManager.GetInstance<ObjectEffect>(reader.ReadShort());
-                effects[i].Deserialize(reader);
+                Effects[i] = Types.ProtocolTypeManager.GetInstance<ObjectEffect>(reader.ReadShort());
+                Effects[i].Deserialize(reader);
             }
             limit = reader.ReadUShort();
-            prices = new int[limit];
+            Prices = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                prices[i] = reader.ReadInt();
+                Prices[i] = reader.ReadInt();
             }
         }
     }

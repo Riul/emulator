@@ -23,11 +23,11 @@ namespace Emulator.Common.Network.Sync.Messages
 {
     public class SyncIdentificationSuccessMessage : NetworkMessage
     {
-        public const uint Id = 2505;
+        public const uint ID = 2505;
         
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
 
         public override void Serialize(BigEndianWriter writer)

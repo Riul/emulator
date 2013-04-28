@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Character;
 
@@ -24,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 {
     public class GuildFightPlayersEnemiesListMessage : NetworkMessage
     {
-        public const uint Id = 5928;
-
-        public double fightId;
-        public CharacterMinimalPlusLookInformations[] playerInfo;
+        public const uint ID = 5928;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public double FightId { get; set; }
+        public CharacterMinimalPlusLookInformations[] PlayerInfo { get; set; }
 
 
         public GuildFightPlayersEnemiesListMessage()
@@ -41,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public GuildFightPlayersEnemiesListMessage(double fightId, CharacterMinimalPlusLookInformations[] playerInfo)
         {
-            this.fightId = fightId;
-            this.playerInfo = playerInfo;
+            FightId = fightId;
+            PlayerInfo = playerInfo;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteDouble(fightId);
-            writer.WriteUShort((ushort) playerInfo.Length);
-            foreach (var entry in playerInfo)
+            writer.WriteDouble(FightId);
+            writer.WriteUShort((ushort) PlayerInfo.Length);
+            foreach (var entry in PlayerInfo)
             {
                 entry.Serialize(writer);
             }
@@ -58,15 +59,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild.Tax
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadDouble();
-            if (fightId < 0)
-                throw new Exception("Forbidden value on fightId = " + fightId + ", it doesn't respect the following condition : fightId < 0");
+            FightId = reader.ReadDouble();
             var limit = reader.ReadUShort();
-            playerInfo = new CharacterMinimalPlusLookInformations[limit];
+            PlayerInfo = new CharacterMinimalPlusLookInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                playerInfo[i] = new CharacterMinimalPlusLookInformations();
-                playerInfo[i].Deserialize(reader);
+                PlayerInfo[i] = new CharacterMinimalPlusLookInformations();
+                PlayerInfo[i].Deserialize(reader);
             }
         }
     }

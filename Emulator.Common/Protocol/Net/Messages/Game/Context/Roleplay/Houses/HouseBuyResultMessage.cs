@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 {
     public class HouseBuyResultMessage : NetworkMessage
     {
-        public const uint Id = 5735;
-
-        public bool bought;
-        public int houseId;
-        public int realPrice;
+        public const uint ID = 5735;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int HouseId { get; set; }
+        public bool Bought { get; set; }
+        public int RealPrice { get; set; }
 
 
         public HouseBuyResultMessage()
@@ -41,28 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Houses
 
         public HouseBuyResultMessage(int houseId, bool bought, int realPrice)
         {
-            this.houseId = houseId;
-            this.bought = bought;
-            this.realPrice = realPrice;
+            HouseId = houseId;
+            Bought = bought;
+            RealPrice = realPrice;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(houseId);
-            writer.WriteBoolean(bought);
-            writer.WriteInt(realPrice);
+            writer.WriteInt(HouseId);
+            writer.WriteBoolean(Bought);
+            writer.WriteInt(RealPrice);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            houseId = reader.ReadInt();
-            if (houseId < 0)
-                throw new Exception("Forbidden value on houseId = " + houseId + ", it doesn't respect the following condition : houseId < 0");
-            bought = reader.ReadBoolean();
-            realPrice = reader.ReadInt();
-            if (realPrice < 0)
-                throw new Exception("Forbidden value on realPrice = " + realPrice + ", it doesn't respect the following condition : realPrice < 0");
+            HouseId = reader.ReadInt();
+            Bought = reader.ReadBoolean();
+            RealPrice = reader.ReadInt();
         }
     }
 }

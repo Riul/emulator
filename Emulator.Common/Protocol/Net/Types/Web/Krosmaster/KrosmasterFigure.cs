@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,27 +14,27 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Web.Krosmaster
 {
     public class KrosmasterFigure
     {
-        public const short Id = 397;
-        public bool bound;
-
-        public short figure;
-        public short pedestal;
-        public string uid;
+        public const short ID = 397;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Uid { get; set; }
+        public short Figure { get; set; }
+        public short Pedestal { get; set; }
+        public bool Bound { get; set; }
 
 
         public KrosmasterFigure()
@@ -42,31 +43,27 @@ namespace Emulator.Common.Protocol.Net.Types.Web.Krosmaster
 
         public KrosmasterFigure(string uid, short figure, short pedestal, bool bound)
         {
-            this.uid = uid;
-            this.figure = figure;
-            this.pedestal = pedestal;
-            this.bound = bound;
+            Uid = uid;
+            Figure = figure;
+            Pedestal = pedestal;
+            Bound = bound;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(uid);
-            writer.WriteShort(figure);
-            writer.WriteShort(pedestal);
-            writer.WriteBoolean(bound);
+            writer.WriteUTF(Uid);
+            writer.WriteShort(Figure);
+            writer.WriteShort(Pedestal);
+            writer.WriteBoolean(Bound);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            uid = reader.ReadUTF();
-            figure = reader.ReadShort();
-            if (figure < 0)
-                throw new Exception("Forbidden value on figure = " + figure + ", it doesn't respect the following condition : figure < 0");
-            pedestal = reader.ReadShort();
-            if (pedestal < 0)
-                throw new Exception("Forbidden value on pedestal = " + pedestal + ", it doesn't respect the following condition : pedestal < 0");
-            bound = reader.ReadBoolean();
+            Uid = reader.ReadUTF();
+            Figure = reader.ReadShort();
+            Pedestal = reader.ReadShort();
+            Bound = reader.ReadBoolean();
         }
     }
 }

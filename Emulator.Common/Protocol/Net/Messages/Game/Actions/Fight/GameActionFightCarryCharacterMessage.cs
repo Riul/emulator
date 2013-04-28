@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
 {
     public class GameActionFightCarryCharacterMessage : AbstractGameActionMessage
     {
-        public const uint Id = 5830;
-
-        public short cellId;
-        public int targetId;
+        public const uint ID = 5830;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int TargetId { get; set; }
+        public short CellId { get; set; }
 
 
         public GameActionFightCarryCharacterMessage()
@@ -39,27 +40,25 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Actions.Fight
         }
 
         public GameActionFightCarryCharacterMessage(short actionId, int sourceId, int targetId, short cellId)
-            : base(actionId, sourceId)
+                : base(actionId, sourceId)
         {
-            this.targetId = targetId;
-            this.cellId = cellId;
+            TargetId = targetId;
+            CellId = cellId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(targetId);
-            writer.WriteShort(cellId);
+            writer.WriteInt(TargetId);
+            writer.WriteShort(CellId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            targetId = reader.ReadInt();
-            cellId = reader.ReadShort();
-            if (cellId < -1 || cellId > 559)
-                throw new Exception("Forbidden value on cellId = " + cellId + ", it doesn't respect the following condition : cellId < -1 || cellId > 559");
+            TargetId = reader.ReadInt();
+            CellId = reader.ReadShort();
         }
     }
 }

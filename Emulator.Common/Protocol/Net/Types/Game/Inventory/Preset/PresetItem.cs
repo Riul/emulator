@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
 {
     public class PresetItem
     {
-        public const short Id = 354;
-
-        public int objGid;
-        public int objUid;
-        public byte position;
+        public const short ID = 354;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte Position { get; set; }
+        public int ObjGid { get; set; }
+        public int ObjUid { get; set; }
 
 
         public PresetItem()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Inventory.Preset
 
         public PresetItem(byte position, int objGid, int objUid)
         {
-            this.position = position;
-            this.objGid = objGid;
-            this.objUid = objUid;
+            Position = position;
+            ObjGid = objGid;
+            ObjUid = objUid;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteByte(position);
-            writer.WriteInt(objGid);
-            writer.WriteInt(objUid);
+            writer.WriteByte(Position);
+            writer.WriteInt(ObjGid);
+            writer.WriteInt(ObjUid);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            position = reader.ReadByte();
-            if (position < 0 || position > 255)
-                throw new Exception("Forbidden value on position = " + position + ", it doesn't respect the following condition : position < 0 || position > 255");
-            objGid = reader.ReadInt();
-            if (objGid < 0)
-                throw new Exception("Forbidden value on objGid = " + objGid + ", it doesn't respect the following condition : objGid < 0");
-            objUid = reader.ReadInt();
-            if (objUid < 0)
-                throw new Exception("Forbidden value on objUid = " + objUid + ", it doesn't respect the following condition : objUid < 0");
+            Position = reader.ReadByte();
+            ObjGid = reader.ReadInt();
+            ObjUid = reader.ReadInt();
         }
     }
 }

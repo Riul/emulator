@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
 {
     public class ObjectEffectMount : ObjectEffect
     {
-        public const short Id = 179;
-
-        public double date;
-        public short modelId;
-        public int mountId;
+        public const short ID = 179;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MountId { get; set; }
+        public double Date { get; set; }
+        public short ModelId { get; set; }
 
 
         public ObjectEffectMount()
@@ -40,32 +41,28 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Data.Items.Effects
         }
 
         public ObjectEffectMount(short actionId, int mountId, double date, short modelId)
-            : base(actionId)
+                : base(actionId)
         {
-            this.mountId = mountId;
-            this.date = date;
-            this.modelId = modelId;
+            MountId = mountId;
+            Date = date;
+            ModelId = modelId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(mountId);
-            writer.WriteDouble(date);
-            writer.WriteShort(modelId);
+            writer.WriteInt(MountId);
+            writer.WriteDouble(Date);
+            writer.WriteShort(ModelId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            mountId = reader.ReadInt();
-            if (mountId < 0)
-                throw new Exception("Forbidden value on mountId = " + mountId + ", it doesn't respect the following condition : mountId < 0");
-            date = reader.ReadDouble();
-            modelId = reader.ReadShort();
-            if (modelId < 0)
-                throw new Exception("Forbidden value on modelId = " + modelId + ", it doesn't respect the following condition : modelId < 0");
+            MountId = reader.ReadInt();
+            Date = reader.ReadDouble();
+            ModelId = reader.ReadShort();
         }
     }
 }

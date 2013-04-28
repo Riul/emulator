@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class MountInformationInPaddockRequestMessage : NetworkMessage
     {
-        public const uint Id = 5975;
-
-        public int mapRideId;
+        public const uint ID = 5975;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int MapRideId { get; set; }
 
 
         public MountInformationInPaddockRequestMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public MountInformationInPaddockRequestMessage(int mapRideId)
         {
-            this.mapRideId = mapRideId;
+            MapRideId = mapRideId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(mapRideId);
+            writer.WriteInt(MapRideId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            mapRideId = reader.ReadInt();
+            MapRideId = reader.ReadInt();
         }
     }
 }

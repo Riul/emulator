@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightStartingMessage : NetworkMessage
     {
-        public const uint Id = 700;
-
-        public sbyte fightType;
+        public const uint ID = 700;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte FightType { get; set; }
 
 
         public GameFightStartingMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightStartingMessage(sbyte fightType)
         {
-            this.fightType = fightType;
+            FightType = fightType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(fightType);
+            writer.WriteSByte(FightType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightType = reader.ReadSByte();
-            if (fightType < 0)
-                throw new Exception("Forbidden value on fightType = " + fightType + ", it doesn't respect the following condition : fightType < 0");
+            FightType = reader.ReadSByte();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
 {
     public class ShortcutObjectPreset : ShortcutObject
     {
-        public const short Id = 370;
-
-        public sbyte presetId;
+        public const short ID = 370;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte PresetId { get; set; }
 
 
         public ShortcutObjectPreset()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Shortcut
         }
 
         public ShortcutObjectPreset(int slot, sbyte presetId)
-            : base(slot)
+                : base(slot)
         {
-            this.presetId = presetId;
+            PresetId = presetId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(presetId);
+            writer.WriteSByte(PresetId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            presetId = reader.ReadSByte();
-            if (presetId < 0)
-                throw new Exception("Forbidden value on presetId = " + presetId + ", it doesn't respect the following condition : presetId < 0");
+            PresetId = reader.ReadSByte();
         }
     }
 }

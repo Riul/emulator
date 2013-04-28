@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,50 +14,61 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay.Quest
 {
     public class QuestObjectiveInformations
     {
-        public const short Id = 385;
-
-        public short objectiveId;
-        public bool objectiveStatus;
+        public const short ID = 385;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short ObjectiveId { get; set; }
+        public bool ObjectiveStatus { get; set; }
+        public string[] DialogParams { get; set; }
 
 
         public QuestObjectiveInformations()
         {
         }
 
-        public QuestObjectiveInformations(short objectiveId, bool objectiveStatus)
+        public QuestObjectiveInformations(short objectiveId, bool objectiveStatus, string[] dialogParams)
         {
-            this.objectiveId = objectiveId;
-            this.objectiveStatus = objectiveStatus;
+            ObjectiveId = objectiveId;
+            ObjectiveStatus = objectiveStatus;
+            DialogParams = dialogParams;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(objectiveId);
-            writer.WriteBoolean(objectiveStatus);
+            writer.WriteShort(ObjectiveId);
+            writer.WriteBoolean(ObjectiveStatus);
+            writer.WriteUShort((ushort) DialogParams.Length);
+            foreach (var entry in DialogParams)
+            {
+                writer.WriteUTF(entry);
+            }
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            objectiveId = reader.ReadShort();
-            if (objectiveId < 0)
-                throw new Exception("Forbidden value on objectiveId = " + objectiveId + ", it doesn't respect the following condition : objectiveId < 0");
-            objectiveStatus = reader.ReadBoolean();
+            ObjectiveId = reader.ReadShort();
+            ObjectiveStatus = reader.ReadBoolean();
+            var limit = reader.ReadUShort();
+            DialogParams = new string[limit];
+            for (int i = 0; i < limit; i++)
+            {
+                DialogParams[i] = reader.ReadUTF();
+            }
         }
     }
 }

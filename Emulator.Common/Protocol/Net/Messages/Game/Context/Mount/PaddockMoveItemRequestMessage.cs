@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 {
     public class PaddockMoveItemRequestMessage : NetworkMessage
     {
-        public const uint Id = 6052;
-
-        public short newCellId;
-        public short oldCellId;
+        public const uint ID = 6052;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short OldCellId { get; set; }
+        public short NewCellId { get; set; }
 
 
         public PaddockMoveItemRequestMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Mount
 
         public PaddockMoveItemRequestMessage(short oldCellId, short newCellId)
         {
-            this.oldCellId = oldCellId;
-            this.newCellId = newCellId;
+            OldCellId = oldCellId;
+            NewCellId = newCellId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(oldCellId);
-            writer.WriteShort(newCellId);
+            writer.WriteShort(OldCellId);
+            writer.WriteShort(NewCellId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            oldCellId = reader.ReadShort();
-            if (oldCellId < 0 || oldCellId > 559)
-                throw new Exception("Forbidden value on oldCellId = " + oldCellId + ", it doesn't respect the following condition : oldCellId < 0 || oldCellId > 559");
-            newCellId = reader.ReadShort();
-            if (newCellId < 0 || newCellId > 559)
-                throw new Exception("Forbidden value on newCellId = " + newCellId + ", it doesn't respect the following condition : newCellId < 0 || newCellId > 559");
+            OldCellId = reader.ReadShort();
+            NewCellId = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,17 +24,17 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild
 {
     public class GuildEmblem
     {
-        public const short Id = 87;
-
-        public int backgroundColor;
-        public short backgroundShape;
-        public int symbolColor;
-        public short symbolShape;
+        public const short ID = 87;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short SymbolShape { get; set; }
+        public int SymbolColor { get; set; }
+        public short BackgroundShape { get; set; }
+        public int BackgroundColor { get; set; }
 
 
         public GuildEmblem()
@@ -41,27 +43,27 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Guild
 
         public GuildEmblem(short symbolShape, int symbolColor, short backgroundShape, int backgroundColor)
         {
-            this.symbolShape = symbolShape;
-            this.symbolColor = symbolColor;
-            this.backgroundShape = backgroundShape;
-            this.backgroundColor = backgroundColor;
+            SymbolShape = symbolShape;
+            SymbolColor = symbolColor;
+            BackgroundShape = backgroundShape;
+            BackgroundColor = backgroundColor;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(symbolShape);
-            writer.WriteInt(symbolColor);
-            writer.WriteShort(backgroundShape);
-            writer.WriteInt(backgroundColor);
+            writer.WriteShort(SymbolShape);
+            writer.WriteInt(SymbolColor);
+            writer.WriteShort(BackgroundShape);
+            writer.WriteInt(BackgroundColor);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            symbolShape = reader.ReadShort();
-            symbolColor = reader.ReadInt();
-            backgroundShape = reader.ReadShort();
-            backgroundColor = reader.ReadInt();
+            SymbolShape = reader.ReadShort();
+            SymbolColor = reader.ReadInt();
+            BackgroundShape = reader.ReadShort();
+            BackgroundColor = reader.ReadInt();
         }
     }
 }

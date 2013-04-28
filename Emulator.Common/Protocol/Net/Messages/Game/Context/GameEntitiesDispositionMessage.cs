@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 {
     public class GameEntitiesDispositionMessage : NetworkMessage
     {
-        public const uint Id = 5696;
-
-        public IdentifiedEntityDispositionInformations[] dispositions;
+        public const uint ID = 5696;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public IdentifiedEntityDispositionInformations[] Dispositions { get; set; }
 
 
         public GameEntitiesDispositionMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
 
         public GameEntitiesDispositionMessage(IdentifiedEntityDispositionInformations[] dispositions)
         {
-            this.dispositions = dispositions;
+            Dispositions = dispositions;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) dispositions.Length);
-            foreach (var entry in dispositions)
+            writer.WriteUShort((ushort) Dispositions.Length);
+            foreach (var entry in Dispositions)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            dispositions = new IdentifiedEntityDispositionInformations[limit];
+            Dispositions = new IdentifiedEntityDispositionInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                dispositions[i] = new IdentifiedEntityDispositionInformations();
-                dispositions[i].Deserialize(reader);
+                Dispositions[i] = new IdentifiedEntityDispositionInformations();
+                Dispositions[i].Deserialize(reader);
             }
         }
     }

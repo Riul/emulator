@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
 {
     public class SpellForgottenMessage : NetworkMessage
     {
-        public const uint Id = 5834;
-
-        public short boostPoint;
-        public short[] spellsId;
+        public const uint ID = 5834;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short[] SpellsId { get; set; }
+        public short BoostPoint { get; set; }
 
 
         public SpellForgottenMessage()
@@ -40,32 +41,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Spell
 
         public SpellForgottenMessage(short[] spellsId, short boostPoint)
         {
-            this.spellsId = spellsId;
-            this.boostPoint = boostPoint;
+            SpellsId = spellsId;
+            BoostPoint = boostPoint;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) spellsId.Length);
-            foreach (var entry in spellsId)
+            writer.WriteUShort((ushort) SpellsId.Length);
+            foreach (var entry in SpellsId)
             {
                 writer.WriteShort(entry);
             }
-            writer.WriteShort(boostPoint);
+            writer.WriteShort(BoostPoint);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            spellsId = new short[limit];
+            SpellsId = new short[limit];
             for (int i = 0; i < limit; i++)
             {
-                spellsId[i] = reader.ReadShort();
+                SpellsId[i] = reader.ReadShort();
             }
-            boostPoint = reader.ReadShort();
-            if (boostPoint < 0)
-                throw new Exception("Forbidden value on boostPoint = " + boostPoint + ", it doesn't respect the following condition : boostPoint < 0");
+            BoostPoint = reader.ReadShort();
         }
     }
 }

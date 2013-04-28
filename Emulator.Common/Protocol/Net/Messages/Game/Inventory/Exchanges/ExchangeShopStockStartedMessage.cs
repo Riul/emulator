@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeShopStockStartedMessage : NetworkMessage
     {
-        public const uint Id = 5910;
-
-        public ObjectItemToSell[] objectsInfos;
+        public const uint ID = 5910;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public ObjectItemToSell[] ObjectsInfos { get; set; }
 
 
         public ExchangeShopStockStartedMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeShopStockStartedMessage(ObjectItemToSell[] objectsInfos)
         {
-            this.objectsInfos = objectsInfos;
+            ObjectsInfos = objectsInfos;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) objectsInfos.Length);
-            foreach (var entry in objectsInfos)
+            writer.WriteUShort((ushort) ObjectsInfos.Length);
+            foreach (var entry in ObjectsInfos)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            objectsInfos = new ObjectItemToSell[limit];
+            ObjectsInfos = new ObjectItemToSell[limit];
             for (int i = 0; i < limit; i++)
             {
-                objectsInfos[i] = new ObjectItemToSell();
-                objectsInfos[i].Deserialize(reader);
+                ObjectsInfos[i] = new ObjectItemToSell();
+                ObjectsInfos[i].Deserialize(reader);
             }
         }
     }

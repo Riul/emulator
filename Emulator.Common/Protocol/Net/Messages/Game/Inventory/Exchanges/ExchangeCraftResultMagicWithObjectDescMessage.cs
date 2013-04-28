@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeCraftResultMagicWithObjectDescMessage : ExchangeCraftResultWithObjectDescMessage
     {
-        public const uint Id = 6188;
-
-        public sbyte magicPoolStatus;
+        public const uint ID = 6188;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte MagicPoolStatus { get; set; }
 
 
         public ExchangeCraftResultMagicWithObjectDescMessage()
@@ -38,22 +40,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
         }
 
         public ExchangeCraftResultMagicWithObjectDescMessage(sbyte craftResult, ObjectItemNotInContainer objectInfo, sbyte magicPoolStatus)
-            : base(craftResult, objectInfo)
+                : base(craftResult, objectInfo)
         {
-            this.magicPoolStatus = magicPoolStatus;
+            MagicPoolStatus = magicPoolStatus;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(magicPoolStatus);
+            writer.WriteSByte(MagicPoolStatus);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            magicPoolStatus = reader.ReadSByte();
+            MagicPoolStatus = reader.ReadSByte();
         }
     }
 }

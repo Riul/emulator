@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,17 +25,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
 {
     public class ContactLookMessage : NetworkMessage
     {
-        public const uint Id = 5934;
-
-        public EntityLook look;
-        public int playerId;
-        public string playerName;
-        public int requestId;
+        public const uint ID = 5934;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int RequestId { get; set; }
+        public string PlayerName { get; set; }
+        public int PlayerId { get; set; }
+        public EntityLook Look { get; set; }
 
 
         public ContactLookMessage()
@@ -43,32 +44,28 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Social
 
         public ContactLookMessage(int requestId, string playerName, int playerId, EntityLook look)
         {
-            this.requestId = requestId;
-            this.playerName = playerName;
-            this.playerId = playerId;
-            this.look = look;
+            RequestId = requestId;
+            PlayerName = playerName;
+            PlayerId = playerId;
+            Look = look;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(requestId);
-            writer.WriteUTF(playerName);
-            writer.WriteInt(playerId);
-            look.Serialize(writer);
+            writer.WriteInt(RequestId);
+            writer.WriteUTF(PlayerName);
+            writer.WriteInt(PlayerId);
+            Look.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            requestId = reader.ReadInt();
-            if (requestId < 0)
-                throw new Exception("Forbidden value on requestId = " + requestId + ", it doesn't respect the following condition : requestId < 0");
-            playerName = reader.ReadUTF();
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
-            look = new EntityLook();
-            look.Deserialize(reader);
+            RequestId = reader.ReadInt();
+            PlayerName = reader.ReadUTF();
+            PlayerId = reader.ReadInt();
+            Look = new EntityLook();
+            Look.Deserialize(reader);
         }
     }
 }

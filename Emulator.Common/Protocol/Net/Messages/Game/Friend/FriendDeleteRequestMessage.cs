@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,34 +24,34 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Friend
 {
     public class FriendDeleteRequestMessage : NetworkMessage
     {
-        public const uint Id = 5603;
-
-        public string name;
+        public const uint ID = 5603;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int AccountId { get; set; }
 
 
         public FriendDeleteRequestMessage()
         {
         }
 
-        public FriendDeleteRequestMessage(string name)
+        public FriendDeleteRequestMessage(int accountId)
         {
-            this.name = name;
+            AccountId = accountId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(name);
+            writer.WriteInt(AccountId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            name = reader.ReadUTF();
+            AccountId = reader.ReadInt();
         }
     }
 }

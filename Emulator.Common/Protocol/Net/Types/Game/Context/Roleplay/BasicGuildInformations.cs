@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class BasicGuildInformations
     {
-        public const short Id = 365;
-
-        public int guildId;
-        public string guildName;
+        public const short ID = 365;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int GuildId { get; set; }
+        public string GuildName { get; set; }
 
 
         public BasicGuildInformations()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public BasicGuildInformations(int guildId, string guildName)
         {
-            this.guildId = guildId;
-            this.guildName = guildName;
+            GuildId = guildId;
+            GuildName = guildName;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(guildId);
-            writer.WriteUTF(guildName);
+            writer.WriteInt(GuildId);
+            writer.WriteUTF(GuildName);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            guildId = reader.ReadInt();
-            if (guildId < 0)
-                throw new Exception("Forbidden value on guildId = " + guildId + ", it doesn't respect the following condition : guildId < 0");
-            guildName = reader.ReadUTF();
+            GuildId = reader.ReadInt();
+            GuildName = reader.ReadUTF();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,48 +14,52 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Approach
 {
     public class ServerSettingsMessage : NetworkMessage
     {
-        public const uint Id = 6340;
-
-        public sbyte community;
-        public string lang;
+        public const uint ID = 6340;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
-        
+
+        public string Lang { get; set; }
+        public sbyte Community { get; set; }
+        public sbyte GameType { get; set; }
+
+
         public ServerSettingsMessage()
         {
         }
 
-        public ServerSettingsMessage(string lang, sbyte community)
+        public ServerSettingsMessage(string lang, sbyte community, sbyte gameType)
         {
-            this.lang = lang;
-            this.community = community;
+            Lang = lang;
+            Community = community;
+            GameType = gameType;
         }
+
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUTF(lang);
-            writer.WriteSByte(community);
+            writer.WriteUTF(Lang);
+            writer.WriteSByte(Community);
+            writer.WriteSByte(GameType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            lang = reader.ReadUTF();
-            community = reader.ReadSByte();
-            if (community < 0)
-                throw new Exception("Forbidden value on community = " + community + ", it doesn't respect the following condition : community < 0");
+            Lang = reader.ReadUTF();
+            Community = reader.ReadSByte();
+            GameType = reader.ReadSByte();
         }
     }
 }

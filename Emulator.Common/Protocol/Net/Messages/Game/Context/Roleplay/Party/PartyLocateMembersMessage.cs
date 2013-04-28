@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
 {
     public class PartyLocateMembersMessage : AbstractPartyMessage
     {
-        public const uint Id = 5595;
-
-        public PartyMemberGeoPosition[] geopositions;
+        public const uint ID = 5595;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public PartyMemberGeoPosition[] Geopositions { get; set; }
 
 
         public PartyLocateMembersMessage()
@@ -38,17 +40,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         }
 
         public PartyLocateMembersMessage(int partyId, PartyMemberGeoPosition[] geopositions)
-            : base(partyId)
+                : base(partyId)
         {
-            this.geopositions = geopositions;
+            Geopositions = geopositions;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) geopositions.Length);
-            foreach (var entry in geopositions)
+            writer.WriteUShort((ushort) Geopositions.Length);
+            foreach (var entry in Geopositions)
             {
                 entry.Serialize(writer);
             }
@@ -58,11 +60,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Party
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            geopositions = new PartyMemberGeoPosition[limit];
+            Geopositions = new PartyMemberGeoPosition[limit];
             for (int i = 0; i < limit; i++)
             {
-                geopositions[i] = new PartyMemberGeoPosition();
-                geopositions[i].Deserialize(reader);
+                Geopositions[i] = new PartyMemberGeoPosition();
+                Geopositions[i].Deserialize(reader);
             }
         }
     }

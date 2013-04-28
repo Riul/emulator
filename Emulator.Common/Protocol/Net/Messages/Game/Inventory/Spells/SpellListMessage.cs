@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,15 +25,15 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
 {
     public class SpellListMessage : NetworkMessage
     {
-        public const uint Id = 1200;
-
-        public bool spellPrevisualization;
-        public SpellItem[] spells;
+        public const uint ID = 1200;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool SpellPrevisualization { get; set; }
+        public SpellItem[] Spells { get; set; }
 
 
         public SpellListMessage()
@@ -40,16 +42,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
 
         public SpellListMessage(bool spellPrevisualization, SpellItem[] spells)
         {
-            this.spellPrevisualization = spellPrevisualization;
-            this.spells = spells;
+            SpellPrevisualization = spellPrevisualization;
+            Spells = spells;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(spellPrevisualization);
-            writer.WriteUShort((ushort) spells.Length);
-            foreach (var entry in spells)
+            writer.WriteBoolean(SpellPrevisualization);
+            writer.WriteUShort((ushort) Spells.Length);
+            foreach (var entry in Spells)
             {
                 entry.Serialize(writer);
             }
@@ -57,13 +59,13 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Spells
 
         public override void Deserialize(BigEndianReader reader)
         {
-            spellPrevisualization = reader.ReadBoolean();
+            SpellPrevisualization = reader.ReadBoolean();
             var limit = reader.ReadUShort();
-            spells = new SpellItem[limit];
+            Spells = new SpellItem[limit];
             for (int i = 0; i < limit; i++)
             {
-                spells[i] = new SpellItem();
-                spells[i].Deserialize(reader);
+                Spells[i] = new SpellItem();
+                Spells[i].Deserialize(reader);
             }
         }
     }

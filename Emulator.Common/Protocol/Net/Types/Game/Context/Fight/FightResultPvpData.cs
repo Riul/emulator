@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,30 +14,30 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 {
     public class FightResultPvpData : FightResultAdditionalData
     {
-        public const short Id = 190;
-        public ushort dishonor;
-        public short dishonorDelta;
-
-        public byte grade;
-        public ushort honor;
-        public short honorDelta;
-        public ushort maxHonorForGrade;
-        public ushort minHonorForGrade;
+        public const short ID = 190;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public byte Grade { get; set; }
+        public ushort MinHonorForGrade { get; set; }
+        public ushort MaxHonorForGrade { get; set; }
+        public ushort Honor { get; set; }
+        public short HonorDelta { get; set; }
+        public ushort Dishonor { get; set; }
+        public short DishonorDelta { get; set; }
 
 
         public FightResultPvpData()
@@ -45,48 +46,38 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Fight
 
         public FightResultPvpData(byte grade, ushort minHonorForGrade, ushort maxHonorForGrade, ushort honor, short honorDelta, ushort dishonor, short dishonorDelta)
         {
-            this.grade = grade;
-            this.minHonorForGrade = minHonorForGrade;
-            this.maxHonorForGrade = maxHonorForGrade;
-            this.honor = honor;
-            this.honorDelta = honorDelta;
-            this.dishonor = dishonor;
-            this.dishonorDelta = dishonorDelta;
+            Grade = grade;
+            MinHonorForGrade = minHonorForGrade;
+            MaxHonorForGrade = maxHonorForGrade;
+            Honor = honor;
+            HonorDelta = honorDelta;
+            Dishonor = dishonor;
+            DishonorDelta = dishonorDelta;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteByte(grade);
-            writer.WriteUShort(minHonorForGrade);
-            writer.WriteUShort(maxHonorForGrade);
-            writer.WriteUShort(honor);
-            writer.WriteShort(honorDelta);
-            writer.WriteUShort(dishonor);
-            writer.WriteShort(dishonorDelta);
+            writer.WriteByte(Grade);
+            writer.WriteUShort(MinHonorForGrade);
+            writer.WriteUShort(MaxHonorForGrade);
+            writer.WriteUShort(Honor);
+            writer.WriteShort(HonorDelta);
+            writer.WriteUShort(Dishonor);
+            writer.WriteShort(DishonorDelta);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            grade = reader.ReadByte();
-            if (grade < 0 || grade > 255)
-                throw new Exception("Forbidden value on grade = " + grade + ", it doesn't respect the following condition : grade < 0 || grade > 255");
-            minHonorForGrade = reader.ReadUShort();
-            if (minHonorForGrade < 0 || minHonorForGrade > 20000)
-                throw new Exception("Forbidden value on minHonorForGrade = " + minHonorForGrade + ", it doesn't respect the following condition : minHonorForGrade < 0 || minHonorForGrade > 20000");
-            maxHonorForGrade = reader.ReadUShort();
-            if (maxHonorForGrade < 0 || maxHonorForGrade > 20000)
-                throw new Exception("Forbidden value on maxHonorForGrade = " + maxHonorForGrade + ", it doesn't respect the following condition : maxHonorForGrade < 0 || maxHonorForGrade > 20000");
-            honor = reader.ReadUShort();
-            if (honor < 0 || honor > 20000)
-                throw new Exception("Forbidden value on honor = " + honor + ", it doesn't respect the following condition : honor < 0 || honor > 20000");
-            honorDelta = reader.ReadShort();
-            dishonor = reader.ReadUShort();
-            if (dishonor < 0 || dishonor > 500)
-                throw new Exception("Forbidden value on dishonor = " + dishonor + ", it doesn't respect the following condition : dishonor < 0 || dishonor > 500");
-            dishonorDelta = reader.ReadShort();
+            Grade = reader.ReadByte();
+            MinHonorForGrade = reader.ReadUShort();
+            MaxHonorForGrade = reader.ReadUShort();
+            Honor = reader.ReadUShort();
+            HonorDelta = reader.ReadShort();
+            Dishonor = reader.ReadUShort();
+            DishonorDelta = reader.ReadShort();
         }
     }
 }

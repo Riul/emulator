@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges;
 
@@ -24,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
 {
     public class ExchangeKamaModifiedMessage : ExchangeObjectMessage
     {
-        public const uint Id = 5521;
-
-        public int quantity;
+        public const uint ID = 5521;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int Quantity { get; set; }
 
 
         public ExchangeKamaModifiedMessage()
@@ -39,24 +40,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Items
         }
 
         public ExchangeKamaModifiedMessage(bool remote, int quantity)
-            : base(remote)
+                : base(remote)
         {
-            this.quantity = quantity;
+            Quantity = quantity;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(quantity);
+            writer.WriteInt(Quantity);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            quantity = reader.ReadInt();
-            if (quantity < 0)
-                throw new Exception("Forbidden value on quantity = " + quantity + ", it doesn't respect the following condition : quantity < 0");
+            Quantity = reader.ReadInt();
         }
     }
 }

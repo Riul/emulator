@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
 {
     public class CompassUpdateMessage : NetworkMessage
     {
-        public const uint Id = 5591;
-
-        public sbyte type;
-        public short worldX;
-        public short worldY;
+        public const uint ID = 5591;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Type { get; set; }
+        public short WorldX { get; set; }
+        public short WorldY { get; set; }
 
 
         public CompassUpdateMessage()
@@ -41,30 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Atlas.Compass
 
         public CompassUpdateMessage(sbyte type, short worldX, short worldY)
         {
-            this.type = type;
-            this.worldX = worldX;
-            this.worldY = worldY;
+            Type = type;
+            WorldX = worldX;
+            WorldY = worldY;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(type);
-            writer.WriteShort(worldX);
-            writer.WriteShort(worldY);
+            writer.WriteSByte(Type);
+            writer.WriteShort(WorldX);
+            writer.WriteShort(WorldY);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            type = reader.ReadSByte();
-            if (type < 0)
-                throw new Exception("Forbidden value on type = " + type + ", it doesn't respect the following condition : type < 0");
-            worldX = reader.ReadShort();
-            if (worldX < -255 || worldX > 255)
-                throw new Exception("Forbidden value on worldX = " + worldX + ", it doesn't respect the following condition : worldX < -255 || worldX > 255");
-            worldY = reader.ReadShort();
-            if (worldY < -255 || worldY > 255)
-                throw new Exception("Forbidden value on worldY = " + worldY + ", it doesn't respect the following condition : worldY < -255 || worldY > 255");
+            Type = reader.ReadSByte();
+            WorldX = reader.ReadShort();
+            WorldY = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Look;
 
@@ -24,16 +25,16 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class GameRolePlayNpcInformations : GameRolePlayActorInformations
     {
-        public const short Id = 156;
-
-        public short npcId;
-        public bool sex;
-        public short specialArtworkId;
+        public const short ID = 156;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short NpcId { get; set; }
+        public bool Sex { get; set; }
+        public short SpecialArtworkId { get; set; }
 
 
         public GameRolePlayNpcInformations()
@@ -41,32 +42,28 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
         }
 
         public GameRolePlayNpcInformations(int contextualId, EntityLook look, EntityDispositionInformations disposition, short npcId, bool sex, short specialArtworkId)
-            : base(contextualId, look, disposition)
+                : base(contextualId, look, disposition)
         {
-            this.npcId = npcId;
-            this.sex = sex;
-            this.specialArtworkId = specialArtworkId;
+            NpcId = npcId;
+            Sex = sex;
+            SpecialArtworkId = specialArtworkId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(npcId);
-            writer.WriteBoolean(sex);
-            writer.WriteShort(specialArtworkId);
+            writer.WriteShort(NpcId);
+            writer.WriteBoolean(Sex);
+            writer.WriteShort(SpecialArtworkId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            npcId = reader.ReadShort();
-            if (npcId < 0)
-                throw new Exception("Forbidden value on npcId = " + npcId + ", it doesn't respect the following condition : npcId < 0");
-            sex = reader.ReadBoolean();
-            specialArtworkId = reader.ReadShort();
-            if (specialArtworkId < 0)
-                throw new Exception("Forbidden value on specialArtworkId = " + specialArtworkId + ", it doesn't respect the following condition : specialArtworkId < 0");
+            NpcId = reader.ReadShort();
+            Sex = reader.ReadBoolean();
+            SpecialArtworkId = reader.ReadShort();
         }
     }
 }

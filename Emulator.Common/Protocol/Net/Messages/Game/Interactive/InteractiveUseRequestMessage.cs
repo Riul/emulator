@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 {
     public class InteractiveUseRequestMessage : NetworkMessage
     {
-        public const uint Id = 5001;
-
-        public int elemId;
-        public int skillInstanceUid;
+        public const uint ID = 5001;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ElemId { get; set; }
+        public int SkillInstanceUid { get; set; }
 
 
         public InteractiveUseRequestMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive
 
         public InteractiveUseRequestMessage(int elemId, int skillInstanceUid)
         {
-            this.elemId = elemId;
-            this.skillInstanceUid = skillInstanceUid;
+            ElemId = elemId;
+            SkillInstanceUid = skillInstanceUid;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(elemId);
-            writer.WriteInt(skillInstanceUid);
+            writer.WriteInt(ElemId);
+            writer.WriteInt(SkillInstanceUid);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            elemId = reader.ReadInt();
-            if (elemId < 0)
-                throw new Exception("Forbidden value on elemId = " + elemId + ", it doesn't respect the following condition : elemId < 0");
-            skillInstanceUid = reader.ReadInt();
-            if (skillInstanceUid < 0)
-                throw new Exception("Forbidden value on skillInstanceUid = " + skillInstanceUid + ", it doesn't respect the following condition : skillInstanceUid < 0");
+            ElemId = reader.ReadInt();
+            SkillInstanceUid = reader.ReadInt();
         }
     }
 }

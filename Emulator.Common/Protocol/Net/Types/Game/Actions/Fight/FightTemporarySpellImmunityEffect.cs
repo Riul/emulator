@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
 {
     public class FightTemporarySpellImmunityEffect : AbstractFightDispellableEffect
     {
-        public const short Id = 366;
-
-        public int immuneSpellId;
+        public const short ID = 366;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ImmuneSpellId { get; set; }
 
 
         public FightTemporarySpellImmunityEffect()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Actions.Fight
         }
 
         public FightTemporarySpellImmunityEffect(int uid, int targetId, short turnDuration, sbyte dispelable, short spellId, int parentBoostUid, int immuneSpellId)
-            : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
+                : base(uid, targetId, turnDuration, dispelable, spellId, parentBoostUid)
         {
-            this.immuneSpellId = immuneSpellId;
+            ImmuneSpellId = immuneSpellId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(immuneSpellId);
+            writer.WriteInt(ImmuneSpellId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            immuneSpellId = reader.ReadInt();
+            ImmuneSpellId = reader.ReadInt();
         }
     }
 }

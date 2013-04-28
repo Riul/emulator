@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightOptionToggleMessage : NetworkMessage
     {
-        public const uint Id = 707;
-
-        public sbyte option;
+        public const uint ID = 707;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Option { get; set; }
 
 
         public GameFightOptionToggleMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightOptionToggleMessage(sbyte option)
         {
-            this.option = option;
+            Option = option;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(option);
+            writer.WriteSByte(Option);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            option = reader.ReadSByte();
-            if (option < 0)
-                throw new Exception("Forbidden value on option = " + option + ", it doesn't respect the following condition : option < 0");
+            Option = reader.ReadSByte();
         }
     }
 }

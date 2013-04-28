@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 {
     public class HumanOptionTitle : HumanOption
     {
-        public const short Id = 408;
-
-        public short titleId;
-        public string titleParam;
+        public const short ID = 408;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short TitleId { get; set; }
+        public string TitleParam { get; set; }
 
 
         public HumanOptionTitle()
@@ -40,25 +41,23 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Context.Roleplay
 
         public HumanOptionTitle(short titleId, string titleParam)
         {
-            this.titleId = titleId;
-            this.titleParam = titleParam;
+            TitleId = titleId;
+            TitleParam = titleParam;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteShort(titleId);
-            writer.WriteUTF(titleParam);
+            writer.WriteShort(TitleId);
+            writer.WriteUTF(TitleParam);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            titleId = reader.ReadShort();
-            if (titleId < 0)
-                throw new Exception("Forbidden value on titleId = " + titleId + ", it doesn't respect the following condition : titleId < 0");
-            titleParam = reader.ReadUTF();
+            TitleId = reader.ReadShort();
+            TitleParam = reader.ReadUTF();
         }
     }
 }

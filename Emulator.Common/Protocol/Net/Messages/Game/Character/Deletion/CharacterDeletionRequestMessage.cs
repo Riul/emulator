@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Deletion
 {
     public class CharacterDeletionRequestMessage : NetworkMessage
     {
-        public const uint Id = 165;
-
-        public int characterId;
-        public string secretAnswerHash;
+        public const uint ID = 165;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CharacterId { get; set; }
+        public string SecretAnswerHash { get; set; }
 
 
         public CharacterDeletionRequestMessage()
@@ -40,23 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Deletion
 
         public CharacterDeletionRequestMessage(int characterId, string secretAnswerHash)
         {
-            this.characterId = characterId;
-            this.secretAnswerHash = secretAnswerHash;
+            CharacterId = characterId;
+            SecretAnswerHash = secretAnswerHash;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(characterId);
-            writer.WriteUTF(secretAnswerHash);
+            writer.WriteInt(CharacterId);
+            writer.WriteUTF(SecretAnswerHash);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            characterId = reader.ReadInt();
-            if (characterId < 0)
-                throw new Exception("Forbidden value on characterId = " + characterId + ", it doesn't respect the following condition : characterId < 0");
-            secretAnswerHash = reader.ReadUTF();
+            CharacterId = reader.ReadInt();
+            SecretAnswerHash = reader.ReadUTF();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 {
     public class ExchangeReplyTaxVendorMessage : NetworkMessage
     {
-        public const uint Id = 5787;
-
-        public int objectValue;
-        public int totalTaxValue;
+        public const uint ID = 5787;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int ObjectValue { get; set; }
+        public int TotalTaxValue { get; set; }
 
 
         public ExchangeReplyTaxVendorMessage()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Inventory.Exchanges
 
         public ExchangeReplyTaxVendorMessage(int objectValue, int totalTaxValue)
         {
-            this.objectValue = objectValue;
-            this.totalTaxValue = totalTaxValue;
+            ObjectValue = objectValue;
+            TotalTaxValue = totalTaxValue;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(objectValue);
-            writer.WriteInt(totalTaxValue);
+            writer.WriteInt(ObjectValue);
+            writer.WriteInt(TotalTaxValue);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            objectValue = reader.ReadInt();
-            if (objectValue < 0)
-                throw new Exception("Forbidden value on objectValue = " + objectValue + ", it doesn't respect the following condition : objectValue < 0");
-            totalTaxValue = reader.ReadInt();
-            if (totalTaxValue < 0)
-                throw new Exception("Forbidden value on totalTaxValue = " + totalTaxValue + ", it doesn't respect the following condition : totalTaxValue < 0");
+            ObjectValue = reader.ReadInt();
+            TotalTaxValue = reader.ReadInt();
         }
     }
 }

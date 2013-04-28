@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Dialog
 {
     public class LeaveDialogMessage : NetworkMessage
     {
-        public const uint Id = 5502;
-
-        public sbyte dialogType;
+        public const uint ID = 5502;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte DialogType { get; set; }
 
 
         public LeaveDialogMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Dialog
 
         public LeaveDialogMessage(sbyte dialogType)
         {
-            this.dialogType = dialogType;
+            DialogType = dialogType;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteSByte(dialogType);
+            writer.WriteSByte(DialogType);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            dialogType = reader.ReadSByte();
-            if (dialogType < 0)
-                throw new Exception("Forbidden value on dialogType = " + dialogType + ", it doesn't respect the following condition : dialogType < 0");
+            DialogType = reader.ReadSByte();
         }
     }
 }

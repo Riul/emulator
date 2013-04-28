@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 {
     public class CharacterSelectionWithRenameMessage : CharacterSelectionMessage
     {
-        public const uint Id = 6121;
-
-        public string name;
+        public const uint ID = 6121;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public string Name { get; set; }
 
 
         public CharacterSelectionWithRenameMessage()
@@ -37,22 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         }
 
         public CharacterSelectionWithRenameMessage(int id, string name)
-            : base(id)
+                : base(id)
         {
-            this.name = name;
+            Name = name;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUTF(name);
+            writer.WriteUTF(Name);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            name = reader.ReadUTF();
+            Name = reader.ReadUTF();
         }
     }
 }

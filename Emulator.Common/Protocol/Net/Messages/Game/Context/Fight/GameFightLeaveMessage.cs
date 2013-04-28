@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightLeaveMessage : NetworkMessage
     {
-        public const uint Id = 721;
-
-        public int charId;
+        public const uint ID = 721;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int CharId { get; set; }
 
 
         public GameFightLeaveMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 
         public GameFightLeaveMessage(int charId)
         {
-            this.charId = charId;
+            CharId = charId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(charId);
+            writer.WriteInt(CharId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            charId = reader.ReadInt();
+            CharId = reader.ReadInt();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
 {
     public class CharacterSelectionWithRecolorMessage : CharacterSelectionMessage
     {
-        public const uint Id = 6075;
-
-        public int[] indexedColor;
+        public const uint ID = 6075;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int[] IndexedColor { get; set; }
 
 
         public CharacterSelectionWithRecolorMessage()
@@ -37,17 +39,17 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         }
 
         public CharacterSelectionWithRecolorMessage(int id, int[] indexedColor)
-            : base(id)
+                : base(id)
         {
-            this.indexedColor = indexedColor;
+            IndexedColor = indexedColor;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) indexedColor.Length);
-            foreach (var entry in indexedColor)
+            writer.WriteUShort((ushort) IndexedColor.Length);
+            foreach (var entry in IndexedColor)
             {
                 writer.WriteInt(entry);
             }
@@ -57,10 +59,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Character.Choice
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            indexedColor = new int[limit];
+            IndexedColor = new int[limit];
             for (int i = 0; i < limit; i++)
             {
-                indexedColor[i] = reader.ReadInt();
+                IndexedColor[i] = reader.ReadInt();
             }
         }
     }

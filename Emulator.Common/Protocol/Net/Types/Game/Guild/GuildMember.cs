@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,106 +14,99 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Character;
+using Emulator.Common.Protocol.Net.Types.Game.Character.Status;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Guild
 {
     public class GuildMember : CharacterMinimalInformations
     {
-        public const short Id = 88;
-        public int accountId;
-        public int achievementPoints;
-        public sbyte alignmentSide;
-
-        public sbyte breed;
-        public sbyte connected;
-        public sbyte experienceGivenPercent;
-        public double givenExperience;
-        public ushort hoursSinceLastConnection;
-        public sbyte moodSmileyId;
-        public short rank;
-        public uint rights;
-        public bool sex;
+        public const short ID = 88;
 
         public override short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public sbyte Breed { get; set; }
+        public bool Sex { get; set; }
+        public short Rank { get; set; }
+        public double GivenExperience { get; set; }
+        public sbyte ExperienceGivenPercent { get; set; }
+        public uint Rights { get; set; }
+        public sbyte Connected { get; set; }
+        public sbyte AlignmentSide { get; set; }
+        public ushort HoursSinceLastConnection { get; set; }
+        public sbyte MoodSmileyId { get; set; }
+        public int AccountId { get; set; }
+        public int AchievementPoints { get; set; }
+        public PlayerStatus Status { get; set; }
 
 
         public GuildMember()
         {
         }
 
-        public GuildMember(int id, byte level, string name, sbyte breed, bool sex, short rank, double givenExperience, sbyte experienceGivenPercent, uint rights, sbyte connected, sbyte alignmentSide, ushort hoursSinceLastConnection, sbyte moodSmileyId, int accountId, int achievementPoints)
-            : base(id, level, name)
+        public GuildMember(int id, byte level, string name, sbyte breed, bool sex, short rank, double givenExperience, sbyte experienceGivenPercent, uint rights, sbyte connected, sbyte alignmentSide, ushort hoursSinceLastConnection, sbyte moodSmileyId, int accountId, int achievementPoints, PlayerStatus status)
+                : base(id, level, name)
         {
-            this.breed = breed;
-            this.sex = sex;
-            this.rank = rank;
-            this.givenExperience = givenExperience;
-            this.experienceGivenPercent = experienceGivenPercent;
-            this.rights = rights;
-            this.connected = connected;
-            this.alignmentSide = alignmentSide;
-            this.hoursSinceLastConnection = hoursSinceLastConnection;
-            this.moodSmileyId = moodSmileyId;
-            this.accountId = accountId;
-            this.achievementPoints = achievementPoints;
+            Breed = breed;
+            Sex = sex;
+            Rank = rank;
+            GivenExperience = givenExperience;
+            ExperienceGivenPercent = experienceGivenPercent;
+            Rights = rights;
+            Connected = connected;
+            AlignmentSide = alignmentSide;
+            HoursSinceLastConnection = hoursSinceLastConnection;
+            MoodSmileyId = moodSmileyId;
+            AccountId = accountId;
+            AchievementPoints = achievementPoints;
+            Status = status;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteSByte(breed);
-            writer.WriteBoolean(sex);
-            writer.WriteShort(rank);
-            writer.WriteDouble(givenExperience);
-            writer.WriteSByte(experienceGivenPercent);
-            writer.WriteUInt(rights);
-            writer.WriteSByte(connected);
-            writer.WriteSByte(alignmentSide);
-            writer.WriteUShort(hoursSinceLastConnection);
-            writer.WriteSByte(moodSmileyId);
-            writer.WriteInt(accountId);
-            writer.WriteInt(achievementPoints);
+            writer.WriteSByte(Breed);
+            writer.WriteBoolean(Sex);
+            writer.WriteShort(Rank);
+            writer.WriteDouble(GivenExperience);
+            writer.WriteSByte(ExperienceGivenPercent);
+            writer.WriteUInt(Rights);
+            writer.WriteSByte(Connected);
+            writer.WriteSByte(AlignmentSide);
+            writer.WriteUShort(HoursSinceLastConnection);
+            writer.WriteSByte(MoodSmileyId);
+            writer.WriteInt(AccountId);
+            writer.WriteInt(AchievementPoints);
+            writer.WriteShort(Status.TypeId);
+            Status.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            breed = reader.ReadSByte();
-            sex = reader.ReadBoolean();
-            rank = reader.ReadShort();
-            if (rank < 0)
-                throw new Exception("Forbidden value on rank = " + rank + ", it doesn't respect the following condition : rank < 0");
-            givenExperience = reader.ReadDouble();
-            if (givenExperience < 0)
-                throw new Exception("Forbidden value on givenExperience = " + givenExperience + ", it doesn't respect the following condition : givenExperience < 0");
-            experienceGivenPercent = reader.ReadSByte();
-            if (experienceGivenPercent < 0 || experienceGivenPercent > 100)
-                throw new Exception("Forbidden value on experienceGivenPercent = " + experienceGivenPercent + ", it doesn't respect the following condition : experienceGivenPercent < 0 || experienceGivenPercent > 100");
-            rights = reader.ReadUInt();
-            if (rights < 0 || rights > 4294967295)
-                throw new Exception("Forbidden value on rights = " + rights + ", it doesn't respect the following condition : rights < 0 || rights > 4294967295");
-            connected = reader.ReadSByte();
-            if (connected < 0)
-                throw new Exception("Forbidden value on connected = " + connected + ", it doesn't respect the following condition : connected < 0");
-            alignmentSide = reader.ReadSByte();
-            hoursSinceLastConnection = reader.ReadUShort();
-            if (hoursSinceLastConnection < 0 || hoursSinceLastConnection > 65535)
-                throw new Exception("Forbidden value on hoursSinceLastConnection = " + hoursSinceLastConnection + ", it doesn't respect the following condition : hoursSinceLastConnection < 0 || hoursSinceLastConnection > 65535");
-            moodSmileyId = reader.ReadSByte();
-            accountId = reader.ReadInt();
-            if (accountId < 0)
-                throw new Exception("Forbidden value on accountId = " + accountId + ", it doesn't respect the following condition : accountId < 0");
-            achievementPoints = reader.ReadInt();
+            Breed = reader.ReadSByte();
+            Sex = reader.ReadBoolean();
+            Rank = reader.ReadShort();
+            GivenExperience = reader.ReadDouble();
+            ExperienceGivenPercent = reader.ReadSByte();
+            Rights = reader.ReadUInt();
+            Connected = reader.ReadSByte();
+            AlignmentSide = reader.ReadSByte();
+            HoursSinceLastConnection = reader.ReadUShort();
+            MoodSmileyId = reader.ReadSByte();
+            AccountId = reader.ReadInt();
+            AchievementPoints = reader.ReadInt();
+            Status = Types.ProtocolTypeManager.GetInstance<PlayerStatus>(reader.ReadShort());
+            Status.Deserialize(reader);
         }
     }
 }

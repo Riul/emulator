@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,26 +14,26 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Arena
 {
     public class GameRolePlayArenaFighterStatusMessage : NetworkMessage
     {
-        public const uint Id = 6281;
-        public bool accepted;
-
-        public int fightId;
-        public int playerId;
+        public const uint ID = 6281;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int FightId { get; set; }
+        public int PlayerId { get; set; }
+        public bool Accepted { get; set; }
 
 
         public GameRolePlayArenaFighterStatusMessage()
@@ -41,26 +42,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
 
         public GameRolePlayArenaFighterStatusMessage(int fightId, int playerId, bool accepted)
         {
-            this.fightId = fightId;
-            this.playerId = playerId;
-            this.accepted = accepted;
+            FightId = fightId;
+            PlayerId = playerId;
+            Accepted = accepted;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(fightId);
-            writer.WriteInt(playerId);
-            writer.WriteBoolean(accepted);
+            writer.WriteInt(FightId);
+            writer.WriteInt(PlayerId);
+            writer.WriteBoolean(Accepted);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            fightId = reader.ReadInt();
-            playerId = reader.ReadInt();
-            if (playerId < 0)
-                throw new Exception("Forbidden value on playerId = " + playerId + ", it doesn't respect the following condition : playerId < 0");
-            accepted = reader.ReadBoolean();
+            FightId = reader.ReadInt();
+            PlayerId = reader.ReadInt();
+            Accepted = reader.ReadBoolean();
         }
     }
 }

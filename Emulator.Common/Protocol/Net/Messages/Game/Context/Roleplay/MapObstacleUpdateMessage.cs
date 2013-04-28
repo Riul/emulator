@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 {
     public class MapObstacleUpdateMessage : NetworkMessage
     {
-        public const uint Id = 6051;
-
-        public MapObstacle[] obstacles;
+        public const uint ID = 6051;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public MapObstacle[] Obstacles { get; set; }
 
 
         public MapObstacleUpdateMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 
         public MapObstacleUpdateMessage(MapObstacle[] obstacles)
         {
-            this.obstacles = obstacles;
+            Obstacles = obstacles;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) obstacles.Length);
-            foreach (var entry in obstacles)
+            writer.WriteUShort((ushort) Obstacles.Length);
+            foreach (var entry in Obstacles)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            obstacles = new MapObstacle[limit];
+            Obstacles = new MapObstacle[limit];
             for (int i = 0; i < limit; i++)
             {
-                obstacles[i] = new MapObstacle();
-                obstacles[i].Deserialize(reader);
+                Obstacles[i] = new MapObstacle();
+                Obstacles[i].Deserialize(reader);
             }
         }
     }

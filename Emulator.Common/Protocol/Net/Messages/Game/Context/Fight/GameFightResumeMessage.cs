@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Action.Fight;
 using Emulator.Common.Protocol.Net.Types.Game.Actions.Fight;
@@ -26,16 +27,16 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
 {
     public class GameFightResumeMessage : GameFightSpectateMessage
     {
-        public const uint Id = 6067;
-        public sbyte bombCount;
-
-        public GameFightSpellCooldown[] spellCooldowns;
-        public sbyte summonCount;
+        public const uint ID = 6067;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public GameFightSpellCooldown[] SpellCooldowns { get; set; }
+        public sbyte SummonCount { get; set; }
+        public sbyte BombCount { get; set; }
 
 
         public GameFightResumeMessage()
@@ -43,42 +44,38 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Fight
         }
 
         public GameFightResumeMessage(FightDispellableEffectExtendedInformations[] effects, GameActionMark[] marks, short gameTurn, GameFightSpellCooldown[] spellCooldowns, sbyte summonCount, sbyte bombCount)
-            : base(effects, marks, gameTurn)
+                : base(effects, marks, gameTurn)
         {
-            this.spellCooldowns = spellCooldowns;
-            this.summonCount = summonCount;
-            this.bombCount = bombCount;
+            SpellCooldowns = spellCooldowns;
+            SummonCount = summonCount;
+            BombCount = bombCount;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteUShort((ushort) spellCooldowns.Length);
-            foreach (var entry in spellCooldowns)
+            writer.WriteUShort((ushort) SpellCooldowns.Length);
+            foreach (var entry in SpellCooldowns)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteSByte(summonCount);
-            writer.WriteSByte(bombCount);
+            writer.WriteSByte(SummonCount);
+            writer.WriteSByte(BombCount);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
             var limit = reader.ReadUShort();
-            spellCooldowns = new GameFightSpellCooldown[limit];
+            SpellCooldowns = new GameFightSpellCooldown[limit];
             for (int i = 0; i < limit; i++)
             {
-                spellCooldowns[i] = new GameFightSpellCooldown();
-                spellCooldowns[i].Deserialize(reader);
+                SpellCooldowns[i] = new GameFightSpellCooldown();
+                SpellCooldowns[i].Deserialize(reader);
             }
-            summonCount = reader.ReadSByte();
-            if (summonCount < 0)
-                throw new Exception("Forbidden value on summonCount = " + summonCount + ", it doesn't respect the following condition : summonCount < 0");
-            bombCount = reader.ReadSByte();
-            if (bombCount < 0)
-                throw new Exception("Forbidden value on bombCount = " + bombCount + ", it doesn't respect the following condition : bombCount < 0");
+            SummonCount = reader.ReadSByte();
+            BombCount = reader.ReadSByte();
         }
     }
 }

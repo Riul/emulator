@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,15 +24,15 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
 {
     public class ItemDurability
     {
-        public const short Id = 168;
-
-        public short durability;
-        public short durabilityMax;
+        public const short ID = 168;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Durability { get; set; }
+        public short DurabilityMax { get; set; }
 
 
         public ItemDurability()
@@ -39,21 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Mount
 
         public ItemDurability(short durability, short durabilityMax)
         {
-            this.durability = durability;
-            this.durabilityMax = durabilityMax;
+            Durability = durability;
+            DurabilityMax = durabilityMax;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(durability);
-            writer.WriteShort(durabilityMax);
+            writer.WriteShort(Durability);
+            writer.WriteShort(DurabilityMax);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            durability = reader.ReadShort();
-            durabilityMax = reader.ReadShort();
+            Durability = reader.ReadShort();
+            DurabilityMax = reader.ReadShort();
         }
     }
 }

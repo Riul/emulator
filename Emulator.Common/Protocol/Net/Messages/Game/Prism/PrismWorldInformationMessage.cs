@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,10 +14,10 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 using Emulator.Common.Protocol.Net.Types.Game.Prism;
 
@@ -24,20 +25,20 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 {
     public class PrismWorldInformationMessage : NetworkMessage
     {
-        public const uint Id = 5854;
-
-        public int conqsTotal;
-        public VillageConquestPrismInformation[] conquetesInformation;
-        public int maxSub;
-        public int nbConqsOwned;
-        public int nbSubOwned;
-        public PrismSubAreaInformation[] subAreasInformation;
-        public int subTotal;
+        public const uint ID = 5854;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int NbSubOwned { get; set; }
+        public int SubTotal { get; set; }
+        public int MaxSub { get; set; }
+        public PrismSubAreaInformation[] SubAreasInformation { get; set; }
+        public int NbConqsOwned { get; set; }
+        public int ConqsTotal { get; set; }
+        public VillageConquestPrismInformation[] ConquetesInformation { get; set; }
 
 
         public PrismWorldInformationMessage()
@@ -46,30 +47,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public PrismWorldInformationMessage(int nbSubOwned, int subTotal, int maxSub, PrismSubAreaInformation[] subAreasInformation, int nbConqsOwned, int conqsTotal, VillageConquestPrismInformation[] conquetesInformation)
         {
-            this.nbSubOwned = nbSubOwned;
-            this.subTotal = subTotal;
-            this.maxSub = maxSub;
-            this.subAreasInformation = subAreasInformation;
-            this.nbConqsOwned = nbConqsOwned;
-            this.conqsTotal = conqsTotal;
-            this.conquetesInformation = conquetesInformation;
+            NbSubOwned = nbSubOwned;
+            SubTotal = subTotal;
+            MaxSub = maxSub;
+            SubAreasInformation = subAreasInformation;
+            NbConqsOwned = nbConqsOwned;
+            ConqsTotal = conqsTotal;
+            ConquetesInformation = conquetesInformation;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteInt(nbSubOwned);
-            writer.WriteInt(subTotal);
-            writer.WriteInt(maxSub);
-            writer.WriteUShort((ushort) subAreasInformation.Length);
-            foreach (var entry in subAreasInformation)
+            writer.WriteInt(NbSubOwned);
+            writer.WriteInt(SubTotal);
+            writer.WriteInt(MaxSub);
+            writer.WriteUShort((ushort) SubAreasInformation.Length);
+            foreach (var entry in SubAreasInformation)
             {
                 entry.Serialize(writer);
             }
-            writer.WriteInt(nbConqsOwned);
-            writer.WriteInt(conqsTotal);
-            writer.WriteUShort((ushort) conquetesInformation.Length);
-            foreach (var entry in conquetesInformation)
+            writer.WriteInt(NbConqsOwned);
+            writer.WriteInt(ConqsTotal);
+            writer.WriteUShort((ushort) ConquetesInformation.Length);
+            foreach (var entry in ConquetesInformation)
             {
                 entry.Serialize(writer);
             }
@@ -77,34 +78,24 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Prism
 
         public override void Deserialize(BigEndianReader reader)
         {
-            nbSubOwned = reader.ReadInt();
-            if (nbSubOwned < 0)
-                throw new Exception("Forbidden value on nbSubOwned = " + nbSubOwned + ", it doesn't respect the following condition : nbSubOwned < 0");
-            subTotal = reader.ReadInt();
-            if (subTotal < 0)
-                throw new Exception("Forbidden value on subTotal = " + subTotal + ", it doesn't respect the following condition : subTotal < 0");
-            maxSub = reader.ReadInt();
-            if (maxSub < 0)
-                throw new Exception("Forbidden value on maxSub = " + maxSub + ", it doesn't respect the following condition : maxSub < 0");
+            NbSubOwned = reader.ReadInt();
+            SubTotal = reader.ReadInt();
+            MaxSub = reader.ReadInt();
             var limit = reader.ReadUShort();
-            subAreasInformation = new PrismSubAreaInformation[limit];
+            SubAreasInformation = new PrismSubAreaInformation[limit];
             for (int i = 0; i < limit; i++)
             {
-                subAreasInformation[i] = new PrismSubAreaInformation();
-                subAreasInformation[i].Deserialize(reader);
+                SubAreasInformation[i] = new PrismSubAreaInformation();
+                SubAreasInformation[i].Deserialize(reader);
             }
-            nbConqsOwned = reader.ReadInt();
-            if (nbConqsOwned < 0)
-                throw new Exception("Forbidden value on nbConqsOwned = " + nbConqsOwned + ", it doesn't respect the following condition : nbConqsOwned < 0");
-            conqsTotal = reader.ReadInt();
-            if (conqsTotal < 0)
-                throw new Exception("Forbidden value on conqsTotal = " + conqsTotal + ", it doesn't respect the following condition : conqsTotal < 0");
+            NbConqsOwned = reader.ReadInt();
+            ConqsTotal = reader.ReadInt();
             limit = reader.ReadUShort();
-            conquetesInformation = new VillageConquestPrismInformation[limit];
+            ConquetesInformation = new VillageConquestPrismInformation[limit];
             for (int i = 0; i < limit; i++)
             {
-                conquetesInformation[i] = new VillageConquestPrismInformation();
-                conquetesInformation[i].Deserialize(reader);
+                ConquetesInformation[i] = new VillageConquestPrismInformation();
+                ConquetesInformation[i].Deserialize(reader);
             }
         }
     }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,28 +14,28 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Arena
 {
     public class GameRolePlayArenaUpdatePlayerInfosMessage : NetworkMessage
     {
-        public const uint Id = 6301;
-        public short arenaFightcount;
-
-        public short bestDailyRank;
-        public short bestRank;
-        public short rank;
-        public short victoryCount;
+        public const uint ID = 6301;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short Rank { get; set; }
+        public short BestDailyRank { get; set; }
+        public short BestRank { get; set; }
+        public short VictoryCount { get; set; }
+        public short ArenaFightcount { get; set; }
 
 
         public GameRolePlayArenaUpdatePlayerInfosMessage()
@@ -43,40 +44,30 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay.Fight.Aren
 
         public GameRolePlayArenaUpdatePlayerInfosMessage(short rank, short bestDailyRank, short bestRank, short victoryCount, short arenaFightcount)
         {
-            this.rank = rank;
-            this.bestDailyRank = bestDailyRank;
-            this.bestRank = bestRank;
-            this.victoryCount = victoryCount;
-            this.arenaFightcount = arenaFightcount;
+            Rank = rank;
+            BestDailyRank = bestDailyRank;
+            BestRank = bestRank;
+            VictoryCount = victoryCount;
+            ArenaFightcount = arenaFightcount;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(rank);
-            writer.WriteShort(bestDailyRank);
-            writer.WriteShort(bestRank);
-            writer.WriteShort(victoryCount);
-            writer.WriteShort(arenaFightcount);
+            writer.WriteShort(Rank);
+            writer.WriteShort(BestDailyRank);
+            writer.WriteShort(BestRank);
+            writer.WriteShort(VictoryCount);
+            writer.WriteShort(ArenaFightcount);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            rank = reader.ReadShort();
-            if (rank < 0 || rank > 2300)
-                throw new Exception("Forbidden value on rank = " + rank + ", it doesn't respect the following condition : rank < 0 || rank > 2300");
-            bestDailyRank = reader.ReadShort();
-            if (bestDailyRank < 0 || bestDailyRank > 2300)
-                throw new Exception("Forbidden value on bestDailyRank = " + bestDailyRank + ", it doesn't respect the following condition : bestDailyRank < 0 || bestDailyRank > 2300");
-            bestRank = reader.ReadShort();
-            if (bestRank < 0 || bestRank > 2300)
-                throw new Exception("Forbidden value on bestRank = " + bestRank + ", it doesn't respect the following condition : bestRank < 0 || bestRank > 2300");
-            victoryCount = reader.ReadShort();
-            if (victoryCount < 0)
-                throw new Exception("Forbidden value on victoryCount = " + victoryCount + ", it doesn't respect the following condition : victoryCount < 0");
-            arenaFightcount = reader.ReadShort();
-            if (arenaFightcount < 0)
-                throw new Exception("Forbidden value on arenaFightcount = " + arenaFightcount + ", it doesn't respect the following condition : arenaFightcount < 0");
+            Rank = reader.ReadShort();
+            BestDailyRank = reader.ReadShort();
+            BestRank = reader.ReadShort();
+            VictoryCount = reader.ReadShort();
+            ArenaFightcount = reader.ReadShort();
         }
     }
 }

@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,25 +14,25 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:46
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 {
     public class PaddockInformations
     {
-        public const short Id = 132;
-
-        public short maxItems;
-        public short maxOutdoorMount;
+        public const short ID = 132;
 
         public virtual short TypeId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short MaxOutdoorMount { get; set; }
+        public short MaxItems { get; set; }
 
 
         public PaddockInformations()
@@ -40,25 +41,21 @@ namespace Emulator.Common.Protocol.Net.Types.Game.Paddock
 
         public PaddockInformations(short maxOutdoorMount, short maxItems)
         {
-            this.maxOutdoorMount = maxOutdoorMount;
-            this.maxItems = maxItems;
+            MaxOutdoorMount = maxOutdoorMount;
+            MaxItems = maxItems;
         }
 
 
         public virtual void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(maxOutdoorMount);
-            writer.WriteShort(maxItems);
+            writer.WriteShort(MaxOutdoorMount);
+            writer.WriteShort(MaxItems);
         }
 
         public virtual void Deserialize(BigEndianReader reader)
         {
-            maxOutdoorMount = reader.ReadShort();
-            if (maxOutdoorMount < 0)
-                throw new Exception("Forbidden value on maxOutdoorMount = " + maxOutdoorMount + ", it doesn't respect the following condition : maxOutdoorMount < 0");
-            maxItems = reader.ReadShort();
-            if (maxItems < 0)
-                throw new Exception("Forbidden value on maxItems = " + maxItems + ", it doesn't respect the following condition : maxItems < 0");
+            MaxOutdoorMount = reader.ReadShort();
+            MaxItems = reader.ReadShort();
         }
     }
 }

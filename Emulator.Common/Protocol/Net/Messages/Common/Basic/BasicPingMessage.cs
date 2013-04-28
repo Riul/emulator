@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -22,14 +24,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Common.Basic
 {
     public class BasicPingMessage : NetworkMessage
     {
-        public const uint Id = 182;
-
-        public bool quiet;
+        public const uint ID = 182;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public bool Quiet { get; set; }
 
 
         public BasicPingMessage()
@@ -38,18 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Common.Basic
 
         public BasicPingMessage(bool quiet)
         {
-            this.quiet = quiet;
+            Quiet = quiet;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteBoolean(quiet);
+            writer.WriteBoolean(Quiet);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            quiet = reader.ReadBoolean();
+            Quiet = reader.ReadBoolean();
         }
     }
 }

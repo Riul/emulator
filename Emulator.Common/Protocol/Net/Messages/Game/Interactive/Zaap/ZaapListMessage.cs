@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
 {
     public class ZaapListMessage : TeleportDestinationsListMessage
     {
-        public const uint Id = 1604;
-
-        public int spawnMapId;
+        public const uint ID = 1604;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public int SpawnMapId { get; set; }
 
 
         public ZaapListMessage()
@@ -38,24 +39,22 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Interactive.Zaap
         }
 
         public ZaapListMessage(sbyte teleporterType, int[] mapIds, short[] subAreaIds, short[] costs, int spawnMapId)
-            : base(teleporterType, mapIds, subAreaIds, costs)
+                : base(teleporterType, mapIds, subAreaIds, costs)
         {
-            this.spawnMapId = spawnMapId;
+            SpawnMapId = spawnMapId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            writer.WriteInt(spawnMapId);
+            writer.WriteInt(SpawnMapId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            spawnMapId = reader.ReadInt();
-            if (spawnMapId < 0)
-                throw new Exception("Forbidden value on spawnMapId = " + spawnMapId + ", it doesn't respect the following condition : spawnMapId < 0");
+            SpawnMapId = reader.ReadInt();
         }
     }
 }

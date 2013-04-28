@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -26,14 +28,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
 {
     public class MapComplementaryInformationsDataInHouseMessage : MapComplementaryInformationsDataMessage
     {
-        public const uint Id = 6130;
-
-        public HouseInformationsInside currentHouse;
+        public const uint ID = 6130;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public HouseInformationsInside CurrentHouse { get; set; }
 
 
         public MapComplementaryInformationsDataInHouseMessage()
@@ -41,23 +43,23 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Context.Roleplay
         }
 
         public MapComplementaryInformationsDataInHouseMessage(short subAreaId, int mapId, sbyte subareaAlignmentSide, HouseInformations[] houses, GameRolePlayActorInformations[] actors, InteractiveElement[] interactiveElements, StatedElement[] statedElements, MapObstacle[] obstacles, FightCommonInformations[] fights, HouseInformationsInside currentHouse)
-            : base(subAreaId, mapId, subareaAlignmentSide, houses, actors, interactiveElements, statedElements, obstacles, fights)
+                : base(subAreaId, mapId, subareaAlignmentSide, houses, actors, interactiveElements, statedElements, obstacles, fights)
         {
-            this.currentHouse = currentHouse;
+            CurrentHouse = currentHouse;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
             base.Serialize(writer);
-            currentHouse.Serialize(writer);
+            CurrentHouse.Serialize(writer);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
             base.Deserialize(reader);
-            currentHouse = new HouseInformationsInside();
-            currentHouse.Deserialize(reader);
+            CurrentHouse = new HouseInformationsInside();
+            CurrentHouse.Deserialize(reader);
         }
     }
 }

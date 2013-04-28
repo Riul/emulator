@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,7 +14,8 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
@@ -23,14 +25,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 {
     public class GuildHousesInformationMessage : NetworkMessage
     {
-        public const uint Id = 5919;
-
-        public HouseInformationsForGuild[] housesInformations;
+        public const uint ID = 5919;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public HouseInformationsForGuild[] HousesInformations { get; set; }
 
 
         public GuildHousesInformationMessage()
@@ -39,14 +41,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
 
         public GuildHousesInformationMessage(HouseInformationsForGuild[] housesInformations)
         {
-            this.housesInformations = housesInformations;
+            HousesInformations = housesInformations;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) housesInformations.Length);
-            foreach (var entry in housesInformations)
+            writer.WriteUShort((ushort) HousesInformations.Length);
+            foreach (var entry in HousesInformations)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +57,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Guild
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            housesInformations = new HouseInformationsForGuild[limit];
+            HousesInformations = new HouseInformationsForGuild[limit];
             for (int i = 0; i < limit; i++)
             {
-                housesInformations[i] = new HouseInformationsForGuild();
-                housesInformations[i].Deserialize(reader);
+                HousesInformations[i] = new HouseInformationsForGuild();
+                HousesInformations[i].Deserialize(reader);
             }
         }
     }

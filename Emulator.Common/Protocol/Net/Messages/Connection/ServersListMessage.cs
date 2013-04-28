@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,40 +14,40 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:30
+
 #endregion
 
 using Emulator.Common.IO;
-using Emulator.Common.Protocol.Net.Types.Connection;
 
-namespace Emulator.Common.Protocol.Net.Messages.Connection
+namespace Emulator.Common.Protocol.Net.Messages
 {
     public class ServersListMessage : NetworkMessage
     {
-        public const uint Id = 30;
-
-        public GameServerInformations[] servers;
+        public const uint ID = 30;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public Types.GameServerInformations[] Servers { get; set; }
 
 
         public ServersListMessage()
         {
         }
 
-        public ServersListMessage(GameServerInformations[] servers)
+        public ServersListMessage(Types.GameServerInformations[] servers)
         {
-            this.servers = servers;
+            Servers = servers;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteUShort((ushort) servers.Length);
-            foreach (var entry in servers)
+            writer.WriteUShort((ushort) Servers.Length);
+            foreach (var entry in Servers)
             {
                 entry.Serialize(writer);
             }
@@ -55,11 +56,11 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public override void Deserialize(BigEndianReader reader)
         {
             var limit = reader.ReadUShort();
-            servers = new GameServerInformations[limit];
+            Servers = new Types.GameServerInformations[limit];
             for (int i = 0; i < limit; i++)
             {
-                servers[i] = new GameServerInformations();
-                servers[i].Deserialize(reader);
+                Servers[i] = new Types.GameServerInformations();
+                Servers[i].Deserialize(reader);
             }
         }
     }

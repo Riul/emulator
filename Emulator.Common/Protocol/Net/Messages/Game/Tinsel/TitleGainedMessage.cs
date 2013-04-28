@@ -1,4 +1,5 @@
 #region License
+
 //         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 //                Version 2, December 2004
 //  
@@ -13,24 +14,24 @@
 //  
 // 0. You just DO WHAT THE FUCK YOU WANT TO.
 // 
-// Created on 26/04/2013 at 16:45
+// Created on 28/04/2013 at 11:31
+
 #endregion
 
-using System;
 using Emulator.Common.IO;
 
 namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 {
     public class TitleGainedMessage : NetworkMessage
     {
-        public const uint Id = 6364;
-
-        public short titleId;
+        public const uint ID = 6364;
 
         public override uint MessageId
         {
-            get { return Id; }
+            get { return ID; }
         }
+
+        public short TitleId { get; set; }
 
 
         public TitleGainedMessage()
@@ -39,20 +40,18 @@ namespace Emulator.Common.Protocol.Net.Messages.Game.Tinsel
 
         public TitleGainedMessage(short titleId)
         {
-            this.titleId = titleId;
+            TitleId = titleId;
         }
 
 
         public override void Serialize(BigEndianWriter writer)
         {
-            writer.WriteShort(titleId);
+            writer.WriteShort(TitleId);
         }
 
         public override void Deserialize(BigEndianReader reader)
         {
-            titleId = reader.ReadShort();
-            if (titleId < 0)
-                throw new Exception("Forbidden value on titleId = " + titleId + ", it doesn't respect the following condition : titleId < 0");
+            TitleId = reader.ReadShort();
         }
     }
 }
