@@ -7,7 +7,7 @@ namespace Sniffer
     {
         public static MITM MITM { get; private set; }
 
-        static void Main(string[] args)
+        static void Main()
         {
             MITM = new MITM();
             MITM.Start();
@@ -15,7 +15,7 @@ namespace Sniffer
             while (true)
             {
                 Console.ReadLine();
-                }
+            }
         }
     }
 }
