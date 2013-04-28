@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Config\ConfigFile.cs" />
     <Compile Include="Cryptography\RSA.cs" />
+    <Compile Include="Extentions\DateTimeExtention.cs" />
     <Compile Include="IO\BigEndianReader.cs" />
     <Compile Include="IO\BigEndianWriter.cs" />
     <Compile Include="Logger.cs" />
