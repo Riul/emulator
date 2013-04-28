@@ -37,7 +37,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         public bool UseLoginToken { get; set; }
         public VersionExtended Version { get; set; }
         public string Lang { get; set; }
-        public sbyte[] Credentials { get; set; }
+        public byte[] Credentials { get; set; }
         public short ServerId { get; set; }
 
 
@@ -45,7 +45,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         {
         }
 
-        public IdentificationMessage(bool autoconnect, bool useCertificate, bool useLoginToken, VersionExtended version, string lang, sbyte[] credentials, short serverId)
+        public IdentificationMessage(bool autoconnect, bool useCertificate, bool useLoginToken, VersionExtended version, string lang, byte[] credentials, short serverId)
         {
             Autoconnect = autoconnect;
             UseCertificate = useCertificate;
@@ -69,7 +69,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             writer.WriteUShort((ushort) Credentials.Length);
             foreach (var entry in Credentials)
             {
-                writer.WriteSByte(entry);
+                writer.WriteByte(entry);
             }
             writer.WriteShort(ServerId);
         }
@@ -84,10 +84,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             Version.Deserialize(reader);
             Lang = reader.ReadUTF();
             var limit = reader.ReadUShort();
-            Credentials = new sbyte[limit];
+            Credentials = new byte[limit];
             for (int i = 0; i < limit; i++)
             {
-                Credentials[i] = reader.ReadSByte();
+                Credentials[i] = reader.ReadByte();
             }
             ServerId = reader.ReadShort();
         }

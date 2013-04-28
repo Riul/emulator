@@ -40,19 +40,19 @@ namespace Emulator.Game.Network.Sync
             Send(new ServerStatusUpdateMessage(state));
         }
 
-        [MessageHandler(HelloSyncMessage.Id)]
+        [MessageHandler(HelloSyncMessage.ID)]
         public void HandleHelloSyncMessage(HelloSyncMessage message)
         {
             Send(new SyncIdentificationMessage(Program.Config.ServerId, Program.Config.SyncPassword));
         }
 
-        [MessageHandler(SyncIdentificationFailedMessage.Id)]
+        [MessageHandler(SyncIdentificationFailedMessage.ID)]
         public void HandleSyncIdentificationFailedMessage(SyncIdentificationFailedMessage message)
         {
             Logger.Error("Can't register to the login server : wrong password.");
         }
 
-        [MessageHandler(SyncIdentificationSuccessMessage.Id)]
+        [MessageHandler(SyncIdentificationSuccessMessage.ID)]
         public void HandleSyncIdentificationSuccessMessage(SyncIdentificationSuccessMessage message)
         {
             Logger.Info("Succesfully registered to the login server !");
@@ -60,7 +60,7 @@ namespace Emulator.Game.Network.Sync
             Program.Start();
         }
 
-        [MessageHandler(ClientTicketMessage.Id)]
+        [MessageHandler(ClientTicketMessage.ID)]
         public void HandleClientTicketMessage(ClientTicketMessage message)
         {
             Tickets.Add(message.Ticket, message.AccountId);

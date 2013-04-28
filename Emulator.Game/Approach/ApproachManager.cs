@@ -43,13 +43,13 @@ namespace Emulator.Game.Approach
             client.Send(new HelloGameMessage());
         }
 
-        [MessageHandler(AuthenticationTicketMessage.Id)]
+        [MessageHandler(AuthenticationTicketMessage.ID)]
         public void HandleAuthenticationTicketMessage(AuthenticationTicketMessage message)
         {
-            if (Program.Sync.Tickets.ContainsKey(message.ticket))
+            if (Program.Sync.Tickets.ContainsKey(message.Ticket))
             {
-                client.Account = AccountsTable.Load(Program.Sync.Tickets[message.ticket]);
-                Program.Sync.Tickets.Remove(message.ticket);
+                client.Account = AccountsTable.Load(Program.Sync.Tickets[message.Ticket]);
+                Program.Sync.Tickets.Remove(message.Ticket);
                 client.Send(new AuthenticationTicketAcceptedMessage());
             }
             else

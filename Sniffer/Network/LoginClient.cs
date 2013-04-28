@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using Emulator.Common.Protocol.Net.Messages;
+using Emulator.Common.Protocol.Net.Messages.Connection;
 using Sniffer.Config;
 
 namespace Sniffer.Network

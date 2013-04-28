@@ -39,7 +39,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         {
         }
 
-        public IdentificationAccountForceMessage(bool autoconnect, bool useCertificate, bool useLoginToken, VersionExtended version, string lang, sbyte[] credentials, short serverId, string forcedAccountLogin)
+        public IdentificationAccountForceMessage(bool autoconnect, bool useCertificate, bool useLoginToken, VersionExtended version, string lang, byte[] credentials, short serverId, string forcedAccountLogin)
                 : base(autoconnect, useCertificate, useLoginToken, version, lang, credentials, serverId)
         {
             ForcedAccountLogin = forcedAccountLogin;

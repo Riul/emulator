@@ -65,7 +65,7 @@ namespace Emulator.Login.Managers
                 return;
             }
 
-            if (message.version.ToString() != CURRENT_VERSION)
+            if (message.Version.ToString() != CURRENT_VERSION)
             {
                 client.Send(
                     new IdentificationFailedForBadVersionMessage((sbyte) IdentificationFailureReasonEnum.BAD_VERSION,
@@ -74,7 +74,7 @@ namespace Emulator.Login.Managers
                 return;
             }
 
-            byte[] credentials = RSA.Decrypt(message.credentials);
+            byte[] credentials = RSA.Decrypt(message.Credentials);
             BigEndianReader reader = new BigEndianReader(credentials);
             reader.Seek(Encoding.UTF8.GetByteCount(salt));
             int lenght = reader.ReadByte();
@@ -94,11 +94,11 @@ namespace Emulator.Login.Managers
             }
             else
             {
-                ValidAccount(account, message.autoconnect);
+                ValidAccount(account, message.Autoconnect);
             }
         }
 
-        [MessageHandler(IdentificationMessage.Id)]
+        [MessageHandler(IdentificationMessage.ID)]
         public void HandleIdentificationMessage(IdentificationMessage message)
         {
             this.message = message;
@@ -110,15 +110,15 @@ namespace Emulator.Login.Managers
             client.Account = account;
             IdentificationSuccessMessage succesMessage = new IdentificationSuccessMessage
                 {
-                    hasRights = true,
-                    wasAlreadyConnected = false,
-                    login = account.Username,
-                    nickname = account.Nickname,
-                    accountId = account.Id,
-                    communityId = 1,
-                    secretQuestion = account.SecretQuestion,
-                    accountCreation = 0,
-                    subscriptionEndDate = 1
+                    HasRights = true,
+                    WasAlreadyConnected = false,
+                    Login = account.Username,
+                    Nickname = account.Nickname,
+                    AccountId = account.Id,
+                    CommunityId = 1,
+                    SecretQuestion = account.SecretQuestion,
+                    AccountCreation = 0,
+                    SubscriptionEndDate = 1
                 };
             client.Send(succesMessage);
 

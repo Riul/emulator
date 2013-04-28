@@ -32,14 +32,14 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         }
 
         public string Salt { get; set; }
-        public sbyte[] Key { get; set; }
+        public byte[] Key { get; set; }
 
 
         public HelloConnectMessage()
         {
         }
 
-        public HelloConnectMessage(string salt, sbyte[] key)
+        public HelloConnectMessage(string salt, byte[] key)
         {
             Salt = salt;
             Key = key;
@@ -52,7 +52,7 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
             writer.WriteUShort((ushort) Key.Length);
             foreach (var entry in Key)
             {
-                writer.WriteSByte(entry);
+                writer.WriteByte(entry);
             }
         }
 
@@ -60,10 +60,10 @@ namespace Emulator.Common.Protocol.Net.Messages.Connection
         {
             Salt = reader.ReadUTF();
             var limit = reader.ReadUShort();
-            Key = new sbyte[limit];
+            Key = new byte[limit];
             for (int i = 0; i < limit; i++)
             {
-                Key[i] = reader.ReadSByte();
+                Key[i] = reader.ReadByte();
             }
         }
     }

@@ -45,7 +45,7 @@ namespace Emulator.Login.Network.Sync
             Send(new ClientTicketMessage(ticket, accountId));
         }
 
-        [MessageHandler(SyncIdentificationMessage.Id)]
+        [MessageHandler(SyncIdentificationMessage.ID)]
         public void HandleSyncIdentificationMessage(SyncIdentificationMessage message)
         {
             if (message.Password == Program.Config.SyncPassword)
@@ -65,7 +65,7 @@ namespace Emulator.Login.Network.Sync
             Stop();
         }
 
-        [MessageHandler(ServerStatusUpdateMessage.Id)]
+        [MessageHandler(ServerStatusUpdateMessage.ID)]
         public void HandleServerStatusUpdateMessage(ServerStatusUpdateMessage message)
         {
             if (!Identified)

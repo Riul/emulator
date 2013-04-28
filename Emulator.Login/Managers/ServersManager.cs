@@ -22,8 +22,9 @@ using System.Linq;
 using Emulator.Common;
 using Emulator.Common.Network.Dispatching;
 using Emulator.Common.Protocol.Enums;
+using Emulator.Common.Protocol.Net.Messages;
 using Emulator.Common.Protocol.Net.Messages.Connection;
-using Emulator.Common.Protocol.Net.Types.Connection;
+using Emulator.Common.Protocol.Net.Types;
 using Emulator.Common.Sql.Models;
 using Emulator.Common.Sql.Tables;
 using Emulator.Login.Network;
@@ -51,10 +52,10 @@ namespace Emulator.Login.Managers
             client.Send(new ServersListMessage(GetServers()));
         }
 
-        [MessageHandler(ServerSelectionMessage.Id)]
+        [MessageHandler(ServerSelectionMessage.ID)]
         public void HandleServerSelectionMessage(ServerSelectionMessage message)
         {
-            if (!SelectServer(message.serverId))
+            if (!SelectServer(message.ServerId))
             {
                 Logger.Warning("User {0} trying to connect to an unknow server.", client.Account.Username);
                 client.Stop();
@@ -72,12 +73,12 @@ namespace Emulator.Login.Managers
                     {
                         GameServerInformations infos = new GameServerInformations
                         {
-                            id = (ushort)server.Id,
-                            completion = 0,
-                            status = (sbyte)server.Status,
-                            isSelectable = true,
-                            date = 0,
-                            charactersCount = (sbyte)client.Account.Characters.Where(a => a.ServerId == server.Id).ToArray().Length
+                            Id = (ushort)server.Id,
+                            Completion = 0,
+                            Status = (sbyte)server.Status,
+                            IsSelectable = true,
+                            Date = 0,
+                            CharactersCount = (sbyte)client.Account.Characters.Where(a => a.ServerId == server.Id).ToArray().Length
                         };
                         client.Send(new ServerStatusUpdateMessage(infos));
                     }
@@ -106,11 +107,11 @@ namespace Emulator.Login.Managers
             //Sending data to the client
             SelectedServerDataMessage dataMessage = new SelectedServerDataMessage
             {
-                address = server.Ip,
-                port = (ushort)server.Port,
-                canCreateNewCharacter = true,
-                serverId = (short)server.Id,
-                ticket = ticket
+                Address = server.Ip,
+                Port = (ushort)server.Port,
+                CanCreateNewCharacter = true,
+                ServerId = (short)server.Id,
+                Ticket = ticket
             };
 
             client.Account.LastServer = id;
@@ -126,12 +127,12 @@ namespace Emulator.Login.Managers
             {
                 GameServerInformations infos = new GameServerInformations
                 {
-                    id = (ushort)server.Id,
-                    completion = 0,
-                    status = (sbyte)server.Status,
-                    isSelectable = true,
-                    date = 0,
-                    charactersCount = (sbyte)client.Account.Characters.Where(a => a.ServerId == server.Id).ToArray().Length
+                    Id = (ushort)server.Id,
+                    Completion = 0,
+                    Status = (sbyte)server.Status,
+                    IsSelectable = true,
+                    Date = 0,
+                    CharactersCount = (sbyte)client.Account.Characters.Where(a => a.ServerId == server.Id).ToArray().Length
                 };
                 servers.Add(infos);
             }
