@@ -33,7 +33,7 @@ namespace Emulator.Login.Managers
 {
     public class AuthentificationManager
     {
-        public const string CURRENT_VERSION = "2.11.1.2.72101";
+        public const string CURRENT_VERSION = "2.11.2.72101.1";
 
         private readonly AuthClient client;
         private readonly ServersManager servers;
